@@ -11,7 +11,10 @@ import com.megacrit.cardcrawl.powers.DoubleDamagePower;
 import com.megacrit.cardcrawl.powers.EnvenomPower;
 import com.megacrit.cardcrawl.powers.FlightPower;
 import com.megacrit.cardcrawl.powers.MalleablePower;
+import com.megacrit.cardcrawl.powers.PenNibPower;
+import com.megacrit.cardcrawl.powers.SlowPower;
 import com.megacrit.cardcrawl.powers.ThornsPower;
+import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 
 import SS.path.DamageInfoEnum;
 
@@ -76,6 +79,39 @@ public class DiceDamageTypePatch {
             if (info.type == DamageInfoEnum.DICE) {
                 info.type = DamageType.NORMAL;
             }
+        }
+    }
+
+    @SpirePatch(clz = PenNibPower.class, method = "atDamageGive")
+    public static class updatePenNibPowerPatch {
+        @SpirePrefixPatch
+        public static SpireReturn<Float> Prefix(PenNibPower __init, float damage, DamageInfo.DamageType type) {
+            if (type == DamageInfoEnum.DICE) {
+                return SpireReturn.Return(damage * 2.0F);
+            }
+            return SpireReturn.Continue();
+        }
+    }
+
+    @SpirePatch(clz = SlowPower.class, method = "atDamageReceive")
+    public static class updateSlowPowerPatch {
+        @SpirePrefixPatch
+        public static SpireReturn<Float> Prefix(SlowPower __init, float damage, DamageInfo.DamageType type) {
+            if (type == DamageInfoEnum.DICE) {
+                return SpireReturn.Return(damage * (1.0F + __init.amount * 0.1F));
+            }
+            return SpireReturn.Continue();
+        }
+    }
+
+    @SpirePatch(clz = VigorPower.class, method = "atDamageGive")
+    public static class updateVigorPowerPatch {
+        @SpirePrefixPatch
+        public static SpireReturn<Float> Prefix(VigorPower __init, float damage, DamageInfo.DamageType type) {
+            if (type == DamageInfoEnum.DICE) {
+                return SpireReturn.Return(damage + __init.amount);
+            }
+            return SpireReturn.Continue();
         }
     }
 }
