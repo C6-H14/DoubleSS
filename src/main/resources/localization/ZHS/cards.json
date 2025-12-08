@@ -772,5 +772,25 @@
             " 虚无 ， double:持恒 ，失去 !Double:PermanentMagicNumber! 层 double:奄息 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，获得2 [E] 。"
         ],
         "FLAVOR":" #y群主形态 ：生成骰子数加1"
+    },
+    "Double:Lifeline":{
+        "NAME": "命脉",
+        "DESCRIPTION": "打出并 消耗 抽牌堆顶的 X 张牌， 消耗 。",
+        "UPGRADE_DESCRIPTION": "打出并 消耗 抽牌堆顶的 X+1 张牌， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "打出并 消耗 抽牌堆顶的 X 张牌， 消耗 。 NL 非 虚无 牌额外打出 *1 次。",
+            "打出并 消耗 抽牌堆顶的 X+1 张牌， 消耗 。 NL 非 虚无 牌额外打出 *1 次。"
+        ],
+        "FLAVOR":" #y群主形态 ：非虚无牌额外打出1次。"
+    },
+    "Double:PopIn":{
+        "NAME": "冒泡",
+        "DESCRIPTION": " 保留 ，不能被打出。 NL 回合开始时若此牌在你手中，获得 [E] 。",
+        "UPGRADE_DESCRIPTION": " 固有 ， 保留 ，不能被打出。 NL 回合开始时若此牌在你手中，获得 [E] 。",
+        "EXTENDED_DESCRIPTION": [
+            " 保留 ，不能被打出。 NL 回合开始时若此牌在你手中，获得 [E] 。 NL 首次抽到此牌时，获得 [E] 。",
+            " 固有 ， 保留 ，不能被打出。 NL 回合开始时若此牌在你手中，获得 [E] 。 NL 首次抽到此牌时，获得 [E] 。"
+        ],
+        "FLAVOR":" #y群主形态 ：首次抽到此牌时，获得 [E] 。"
     }
 }
