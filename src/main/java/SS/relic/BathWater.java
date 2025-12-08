@@ -2,13 +2,8 @@ package SS.relic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.tempCards.Miracle;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -17,9 +12,6 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 
 import SS.helper.ModHelper;
 import basemod.abstracts.CustomRelic;
-import basemod.cardmods.EtherealMod;
-import basemod.cardmods.ExhaustMod;
-import basemod.helpers.CardModifierManager;
 
 public class BathWater extends CustomRelic {
     public static final String ID = ModHelper.makePath("BathWater");
@@ -28,7 +20,6 @@ public class BathWater extends CustomRelic {
     private static final AbstractRelic.RelicTier RELIC_TIER = AbstractRelic.RelicTier.SPECIAL;
     private static final AbstractRelic.LandingSound LANDING_SOUND = AbstractRelic.LandingSound.FLAT;
     public static final String DESCRIPTION[] = RELIC_STRINGS.DESCRIPTIONS;
-    private boolean activated = false;
     private boolean firstTurn = true;
 
     public BathWater() {

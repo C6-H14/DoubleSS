@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.ToughBandages;
 import com.megacrit.cardcrawl.vfx.RelicAboveCreatureEffect;
 
-import SS.action.EchoACardAction;
+import SS.action.common.EchoACardAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;

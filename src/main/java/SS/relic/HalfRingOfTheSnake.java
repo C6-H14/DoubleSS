@@ -20,7 +20,6 @@ public class HalfRingOfTheSnake extends CustomRelic {
     private static final AbstractRelic.RelicTier RELIC_TIER = AbstractRelic.RelicTier.SPECIAL;
     private static final AbstractRelic.LandingSound LANDING_SOUND = AbstractRelic.LandingSound.FLAT;
     public static final String DESCRIPTION[] = RELIC_STRINGS.DESCRIPTIONS;
-    private boolean activated = false;
     private int amount = 1;
 
     public HalfRingOfTheSnake() {

@@ -4,23 +4,17 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveField;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
-import com.megacrit.cardcrawl.actions.defect.ChannelAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.Dice.PeptideDice;
-import SS.action.GluttonyAction;
-import SS.action.YinYangAction;
+import SS.action.unique.ss.YinYangAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
 
 public class YinYang extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("YinYang");

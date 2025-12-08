@@ -3,7 +3,6 @@ package SS.power;
 import SS.helper.ModHelper;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;

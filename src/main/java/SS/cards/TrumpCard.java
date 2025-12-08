@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.watcher.EndTurnDeathPower;
 
-import SS.action.TrumpCardAction;
+import SS.action.unique.ss.TrumpCardAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

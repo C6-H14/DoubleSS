@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
 import SS.Dice.WitherDice;
-import SS.action.ChannelDiceAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.CrimePower;

@@ -1,21 +1,13 @@
 package SS.cards.Options;
 
 import basemod.abstracts.CustomCard;
-import basemod.helpers.BaseModCardTags;
-
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.cards.DeafForm;
 import SS.helper.ModHelper;
-import SS.path.AbstractCardEnum;
-import SS.power.DeafFormPower;
-import SS.power.DelayDamagePower;
 
 public class BLUE_option extends CustomCard {
     public static final String ID = ModHelper.makePath("BLUE_option");

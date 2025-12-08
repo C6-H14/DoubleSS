@@ -1,10 +1,8 @@
 package SS.cards;
 
-import com.evacipated.cardcrawl.mod.stslib.actions.common.AllEnemyApplyPowerAction;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
-import com.megacrit.cardcrawl.actions.defect.ChannelAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -14,9 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 
 import SS.Dice.ImmolateDice;
-import SS.Dice.PeptideDice;
-import SS.action.ChannelDiceAction;
-import SS.action.GluttonyAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.CrimePower;

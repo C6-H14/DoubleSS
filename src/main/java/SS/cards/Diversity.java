@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.IronwaveDice;
-import SS.action.ChannelDiceAction;
-import SS.action.UpdateManagerStanceDescriptions;
+import SS.action.common.UpdateManagerStanceDescriptions;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

@@ -1,7 +1,5 @@
 package SS.cards;
 
-import java.util.Random;
-
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -9,8 +7,8 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import SS.action.DoubleFiendFireAction;
 
+import SS.action.unique.ss.DoubleFiendFireAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

@@ -2,7 +2,6 @@ package SS.relic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -10,7 +9,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.relics.BurningBlood;
 
 import SS.helper.ModHelper;
 import basemod.abstracts.CustomRelic;
@@ -22,7 +20,6 @@ public class BoilingBlood extends CustomRelic {
     private static final AbstractRelic.RelicTier RELIC_TIER = AbstractRelic.RelicTier.SPECIAL;
     private static final AbstractRelic.LandingSound LANDING_SOUND = AbstractRelic.LandingSound.FLAT;
     public static final String DESCRIPTION[] = RELIC_STRINGS.DESCRIPTIONS;
-    private boolean activated = false;
     private int amount = 3;
 
     public BoilingBlood() {

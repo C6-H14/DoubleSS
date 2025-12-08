@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.powers.GainStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveField;
 
-import SS.action.ConjugateCardInHandAction;
+import SS.action.common.ConjugateCardInHandAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.CrimePower;

@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.VoidStrollAction;
+import SS.action.unique.lost.VoidStrollAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;

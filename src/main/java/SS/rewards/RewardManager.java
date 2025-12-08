@@ -3,12 +3,7 @@ package SS.rewards;
 import java.util.ArrayList;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import com.megacrit.cardcrawl.rooms.MonsterRoom;
-
-import basemod.interfaces.OnStartBattleSubscriber;
 
 public class RewardManager {
     public ArrayList<RewardItem> rewards = new ArrayList<>();

@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
-import SS.action.SelfReliantAction;
+import SS.action.unique.ss.SelfReliantAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

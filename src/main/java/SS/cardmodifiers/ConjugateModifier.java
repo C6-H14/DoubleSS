@@ -8,9 +8,9 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
-import SS.action.PlaySpecificCardInDrawPile;
-import SS.action.PlaySpecificCardInHand;
-import SS.action.RemoveConjugateModifierAction;
+import SS.action.common.PlaySpecificCardInDrawPile;
+import SS.action.common.PlaySpecificCardInHand;
+import SS.action.common.RemoveConjugateModifierAction;
 import SS.helper.ModHelper;
 import basemod.abstracts.AbstractCardModifier;
 

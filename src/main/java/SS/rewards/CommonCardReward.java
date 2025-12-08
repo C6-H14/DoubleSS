@@ -3,8 +3,6 @@ package SS.rewards;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -14,19 +12,9 @@ import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.dungeons.TheBeyond;
 import com.megacrit.cardcrawl.dungeons.TheCity;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
-import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ModHelper;
-import com.megacrit.cardcrawl.localization.TutorialStrings;
-import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
-import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-
-import basemod.ReflectionHacks;
-import basemod.abstracts.CustomReward;
 
 public class CommonCardReward {
     public static AbstractPlayer player;

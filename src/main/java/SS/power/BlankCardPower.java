@@ -1,6 +1,6 @@
 package SS.power;
 
-import SS.action.EchoACardAction;
+import SS.action.common.EchoACardAction;
 import SS.helper.ModHelper;
 
 import java.util.ArrayList;

@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
-import SS.action.ChannelDiceAction;
-import SS.action.IncreaseCostAction;
+import SS.action.common.IncreaseCostAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.CrimePower;

@@ -1,10 +1,6 @@
 package SS.cards;
 
-import basemod.abstracts.CustomCard;
-import basemod.helpers.BaseModCardTags;
-
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -13,8 +9,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.DeafFormPower;
-import SS.power.DelayDamagePower;
 import SS.power.PepsinPower;
 
 public class Pepsin extends AbstractDoubleCard {

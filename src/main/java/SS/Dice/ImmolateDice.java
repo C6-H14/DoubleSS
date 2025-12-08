@@ -1,7 +1,6 @@
 package SS.Dice;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.status.Burn;
@@ -13,12 +12,10 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.DiceDamageEnemyAction;
-import SS.cards.AbstractDoubleCard;
+import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import basemod.cardmods.EtherealMod;
-import basemod.cardmods.ExhaustMod;
 import basemod.helpers.CardModifierManager;
 
 public class ImmolateDice extends AbstractDice {
