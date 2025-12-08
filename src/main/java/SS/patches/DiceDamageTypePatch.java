@@ -9,6 +9,8 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.CurlUpPower;
 import com.megacrit.cardcrawl.powers.DoubleDamagePower;
 import com.megacrit.cardcrawl.powers.EnvenomPower;
+import com.megacrit.cardcrawl.powers.FlightPower;
+import com.megacrit.cardcrawl.powers.MalleablePower;
 import com.megacrit.cardcrawl.powers.ThornsPower;
 
 import SS.path.DamageInfoEnum;
@@ -50,6 +52,27 @@ public class DiceDamageTypePatch {
     public static class updateEnvenomPowerPatch {
         @SpirePrefixPatch
         public static void Prefix(EnvenomPower __init, DamageInfo info, int damageAmount, AbstractCreature target) {
+            if (info.type == DamageInfoEnum.DICE) {
+                info.type = DamageType.NORMAL;
+            }
+        }
+    }
+
+    @SpirePatch(clz = FlightPower.class, method = "calculateDamageTakenAmount")
+    public static class updateFlightPowerPatch {
+        @SpirePrefixPatch
+        public static SpireReturn<Float> Prefix(FlightPower __init, float damage, DamageInfo.DamageType type) {
+            if (type == DamageInfoEnum.DICE) {
+                return SpireReturn.Return(damage);
+            }
+            return SpireReturn.Continue();
+        }
+    }
+
+    @SpirePatch(clz = MalleablePower.class, method = "onAttacked")
+    public static class updateMalleablePowerPatch {
+        @SpirePrefixPatch
+        public static void Prefix(MalleablePower __init, DamageInfo info, int damageAmount) {
             if (info.type == DamageInfoEnum.DICE) {
                 info.type = DamageType.NORMAL;
             }
