@@ -1,0 +1,268 @@
+{
+  "Double:ManagerStance": {
+    "NAME": "身份：群主",
+    "DESCRIPTIONS": [
+      "此身份下，加强所有和群成员相关的牌。"
+    ]
+  },
+  "Double:FiendStance": {
+    "NAME": "身份：恶魔之焰",
+    "DESCRIPTIONS": [
+      "此身份下，加强所有和七宗罪，七美德相关的牌及部分红色卡。"
+    ]
+  },
+  "Double:DeafFormPower": {
+    "NAME": "二龙形态",
+    "DESCRIPTIONS": [
+      "你受到的所有未被格挡的伤害将延迟到",
+      "回合后结算。"
+    ]
+  },
+  "Double:DelayDamagePower": {
+    "NAME": "延迟伤害",
+    "DESCRIPTIONS": [
+      "个回合后的结束阶段将受到",
+      "点伤害。"
+    ]
+  },
+  "Double:CrimePower": {
+    "NAME": "罪行",
+    "DESCRIPTIONS": [
+      "你当前拥有",
+      "点罪行，罪行达到10点时获得1点罪孽并清空罪行值。"
+    ]
+  },
+  "Double:SinsPower": {
+    "NAME": "罪孽",
+    "DESCRIPTIONS": [
+      "获得罪孽时失去等量的生命上限，回合结束时受到",
+      "点伤害。"
+    ]
+  },
+  "Double:VirtuesPower": {
+    "NAME": "美德",
+    "DESCRIPTIONS": [
+      "获得美德时获得等量的生命上限，回合结束时获得",
+      "点格挡。"
+    ]
+  },
+  "Double:SunkPower": {
+    "NAME": "沉沦",
+    "DESCRIPTIONS": [
+      "拥有沉沦的生物受到攻击时，其他所有拥有沉沦的生物也会受到等量的伤害。"
+    ]
+  },
+  "Double:PhoneItInPower": {
+    "NAME": "水视频",
+    "DESCRIPTIONS": [
+      "消耗每回合打出的前",
+      "张非消耗牌并获得1 [E] ，在手牌中加入一张未升级的版本；若此牌未升级，获得2点罪行"
+    ]
+  },
+  "Double:BleedingPower": {
+    "NAME": "流血",
+    "DESCRIPTIONS": [
+      "每当你受到未被格挡的伤害时，额外失去 #b",
+      " 点生命，并获得 #b1 层流血；下回合开始时移除所有流血并获得等量的格挡。"
+    ]
+  },
+  "Double:OpenInjuryPower": {
+    "NAME": "开放性伤口",
+    "DESCRIPTIONS": [
+        "#y流血 在 #b",
+        " 回合内不会消失。", 
+        " 回合内不会消失。"
+    ]
+  },
+  "Double:BurningEnvyPower": {
+    "NAME": "妒火中烧",
+    "DESCRIPTIONS": [
+      "回合开始时，在抽牌堆中加入 #b",
+      " 张 灼伤 。"
+    ]
+  },
+  "Double:AggressionPower": {
+    "NAME": "嘲讽",
+    "DESCRIPTIONS": [
+      "受到的伤害增加 #b",
+      "% 。"
+    ]
+  },
+  "Double:ContemptPower": {
+    "NAME": "藐视",
+    "DESCRIPTIONS": [
+      "回合结束时若你的力量大于 #b0 ，翻倍你的力量。"
+    ]
+  },
+  "Double:MiserlyPower": {
+    "NAME": "视财如命",
+    "DESCRIPTIONS": [
+      "本回合前3次受到伤害时，获得 #b",
+      " 金币。（剩余 #b",
+      " 次）"
+    ]
+  },
+  "Double:CardReward": {
+    "NAME": "额外卡牌奖励",
+    "DESCRIPTIONS": [
+      "战斗结束后多掉落一次卡牌奖励"
+    ]
+  },
+  "Double:PepsinPower": {
+    "NAME": "胃蛋白酶",
+    "DESCRIPTIONS": [
+      "#y肽链打击 造成 #b",
+      " 点额外伤害。"
+    ]
+  },
+  "Double:DecomposePower": {
+    "NAME": "分解者",
+    "DESCRIPTIONS": [
+      "回合开始时，消耗场上的所有状态牌。"
+    ]
+  },
+  "Double:UnderlyingLogicPower": {
+    "NAME": "底层逻辑",
+    "DESCRIPTIONS": [
+      "每当你生成一个 #y攻击骰子 或 #y防御骰子 时，生成一个铁斩波骰子( #b",
+      " )。"
+    ]
+  },
+  "Double:RerollPower": {
+    "NAME": "重掷",
+    "DESCRIPTIONS": [
+      "你的骰子点数增加"
+    ]
+  },
+  "Double:SulfurBlackPower": {
+    "NAME": "硫黑",
+    "DESCRIPTIONS": [
+      "每当你获得负面效果，罪行或罪孽时，生成一个防御骰子( #b",
+      " )。回合结束时不再受到罪孽的伤害。"
+    ]
+  },
+  "Double:HumilityPower": {
+    "NAME": "谦虚",
+    "DESCRIPTIONS": [
+      "回合开始时获得 #b",
+      " 层无实体。每回合首次打出攻击牌时失去 #b",
+      " 层无实体。"
+    ]
+  },
+  "Double:ChastityPower": {
+    "NAME": "贞洁",
+    "DESCRIPTIONS": [
+      "每当你受到伤害时，所有敌人获得 #b",
+      " 层流血与1层开放性伤口。"
+    ]
+  },
+  "Double:TemperancePower": {
+    "NAME": "节制",
+    "DESCRIPTIONS": [
+      "肽链打击不再造成伤害。接下来 #b",
+      " 回合开始时，获得 #b3 点力量与 #b3 点敏捷。"
+    ]
+  },
+  "Double:PatiencePower": {
+    "NAME": "忍耐",
+    "DESCRIPTIONS": [
+      "接下来3回合开始时，依次获得1层 狂暴 ，1层 抽牌 ，1层 保留卡牌。"
+    ]
+  },
+  "Double:FundsPower": {
+    "NAME": "资金",
+    "DESCRIPTIONS": [
+      "层数不小于目标血量时，目标逃跑，并给予你援助。 "
+    ]
+  },
+  "Double:CharityPower": {
+    "NAME": "慷慨",
+    "DESCRIPTIONS": [
+      "回合结束时，失去15金币，并给予所有敌人 #b",
+      " 数量的资金。"
+    ]
+  },
+  "Double:HaoTapPower": {
+    "NAME": "颢发",
+    "DESCRIPTIONS": [
+      "在这个回合，你打出的下一张 #y颢牌 会打出两次。",
+      "在这个回合，你打出的下 ",
+      " 张 #y颢牌 会打出两次。"
+    ]
+  },
+  "Double:MaximizeHaoCardPower": {
+    "NAME": "颢牌多抓",
+    "DESCRIPTIONS": [
+      "打出牌时，获得抽牌堆中的一张同名牌。连续打出3张同名牌时，消耗第3张牌，并获得此牌的0费 #y回响 。上次打出牌为：",
+      "，已连续打出 #b",
+      " 次。"
+    ]
+  },
+  "Double:HaoggernautPower": {
+    "NAME": "颢不可当",
+    "DESCRIPTIONS": [
+      "本回合每当你获得格挡时，生成1个攻击颢骰( #b",
+      " )"
+    ]
+  },
+  "Double:DiversePower": {
+    "NAME": "涉猎广泛",
+    "DESCRIPTIONS": [
+      "本回合下 #b",
+      " 次打出不同颜色的非二硫键本体牌时，获得 [E]。"
+    ]
+  },
+  "Double:BinPower": {
+    "NAME": "二进制",
+    "DESCRIPTIONS": [
+      "下 #b",
+      " 次生成骰子数值不超过 #b7 时，用二进制表示的数值替代之。"
+    ]
+  },
+  "Double:HaoPackPower": {
+    "NAME": "颢备",
+    "DESCRIPTIONS": [
+      "回合开始时获得 #b",
+      " 张早有准备+的 #y回响 。"
+    ]
+  },
+  "Double:NextTurnBlockPower": {
+    "NAME": "下回合格挡",
+    "DESCRIPTIONS": [
+      "下回合开始时获得 #b",
+      " 点格挡，受到未被格挡伤害时移除本能力。"
+    ]
+  },
+  "Double:NextTurnDamagePower": {
+    "NAME": "下回合伤害",
+    "DESCRIPTIONS": [
+      "下回合开始时对所有敌人造成 #b",
+      " 点伤害，受到未被格挡伤害时移除本能力。"
+    ]
+  },
+  "Double:HolyShieldPower": {
+    "NAME": "圣盾",
+    "DESCRIPTIONS": [
+      "阻止下一次你受到的生命值损伤。不可叠加。"
+    ]
+  },
+  "Double:DyingPower": {
+    "NAME": "奄息",
+    "DESCRIPTIONS": [
+      "受到致命伤害时失去1层并恢复至满血，失去10点最大生命值；回合结束时失去1层，当你失去所有 #y奄息 时立即死亡。"
+    ]
+  },
+  "Double:BlankCardPower": {
+    "NAME": "空白卡牌",
+    "DESCRIPTIONS": [
+      "回合开始时，获得 #b",
+      " 张非状态或诅咒的虚无牌 #y回响 。"
+    ]
+  },
+  "Double:TrinityShieldPower": {
+    "NAME": "三位一体盾",
+    "DESCRIPTIONS": [
+      "回合开始时，若你的生命值不大于 #b30 ，则获得 #b1 层圣盾"
+    ]
+  }
+}

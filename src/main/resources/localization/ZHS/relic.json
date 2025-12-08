@@ -1,0 +1,69 @@
+{
+    "Double:Record": {
+        "NAME": "录播",
+        "FLAVOR": "二硫键，我录播呢？",
+        "DESCRIPTIONS": [
+            "每场战斗中，你打出的第一张费用为 #b1 的初始牌或普通稀有度的牌将被打出两次。" ]
+    },
+    "Double:LCysteine": {
+        "NAME": "半胱氨酸",
+        "FLAVOR": "二硫键连接的氨基酸。",
+        "DESCRIPTIONS": [
+            "在战斗开始时，获得 #y",
+            " 点临时生命。"
+        ]
+    }
+    ,
+    "Double:BoilingBlood": {
+        "NAME": "沸腾之血",
+        "FLAVOR": "从红裤衩那里扒下来的。",
+        "DESCRIPTIONS": [
+            "在战斗结束时，回复 #b",
+            " 点生命。"
+        ]
+    },
+    "Double:HalfRingOfTheSnake": {
+        "NAME": "蛇戒的一半",
+        "FLAVOR": "从猎豹那里扒下来的。",
+        "DESCRIPTIONS": [
+            "在每场战斗开始时，额外抽 #b",
+            " 张牌。"
+        ]
+    },
+    "Double:CorePieces": {
+        "NAME": "核心碎片",
+        "FLAVOR": "从小红那里捡到的来的。",
+        "DESCRIPTIONS": [
+            "在每场战斗开始时， 生成 #b1 个 #y打击骰子 (4)。"
+        ]
+    },
+  "Double:BathWater": {
+    "NAME": "洗澡水",
+    "FLAVOR": "观者大人太强了打不过qaq。",
+    "DESCRIPTIONS": [
+      "在每场战斗的第一回合获得 [E] 。"
+    ]
+  },
+  "Double:Merit": {
+    "NAME": "功德",
+    "FLAVOR": "敲赛博木鱼，积电子功德。",
+    "DESCRIPTIONS": [
+      "战斗开始时，对所有敌人造成 #b5 #rR 点伤害，获得 #b #gG 层金属化。",
+      "回合开始时抽 #b #gG 张牌，获得 #bB [E]。"
+    ]
+  },
+  "Double:GreenApple": {
+    "NAME": "青苹果",
+    "FLAVOR": "看起来很好吃。",
+    "DESCRIPTIONS": [
+      "战斗开始时，获得一张随机颢牌的 #ydouble:回响 。"
+    ]
+  },
+  "Double:WoodenCross": {
+    "NAME": "木十字架",
+    "FLAVOR": "喜欢我忏悔+更新bug里罗直接化身界表罗吗。",
+    "DESCRIPTIONS": [
+      "战斗开始时，获得3层 #ydouble:奄息 ，所有敌人总血量每60点额外获得1层。回合开始时你每拥有1层 #ydouble:奄息 ，对所有敌人造成3点伤害。"
+    ]
+  }
+}
