@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.power.BleedingPower;
 import SS.power.OpenInjuryPower;

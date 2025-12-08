@@ -10,9 +10,9 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackHaoDice;
-import SS.action.ChannelDiceAction;
-import SS.action.DrawHaoCardAction;
-import SS.action.TriggerPoisonAction;
+import SS.action.common.TriggerPoisonAction;
+import SS.action.dice.ChannelDiceAction;
+import SS.action.unique.haohao.DrawHaoCardAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;

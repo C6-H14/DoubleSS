@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.DecomposeAction;
+import SS.action.unique.ss.DecomposeAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

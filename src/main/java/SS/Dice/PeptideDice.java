@@ -8,8 +8,8 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.DiceDamageEnemyAction;
-import SS.action.IncreasePeptideDamageAction;
+import SS.action.common.IncreasePeptideDamageAction;
+import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

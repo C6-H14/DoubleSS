@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.IronWaveEffect;
 
-import SS.action.DiceDamageEnemyAction;
+import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

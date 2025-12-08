@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.powers.BerserkPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
 
-import SS.action.EchoACardAction;
+import SS.action.common.EchoACardAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;

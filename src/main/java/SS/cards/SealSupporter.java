@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
-import SS.action.ExhaustSpecificTypeAction;
+import SS.action.common.ExhaustSpecificTypeAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import basemod.abstracts.CustomSavable;

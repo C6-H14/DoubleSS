@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.PeptideDice;
-import SS.action.GluttonyAction;
+import SS.action.unique.ss.GluttonyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.CrimePower;

@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.UpdateFiendStanceDescriptions;
+import SS.action.common.UpdateFiendStanceDescriptions;
 import SS.helper.ModHelper;
 
 public class Fiend_option extends CustomCard {

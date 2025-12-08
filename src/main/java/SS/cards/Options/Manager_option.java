@@ -4,10 +4,10 @@ import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import SS.action.UpdateManagerStanceDescriptions;
+
+import SS.action.common.UpdateManagerStanceDescriptions;
 import SS.helper.ModHelper;
 
 public class Manager_option extends CustomCard {
@@ -34,7 +34,6 @@ public class Manager_option extends CustomCard {
     }
 
     public void onChoseThisOption() {
-        AbstractPlayer p = AbstractDungeon.player;
         this.addToBot(new UpdateManagerStanceDescriptions());
     }
 

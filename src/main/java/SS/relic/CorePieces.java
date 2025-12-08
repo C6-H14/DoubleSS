@@ -2,7 +2,6 @@ package SS.relic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -11,7 +10,7 @@ import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 
 import SS.Dice.AttackDice;
-import SS.action.ChannelDiceAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import basemod.abstracts.CustomRelic;
 
@@ -22,7 +21,6 @@ public class CorePieces extends CustomRelic {
     private static final AbstractRelic.RelicTier RELIC_TIER = AbstractRelic.RelicTier.SPECIAL;
     private static final AbstractRelic.LandingSound LANDING_SOUND = AbstractRelic.LandingSound.FLAT;
     public static final String DESCRIPTION[] = RELIC_STRINGS.DESCRIPTIONS;
-    private boolean activated = false;
     private int amount = 4;
 
     public CorePieces() {

@@ -14,7 +14,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 
-import SS.action.EchoACardAction;
+import SS.action.common.EchoACardAction;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;

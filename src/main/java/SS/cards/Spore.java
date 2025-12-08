@@ -8,11 +8,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import SS.Dice.DefendDice;
-import SS.action.ChannelDiceAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
-import SS.power.SinsPower;
 
 public class Spore extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Spore");

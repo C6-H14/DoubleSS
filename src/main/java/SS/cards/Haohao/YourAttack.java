@@ -10,8 +10,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
 import SS.Dice.AttackHaoDice;
-import SS.action.ChannelDiceAction;
-import SS.action.DiscardByTypeAction;
+import SS.action.common.DiscardByTypeAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;

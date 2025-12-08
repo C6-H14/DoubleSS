@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import SS.Dice.AttackDice;
 import SS.Dice.EmptyDiceSlot;
-import SS.action.ChannelDiceAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

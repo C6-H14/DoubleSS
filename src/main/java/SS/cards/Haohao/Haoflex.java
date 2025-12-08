@@ -14,7 +14,7 @@ import SS.Dice.AbstractDice;
 import SS.Dice.AttackHaoDice;
 import SS.Dice.DefendHaoDice;
 import SS.Dice.EmptyDiceSlot;
-import SS.action.RemoveDiceAction;
+import SS.action.dice.RemoveDiceAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;

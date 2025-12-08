@@ -1,6 +1,6 @@
 package SS.power;
 
-import SS.action.DieAction;
+import SS.action.common.DieAction;
 import SS.helper.ModHelper;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;

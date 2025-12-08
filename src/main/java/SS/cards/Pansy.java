@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 
 import SS.Dice.EmptyDiceSlot;
-import SS.action.UpdateManagerStanceDescriptions;
+import SS.action.common.UpdateManagerStanceDescriptions;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

@@ -8,7 +8,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import SS.action.KindnessAction;
+
+import SS.action.unique.KindnessAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

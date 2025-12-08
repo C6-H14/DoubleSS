@@ -11,8 +11,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.ThirdEyeEffect;
 
-import SS.action.ChangeStanceAction;
-import SS.action.DrawSameTypeCardAction;
+import SS.action.common.ChangeStanceAction;
+import SS.action.common.DrawSameTypeCardAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.PeptideDice;
-import SS.action.ChannelDiceAction;
+import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 
 public class PeptideStrike extends AbstractDoubleCard {

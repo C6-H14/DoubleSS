@@ -1,11 +1,8 @@
 package SS.cardmodifiers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
-import basemod.BaseMod;
 import basemod.helpers.CardModifierManager;
 import basemod.interfaces.PreStartGameSubscriber;
 import basemod.interfaces.StartGameSubscriber;
