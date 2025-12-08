@@ -1,0 +1,37 @@
+{
+  "Double:AtGameStart": {
+    "TEXT": [
+        "选择你的卡包",
+        "选择一个卡包加入到本场游戏卡池中(左中右三种卡包分别偏向数值，运转，上限)"
+    ]
+  },
+  "Double:ConjugateCardAction": {
+    "TEXT": [
+        "绑定",
+        "选择",
+        "张牌进行绑定"
+    ]
+  },
+  "Double:ConjugateModifier": {
+    "TEXT": [
+        "本牌已绑定"
+    ]
+  },
+  "Double:YinYangAction": {
+    "TEXT": [
+        "选择一张转化的牌"
+    ]
+  },
+  "Double:HaoReward": {
+    "TEXT": [
+        "选择获得你的颢牌奖励",
+        "选择获得你的颢牌奖励"
+    ]
+  },
+  "Double:AltarAction": {
+    "TEXT": [
+        "选择消耗至多",
+        "张手牌"
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+    "Double:Empty":{
+        "DESCRIPTION": [
+          "骰子序列槽储存着你的骰子，它们将在回合结束依次触发。 NL 白色数字为骰子基础数值，蓝色数字为骰子的随机数结果"
+        ],
+        "NAME": "骰子序列槽"
+    },
+    "Double:Attack":{
+        "DESCRIPTION": [
+          "造成 #b",
+          " 点伤害。 NL #b1 点：对敌人少造成1点伤害。 NL #b5 点：攻击目标改为所有敌人。 NL #b6 点：额外造成50%伤害。"
+        ],
+        "NAME": "攻击骰子"
+    },
+    "Double:Defend":{
+        "DESCRIPTION": [
+          "获得 #b",
+          " 点格挡。 NL  #b1 点：少获得1点格挡。 NL  #b6 点：额外获得50%格挡。"
+        ],
+        "NAME": "防御骰子"
+    },
+    "Double:PeptideDice":{
+        "DESCRIPTION": [
+          "造成 #b",
+          " 点伤害。 NL 场上所有 肽链打击 牌的伤害增加 #b",
+          " 。 NL  #b1 点：不触发肽链打击增伤效果，额外造成1点伤害。 NL  #b6 点：额外造成1点伤害。"
+        ],
+        "NAME": "肽链骰子"
+    },
+    "Double:ImmolateDice":{
+        "DESCRIPTION": [
+          "对所有敌人造成 #b",
+          " 点伤害。 NL 场上每有一张灼伤，额外造成2点伤害。将一张 *灼伤 放入你的弃牌堆中",
+          "。 NL  #b1 点：改为 *灼伤+ 。 NL  #b6 点： *灼伤 获得虚无。"
+        ],
+        "NAME": "燔祭骰子"
+    },
+    "Double:WitherDice":{
+        "DESCRIPTION": [
+          "目标获得 #b",
+          " 层流血。 NL #b1 点：流血层数-1。 NL #b4点：目标获得1层开放性伤口。"
+        ],
+        "NAME": "枯萎骰子"
+    },
+    "Double:IronwaveDice":{
+        "DESCRIPTION": [
+          "造成 #b",
+          " 点伤害，获得 #b",
+          " 点格挡。 NL #b1 点：数值减1. NL #b6 点：骰子激发时会播放铁斩波的帅气动画。 NL #b10 点：数值加1"
+        ],
+        "NAME": "铁斩波骰子"
+    },
+    "Double:AttackHaoDice":{
+        "DESCRIPTION": [
+          "造成 #b",
+          " 点伤害，给予 #b",
+          " 层 中毒 ，激发时每个颢骰都会增加此骰子1点数值。 NL #b1 点：伤害加1，中毒层数减1。 NL #b6 点：伤害加1，中毒层数加1。"
+        ],
+        "NAME": "攻击颢骰"
+    },
+    "Double:DefendHaoDice":{
+        "DESCRIPTION": [
+          "获得 #b",
+          " 点格挡，激发时每个颢骰都会增加此骰子1点数值。 NL  #b1 点：少获得1点格挡。 NL  #b6 点：额外获得50%格挡。"
+        ],
+        "NAME": "防御颢骰"
+    },
+    "Double:EternalAttackDice":{
+        "DESCRIPTION": [
+          "下回合开始时对所有敌人造成 #b",
+          " 点伤害，受伤时失效。 NL  #b1 点：若你有格挡，受到 #b1 点伤害。 NL  #b6 点：获得 #b1 层 #y缓冲 。"
+        ],
+        "NAME": "永恒攻击骰子"
+    },
+    "Double:EternalDefendDice":{
+        "DESCRIPTION": [
+          "下回合开始时获得 #b",
+          " 点格挡，受伤时失效。 NL  #b1 点：若你有格挡，受到 #b1 点伤害。 NL  #b6 点：获得 #b1 层 #y缓冲 。"
+        ],
+        "NAME": "永恒防御骰子"
+    }
+}
