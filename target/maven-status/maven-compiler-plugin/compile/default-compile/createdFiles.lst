@@ -24,6 +24,7 @@ SS\cards\Miserly.class
 SS\cards\Haohao\DeathNotifier.class
 SS\cards\Hoarding.class
 SS\packages\RedPackage\RedPackage.class
+SS\action\unique\lost\LifelinePlayCardAction.class
 SS\power\FundsPower.class
 SS\cards\Stingy.class
 SS\packages\HaoPackage\HaoPackage_v.class
@@ -123,6 +124,7 @@ SS\cards\MugUp.class
 SS\power\BinPower.class
 SS\power\HaoggernautPower.class
 SS\helper\PermanentDamageVariable.class
+SS\action\unique\lost\LifelineAction.class
 SS\action\dice\RemoveDiceAction.class
 SS\helper\ModHelper.class
 SS\Dice\EmptyDiceSlot.class
@@ -131,6 +133,7 @@ SS\action\unique\haohao\GreatDiscipleAction.class
 SS\relic\Merit.class
 SS\packages\RedPackage\RedPackage_e.class
 SS\patches\TriggerAtStartOfTurnPatch$updatePatch.class
+SS\cards\Lost\Lifeline.class
 SS\Dice\PeptideDice.class
 SS\patches\AddHaoRewardPatch$DropSeals.class
 SS\Dice\DefendDice.class
@@ -255,6 +258,7 @@ SS\cards\Saprophytism.class
 SS\cards\Options\RED_option.class
 SS\cards\Haohao\WhichPick.class
 SS\cards\Lost\AbstractLostCard.class
+SS\cards\Lost\PopIn.class
 SS\action\common\DamageFatalAction.class
 SS\cards\Humility.class
 SS\cards\Haohao\Bin.class

@@ -119,6 +119,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\packages\HaoPackage\HaoPackage_c.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\EternalDefendDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\DiligenceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cardmodifiers\SaveLoadSubscriber.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\PopIn.java
 d:\StSmod\DoubleSS\src\main\java\SS\path\ThmodClassEnum.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\DelayDamagePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\UpdateFiendCardDescriptionsAction.java
@@ -128,6 +129,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage_v.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DowngradeCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\CounterBlow.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\FiendPact.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Lifeline.java
 d:\StSmod\DoubleSS\src\main\java\SS\relic\WoodenCross.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Prism.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\ModHelper.java
@@ -243,6 +245,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\MaximizeHaoCardPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SulfurBlackPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\GreatDisciple.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\LifelineAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Pansy.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\SulfurBlack.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\ModifyPermanentDamageAction.java
@@ -255,4 +258,5 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Stingy.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\DyingPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\RedPackage\RedPackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\BLUE_option.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\LifelinePlayCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\ManagerStance.java
