@@ -2,6 +2,7 @@ package SS.power;
 
 import SS.action.common.DieAction;
 import SS.helper.ModHelper;
+import SS.interfaces.OnReduceDyingPowerSubscriber;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.OnPlayerDeathPower;
@@ -41,7 +42,26 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
         this.description = DESCRIPTIONS[0];
     }
 
+    @Override
+    public void reducePower(int reduceAmount) {
+        if (this.amount - reduceAmount <= 0) {
+            this.fontScale = 8.0F;
+            this.amount = 0;
+        } else {
+            this.fontScale = 8.0F;
+            this.amount -= reduceAmount;
+        }
+
+    }
+
     private boolean reduce(int amount) {
+        if (amount == 0)
+            return false;
+        for (AbstractPower p : this.owner.powers) {
+            if (p instanceof OnReduceDyingPowerSubscriber) {
+                ((OnReduceDyingPowerSubscriber) p).onReduceDyingPower(amount);
+            }
+        }
         if (this.amount <= amount) {
             addToBot(new DieAction());
             return false;
