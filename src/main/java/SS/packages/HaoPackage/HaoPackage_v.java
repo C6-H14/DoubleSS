@@ -2,8 +2,6 @@ package SS.packages.HaoPackage;
 
 import java.util.ArrayList;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
-
 import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
 import SS.path.AbstractCardEnum;

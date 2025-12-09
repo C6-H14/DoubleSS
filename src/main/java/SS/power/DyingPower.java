@@ -44,6 +44,13 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
 
     @Override
     public void reducePower(int reduceAmount) {
+        if (amount == 0)
+            return;
+        for (AbstractPower p : this.owner.powers) {
+            if (p instanceof OnReduceDyingPowerSubscriber) {
+                ((OnReduceDyingPowerSubscriber) p).onReduceDyingPower(amount);
+            }
+        }
         if (this.amount - reduceAmount <= 0) {
             this.fontScale = 8.0F;
             this.amount = 0;
@@ -83,10 +90,8 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
         addToBot(new DieAction());
     }
 
-    public void atEndOfTurn(boolean isPlayer) {
-        if (isPlayer) {
-            reduce(1);
-        }
+    public void atStartOfTurn() {
+        reduce(1);
     }
 
 }
