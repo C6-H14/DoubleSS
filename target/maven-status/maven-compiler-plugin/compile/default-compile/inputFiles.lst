@@ -162,6 +162,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\action\common\PlaySpecificCardInDrawPile.jav
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\AltarActon.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SinsPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Autophagy.java
+d:\StSmod\DoubleSS\src\main\java\SS\power\UnbreakablePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\IncreaseCostAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\SelfReliantAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Gluttony.java
@@ -197,6 +198,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\action\common\DrawSameTypeCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\GhostBomb.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\ImmolateDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\BossSwapGod.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Unbreakable.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage_c.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\BurningEnvyPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\AggressionPower.java
@@ -244,6 +246,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Kindness.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\MaximizeHaoCardPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SulfurBlackPower.java
+d:\StSmod\DoubleSS\src\main\java\SS\interfaces\OnReduceDyingPowerSubscriber.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\GreatDisciple.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\LifelineAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Pansy.java

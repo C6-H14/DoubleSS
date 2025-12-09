@@ -112,6 +112,7 @@ SS\rewards\CommonCardReward$1.class
 SS\patches\RewardPatch$LocatorInsertPatch$DoubleLocator.class
 SS\cards\Haohao\HaoBludgeon.class
 SS\cards\Aggression.class
+SS\cards\Lost\Unbreakable.class
 SS\power\PepsinPower.class
 SS\power\ManagerStance.class
 SS\cards\Protein.class
@@ -244,10 +245,12 @@ SS\cards\Lost\SoulGuard.class
 SS\action\common\ConjugateCardInHandAction.class
 SS\cards\Pepsin.class
 SS\packages\GreenPackage\GreenPackage_c.class
+SS\power\UnbreakablePower.class
 SS\cards\Jealousy.class
 SS\patches\DiceDamageTypePatch$updateVigorPowerPatch.class
 SS\cards\Diligence.class
 SS\action\unique\lost\VoidStrollAction.class
+SS\interfaces\OnReduceDyingPowerSubscriber.class
 SS\cards\TrumpCard.class
 SS\Dice\AttackHaoDice.class
 SS\cards\Haohao\BossSwapGod.class

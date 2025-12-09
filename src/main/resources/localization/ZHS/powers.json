@@ -264,5 +264,12 @@
     "DESCRIPTIONS": [
       "回合开始时，若你的生命值不大于 #b30 ，则获得 #b1 层圣盾"
     ]
+  },
+  "Double:UnbreakablePower": {
+    "NAME": "不灭意志",
+    "DESCRIPTIONS": [
+      "每当你失去 double:奄息 时，抽 #b",
+      " 张牌"
+    ]
   }
 }
