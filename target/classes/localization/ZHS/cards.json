@@ -792,5 +792,15 @@
             " 固有 ， 保留 ，不能被打出。 NL 回合开始时若此牌在你手中，获得 [E] 。 NL 首次抽到此牌时，获得 [E] 。"
         ],
         "FLAVOR":" #y群主形态 ：首次抽到此牌时，获得 [E] 。"
+    },
+    "Double:Unbreakable":{
+        "NAME": "不灭意志",
+        "DESCRIPTION": "每当你失去 double:奄息 时，抽1张牌。",
+        "UPGRADE_DESCRIPTION": " 固有 ，每当你失去 double:奄息 时，抽1张牌。",
+        "EXTENDED_DESCRIPTION": [
+            "获得1层 double:奄息 。 NL 每当你失去 double:奄息 时，抽1张牌。",
+            " 固有 ，获得1层 double:奄息 。 NL 每当你失去 double:奄息 时，抽1张牌。"
+        ],
+        "FLAVOR":" #y群主形态 ：获得1层 double:奄息 。"
     }
 }
