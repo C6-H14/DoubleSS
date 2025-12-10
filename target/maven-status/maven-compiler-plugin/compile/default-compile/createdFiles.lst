@@ -96,6 +96,7 @@ SS\packages\RedPackage\RedPackage_c.class
 SS\action\common\DieAction.class
 SS\cards\Lost\StratifiedStorm.class
 SS\action\unique\ss\HoardingAction.class
+SS\helper\ModHelper$Lambda.class
 SS\packages\HaoPackage\HaoPackage_c.class
 SS\action\common\PlaySpecificCardInDrawPile.class
 SS\action\unique\ss\DecomposeAction.class
@@ -225,6 +226,7 @@ SS\power\PhoneItInPower.class
 SS\action\unique\DiligenceAction.class
 SS\cards\AbstractDoubleCard.class
 SS\Dice\EternalDefendDice.class
+SS\helper\ModHelper$1.class
 SS\cards\Lost\TwoChargeVoid.class
 SS\patches\RewardPatch.class
 SS\power\HolyShieldPower.class
@@ -253,6 +255,7 @@ SS\action\unique\lost\VoidStrollAction.class
 SS\interfaces\OnReduceDyingPowerSubscriber.class
 SS\cards\TrumpCard.class
 SS\Dice\AttackHaoDice.class
+SS\helper\ModHelper$2.class
 SS\cards\Haohao\BossSwapGod.class
 SS\cardmodifiers\FindFather.class
 SS\cards\Lost\LastBreath.class
