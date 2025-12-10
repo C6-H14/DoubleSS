@@ -11,11 +11,14 @@ import basemod.interfaces.ISubscriber;
 import basemod.interfaces.OnCardUseSubscriber;
 import basemod.interfaces.OnStartBattleSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
+import basemod.interfaces.PostRenderSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
+import basemod.interfaces.RenderSubscriber;
 import basemod.interfaces.StartGameSubscriber;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
@@ -42,6 +45,8 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardSave;
+
+import SS.UI.Sinsbar;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.Haohao.AbstractHaoCard;
 import SS.characters.MyCharacter;
@@ -83,7 +88,7 @@ import java.util.Properties;
 @SpireInitializer
 public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditCharactersSubscriber,
         EditStringsSubscriber, EditKeywordsSubscriber, StartGameSubscriber, PostUpdateSubscriber,
-        PostInitializeSubscriber, OnStartBattleSubscriber, OnCardUseSubscriber {
+        PostInitializeSubscriber, OnStartBattleSubscriber, OnCardUseSubscriber, RenderSubscriber {
     private static final String BG_ATTACK_512 = "img/512/bg_attack.png";
     private static final String BG_POWER_512 = "img/512/bg_power.png";
     private static final String BG_SKILL_512 = "img/512/bg_skill.png";
@@ -95,6 +100,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     private static final String ENEYGY_ORB = "img/512/card_orb.png";
     public static final Color COL = CardHelper.getColor(252, 235, 43);
     public static int Hao_chance = 0;
+    public static Sinsbar sinBar;
 
     private void addCardColor(CardColor c, String s) {
         BaseMod.addColor(c, COL, COL, COL, COL, COL, COL, COL, "img/512/" + s + "_attack.png",
@@ -378,6 +384,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     public void receivePostInitialize() {
         initializePackage();
+        sinBar = new Sinsbar();
         BaseMod.registerCustomReward(
                 RewardEnum.HaoCardReward,
                 (rewardSave) -> { // this handles what to do when this quest type is loaded.
@@ -404,6 +411,9 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public void receivePostUpdate() {
         if (!packageLoaded) {
             initializePackage();
+        }
+        if (sinBar != null) {
+            sinBar.update();
         }
         if (!openedStarterScreen && CardCrawlGame.isInARun()) {
             TriggerAtGameStart();
@@ -483,6 +493,13 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             } catch (IOException var2) {
                 var2.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void receiveRender(SpriteBatch arg0) {
+        if (sinBar != null) {
+            sinBar.render(arg0);
         }
     }
 }
