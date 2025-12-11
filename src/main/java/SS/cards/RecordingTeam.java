@@ -13,7 +13,7 @@ import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class RecordingTeam extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("RecordingTeam");
@@ -45,10 +45,10 @@ public class RecordingTeam extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (p.getPower("Double:CrimePower") != null && p.getPower("Double:CrimePower").amount > this.magicNumber) {
-            addToBot(new ApplyPowerAction(p, p, new CrimePower(p, -this.magicNumber), -this.magicNumber));
+        if (p.getPower("Double:SinsPower") != null && p.getPower("Double:SinsPower").amount > this.magicNumber) {
+            addToBot(new ApplyPowerAction(p, p, new SinsPower(p, -this.magicNumber), -this.magicNumber));
         } else {
-            addToTop(new RemoveSpecificPowerAction(p, p, "Double:CrimePower"));
+            addToTop(new RemoveSpecificPowerAction(p, p, "Double:SinsPower"));
         }
         addToBot(new MakeTempCardInHandAction(this.cardsToPreview, this.magicNumber));
         for (int i = 0; i < this.magicNumber; ++i) {

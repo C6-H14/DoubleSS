@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class Jealousy extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Jealousy");
@@ -52,7 +52,7 @@ public class Jealousy extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new GainEnergyAction(this.magicNumber));
         addToBot(new MakeTempCardInDrawPileAction(this, 2, true, true));
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 1)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
         if (p.getPower("Double:FiendStance") != null) {
             addToBot(new DrawCardAction(1));
         }

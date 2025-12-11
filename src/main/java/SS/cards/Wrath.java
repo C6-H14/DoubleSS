@@ -12,7 +12,7 @@ import SS.action.common.IncreaseCostAction;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class Wrath extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Wrath");
@@ -60,7 +60,7 @@ public class Wrath extends AbstractDoubleCard {
         addToBot(new IncreaseCostAction(this.uuid, 1));
         this.playedTime++;
         this.playedTime = Math.min(this.playedTime, 20);
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 2)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
         UpdateDescription();
         initializeDescription();
     }

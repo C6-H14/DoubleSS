@@ -84,6 +84,13 @@ public class Sinsbar {// 图片原始尺寸数据 (根据你的测量)
             return;
         }
 
+        if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.SETTINGS ||
+                AbstractDungeon.screen == AbstractDungeon.CurrentScreen.MAP ||
+                AbstractDungeon.screen == AbstractDungeon.CurrentScreen.GRID ||
+                AbstractDungeon.isScreenUp) {
+            return;
+        }
+
         // 如果你想在地图或篝火也显示，可以去掉这一行
         if (AbstractDungeon.getCurrRoom().phase != com.megacrit.cardcrawl.rooms.AbstractRoom.RoomPhase.COMBAT) {
             return;
@@ -148,15 +155,16 @@ public class Sinsbar {// 图片原始尺寸数据 (根据你的测量)
         float textY = bgY + (BAR_HEIGHT / 2.0F);
 
         int displayNum = (int) this.targetVal;
-        String msg = String.valueOf(displayNum);
+        String msg = String.valueOf(Math.abs(displayNum)) + "/"
+                + String.valueOf((int) (displayNum > 0 ? MAX_SIN : -MIN_SIN));
 
         // 简单的颜色逻辑
         Color textColor = Color.WHITE;
         if (displayNum > 0)
-            textColor = Color.GREEN;
-        if (displayNum < 0)
             textColor = Color.RED;
+        if (displayNum < 0)
+            textColor = Color.CYAN;
 
-        FontHelper.renderFontCentered(sb, FontHelper.powerAmountFont, msg, textX, textY, textColor, UI_SCALE * 1.5F);
+        FontHelper.renderFontCentered(sb, FontHelper.powerAmountFont, msg, textX, textY, textColor, UI_SCALE * 2F);
     }
 }

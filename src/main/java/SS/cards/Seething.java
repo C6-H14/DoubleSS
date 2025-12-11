@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.action.dice.EvokeAllDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class Seething extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Seething");
@@ -45,7 +45,7 @@ public class Seething extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new EvokeAllDiceAction(this.magicNumber));
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, this.magicNumber)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.magicNumber)));
         if (needFiend()) {
             addToBot(new DrawCardAction(1));
         }

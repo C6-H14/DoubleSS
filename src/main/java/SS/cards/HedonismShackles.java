@@ -16,7 +16,7 @@ import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveF
 import SS.action.common.ConjugateCardInHandAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class HedonismShackles extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("HedonismShackles");
@@ -70,7 +70,7 @@ public class HedonismShackles extends AbstractDoubleCard {
             }
         }
         addToBot(new ConjugateCardInHandAction(p, m, 2));
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, this.magicNumber)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.magicNumber)));
         UpdateExhaustiveDescription();
     }
 

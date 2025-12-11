@@ -33,8 +33,6 @@ public class YinYang extends AbstractDoubleCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
         this.tags.add(AbstractCardEnum.Fiend);
-        ExhaustiveField.ExhaustiveFields.baseExhaustive.set(this, Integer.valueOf(3));
-        ExhaustiveField.ExhaustiveFields.exhaustive.set(this, Integer.valueOf(3));
         if (needFiend()) {
             updateFiend();
         }

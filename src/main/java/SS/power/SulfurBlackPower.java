@@ -36,7 +36,7 @@ public class SulfurBlackPower extends AbstractPower {
     }
 
     public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-        if (power.type == AbstractPower.PowerType.DEBUFF || power instanceof CrimePower || power instanceof SinsPower) {
+        if (power.type == AbstractPower.PowerType.DEBUFF || power instanceof SinsPower) {
             if (target == this.owner) {
                 addToBot(new ChannelAction(new DefendDice(this.amount, p)));
             }

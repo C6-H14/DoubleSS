@@ -3,6 +3,7 @@ package SS.power;
 import SS.helper.ModHelper;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -13,11 +14,13 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 
-public class SinsPower extends AbstractPower {
+public class SinsPower extends AbstractPower implements InvisiblePower {
     public static final String POWER_ID = ModHelper.makePath("SinsPower");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private static final String NAME = powerStrings.NAME;
     private static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
+    private static final int max_sin = 50, min_sin = -50;
+    private boolean lock;
 
     public SinsPower(AbstractCreature owner, int amount) {
         this.name = NAME;
@@ -26,6 +29,7 @@ public class SinsPower extends AbstractPower {
         this.type = AbstractPower.PowerType.BUFF;
 
         this.amount = amount;
+        this.lock = false;
 
         String path128 = "img/power/SinsPower84.png";
         String path48 = "img/power/SinsPower32.png";
@@ -39,10 +43,24 @@ public class SinsPower extends AbstractPower {
     }
 
     public void stackPower(int stackAmount) {
-        int temp = this.amount;
-        super.stackPower(stackAmount);
-        if (this.amount > temp) {
-            AbstractDungeon.player.decreaseMaxHealth(this.amount);
+        if (this.lock)
+            return;
+        this.amount += stackAmount;
+        this.amount = Math.min(this.amount, max_sin);
+        this.amount = Math.max(this.amount, min_sin);
+        if (this.amount == max_sin || this.amount == min_sin) {
+            this.lock = true;
+        }
+    }
+
+    public void reducePower(int stackAmount) {
+        if (this.lock)
+            return;
+        this.amount -= stackAmount;
+        this.amount = Math.min(this.amount, max_sin);
+        this.amount = Math.max(this.amount, min_sin);
+        if (this.amount == max_sin || this.amount == min_sin) {
+            this.lock = true;
         }
     }
 
@@ -55,7 +73,23 @@ public class SinsPower extends AbstractPower {
         if (p.hasPower("Double:SulfurBlackPower"))
             return;
         this.flash();
-        addToBot(new DamageAction(p, new DamageInfo(p, this.amount)));
+        if (this.amount >= 10)
+            addToBot(new DamageAction(p, new DamageInfo(p, this.amount / 10)));
     }
 
+    public void onVictory() {
+        if (this.amount == max_sin) {
+            // to be done
+            return;
+        }
+        if (this.amount == min_sin) {
+            // to be done
+            return;
+        }
+        if (this.amount >= 10) {
+            AbstractDungeon.player.decreaseMaxHealth(this.amount / 10);
+        } else if (this.amount <= -10) {
+            AbstractDungeon.player.increaseMaxHp(-amount / 10, true);
+        }
+    }
 }

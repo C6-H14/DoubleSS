@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 import SS.power.PhoneItInPower;
 
 public class PhoneItIn extends AbstractDoubleCard {
@@ -48,10 +48,10 @@ public class PhoneItIn extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         if (p.getPower("Double:FiendStance") != null) {
-            if (p.getPower("Double:CrimePower") != null && p.getPower("Double:CrimePower").amount > 5) {
-                addToBot(new ApplyPowerAction(p, p, new CrimePower(p, -5), -5));
+            if (p.getPower("Double:SinsPower") != null && p.getPower("Double:SinsPower").amount > 5) {
+                addToBot(new ApplyPowerAction(p, p, new SinsPower(p, -5), -5));
             } else {
-                addToTop(new RemoveSpecificPowerAction(p, p, "Double:CrimePower"));
+                addToTop(new RemoveSpecificPowerAction(p, p, "Double:SinsPower"));
             }
         }
         addToBot(new ApplyPowerAction(p, p, new PhoneItInPower(p, 1)));
