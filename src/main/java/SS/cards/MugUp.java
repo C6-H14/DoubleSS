@@ -13,7 +13,7 @@ import SS.action.common.DowngradeCardAction;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class MugUp extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("MugUp");
@@ -74,9 +74,9 @@ public class MugUp extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ChannelDiceAction(new DefendDice(this.block, p)));
         if (p.getPower("Double:FiendStance") == null) {
-            addToBot(new ApplyPowerAction(p, p, new CrimePower(p, this.magicNumber)));
+            addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.magicNumber)));
         } else if (this.upgraded) {
-            addToBot(new ApplyPowerAction(p, p, new CrimePower(p, this.magicNumber)));
+            addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.magicNumber)));
         }
         if (!this.upgraded) {
             addToBot(new UpgradeSpecificCardAction(this));

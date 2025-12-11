@@ -13,7 +13,7 @@ import SS.Dice.PeptideDice;
 import SS.action.unique.ss.GluttonyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class Gluttony extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Gluttony");
@@ -54,7 +54,7 @@ public class Gluttony extends AbstractDoubleCard {
             addToBot(new ChannelAction(new PeptideDice(1, AbstractDungeon.getRandomMonster())));
         }
         addToBot(new GluttonyAction(this.upgraded));
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 2)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
     }
 
     public void triggerOnGlowCheck() {

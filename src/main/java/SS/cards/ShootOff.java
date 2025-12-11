@@ -20,7 +20,7 @@ import com.megacrit.cardcrawl.vfx.combat.MindblastEffect;
 
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 import SS.power.SunkPower;
 
 public class ShootOff extends AbstractDoubleCard {
@@ -75,7 +75,7 @@ public class ShootOff extends AbstractDoubleCard {
         addToBot(new DamageAllEnemiesAction(p, this.damage, this.damageTypeForTurn,
                 AbstractGameAction.AttackEffect.NONE));
         for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-            addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 1)));
+            addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
         }
         UpdateExhaustiveDescription();
     }

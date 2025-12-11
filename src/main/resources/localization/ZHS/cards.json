@@ -26,11 +26,11 @@
     "Double:Seething":
     {
         "NAME": "急了",
-        "DESCRIPTION": "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪行 。",
-        "UPGRADE_DESCRIPTION": " 激发所有 double:骰子  !M! 次，获得 !M! 点 double:罪行 。",
+        "DESCRIPTION": "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 。",
+        "UPGRADE_DESCRIPTION": " 激发所有 double:骰子  !M! 次，获得 !M! 点 double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪行 ，抽1张牌。",
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪行 ，抽1张牌。"
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ，抽1张牌。",
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ，抽1张牌。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：抽1张牌。"
     },
@@ -41,8 +41,8 @@
     },
     "Double:RecordingTeam": {
         "NAME": "录播组",
-        "DESCRIPTION": "失去 !M! 层 double:罪行 ，获得 !M! 张 *千面 ，生成1个攻击骰子( !D! )。",
-        "UPGRADE_DESCRIPTION": "失去 !M! 层 double:罪行 ，获得 !M! 张 *千面 ，生成1个攻击骰子( !D! )。"
+        "DESCRIPTION": "失去 !M! 层 double:罪孽 ，获得 !M! 张 *千面 ，生成1个攻击骰子( !D! )。",
+        "UPGRADE_DESCRIPTION": "失去 !M! 层 double:罪孽 ，获得 !M! 张 *千面 ，生成1个攻击骰子( !D! )。"
     },
     "Double:DeafForm":
     {
@@ -103,11 +103,11 @@
     },
     "Double:Gluttony":{
         "NAME": "暴食",
-        "DESCRIPTION": " double:消化 一张牌，获得2点  double:罪行  。",
-        "UPGRADE_DESCRIPTION": " 好好 double:消化 一张牌，获得2点  double:罪行  。",
+        "DESCRIPTION": " double:消化 一张牌，获得2点  double:罪孽  。",
+        "UPGRADE_DESCRIPTION": " 好好 double:消化 一张牌，获得2点  double:罪孽  。",
         "EXTENDED_DESCRIPTION": [
-            " double:消化 一张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪行  。",
-            "好好 double:消化 一张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪行  。"
+            " double:消化 一张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪孽  。",
+            "好好 double:消化 一张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪孽  。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：生成 #b1 个肽链骰子( #b1 )。"
     },
@@ -123,83 +123,83 @@
     },
     "Double:TaotieRite":{
         "NAME": "饕餮仪式",
-        "DESCRIPTION": " double:消化 所有手牌，每张被消耗的牌获得 !M! 点 double:罪行 ， 消耗 。",
-        "UPGRADE_DESCRIPTION": "好好 double:消化 所有手牌，每张被消耗的牌获得 !M! 点 double:罪行 ， 消耗 。",
+        "DESCRIPTION": " double:消化 所有手牌，每张被消耗的牌获得 !M! 点 double:罪孽 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "好好 double:消化 所有手牌，每张被消耗的牌获得 !M! 点 double:罪孽 ， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            " double:消化 所有手牌，每张被消耗的牌 [#cf3fbe]回复1点生命值[] 并获得 !M! 点 double:罪行 ， 消耗 。",
-            "好好 double:消化 所有手牌，每张被消耗的牌 [#cf3fbe]回复1点生命值[] 并获得 !M! 点 double:罪行 ， 消耗 。"
+            " double:消化 所有手牌，每张被消耗的牌 [#cf3fbe]回复1点生命值[] 并获得 !M! 点 double:罪孽 ， 消耗 。",
+            "好好 double:消化 所有手牌，每张被消耗的牌 [#cf3fbe]回复1点生命值[] 并获得 !M! 点 double:罪孽 ， 消耗 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：每张被消耗的牌回复 #b1 点生命值。"
     },
     "Double:HedonismShackles":{
         "NAME": "欢愉枷锁",
-        "DESCRIPTION": "所有敌人失去1点临时力量， double:绑定 2张手牌，获得 !M! 点 double:罪行 ， NL 消耗性  !stslib:ex!  。",
-        "UPGRADE_DESCRIPTION": "所有敌人失去1点力量， double:绑定 2张手牌，获得 !M! 点 double:罪行 ， NL 消耗性  !stslib:ex!  。",
+        "DESCRIPTION": "所有敌人失去1点临时力量， double:绑定 2张手牌，获得 !M! 点 double:罪孽 ， NL 消耗性  !stslib:ex!  。",
+        "UPGRADE_DESCRIPTION": "所有敌人失去1点力量， double:绑定 2张手牌，获得 !M! 点 double:罪孽 ， NL 消耗性  !stslib:ex!  。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]保留[] ，所有敌人失去1点临时力量， double:绑定 2张手牌，获得 !M! 点 double:罪行 ， NL 消耗性  !stslib:ex!  。",
-            " [#cf3fbe]保留[] ，所有敌人失去1点力量， double:绑定 2张手牌，获得 !M! 点 double:罪行 ， NL 消耗性  !stslib:ex!  。"
+            " [#cf3fbe]保留[] ，所有敌人失去1点临时力量， double:绑定 2张手牌，获得 !M! 点 double:罪孽 ， NL 消耗性  !stslib:ex!  。",
+            " [#cf3fbe]保留[] ，所有敌人失去1点力量， double:绑定 2张手牌，获得 !M! 点 double:罪孽 ， NL 消耗性  !stslib:ex!  。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：获得保留。"
     },
     "Double:ObsessivePhantom":{
         "NAME": "痴缠幻影",
-        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌，将它们绑定，获得3点  double:罪行 。",
-        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌，将它们绑定，获得3点  double:罪行 。",
+        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌，将它们绑定，获得3点  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌，将它们绑定，获得3点  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌，将它们绑定，获得3点  double:罪行 。",
-            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌，将它们绑定，获得3点  double:罪行 。"
+            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌，将它们绑定，获得3点  double:罪孽 。",
+            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌，将它们绑定，获得3点  double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：可以绑定的牌数量加 #b1 。"
     },
     "Double:ShootOff":{
         "NAME": "射爆",
-        "DESCRIPTION": "所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪行 。",
-        "UPGRADE_DESCRIPTION": "所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪行 。",
+        "DESCRIPTION": "所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]敌方召唤一个5血的咔咔[] ，所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪行 。",
-            " [#cf3fbe]敌方召唤一个5血的咔咔[] ，所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪行 。"
+            " [#cf3fbe]敌方召唤一个5血的咔咔[] ，所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪孽 。",
+            " [#cf3fbe]敌方召唤一个5血的咔咔[] ，所有敌人获得 double:沉沦 ，对所有敌人造成 !D! 点伤害，获得等同于敌人数的  double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：获得保留。"
     },
     "Double:Irritable":{
         "NAME": "暴躁",
-        "DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪行 。",
-        "UPGRADE_DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪行 。",
+        "DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]给予所有敌人1层易伤[] ，生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪行 。",
-            " [#cf3fbe]给予所有敌人2层易伤[] ，生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪行 。"
+            " [#cf3fbe]给予所有敌人1层易伤[] ，生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪孽 。",
+            " [#cf3fbe]给予所有敌人2层易伤[] ，生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得4点  double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：给予所有敌人 #b1 / #b2 层易伤。"
     },
     "Double:Wrath":{
         "NAME": "愤怒",
-        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，获得2点罪行。 NL 本场战斗中此牌耗能增加1，伤害翻倍。",
-        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，获得2点罪行。 NL 本场战斗中此牌耗能增加1，伤害翻倍。",
+        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，获得2点罪孽。 NL 本场战斗中此牌耗能增加1，伤害翻倍。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，获得2点罪孽。 NL 本场战斗中此牌耗能增加1，伤害翻倍。",
         "EXTENDED_DESCRIPTION": [
-            "生成1个攻击 double:骰子 ( !D! )，获得2点罪行。 NL 本场战斗中此牌耗能增加1，伤害翻倍 [#cf3fbe]（骰子基础数值增加[] !M! [#cf3fbe]）[] 。",
-            "生成1个攻击 double:骰子 ( !D! )，获得2点罪行。 NL 本场战斗中此牌耗能增加1，伤害翻倍 [#cf3fbe]（骰子基础数值增加[] !M! [#cf3fbe]）[] 。"
+            "生成1个攻击 double:骰子 ( !D! )，获得2点罪孽。 NL 本场战斗中此牌耗能增加1，伤害翻倍 [#cf3fbe]（骰子基础数值增加[] !M! [#cf3fbe]）[] 。",
+            "生成1个攻击 double:骰子 ( !D! )，获得2点罪孽。 NL 本场战斗中此牌耗能增加1，伤害翻倍 [#cf3fbe]（骰子基础数值增加[] !M! [#cf3fbe]）[] 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：骰子基础数值增加 #b3 ，受打出次数影响。"
     },
     "Double:Revenge":{
         "NAME": "复仇",
-        "DESCRIPTION": "造成 !D! 点伤害，获得1点 double:罪行 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。",
-        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害，获得1点 double:罪行 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。",
+        "DESCRIPTION": "造成 !D! 点伤害，获得1点 double:罪孽 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。",
+        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害，获得1点 double:罪孽 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。",
         "EXTENDED_DESCRIPTION": [
-            "造成 !D! 点伤害，获得1点 double:罪行 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。 [#cf3fbe]斩杀时，回复 !M! 点生命[] 。",
-            "造成 !D! 点伤害，获得1点 double:罪行 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。 [#cf3fbe]斩杀时，回复 !M! 点生命[] 。"
+            "造成 !D! 点伤害，获得1点 double:罪孽 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。 [#cf3fbe]斩杀时，回复 !M! 点生命[] 。",
+            "造成 !D! 点伤害，获得1点 double:罪孽 。 NL 伤害额外增加Y%，Y为你已损失血量的百分比。 [#cf3fbe]斩杀时，回复 !M! 点生命[] 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：斩杀时回复 #b3 / #b4 。"
     },
     "Double:MugUp":{
         "NAME": "抱佛脚",
-        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，获得 !M! 点 double:罪行 。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本。",
-        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，获得 !M! 点 double:罪行 。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本。",
+        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，获得 !M! 点 double:罪孽 。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本。",
+        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，获得 !M! 点 double:罪孽 。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本。",
         "EXTENDED_DESCRIPTION": [
-            "生成一个防御 double:骰子 ( !B! )。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本，获得 !M! 点 double:罪行 。",
-            "生成一个防御 double:骰子 ( !B! )。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本，获得 !M! 点 double:罪行 。"
+            "生成一个防御 double:骰子 ( !B! )。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本，获得 !M! 点 double:罪孽 。",
+            "生成一个防御 double:骰子 ( !B! )。 NL 若此牌未升级，升级此牌；否则此牌变为未升级版本，获得 !M! 点 double:罪孽 。"
         ],
-        "FLAVOR":" #p恶魔之焰形态 ：未升级时你在努力学习，不会获得罪行。"
+        "FLAVOR":" #p恶魔之焰形态 ：未升级时你在努力学习，不会获得罪孽。"
     },
     "Double:Lurker":{
         "NAME": "潜水",
@@ -213,31 +213,31 @@
     },
     "Double:PhoneItIn":{
         "NAME": "水视频",
-        "DESCRIPTION": " 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪行 。",
-        "UPGRADE_DESCRIPTION": " 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪行 。",
+        "DESCRIPTION": " 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。",
+        "UPGRADE_DESCRIPTION": " 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe] 失去5点 [] double:罪行 ， 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪行 。",
-            " [#cf3fbe] 失去5点 [] double:罪行 ， 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪行 。"
+            " [#cf3fbe] 失去5点 [] double:罪孽 ， 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。",
+            " [#cf3fbe] 失去5点 [] double:罪孽 ， 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。"
         ],
-        "FLAVOR":" #p恶魔之焰形态 ：打出时，失去 #b5 点罪行。"
+        "FLAVOR":" #p恶魔之焰形态 ：打出时，失去 #b5 点罪孽。"
     },
     "Double:DaggerInSmile":{
         "NAME": "笑里藏刀",
-        "DESCRIPTION": "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪行 。",
-        "UPGRADE_DESCRIPTION": "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪行 。",
+        "DESCRIPTION": "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪行 。",
-            "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪行 。"
+            "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪孽 。",
+            "生成一个攻击 double:骰子 ( !D! ) ，生成1个枯萎 double:骰子 ( !M! )，获得1点 double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：枯萎骰子基础数值增加 #b1 。"
     },
     "Double:Jealousy":{
         "NAME": "妒果",
-        "DESCRIPTION": "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，获得1点 double:罪行 ， 消耗 。",
-        "UPGRADE_DESCRIPTION": "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，获得1点 double:罪行 ， 消耗 。",
+        "DESCRIPTION": "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，获得1点 double:罪孽 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，获得1点 double:罪孽 ， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，抽1张牌，获得1点 double:罪行 ， 消耗 。",
-            "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，抽1张牌，获得1点 double:罪行 ， 消耗 。"
+            "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，抽1张牌，获得1点 double:罪孽 ， 消耗 。",
+            "获得 !M! [E] ，在抽牌堆中加入2张本牌的复制，抽1张牌，获得1点 double:罪孽 ， 消耗 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：抽 #b1 张牌。"
     },
@@ -253,11 +253,11 @@
     },
     "Double:Aggression":{
         "NAME": "挑衅",
-        "DESCRIPTION": "目标获得 !M! 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪行 。",
-        "UPGRADE_DESCRIPTION": "目标获得 !M! 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪行 。",
+        "DESCRIPTION": "目标获得 !M! 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "目标获得 !M! 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "目标获得 !M!  [#cf3fbe]+1[] 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪行 。",
-            "目标获得 !M!  [#cf3fbe]+1[] 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪行 。"
+            "目标获得 !M!  [#cf3fbe]+1[] 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪孽 。",
+            "目标获得 !M!  [#cf3fbe]+1[] 层 double:嘲讽 ，其他敌人失去 !M! 层嘲讽，生成一个攻击 double:骰子 ( !D! ) ，获得4点 double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：失去的嘲讽层数减 #b1 。"
     },
@@ -293,11 +293,11 @@
     },
     "Double:Stingy":{
         "NAME": "吝啬",
-        "DESCRIPTION": "失去15金币，生成 !M! 个攻击骰子( !D! )，获得2点 double:罪行 。",
-        "UPGRADE_DESCRIPTION": "失去15金币，生成 !M! 个攻击骰子( !D! )，获得2点 double:罪行 。",
+        "DESCRIPTION": "失去15金币，生成 !M! 个攻击骰子( !D! )，获得2点 double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "失去15金币，生成 !M! 个攻击骰子( !D! )，获得2点 double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "失去15金币，生成 !M! 个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪行 。",
-            "失去15金币，生成 !M! 个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪行 。"
+            "失去15金币，生成 !M! 个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。",
+            "失去15金币，生成 !M! 个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：获得的金币增加 #b2  。"
     },
@@ -378,8 +378,8 @@
     },
     "Double:SulfurBlack":{
         "NAME": "硫黑",
-        "DESCRIPTION": "每当你获得负面效果， double:罪行 或罪孽 时，生成一个防御 double:骰子 ( !M! )。 NL 回合结束时不再受到罪孽的伤害 。",
-        "UPGRADE_DESCRIPTION": "每当你获得负面效果， double:罪行 或罪孽 时，生成一个防御 double:骰子 ( !M! )。 NL 回合结束时不再受到罪孽的伤害 。"
+        "DESCRIPTION": "每当你获得负面效果或 double:罪孽 时，生成一个防御 double:骰子 ( !M! )。 NL 回合结束时不再受到罪孽的伤害 。",
+        "UPGRADE_DESCRIPTION": "每当你获得负面效果或 double:罪孽 时，生成一个防御 double:骰子 ( !M! )。 NL 回合结束时不再受到罪孽的伤害 。"
     },
     "Double:Hush":{
         "NAME": "禁言",
@@ -388,8 +388,8 @@
     },
     "Double:Indulgence":{
         "NAME": "赎罪券",
-        "DESCRIPTION": "清空 double:罪行 与罪孽， 消耗 。",
-        "UPGRADE_DESCRIPTION": "若你有 double:罪行 与罪孽，获得1层 double:美德 。清空 double:罪行 与罪孽， 消耗 。"
+        "DESCRIPTION": "获得 !M! 点 double:美德 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "获得 !M! 点 double:美德 ， 消耗 。"
     },
     "Double:Saprophytism":{
         "NAME": "腐生",
@@ -433,11 +433,11 @@
     },
     "Double:YinYang":{
         "NAME": "阴阳",
-        "DESCRIPTION": "选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券 ， 消耗性 !stslib:ex! 。",
-        "UPGRADE_DESCRIPTION": "选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券+ ， 消耗性 !stslib:ex! 。",
+        "DESCRIPTION": "选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券 。",
+        "UPGRADE_DESCRIPTION": "选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券+ 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]保留[] ，选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券 ， 消耗性 !stslib:ex! 。",
-            " [#cf3fbe]保留[] ，选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券+ ， 消耗性 !stslib:ex! 。"
+            " [#cf3fbe]保留[] ，选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券 。",
+            " [#cf3fbe]保留[] ，选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券+ 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：获得保留  。"
     },

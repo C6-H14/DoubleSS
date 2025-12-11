@@ -3,7 +3,7 @@ package SS.cards;
 import SS.action.unique.ss.RevengeAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -67,7 +67,7 @@ public class Revenge extends AbstractDoubleCard {
                             this.damageTypeForTurn),
                     this.magicNumber));
         }
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 1)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
     }
 
     public AbstractDoubleCard makeCopy() {

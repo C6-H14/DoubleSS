@@ -1,14 +1,13 @@
 package SS.cards;
 
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+
+import SS.action.unique.GainVirtueAction;
 import SS.helper.ModHelper;
-import SS.power.VirtuesPower;
 
 public class Indulgence extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Indulgence");
@@ -25,27 +24,21 @@ public class Indulgence extends AbstractDoubleCard {
     public Indulgence() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
         this.exhaust = true;
+        this.magicNumber = this.baseMagicNumber = 1;
         initializeDescription();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
+            upgradeMagicNumber(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        boolean flag = false;
-        if (p.hasPower("Double:CrimePower") || p.hasPower("Double:SinsPower")) {
-            flag = true;
-        }
-        addToBot(new RemoveSpecificPowerAction(p, p, "Double:CrimePower"));
-        addToBot(new RemoveSpecificPowerAction(p, p, "Double:SinsPower"));
-        if (flag && this.upgraded) {
-            addToBot(new ApplyPowerAction(p, p, new VirtuesPower(p, 1)));
-        }
+        addToBot(new GainVirtueAction(p, this.magicNumber));
     }
 
     public AbstractDoubleCard makeCopy() {

@@ -42,7 +42,6 @@ SS\cards\FiendPact.class
 SS\cards\Indulgence.class
 SS\cards\PeptideStrike.class
 SS\power\FiendStance.class
-SS\power\CrimePower.class
 SS\action\unique\ss\YinYangAction.class
 SS\patches\DiceDamageTypePatch$updateThornsPowerPatch.class
 SS\action\unique\ss\GluttonyAction.class
@@ -147,6 +146,7 @@ SS\power\NextTurnDamagePower.class
 SS\action\unique\ss\RevengeAction.class
 SS\cards\Spore.class
 SS\cards\Haohao\YourAttack.class
+SS\action\unique\GainVirtueAction.class
 SS\cards\Haohao\HaoStab.class
 SS\patches\EvokeAllPatch.class
 SS\packages\RedPackage\RedPackage_v.class
@@ -173,7 +173,6 @@ SS\effect\DiceTriggeredEffect.class
 SS\cards\Haohao\HaoPack.class
 SS\cards\ObsessivePhantom.class
 SS\cards\Gluttony.class
-SS\power\VirtuesPower.class
 SS\action\common\IncreasePeptideDamageAction.class
 SS\action\common\ConjugateCardinDrawPileAction.class
 SS\packages\LostPackage\LostPackage_c.class

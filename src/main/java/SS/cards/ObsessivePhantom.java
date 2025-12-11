@@ -12,7 +12,7 @@ import SS.action.common.ConjugateCardinDrawPileAction;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class ObsessivePhantom extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("ObsessivePhantom");
@@ -53,7 +53,7 @@ public class ObsessivePhantom extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ChannelDiceAction(new DefendDice(this.block, p)));
         addToBot(new ConjugateCardinDrawPileAction(p, m, this.magicNumber));
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 2)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
         UpdateExhaustiveDescription();
     }
 

@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 
 import SS.cards.AbstractDoubleCard;
 import SS.cards.PeptideStrike;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class TaotieRiteAction extends AbstractGameAction {
     private boolean flag;
@@ -46,7 +46,7 @@ public class TaotieRiteAction extends AbstractGameAction {
         }
         for (i = 0; i < count; ++i) {
             this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
-                    new CrimePower(AbstractDungeon.player, this.amount)));
+                    new SinsPower(AbstractDungeon.player, this.amount)));
         }
         if (this.flag) {
             this.addToTop(new HealAction(AbstractDungeon.player, AbstractDungeon.player, count));

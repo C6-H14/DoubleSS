@@ -13,7 +13,7 @@ import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class Stingy extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Stingy");
@@ -64,7 +64,7 @@ public class Stingy extends AbstractDoubleCard {
         if (needFiend()) {
             addToBot(new DrawCardAction(1));
         }
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 2)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
     }
 
     public AbstractDoubleCard makeCopy() {

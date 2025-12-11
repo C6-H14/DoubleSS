@@ -56,6 +56,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\TransportProtein.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\PermanentMagicNumberVariable.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\IncreasePeptideDamageAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\CharityPower.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\unique\GainVirtueAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\GreenPackage\GreenPackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\IronwaveDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\StratifiedStormAction.java
@@ -154,7 +155,6 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\DaggerInSmile.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Protein.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Manager_option.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Indulgence.java
-d:\StSmod\DoubleSS\src\main\java\SS\power\VirtuesPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\relic\LCysteine.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Haoggernaut.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_v.java
@@ -213,7 +213,6 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\HungrySoul.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\DiverseLover.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\FallenPact.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Irritable.java
-d:\StSmod\DoubleSS\src\main\java\SS\power\CrimePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\path\DamageInfoEnum.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\DoubleFiendFireAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\MaximizeHaoCard.java

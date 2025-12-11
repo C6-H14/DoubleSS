@@ -49,7 +49,7 @@ public class PhoneItInPower extends AbstractPower {
             addToBot(new MakeTempCardInHandAction(CardLibrary.getCard(card.cardID)));
             addToBot(new GainEnergyAction(1));
             if (!card.upgraded) {
-                addToBot(new ApplyPowerAction(this.owner, this.owner, new CrimePower(this.owner, 2), 2));
+                addToBot(new ApplyPowerAction(this.owner, this.owner, new SinsPower(this.owner, 2), 2));
             }
         }
     }

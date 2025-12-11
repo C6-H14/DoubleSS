@@ -14,7 +14,7 @@ import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.AggressionPower;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class Aggression extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Aggression");
@@ -66,7 +66,7 @@ public class Aggression extends AbstractDoubleCard {
         }
         addToBot(new ApplyPowerAction(m, p, new AggressionPower(m, M), M));
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 4)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 4)));
     }
 
     public void triggerOnGlowCheck() {

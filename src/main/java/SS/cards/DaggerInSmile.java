@@ -12,7 +12,7 @@ import SS.Dice.WitherDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.CrimePower;
+import SS.power.SinsPower;
 
 public class DaggerInSmile extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("DaggerInSmile");
@@ -54,7 +54,7 @@ public class DaggerInSmile extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
         addToBot(new ChannelDiceAction(new WitherDice(this.magicNumber, m)));
-        addToBot(new ApplyPowerAction(p, p, new CrimePower(p, 1)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
     }
 
     public void triggerOnGlowCheck() {
