@@ -2,6 +2,7 @@ package SS.modcore;
 
 import basemod.AutoAdd;
 import basemod.BaseMod;
+import basemod.abstracts.CustomRelic;
 import basemod.interfaces.EditCardsSubscriber;
 import basemod.interfaces.EditCharactersSubscriber;
 import basemod.interfaces.EditKeywordsSubscriber;
@@ -67,14 +68,14 @@ import SS.patches.CenterGridCardSelectScreen;
 import SS.path.AbstractCardEnum;
 import SS.path.RewardEnum;
 import SS.path.ThmodClassEnum;
-import SS.relic.BathWater;
-import SS.relic.BoilingBlood;
-import SS.relic.CorePieces;
-import SS.relic.GreenApple;
-import SS.relic.HalfRingOfTheSnake;
-import SS.relic.LCysteine;
 import SS.relic.Merit;
-import SS.relic.WoodenCross;
+import SS.relic.SS.BathWater;
+import SS.relic.SS.BoilingBlood;
+import SS.relic.SS.CorePieces;
+import SS.relic.SS.GreenApple;
+import SS.relic.SS.HalfRingOfTheSnake;
+import SS.relic.SS.LCysteine;
+import SS.relic.SS.WoodenCross;
 import SS.rewards.HaoReward;
 import SS.rewards.RewardManager;
 
@@ -168,13 +169,22 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     @Override
     public void receiveEditRelics() {
-        BaseMod.addRelicToCustomPool(new BoilingBlood(), AbstractCardEnum.SS_Yellow);
-        BaseMod.addRelicToCustomPool(new HalfRingOfTheSnake(), AbstractCardEnum.SS_Yellow);
-        BaseMod.addRelicToCustomPool(new CorePieces(), AbstractCardEnum.SS_Yellow);
-        BaseMod.addRelicToCustomPool(new BathWater(), AbstractCardEnum.SS_Yellow);
-        BaseMod.addRelicToCustomPool(new LCysteine(), AbstractCardEnum.SS_Yellow);
-        BaseMod.addRelicToCustomPool(new GreenApple(), AbstractCardEnum.SS_Yellow);
-        BaseMod.addRelicToCustomPool(new WoodenCross(), AbstractCardEnum.SS_Yellow);
+        new AutoAdd("Double")
+                .packageFilter(LCysteine.class)
+                .any(CustomRelic.class, (info, relic) -> {
+                    BaseMod.addRelicToCustomPool(relic, AbstractCardEnum.SS_Yellow);
+                    if (info.seen) {
+                        UnlockTracker.markRelicAsSeen(relic.relicId);
+                    }
+                });
+        // BaseMod.addRelicToCustomPool(new BoilingBlood(), AbstractCardEnum.SS_Yellow);
+        // BaseMod.addRelicToCustomPool(new HalfRingOfTheSnake(),
+        // AbstractCardEnum.SS_Yellow);
+        // BaseMod.addRelicToCustomPool(new CorePieces(), AbstractCardEnum.SS_Yellow);
+        // BaseMod.addRelicToCustomPool(new BathWater(), AbstractCardEnum.SS_Yellow);
+        // BaseMod.addRelicToCustomPool(new LCysteine(), AbstractCardEnum.SS_Yellow);
+        // BaseMod.addRelicToCustomPool(new GreenApple(), AbstractCardEnum.SS_Yellow);
+        // BaseMod.addRelicToCustomPool(new WoodenCross(), AbstractCardEnum.SS_Yellow);
         BaseMod.addRelic(new Merit(), basemod.helpers.RelicType.SHARED);
     }
 
