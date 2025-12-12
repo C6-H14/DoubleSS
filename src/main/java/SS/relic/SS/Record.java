@@ -1,4 +1,4 @@
-package SS.relic;
+package SS.relic.SS;
 
 import SS.helper.ModHelper;
 import basemod.abstracts.CustomRelic;

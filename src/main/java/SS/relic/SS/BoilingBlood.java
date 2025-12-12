@@ -1,4 +1,4 @@
-package SS.relic;
+package SS.relic.SS;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

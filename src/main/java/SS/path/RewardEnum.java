@@ -6,4 +6,6 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 public class RewardEnum {
     @SpireEnum
     public static RewardItem.RewardType HaoCardReward;
+    @SpireEnum
+    public static RewardItem.RewardType DemonReward;
 }

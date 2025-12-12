@@ -1,4 +1,4 @@
-package SS.relic;
+package SS.relic.SS;
 
 import java.util.ArrayList;
 import java.util.Collections;

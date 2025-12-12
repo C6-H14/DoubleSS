@@ -3,6 +3,7 @@ package SS.UI;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -72,11 +73,15 @@ public class Sinsbar {// 图片原始尺寸数据 (根据你的测量)
     }
 
     public void render(SpriteBatch sb) {
-        if (com.megacrit.cardcrawl.core.CardCrawlGame.dungeon == null) {
+        if (com.megacrit.cardcrawl.core.CardCrawlGame.dungeon == null || !CardCrawlGame.isInARun()) {
             return;
         }
 
         if (AbstractDungeon.player == null) {
+            return;
+        }
+
+        if (AbstractDungeon.currMapNode == null) {
             return;
         }
 
