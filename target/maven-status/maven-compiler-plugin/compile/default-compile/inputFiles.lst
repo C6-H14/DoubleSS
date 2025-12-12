@@ -80,6 +80,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\power\RerollPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\path\RewardEnum.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DieAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cardmodifiers\ConjugateModifier.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\SpectreEcho.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Aggression.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\PurplePackage\PurplePackage_v.java
 d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\WoodenCross.java
@@ -113,6 +114,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\Dice\WitherDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\ChastityPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DamageFatalAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\HaoPackPower.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Incorporeal.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ShootOff.java
 d:\StSmod\DoubleSS\src\main\java\SS\rewards\HaoReward.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\YinYangAction.java

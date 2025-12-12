@@ -715,11 +715,11 @@
     },
     "Double:GhostBomb":{
         "NAME": "幽灵炸弹",
-        "DESCRIPTION": " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 。 NL 生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 。 NL 生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 。生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 。生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 与1张本牌的 double:回响 。 NL 生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。",
-            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 与1张本牌的 double:回响 。 NL 生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。"
+            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 与1张本牌的 double:回响 。生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。",
+            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 斩杀 时，获得2层 double:奄息 与1张本牌的 double:回响 。生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。"
         ],
         "FLAVOR":" #y群主形态 ：斩杀时，再获得1张本牌的回响。"
     },
@@ -802,6 +802,26 @@
             " 固有 ，获得1层 double:奄息 。 NL 每当你失去 double:奄息 时，抽1张牌。"
         ],
         "FLAVOR":" #y群主形态 ：获得1层 double:奄息 。"
+    },
+    "Double:SpectreEcho":{
+        "NAME": "怨灵回响",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。",
+        "EXTENDED_DESCRIPTION": [
+            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。",
+            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。"
+        ],
+        "FLAVOR":" #y群主形态 ：额外生成1个骰子 。"
+    },
+    "Double:Incorporeal":{
+        "NAME": "虚化",
+        "DESCRIPTION": " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 消耗 。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 恢复5点生命， 消耗 。",
+            " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 恢复5点生命， 消耗 。"
+        ],
+        "FLAVOR":" #y群主形态 ：恢复5点生命 。"
     },
     "Double:BlessStrike":
     {

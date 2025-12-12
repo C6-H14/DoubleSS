@@ -112,6 +112,7 @@ SS\relic\SS\Record.class
 SS\cards\Haohao\Haoggernaut.class
 SS\rewards\CommonCardReward$1.class
 SS\patches\RewardPatch$LocatorInsertPatch$DoubleLocator.class
+SS\cards\Lost\Incorporeal.class
 SS\cards\Haohao\HaoBludgeon.class
 SS\cards\Aggression.class
 SS\cards\Lost\Unbreakable.class
@@ -175,6 +176,7 @@ SS\cards\Haohao\HaoPack.class
 SS\cards\ObsessivePhantom.class
 SS\cards\Gluttony.class
 SS\action\common\IncreasePeptideDamageAction.class
+SS\cards\Lost\SpectreEcho.class
 SS\action\common\ConjugateCardinDrawPileAction.class
 SS\packages\LostPackage\LostPackage_c.class
 SS\cards\Lost\FallenPact.class

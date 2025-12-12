@@ -22,8 +22,8 @@ public class LostPackage_c extends AbstractPackage {
         cards.add("Double:LastBreath");
         cards.add("Double:CounterBlow");
 
-        cards.add("Double:VoidStroll");
-        cards.add("Double:HungrySoul");
+        cards.add("Double:SpectreEcho");
+        cards.add("Double:Incorporeal");
         cards.add("Double:Lifeline");
         cards.add("Double:PopIn");
         cards.add("Double:Unbreakable");
