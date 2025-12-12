@@ -11,6 +11,7 @@ import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.ISubscriber;
 import basemod.interfaces.OnCardUseSubscriber;
 import basemod.interfaces.OnStartBattleSubscriber;
+import basemod.interfaces.PostExhaustSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
 import basemod.interfaces.RenderSubscriber;
@@ -25,7 +26,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
-import com.megacrit.cardcrawl.cards.AbstractCard.CardTags;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.colorless.Madness;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -49,7 +49,6 @@ import com.megacrit.cardcrawl.rewards.RewardSave;
 
 import SS.UI.Sinsbar;
 import SS.cards.AbstractDoubleCard;
-import SS.cards.BlessCard.AbstractBlessCard;
 import SS.cards.BlessCard.BlessStrike;
 import SS.cards.Haohao.AbstractHaoCard;
 import SS.characters.MyCharacter;
@@ -85,7 +84,8 @@ import java.util.Properties;
 @SpireInitializer
 public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditCharactersSubscriber,
         EditStringsSubscriber, EditKeywordsSubscriber, StartGameSubscriber, PostUpdateSubscriber,
-        PostInitializeSubscriber, OnStartBattleSubscriber, OnCardUseSubscriber, RenderSubscriber {
+        PostInitializeSubscriber, OnStartBattleSubscriber, OnCardUseSubscriber, RenderSubscriber,
+        PostExhaustSubscriber {
     private static final String BG_ATTACK_512 = "img/512/bg_attack.png";
     private static final String BG_POWER_512 = "img/512/bg_power.png";
     private static final String BG_SKILL_512 = "img/512/bg_skill.png";
@@ -97,6 +97,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     private static final String ENEYGY_ORB = "img/512/card_orb.png";
     public static final Color COL = CardHelper.getColor(252, 235, 43);
     public static int Hao_chance = 0;
+    public static int combatExhausts = 0;
     public static Sinsbar sinBar;
 
     private void addCardColor(CardColor c, String s) {
@@ -328,7 +329,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     }
 
     @Override
-    public void receiveOnBattleStart(AbstractRoom arg0) {
+    public void receiveOnBattleStart(AbstractRoom arg0) {// 计算一些局内数据
         combatReward.update();
         if (arg0 instanceof com.megacrit.cardcrawl.rooms.MonsterRoom &&
                 !(arg0 instanceof com.megacrit.cardcrawl.rooms.MonsterRoomElite) &&
@@ -336,6 +337,12 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             combatReward.commomCardReward = new RewardItem();
         }
         Hao_chance = 0;
+        combatExhausts = 0;
+    }
+
+    @Override
+    public void receivePostExhaust(AbstractCard arg0) {
+        ++combatExhausts;
     }
 
     public void receiveCardUsed(final AbstractCard card) {

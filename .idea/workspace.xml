@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83136bbe-b2d2-422a-a817-480d9003d1bf" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/action/unique/GainVirtueAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/action/unique/GainVirtueAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/YinYang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/YinYang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/path/RewardEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/path/RewardEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/power/SinsPower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/power/SinsPower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/ui.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/ui.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/DoubleSS.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/DoubleSS.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/GainVirtueAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/action/unique/GainVirtueAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/YinYang.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/YinYang.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/RewardEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/path/RewardEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/SinsPower.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/power/SinsPower.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/ui.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/ui.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-    </list>
+    <list default="true" id="83136bbe-b2d2-422a-a817-480d9003d1bf" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,19 +28,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JAR 应用程序.Debug.executor": "Debug",
-    "Maven.DoubleSS [clean].executor": "Run",
-    "Maven.DoubleSS [package].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/StSmod/DoubleSS",
-    "onboarding.tips.debug.path": "D:/杀戮尖塔mod/DoubleSS/src/main/java/org/example/Main.java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JAR 应用程序.Debug.executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.DoubleSS [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DoubleSS [package].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/StSmod/DoubleSS&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;D:/杀戮尖塔mod/DoubleSS/src/main/java/org/example/Main.java&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Debug" type="JarApplication">
       <option name="JAR_PATH" value="E:/SteamLibrary/steamapps/common/SlayTheSpire/ModTheSpire.jar" />
@@ -84,7 +70,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java</url>
-          <line>383</line>
+          <line>402</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -109,13 +95,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/SS/action/unique/GainVirtueAction.java</url>
-          <line>16</line>
+          <line>19</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>jar://E:/SteamLibrary/steamapps/common/SlayTheSpire/desktop-1.0.jar!/com/megacrit/cardcrawl/actions/common/ReducePowerAction.class</url>
-          <line>43</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/src/main/java/SS/relic/SS/HolyReward.java</url>
+          <line>145</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
