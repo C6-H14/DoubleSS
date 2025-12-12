@@ -13,6 +13,7 @@ SS\cards\NutrientCycle.class
 SS\action\common\IncreaseCostAction.class
 SS\cards\Haohao\DiverseLover.class
 SS\cards\Patience.class
+SS\cards\BlessCard\BlessStrike.class
 SS\path\LibraryTypeEnum.class
 SS\cards\Hush.class
 SS\packages\PurplePackage\PurplePackage_v.class
@@ -210,6 +211,7 @@ SS\action\dice\ChannelOneDiceAction.class
 SS\cards\Haohao\AbstractHaoCard.class
 SS\cards\Options\Lost_Black_option.class
 SS\action\unique\lost\StratifiedStormAction.class
+SS\cards\BlessCard\AbstractBlessCard.class
 SS\packages\LostPackage\LostPackage_v.class
 SS\patches\RewardPatch$LocatorInsertPatch.class
 SS\power\PatiencePower.class
@@ -241,6 +243,7 @@ SS\Dice\ImmolateDice.class
 SS\patches\EvokeAllPatch$updatePatch.class
 SS\cards\Haohao\Haoflex.class
 SS\packages\BluePackage\BluePackage_v.class
+SS\relic\SS\HolyReward.class
 SS\cards\Haohao\margropeR.class
 SS\patches\DiceDamageTypePatch$updateFlightPowerPatch.class
 SS\power\UnderlyingLogicPower.class

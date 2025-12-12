@@ -12,7 +12,6 @@ import basemod.interfaces.ISubscriber;
 import basemod.interfaces.OnCardUseSubscriber;
 import basemod.interfaces.OnStartBattleSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
-import basemod.interfaces.PostRenderSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
 import basemod.interfaces.RenderSubscriber;
 import basemod.interfaces.StartGameSubscriber;
@@ -26,6 +25,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardTags;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.colorless.Madness;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -49,6 +49,8 @@ import com.megacrit.cardcrawl.rewards.RewardSave;
 
 import SS.UI.Sinsbar;
 import SS.cards.AbstractDoubleCard;
+import SS.cards.BlessCard.AbstractBlessCard;
+import SS.cards.BlessCard.BlessStrike;
 import SS.cards.Haohao.AbstractHaoCard;
 import SS.characters.MyCharacter;
 import SS.helper.PermanentBlockVariable;
@@ -69,13 +71,7 @@ import SS.path.AbstractCardEnum;
 import SS.path.RewardEnum;
 import SS.path.ThmodClassEnum;
 import SS.relic.Merit;
-import SS.relic.SS.BathWater;
-import SS.relic.SS.BoilingBlood;
-import SS.relic.SS.CorePieces;
-import SS.relic.SS.GreenApple;
-import SS.relic.SS.HalfRingOfTheSnake;
 import SS.relic.SS.LCysteine;
-import SS.relic.SS.WoodenCross;
 import SS.rewards.HaoReward;
 import SS.rewards.RewardManager;
 
@@ -199,6 +195,18 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         BaseMod.addDynamicVariable(new PermanentMagicNumberVariable());
     }
 
+    // 以下为祝福机制相关
+    public static HashMap<String, String> blessMap = new HashMap<>();
+
+    private static void initializeBlessMap() {
+        for (AbstractCard c : CardLibrary.getAllCards()) {
+            if (c.hasTag(AbstractCard.CardTags.STARTER_STRIKE)) {
+                blessMap.put(c.cardID, (new BlessStrike()).cardID);
+            }
+        }
+    }
+
+    // 以下为卡包相关
     public static ArrayList<AbstractPackage> packageList = new ArrayList<AbstractPackage>();
     public static ArrayList<AbstractPackage> mainPackageList = new ArrayList<AbstractPackage>();
     public static HashMap<String, AbstractPackage> packageID;
@@ -289,6 +297,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     }
 
     public void receiveStartGame() {
+        initializeBlessMap();
         if (!CardCrawlGame.loadingSave) {
             openedStarterScreen = false;
             validColors = new ArrayList<>();

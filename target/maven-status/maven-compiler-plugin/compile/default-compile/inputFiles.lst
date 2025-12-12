@@ -31,6 +31,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\power\NextTurnDamagePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Altar.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\UnderlyingLogicPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\HaoStrike.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\BlessCard\BlessStrike.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\GluttonyAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\MugUp.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\UpdateManagerStanceDescriptions.java
@@ -38,6 +39,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\RecordingTeam.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\FiendStance.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\EmptyDiceSlot.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\ScrapeBy.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\BlessCard\AbstractBlessCard.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\AbstractPackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\EchoACardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\AbstractDoubleCard.java
@@ -254,6 +256,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\SulfurBlack.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\ModifyPermanentDamageAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DrawSpecificCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Diversity.java
+d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\HolyReward.java
 d:\StSmod\DoubleSS\src\main\java\SS\modcore\modcore.java
 d:\StSmod\DoubleSS\src\main\java\SS\UI\Sinsbar.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Charity.java

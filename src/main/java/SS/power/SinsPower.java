@@ -2,6 +2,7 @@ package SS.power;
 
 import SS.helper.ModHelper;
 import SS.relic.SS.DemonReward;
+import SS.relic.SS.HolyReward;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
@@ -91,7 +92,9 @@ public class SinsPower extends AbstractPower implements InvisiblePower {
             return;
         }
         if (this.amount == min_sin) {
-            // to be done
+            if (AbstractDungeon.getCurrRoom() != null) {
+                AbstractDungeon.getCurrRoom().addRelicToRewards(new HolyReward());
+            }
             return;
         }
     }
