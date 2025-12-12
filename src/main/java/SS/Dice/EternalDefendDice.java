@@ -3,7 +3,6 @@ package SS.Dice;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -16,7 +15,6 @@ import com.megacrit.cardcrawl.powers.BufferPower;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.NextTurnBlockPower;
-import SS.power.NextTurnDamagePower;
 
 public class EternalDefendDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("EternalDefendDice");

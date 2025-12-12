@@ -54,4 +54,8 @@ public class AbstractCardEnum {
     public static AbstractCard.CardTags DefensiveDice;
     @SpireEnum
     public static AbstractCard.CardTags Permanent;
+    @SpireEnum
+    public static AbstractCard.CardTags Blessable;
+    @SpireEnum
+    public static AbstractCard.CardTags Blessed;
 }

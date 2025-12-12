@@ -802,5 +802,17 @@
             " 固有 ，获得1层 double:奄息 。 NL 每当你失去 double:奄息 时，抽1张牌。"
         ],
         "FLAVOR":" #y群主形态 ：获得1层 double:奄息 。"
+    },
+    "Double:BlessStrike":
+    {
+        "NAME": "祝福：打击",
+        "DESCRIPTION": "生成一个攻击 double:骰子 ( !D! )。",
+        "UPGRADE_DESCRIPTION": " 生成一个攻击 double:骰子 ( !D! )。"
+    },
+    "Double:BlessDefend":
+    {
+        "NAME": "祝福：防御",
+        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )。",
+        "UPGRADE_DESCRIPTION": " 生成一个防御 double:骰子 ( !B! )。"
     }
 }
