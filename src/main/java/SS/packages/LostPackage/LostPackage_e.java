@@ -22,11 +22,11 @@ public class LostPackage_e extends AbstractPackage {
         cards.add("Double:LastBreath");
         cards.add("Double:CounterBlow");
 
-        cards.add("Double:Altar");
-        cards.add("Double:GhostBomb");
-        cards.add("Double:StratifiedStorm");
-        cards.add("Double:TrinityShield");
-        cards.add("Double:FallenPact");
+        cards.add("Double:SpectreEcho");
+        cards.add("Double:Incorporeal");
+        cards.add("Double:Resurrection");
+        cards.add("Double:Perseverance");
+        cards.add("Double:Godhead");
         return cards;
     }
 

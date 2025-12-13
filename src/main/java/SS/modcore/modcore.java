@@ -14,7 +14,6 @@ import basemod.interfaces.OnStartBattleSubscriber;
 import basemod.interfaces.PostExhaustSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
-import basemod.interfaces.PreStartGameSubscriber;
 import basemod.interfaces.RenderSubscriber;
 import basemod.interfaces.StartGameSubscriber;
 

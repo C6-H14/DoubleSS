@@ -37,6 +37,7 @@ SS\action\AddCardRewardAction.class
 SS\cards\Options\Fiend_option.class
 SS\path\RewardEnum.class
 SS\rewards\CommonCardReward.class
+SS\cards\Lost\Godhead.class
 SS\cards\Lost\VoidStroll.class
 SS\power\MaximizeHaoCardPower.class
 SS\power\DeafFormPower.class

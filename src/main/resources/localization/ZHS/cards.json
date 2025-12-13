@@ -843,6 +843,16 @@
         ],
         "FLAVOR":" #y群主形态 ：获得 [E] 。"
     },
+    "Double:Godhead":{
+        "NAME": "神性",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。",
+        "EXTENDED_DESCRIPTION": [
+            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。获得1层 double:奄息 。",
+            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。获得2层 double:奄息 。"
+        ],
+        "FLAVOR":" #y群主形态 ：获得1/2层奄息。"
+    },
     "Double:BlessStrike":
     {
         "NAME": "祝福：打击",
