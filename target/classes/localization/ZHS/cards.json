@@ -818,10 +818,30 @@
         "DESCRIPTION": " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 消耗 。",
         "UPGRADE_DESCRIPTION": " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 恢复5点生命， 消耗 。",
-            " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层， 恢复5点生命， 消耗 。"
+            " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层，恢复5点生命， 消耗 。",
+            " 虚无 ， 固有 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 无实体 ，你每拥有10点生命值，少获得1层，恢复5点生命， 消耗 。"
         ],
         "FLAVOR":" #y群主形态 ：恢复5点生命 。"
+    },
+    "Double:Resurrection":{
+        "NAME": "回魂术",
+        "DESCRIPTION": "下一次你将要被杀死时，回复至最大生命值，并对所有敌人造成 !Double:PermanentMagicNumber! 点伤害。",
+        "UPGRADE_DESCRIPTION": "下一次你将要被杀死时，回复至最大生命值，并对所有敌人造成 !Double:PermanentMagicNumber! 点伤害。",
+        "EXTENDED_DESCRIPTION": [
+            "下一次你将要被杀死时，回复至最大生命值，并对所有敌人造成 !Double:PermanentMagicNumber! 点伤害，恢复5点生命。",
+            "下一次你将要被杀死时，回复至最大生命值，并对所有敌人造成 !Double:PermanentMagicNumber! 点伤害，恢复5点生命。"
+        ],
+        "FLAVOR":" #y群主形态 ：恢复5点生命 。"
+    },
+    "Double:Perseverance":{
+        "NAME": "恒心",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 double:奄息 ，你每拥有2层 double:奄息 ，手牌中所有持恒牌数值加1。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，获得 !Double:PermanentMagicNumber! 层 double:奄息 ，你每拥有2层 double:奄息 ，手牌中所有持恒牌数值加1。",
+        "EXTENDED_DESCRIPTION": [
+            " 虚无 ， double:持恒 ，获得 [E] ，获得 !Double:PermanentMagicNumber! 层 double:奄息 ，你每拥有2层 double:奄息 ，手牌中所有持恒牌数值加1。",
+            " 虚无 ， double:持恒 ，获得 [E] ，获得 !Double:PermanentMagicNumber! 层 double:奄息 ，你每拥有2层 double:奄息 ，手牌中所有持恒牌数值加1。"
+        ],
+        "FLAVOR":" #y群主形态 ：获得 [E] 。"
     },
     "Double:BlessStrike":
     {

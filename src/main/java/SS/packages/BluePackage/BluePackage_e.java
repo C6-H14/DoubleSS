@@ -12,7 +12,7 @@ public class BluePackage_e extends AbstractPackage {
     public static String ID = ModHelper.makePath("BluePackage_e");
 
     public BluePackage_e() {
-        super(ID, TYPE, AbstractCard.CardColor.RED, "Double:BLUE_option", "Double:CorePieces");
+        super(ID, TYPE, AbstractCard.CardColor.BLUE, "Double:BLUE_option", "Double:CorePieces");
     }
 
     public ArrayList<String> getCards() {

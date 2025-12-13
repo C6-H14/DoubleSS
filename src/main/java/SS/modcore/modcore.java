@@ -14,6 +14,7 @@ import basemod.interfaces.OnStartBattleSubscriber;
 import basemod.interfaces.PostExhaustSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
+import basemod.interfaces.PreStartGameSubscriber;
 import basemod.interfaces.RenderSubscriber;
 import basemod.interfaces.StartGameSubscriber;
 
@@ -79,7 +80,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Random;
 
 @SpireInitializer
 public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditCharactersSubscriber,
@@ -258,7 +261,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     }
 
     public static void addClassChoice() {
-        Collections.shuffle(colorChoices);
+        Collections.shuffle(colorChoices, new Random(AbstractDungeon.cardRng.randomLong()));
         CardGroup charChoices = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
         colorToPackage.clear();
         for (int i = 0; i < 3; ++i) {
@@ -306,6 +309,10 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             try {
                 SpireConfig config = new SpireConfig("Double", "Common");
                 config.setString("Initialized", "false");
+                for (int i = 0; i <= 100; ++i) {
+                    config.setString("validColor" + i, "SS_Yellow");
+                    config.setString("validPackage" + i, "Double:NullPackage");
+                }
                 config.save();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -359,6 +366,10 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 continue;
             }
             allowedCards.addAll(p.CardLists);
+            if (AbstractDungeon.player.getRelic(p.StartRelic.relicId) == null) {
+                AbstractRelic s = RelicLibrary.getRelic(p.StartRelic.relicId);
+                RelicLibrary.getRelic(s.relicId).makeCopy().instantObtain();
+            }
         }
         for (AbstractCard card : CardLibrary.getAllCards()) {
             if (card.color == AbstractDungeon.player.getCardColor()) {
@@ -448,13 +459,20 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             System.out.println("Valid Color Chosen:" + validColors.size());
         }
         if (choosingCharacters > -1 && choosingCharacters < needPackage
-                && !AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
+                && !AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {// 选了卡包
             AbstractCard c = AbstractDungeon.gridSelectScreen.selectedCards.get(0);
-            colorChoices.remove(getPackageByColor(c.color.toString()));
+            Iterator<AbstractPackage> iterator = colorChoices.iterator();
+            while (iterator.hasNext()) {
+                AbstractPackage item = iterator.next();
+                if (item.PackageColor == c.color) {
+                    iterator.remove();
+                }
+            }
+
             validColors.add(c.color);
             validPackage.add(colorToPackage.get(c.color));
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
-            if (choosingCharacters == needPackage - 1) {
+            if (choosingCharacters == needPackage - 1) {// 选完了
                 choosingCharacters = needPackage;
                 CenterGridCardSelectScreen.centerGridSelect = false;
                 if (!validColors.contains(AbstractDungeon.player.getCardColor())) {
@@ -495,7 +513,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 addClassChoice();
             }
         }
-        if (validColors.isEmpty() && choosingCharacters == -1) {
+        if (validColors.isEmpty() && this.choosingCharacters == -1) {
             // 尝试读取保存数据
             try {
                 validColors.clear();

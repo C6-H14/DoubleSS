@@ -154,6 +154,8 @@ d:\StSmod\DoubleSS\src\main\java\SS\action\dice\RemoveDiceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\PurplePackage\PurplePackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\BleedingPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Hoarding.java
+d:\StSmod\DoubleSS\src\main\java\SS\power\ResurrectionPower.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Perseverance.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\FallenPactAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\RewardPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\DaggerInSmile.java
@@ -218,6 +220,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\FallenPact.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Irritable.java
 d:\StSmod\DoubleSS\src\main\java\SS\path\DamageInfoEnum.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\DoubleFiendFireAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Resurrection.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\MaximizeHaoCard.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\ContemptPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Patience.java

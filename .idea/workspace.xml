@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83136bbe-b2d2-422a-a817-480d9003d1bf" name="更改" comment="" />
+    <list default="true" id="83136bbe-b2d2-422a-a817-480d9003d1bf" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/power/DyingPower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/power/DyingPower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/cards.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/cards.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/powers.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/powers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/DoubleSS.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/DoubleSS.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/modcore/modcore$CardTags.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/modcore/modcore$CardTags.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/modcore/modcore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/modcore/modcore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/DyingPower.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/power/DyingPower.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/cards.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/cards.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/powers.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/powers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,11 +83,6 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java</url>
-          <line>402</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/SS/rewards/HaoReward.java</url>
           <line>30</line>
           <option name="timeStamp" value="7" />
@@ -99,9 +108,14 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/SS/relic/SS/HolyReward.java</url>
-          <line>145</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java</url>
+          <line>464</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java</url>
+          <line>263</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -111,6 +125,11 @@
         <watch expression="roll" />
         <watch expression="customReward.cards" />
         <watch expression="customReward" />
+        <watch expression="choosingCharacters" />
+        <watch expression="colorChoices" />
+        <watch expression="item.PackageColor == c.color" />
+        <watch expression="item.PackageColor" />
+        <watch expression="c.color" />
       </configuration>
     </watches-manager>
   </component>

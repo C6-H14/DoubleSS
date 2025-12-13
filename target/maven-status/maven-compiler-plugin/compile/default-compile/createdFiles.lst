@@ -40,6 +40,7 @@ SS\rewards\CommonCardReward.class
 SS\cards\Lost\VoidStroll.class
 SS\power\MaximizeHaoCardPower.class
 SS\power\DeafFormPower.class
+SS\power\ResurrectionPower.class
 SS\cards\FiendPact.class
 SS\cards\Indulgence.class
 SS\cards\PeptideStrike.class
@@ -50,6 +51,7 @@ SS\patches\DiceDamageTypePatch$updateThornsPowerPatch.class
 SS\action\unique\ss\GluttonyAction.class
 SS\packages\BluePackage\BluePackage_c.class
 SS\power\OpenInjuryPower.class
+SS\cards\Lost\Resurrection.class
 SS\action\common\ModifyPermanentDamageAction.class
 SS\packages\GreenPackage\GreenPackage.class
 SS\cards\DeafForm.class
@@ -226,6 +228,7 @@ SS\cards\PhoneItIn.class
 SS\cards\Haohao\ScrapeBy.class
 SS\cards\SealSupporter.class
 SS\cards\Autophagy.class
+SS\cards\Lost\Perseverance.class
 SS\cards\Decompose.class
 SS\power\PhoneItInPower.class
 SS\action\unique\DiligenceAction.class
