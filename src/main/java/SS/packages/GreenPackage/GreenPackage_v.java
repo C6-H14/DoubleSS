@@ -12,7 +12,7 @@ public class GreenPackage_v extends AbstractPackage {
     public static String ID = ModHelper.makePath("GreenPackage_v");
 
     public GreenPackage_v() {
-        super(ID, TYPE, AbstractCard.CardColor.RED, "Double:GREEN_option", "Double:HalfRingOfTheSnake");
+        super(ID, TYPE, AbstractCard.CardColor.GREEN, "Double:GREEN_option", "Double:HalfRingOfTheSnake");
     }
 
     public ArrayList<String> getCards() {

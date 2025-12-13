@@ -28,7 +28,7 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
         this.ID = POWER_ID;
         this.owner = owner;
         this.type = AbstractPower.PowerType.BUFF;
-
+        this.priority = 5;
         this.amount = amount;
 
         String path128 = "img/power/DyingPower84.png";
@@ -78,6 +78,8 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
     }
 
     public boolean onPlayerDeath(AbstractPlayer p, DamageInfo info) {
+        if (p.hasPower("Double:ResurrectionPower"))
+            return true;
         if (reduce(1)) {
             AbstractDungeon.player.decreaseMaxHealth(10);
             addToBot(new HealAction(this.owner, this.owner, this.owner.maxHealth));
