@@ -864,5 +864,11 @@
         "NAME": "祝福：防御",
         "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )。",
         "UPGRADE_DESCRIPTION": " 生成一个防御 double:骰子 ( !B! )。"
+    },
+    "Double:Shock_Blue_option":
+    {
+        "NAME": "震荡波牌",
+        "DESCRIPTION": "一位震荡波狂热粉丝的群友卡包，同时是一些群友的助教。",
+        "UPGRADE_DESCRIPTION": "一位震荡波狂热粉丝的群友卡包，同时是一些群友的助教。"
     }
 }

@@ -16,6 +16,7 @@ D:\StSmod\DoubleSS\src\main\java\SS\power\BinPower.java
 D:\StSmod\DoubleSS\src\main\java\SS\relic\SS\GreenApple.java
 D:\StSmod\DoubleSS\src\main\java\SS\Dice\EternalAttackDice.java
 D:\StSmod\DoubleSS\src\main\java\SS\packages\PurplePackage\PurplePackage_c.java
+D:\StSmod\DoubleSS\src\main\java\SS\helper\SynergismGraph.java
 D:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\HoardingAction.java
 D:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\TaotieRiteAction.java
 D:\StSmod\DoubleSS\src\main\java\SS\Dice\AttackDice.java
@@ -37,6 +38,7 @@ D:\StSmod\DoubleSS\src\main\java\SS\cards\MugUp.java
 D:\StSmod\DoubleSS\src\main\java\SS\action\common\UpdateManagerStanceDescriptions.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\RecordingTeam.java
 D:\StSmod\DoubleSS\src\main\java\SS\power\FiendStance.java
+D:\StSmod\DoubleSS\src\main\java\SS\relic\SS\MassSpring.java
 D:\StSmod\DoubleSS\src\main\java\SS\Dice\EmptyDiceSlot.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\ScrapeBy.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\BlessCard\AbstractBlessCard.java
@@ -45,6 +47,7 @@ D:\StSmod\DoubleSS\src\main\java\SS\action\common\EchoACardAction.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\AbstractDoubleCard.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Spore.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\AbstractHaoCard.java
+D:\StSmod\DoubleSS\src\main\java\SS\packages\ShockPackage\ShockPackage.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\HaoPack.java
 D:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\StratifiedStorm.java
@@ -55,6 +58,7 @@ D:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\TwoChargeVoid.java
 D:\StSmod\DoubleSS\src\main\java\SS\power\TemperancePower.java
 D:\StSmod\DoubleSS\src\main\java\SS\path\LibraryTypeEnum.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\TransportProtein.java
+D:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Shock_Blue_option.java
 D:\StSmod\DoubleSS\src\main\java\SS\helper\PermanentMagicNumberVariable.java
 D:\StSmod\DoubleSS\src\main\java\SS\action\common\IncreasePeptideDamageAction.java
 D:\StSmod\DoubleSS\src\main\java\SS\power\CharityPower.java
@@ -94,6 +98,7 @@ D:\StSmod\DoubleSS\src\main\java\SS\packages\HaoPackage\HaoPackage_e.java
 D:\StSmod\DoubleSS\src\main\java\SS\action\common\ChangeStanceAction.java
 D:\StSmod\DoubleSS\src\main\java\SS\packages\RedPackage\RedPackage_c.java
 D:\StSmod\DoubleSS\src\main\java\SS\relic\Merit.java
+D:\StSmod\DoubleSS\src\main\java\SS\packages\ShockPackage\ShockPackage_c.java
 D:\StSmod\DoubleSS\src\main\java\SS\relic\SS\BathWater.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Contempt.java
 D:\StSmod\DoubleSS\src\main\java\SS\power\PhoneItInPower.java
@@ -138,10 +143,12 @@ D:\StSmod\DoubleSS\src\main\java\SS\cards\FiendPact.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Lifeline.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Prism.java
 D:\StSmod\DoubleSS\src\main\java\SS\helper\ModHelper.java
+D:\StSmod\DoubleSS\src\main\java\SS\packages\ShockPackage\ShockPackage_e.java
 D:\StSmod\DoubleSS\src\main\java\SS\action\unique\haohao\DishaoveryAction.java
 D:\StSmod\DoubleSS\src\main\java\SS\relic\SS\BoilingBlood.java
 D:\StSmod\DoubleSS\src\main\java\SS\action\dice\DiceDamageEnemyAction.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Options\PURPLE_option.java
+D:\StSmod\DoubleSS\src\main\java\SS\packages\ShockPackage\ShockPackage_v.java
 D:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Fiend_option.java
 D:\StSmod\DoubleSS\src\main\java\SS\power\HaoggernautPower.java
 D:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage.java

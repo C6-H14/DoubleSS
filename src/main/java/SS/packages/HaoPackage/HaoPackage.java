@@ -3,6 +3,7 @@ package SS.packages.HaoPackage;
 import java.util.ArrayList;
 
 import SS.helper.ModHelper;
+import SS.helper.SynergismGraph;
 import SS.packages.AbstractPackage;
 import SS.path.AbstractCardEnum;
 
@@ -12,6 +13,7 @@ public class HaoPackage extends AbstractPackage {
 
     public HaoPackage() {
         super(ID, TYPE, AbstractCardEnum.Hao_Green, "Double:Hao_Green_option", "Double:GreenApple");
+        addSyng(AbstractCardEnum.Shock_Blue, SynergismGraph.SynTag.Teacher);
     }
 
     public ArrayList<String> getCards() {

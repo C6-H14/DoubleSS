@@ -16,6 +16,7 @@ import basemod.interfaces.PostInitializeSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
 import basemod.interfaces.RenderSubscriber;
 import basemod.interfaces.StartGameSubscriber;
+import javafx.util.Pair;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -55,6 +56,7 @@ import SS.characters.MyCharacter;
 import SS.helper.PermanentBlockVariable;
 import SS.helper.PermanentDamageVariable;
 import SS.helper.PermanentMagicNumberVariable;
+import SS.helper.SynergismGraph;
 import SS.packages.AbstractPackage;
 import SS.packages.NullPackage;
 import SS.packages.AbstractPackage.PackageType;
@@ -65,6 +67,7 @@ import SS.packages.LostPackage.LostPackage;
 import SS.packages.PurplePackage.PurplePackage;
 import SS.packages.RedPackage.RedPackage;
 import SS.packages.RedPackage.RedPackage_v;
+import SS.packages.ShockPackage.ShockPackage;
 import SS.patches.CenterGridCardSelectScreen;
 import SS.path.AbstractCardEnum;
 import SS.path.RewardEnum;
@@ -116,6 +119,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 BG_POWER_512, ENEYGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
         addCardColor(AbstractCardEnum.Hao_Green, "hao");
         addCardColor(AbstractCardEnum.Lost_Black, "lost");
+        addCardColor(AbstractCardEnum.Shock_Blue, "shock");
     }
 
     private static int needPackage = 2;
@@ -209,6 +213,19 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         }
     }
 
+    // 以下为协同效应管理
+    public static SynergismGraph synGraph = new SynergismGraph();
+
+    private static void initializeSynergismGraph() {
+        for (AbstractPackage p : mainPackageList) {// 加入点和协同tag
+            synGraph.vert.add(p.PackageColor.toString());
+            for (Pair<CardColor, SynergismGraph.SynTag> t : p.syng) {
+                // syng为当前卡包和第一关键字卡包的关系为第二关键字，比如后者是前者的学生，就用student
+                synGraph.add(p.PackageColor.toString(), t.getKey().toString(), t.getValue());
+            }
+        }
+    }
+
     // 以下为卡包相关
     public static ArrayList<AbstractPackage> packageList = new ArrayList<AbstractPackage>();
     public static ArrayList<AbstractPackage> mainPackageList = new ArrayList<AbstractPackage>();
@@ -237,6 +254,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         mainPackageList.add(new PurplePackage());
         mainPackageList.add(new HaoPackage());
         mainPackageList.add(new LostPackage());
+        mainPackageList.add(new ShockPackage());
         for (AbstractPackage p : mainPackageList) {// 添加子卡包
             packageList.add(p);
             allowedColors.add(p.PackageColor.toString());
@@ -420,6 +438,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     public void receivePostInitialize() {
         initializePackage();
+        initializeSynergismGraph();
         sinBar = new Sinsbar();
         BaseMod.registerCustomReward(
                 RewardEnum.HaoCardReward,

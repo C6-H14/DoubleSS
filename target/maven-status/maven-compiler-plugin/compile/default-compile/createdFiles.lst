@@ -46,6 +46,7 @@ SS\cards\FiendPact.class
 SS\cards\Indulgence.class
 SS\cards\PeptideStrike.class
 SS\power\FiendStance.class
+SS\packages\ShockPackage\ShockPackage_e.class
 SS\relic\SS\LCysteine.class
 SS\action\unique\ss\YinYangAction.class
 SS\patches\DiceDamageTypePatch$updateThornsPowerPatch.class
@@ -65,6 +66,7 @@ SS\cards\Pansy.class
 SS\cards\Reroll.class
 SS\cards\Haohao\Dishaovery.class
 SS\action\unique\ss\DoubleFiendFireAction.class
+SS\packages\ShockPackage\ShockPackage.class
 SS\action\FartAction.class
 SS\Dice\EternalAttackDice.class
 SS\effect\DicePassiveEffect.class
@@ -91,6 +93,7 @@ SS\path\DamageInfoEnum.class
 SS\action\common\ExhaustSpecificTypeAction.class
 SS\cards\RecordingTeam.class
 SS\action\common\DrawSpecificCardAction.class
+SS\helper\SynergismGraph$Edge.class
 SS\path\AbstractCardEnum.class
 SS\action\dice\ChannelDiceAction.class
 SS\power\MiserlyPower.class
@@ -181,6 +184,7 @@ SS\cards\Gluttony.class
 SS\action\common\IncreasePeptideDamageAction.class
 SS\cards\Lost\SpectreEcho.class
 SS\action\common\ConjugateCardinDrawPileAction.class
+SS\packages\ShockPackage\ShockPackage_c.class
 SS\packages\LostPackage\LostPackage_c.class
 SS\cards\Lost\FallenPact.class
 SS\packages\LostPackage\LostPackage.class
@@ -212,6 +216,7 @@ SS\cards\Haohao\MaximizeHaoCard.class
 SS\relic\SS\BathWater.class
 SS\cards\DaggerInSmile.class
 SS\cards\Seething.class
+SS\helper\SynergismGraph.class
 SS\action\dice\ChannelOneDiceAction.class
 SS\cards\Haohao\AbstractHaoCard.class
 SS\cards\Options\Lost_Black_option.class
@@ -225,7 +230,9 @@ SS\cardmodifiers\ConjugateModifier.class
 SS\action\common\DrawLambdaCardAction.class
 SS\relic\SS\DemonReward.class
 SS\cards\Charity.class
+SS\packages\ShockPackage\ShockPackage_v.class
 SS\cards\PhoneItIn.class
+SS\relic\SS\MassSpring.class
 SS\cards\Haohao\ScrapeBy.class
 SS\cards\SealSupporter.class
 SS\cards\Autophagy.class
@@ -292,6 +299,8 @@ SS\action\unique\lost\FallenPactAction.class
 SS\cards\Lost\HungrySoul.class
 SS\patches\DiceDamageTypePatch$updateDoubleDamagePowerPatch.class
 SS\action\unique\lost\AltarActon.class
+SS\cards\Options\Shock_Blue_option.class
+SS\helper\SynergismGraph$SynTag.class
 SS\action\common\EchoACardAction.class
 SS\cards\Wrath.class
 SS\action\common\UpdateFiendStanceDescriptions.class
