@@ -12,7 +12,9 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import SS.helper.SynergismGraph;
 import SS.modcore.modcore;
+import javafx.util.Pair;
 
 public abstract class AbstractPackage {
     public static final Logger logger = LogManager.getLogger(AbstractPackage.class);
@@ -25,6 +27,7 @@ public abstract class AbstractPackage {
     public PackageType TYPE;
     public String ID;
     public CardColor PackageColor;
+    public ArrayList<Pair<CardColor, SynergismGraph.SynTag>> syng = new ArrayList<>();
 
     public AbstractPackage(String id, PackageType type, CardColor col, String optioncard, String startRelic) {
         this.ID = id;
@@ -45,6 +48,10 @@ public abstract class AbstractPackage {
     public abstract ArrayList<String> getMonsters();
 
     public abstract AbstractPackage makeCopy();
+
+    public void addSyng(CardColor c, SynergismGraph.SynTag t) {
+        syng.add(new Pair<AbstractCard.CardColor, SynergismGraph.SynTag>(c, t));
+    }
 
     public void initializePack() {
         for (String s : getCards()) {

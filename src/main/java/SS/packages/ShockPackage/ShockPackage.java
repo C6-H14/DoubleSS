@@ -1,4 +1,4 @@
-package SS.packages.HaoPackage;
+package SS.packages.ShockPackage;
 
 import java.util.ArrayList;
 
@@ -7,13 +7,13 @@ import SS.helper.SynergismGraph;
 import SS.packages.AbstractPackage;
 import SS.path.AbstractCardEnum;
 
-public class HaoPackage extends AbstractPackage {
+public class ShockPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
-    public static String ID = ModHelper.makePath("HaoPackage");
+    public static String ID = ModHelper.makePath("ShockPackage");
 
-    public HaoPackage() {
-        super(ID, TYPE, AbstractCardEnum.Hao_Green, "Double:Hao_Green_option", "Double:GreenApple");
-        addSyng(AbstractCardEnum.Shock_Blue, SynergismGraph.SynTag.Teacher);
+    public ShockPackage() {
+        super(ID, TYPE, AbstractCardEnum.Shock_Blue, "Double:Shock_Blue_option", "Double:MassSpring");
+        addSyng(AbstractCardEnum.Hao_Green, SynergismGraph.SynTag.Student);
     }
 
     public ArrayList<String> getCards() {
@@ -41,13 +41,13 @@ public class HaoPackage extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
-        SubPackages.put(PackageType.VALUE, new HaoPackage_v());
-        SubPackages.put(PackageType.CONSISTENCY, new HaoPackage_c());
-        SubPackages.put(PackageType.CEILING, new HaoPackage_e());
+        SubPackages.put(PackageType.VALUE, new ShockPackage_v());
+        SubPackages.put(PackageType.CONSISTENCY, new ShockPackage_c());
+        SubPackages.put(PackageType.CEILING, new ShockPackage_e());
     }
 
     public AbstractPackage makeCopy() {
-        return new HaoPackage();
+        return new ShockPackage();
     }
 
 }
