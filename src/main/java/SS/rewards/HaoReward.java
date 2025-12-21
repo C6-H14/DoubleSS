@@ -17,8 +17,8 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;
-import SS.path.AbstractCardEnum;
 import SS.path.RewardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 import basemod.abstracts.CustomReward;
 
 public class HaoReward extends CustomReward {
@@ -69,7 +69,7 @@ public class HaoReward extends CustomReward {
         }
         ArrayList<AbstractCard> cardList = new ArrayList<>();
         for (AbstractPackage p : modcore.validPackage) {
-            if (p.OptionCard.color == AbstractCardEnum.Hao_Green) {
+            if (p.OptionCard.packagetype == PackageEnum.Hao) {
                 for (AbstractCard c : p.CardLists) {
                     cardList.add(c);
                 }

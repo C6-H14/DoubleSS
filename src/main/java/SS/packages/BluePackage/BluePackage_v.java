@@ -1,8 +1,7 @@
 package SS.packages.BluePackage;
 
 import java.util.ArrayList;
-
-import com.megacrit.cardcrawl.cards.AbstractCard;
+import SS.path.PackageEnumList.PackageEnum;
 
 import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
@@ -12,7 +11,7 @@ public class BluePackage_v extends AbstractPackage {
     public static String ID = ModHelper.makePath("BluePackage_v");
 
     public BluePackage_v() {
-        super(ID, TYPE, AbstractCard.CardColor.BLUE, "Double:BLUE_option", "Double:CorePieces");
+        super(ID, TYPE, PackageEnum.BLUE, "Double:BLUE_option", "Double:CorePieces");
     }
 
     public ArrayList<String> getCards() {

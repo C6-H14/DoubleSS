@@ -3,12 +3,14 @@ package SS.helper;
 import java.util.ArrayList;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.cards.CardGroup;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 
+import SS.cards.AbstractDoubleCard;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class SynergismGraph {
     public class Edge {
@@ -30,6 +32,23 @@ public class SynergismGraph {
             this.v = v;
             this.w = w;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true; // 如果是同一个内存地址，直接返回true
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Edge edge = (Edge) o;
+            return u.equals(edge.u) &&
+                    v.equals(edge.v) &&
+                    w == edge.w;
+        }
+
+        @Override
+        public int hashCode() {
+            return java.util.Objects.hash(u, v, w);
+        }
     }
 
     public enum SynTag {
@@ -48,7 +67,7 @@ public class SynergismGraph {
         edge.add(new Edge(u, v, w));
     }
 
-    public void add(CardColor u, CardColor v, SynTag w) {
+    public void add(PackageEnum u, PackageEnum v, SynTag w) {
         edge.add(new Edge(u.toString(), v.toString(), w));
     }
 
@@ -60,7 +79,7 @@ public class SynergismGraph {
         return edge.contains(new Edge(u, v, w));
     }
 
-    public boolean hasSyn(CardColor u, CardColor v, SynTag w) {
+    public boolean hasSyn(PackageEnum u, PackageEnum v, SynTag w) {
         return edge.contains(new Edge(u.toString(), v.toString(), w));
     }
 
@@ -78,7 +97,7 @@ public class SynergismGraph {
         return temp;
     }
 
-    public ArrayList<SynTag> getAllSyn(CardColor u, CardColor v) {
+    public ArrayList<SynTag> getAllSyn(PackageEnum u, PackageEnum v) {
         return getAllSyn(u.toString(), v.toString());
     }
 
@@ -87,30 +106,43 @@ public class SynergismGraph {
     }
 
     public boolean hasAnySyn(String u, SynTag w) {
-        for (CardColor v : modcore.validColors) {
+        for (PackageEnum v : modcore.validColors) {
             if (hasSyn(u, v.toString(), w))
                 return true;
         }
         return false;
     }
 
-    public boolean hasAnySyn(CardColor u, SynTag w) {
+    public boolean hasAnySyn(PackageEnum u, SynTag w) {
         return hasAnySyn(u.toString(), w);
     }
 
-    public boolean hasAnySynInGroup(CardColor u, SynTag w, CardGroup g) {
+    public boolean hasAnySynInGroup(PackageEnum u, SynTag w, CardGroup g) {
         for (AbstractCard c : g.group) {
-            if (hasSyn(u, c.color, w))
+            PackageEnum pack = PackageEnum.Default;
+            ;
+            if (c.color == CardColor.RED)
+                pack = PackageEnum.RED;
+            if (c.color == CardColor.BLUE)
+                pack = PackageEnum.BLUE;
+            if (c.color == CardColor.GREEN)
+                pack = PackageEnum.GREEN;
+            if (c.color == CardColor.PURPLE)
+                pack = PackageEnum.PURPLE;
+            if (c instanceof AbstractDoubleCard) {
+                pack = ((AbstractDoubleCard) c).packagetype;
+            }
+            if (hasSyn(u, pack, w))
                 return true;
         }
         return false;
     }
 
-    public boolean hasAnySynInHand(CardColor u, SynTag w, AbstractPlayer p) {
+    public boolean hasAnySynInHand(PackageEnum u, SynTag w, AbstractPlayer p) {
         return hasAnySynInGroup(u, w, p.hand);
     }
 
-    public boolean hasAnySynInDeck(CardColor u, SynTag w, AbstractPlayer p) {
+    public boolean hasAnySynInDeck(PackageEnum u, SynTag w, AbstractPlayer p) {
         return hasAnySynInGroup(u, w, p.masterDeck);
     }
 }

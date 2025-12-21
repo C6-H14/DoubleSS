@@ -272,11 +272,24 @@
       " 张牌"
     ]
   },
-  "Double:Resurrection": {
+  "Double:ResurrectionPower": {
     "NAME": "回魂术",
     "DESCRIPTIONS": [
       "下一次你将要被杀死时，回复至最大生命值，并对所有敌人造成 #b",
       " 点伤害"
+    ]
+  },
+  "Double:ResonancePower": {
+    "NAME": "共振",
+    "DESCRIPTIONS": [
+      "回合开始时，给予所有敌人 #b",
+      " 层 double:震荡 "
+    ]
+  },
+  "Double:OffenseAsDefensePower": {
+    "NAME": "以攻代守",
+    "DESCRIPTIONS": [
+      "本回合每当你造成未被格挡的伤害时，获得等量的格挡"
     ]
   }
 }

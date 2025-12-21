@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 
 import SS.cards.AbstractDoubleCard;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public abstract class AbstractLostCard extends AbstractDoubleCard {
     public int permanentDamage = 0;
@@ -24,28 +25,30 @@ public abstract class AbstractLostCard extends AbstractDoubleCard {
     public AbstractLostCard(String id, String name, String img, int cost, String rawDescription,
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target) {
-        super(id, name, img, cost, rawDescription, type, color, rarity, target);
+        super(id, name, img, cost, rawDescription, type, PackageEnum.Lost, rarity, target);
         this.tags.add(AbstractCardEnum.Manager);
     }
 
     public AbstractLostCard(String id, String name, RegionName img, int cost, String rawDescription,
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target) {
-        super(id, name, img, cost, rawDescription, type, color, rarity, target);
+        super(id, name, img, cost, rawDescription, type, PackageEnum.Lost, rarity, target);
         this.tags.add(AbstractCardEnum.Manager);
     }
 
     public AbstractLostCard(String id, String name, String img, int cost, String rawDescription,
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings) {
-        super(id, name, img, cost, rawDescription, type, color, rarity, target, card_string, exstrings, false, true);
+        super(id, name, img, cost, rawDescription, type, PackageEnum.Lost, rarity, target, card_string, exstrings,
+                false, true);
         this.tags.add(AbstractCardEnum.Manager);
     }
 
     public AbstractLostCard(String id, String name, RegionName img, int cost, String rawDescription,
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings) {
-        super(id, name, img, cost, rawDescription, type, color, rarity, target, card_string, exstrings, false, true);
+        super(id, name, img, cost, rawDescription, type, PackageEnum.Lost, rarity, target, card_string, exstrings,
+                false, true);
         this.tags.add(AbstractCardEnum.Manager);
     }
 
@@ -53,7 +56,8 @@ public abstract class AbstractLostCard extends AbstractDoubleCard {
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings, boolean fiend,
             boolean manager) {
-        super(id, name, img, cost, rawDescription, type, color, rarity, target, card_string, exstrings, fiend, manager);
+        super(id, name, img, cost, rawDescription, type, PackageEnum.Lost, rarity, target, card_string, exstrings,
+                fiend, manager);
         if (fiend)
             this.tags.add(AbstractCardEnum.Fiend);
         if (manager)
@@ -64,7 +68,8 @@ public abstract class AbstractLostCard extends AbstractDoubleCard {
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings, boolean fiend,
             boolean manager) {
-        super(id, name, img, cost, rawDescription, type, color, rarity, target, card_string, exstrings, fiend, manager);
+        super(id, name, img, cost, rawDescription, type, PackageEnum.Lost, rarity, target, card_string, exstrings,
+                fiend, manager);
         if (fiend)
             this.tags.add(AbstractCardEnum.Fiend);
         if (manager)

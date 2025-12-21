@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
-import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class LostPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("LostPackage");
 
     public LostPackage() {
-        super(ID, TYPE, AbstractCardEnum.Lost_Black, "Double:Lost_Black_option", "Double:WoodenCross");
+        super(ID, TYPE, PackageEnum.Lost, "Double:Lost_Black_option", "Double:WoodenCross");
     }
 
     public ArrayList<String> getCards() {

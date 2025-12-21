@@ -17,6 +17,7 @@ SS\cards\BlessCard\BlessStrike.class
 SS\path\LibraryTypeEnum.class
 SS\cards\Hush.class
 SS\packages\PurplePackage\PurplePackage_v.class
+SS\cards\AbstractDoubleCard$1.class
 SS\packages\PurplePackage\PurplePackage_e.class
 SS\packages\GreenPackage\GreenPackage_v.class
 SS\packages\GreenPackage\GreenPackage_e.class
@@ -27,6 +28,7 @@ SS\packages\RedPackage\RedPackage.class
 SS\relic\SS\GreenApple.class
 SS\action\unique\lost\LifelinePlayCardAction.class
 SS\relic\SS\CorePieces.class
+SS\patches\CompendiumPatches$HideSortButtonForOtherTabs$HideSortButtonForOtherTabsExprEditor.class
 SS\power\FundsPower.class
 SS\cards\Stingy.class
 SS\relic\SS\BoilingBlood.class
@@ -46,8 +48,10 @@ SS\cards\FiendPact.class
 SS\cards\Indulgence.class
 SS\cards\PeptideStrike.class
 SS\power\FiendStance.class
+SS\patches\CompendiumPatches$ReduceButtonHitboxSize.class
 SS\packages\ShockPackage\ShockPackage_e.class
 SS\relic\SS\LCysteine.class
+SS\cards\Shock\TA.class
 SS\action\unique\ss\YinYangAction.class
 SS\patches\DiceDamageTypePatch$updateThornsPowerPatch.class
 SS\action\unique\ss\GluttonyAction.class
@@ -62,6 +66,7 @@ SS\cards\Irritable.class
 SS\cards\Haohao\GreatDisciple.class
 SS\packages\PurplePackage\PurplePackage_c.class
 SS\patches\DiceDamageTypePatch$updateEnvenomPowerPatch.class
+SS\cards\Shock\Blitzkrieg.class
 SS\cards\Pansy.class
 SS\cards\Reroll.class
 SS\cards\Haohao\Dishaovery.class
@@ -86,6 +91,7 @@ SS\cards\Luxuriance.class
 SS\packages\NullPackage.class
 SS\power\TrinityShieldPower.class
 SS\cardmodifiers\SaveLoadSubscriber.class
+SS\cards\Shock\Resonance.class
 SS\helper\PermanentBlockVariable.class
 SS\relic\SS\WoodenCross.class
 SS\action\unique\ss\NutrientCycleAction.class
@@ -95,9 +101,11 @@ SS\cards\RecordingTeam.class
 SS\action\common\DrawSpecificCardAction.class
 SS\helper\SynergismGraph$Edge.class
 SS\path\AbstractCardEnum.class
+SS\patches\CompendiumPatches$HideSortButtonForOtherTabs.class
 SS\action\dice\ChannelDiceAction.class
 SS\power\MiserlyPower.class
 SS\packages\RedPackage\RedPackage_c.class
+SS\patches\CompendiumPatches$AddSortButton$Locator.class
 SS\action\common\DieAction.class
 SS\cards\Lost\StratifiedStorm.class
 SS\action\unique\ss\HoardingAction.class
@@ -118,6 +126,7 @@ SS\relic\SS\Record.class
 SS\cards\Haohao\Haoggernaut.class
 SS\rewards\CommonCardReward$1.class
 SS\patches\RewardPatch$LocatorInsertPatch$DoubleLocator.class
+SS\patches\CompendiumPatches$ReduceButtonHitboxSize$1.class
 SS\cards\Lost\Incorporeal.class
 SS\cards\Haohao\HaoBludgeon.class
 SS\cards\Aggression.class
@@ -133,8 +142,10 @@ SS\rewards\HaoReward.class
 SS\cards\MugUp.class
 SS\power\BinPower.class
 SS\power\HaoggernautPower.class
+SS\action\unique\shock\OffenseAsDefenseAction.class
 SS\helper\PermanentDamageVariable.class
 SS\action\unique\lost\LifelineAction.class
+SS\path\PackageEnumList$PackageEnum.class
 SS\action\dice\RemoveDiceAction.class
 SS\helper\ModHelper.class
 SS\Dice\EmptyDiceSlot.class
@@ -145,6 +156,7 @@ SS\relic\Merit.class
 SS\packages\RedPackage\RedPackage_e.class
 SS\patches\TriggerAtStartOfTurnPatch$updatePatch.class
 SS\cards\Lost\Lifeline.class
+SS\patches\CompendiumPatches.class
 SS\Dice\PeptideDice.class
 SS\patches\AddHaoRewardPatch$DropSeals.class
 SS\Dice\DefendDice.class
@@ -156,6 +168,7 @@ SS\action\unique\ss\RevengeAction.class
 SS\cards\Spore.class
 SS\cards\Haohao\YourAttack.class
 SS\action\unique\GainVirtueAction.class
+SS\patches\CompendiumPatches$SortCorrectlyOnSwitch.class
 SS\cards\Haohao\HaoStab.class
 SS\patches\EvokeAllPatch.class
 SS\packages\RedPackage\RedPackage_v.class
@@ -176,6 +189,7 @@ SS\power\SunkPower.class
 SS\packages\BluePackage\BluePackage_e.class
 SS\packages\HaoPackage\HaoPackage.class
 SS\cards\Kindness.class
+SS\path\PackageEnumList.class
 SS\cards\Temperance.class
 SS\effect\DiceTriggeredEffect.class
 SS\cards\Haohao\HaoPack.class
@@ -200,10 +214,12 @@ SS\action\unique\ss\TrumpCardAction.class
 SS\helper\PermanentMagicNumberVariable.class
 SS\patches\DiceDamageTypePatch$updateCurlUpPowerPatch.class
 SS\power\BurningEnvyPower.class
+SS\power\ResonancePower.class
 SS\cards\HedonismShackles.class
 SS\Dice\IronwaveDice.class
 SS\cards\Diversity.class
 SS\path\ThmodClassEnum.class
+SS\action\dice\EvokeDiceAction.class
 SS\patches\AddHaoRewardPatch.class
 SS\patches\TriggerAtStartOfTurnPatch.class
 SS\power\ContemptPower.class
@@ -211,6 +227,7 @@ SS\power\BlankCardPower.class
 SS\characters\MyCharacter$PlayerLibraryEnum.class
 SS\cards\Lost\Altar.class
 SS\patches\DiceDamageTypePatch$updateSlowPowerPatch.class
+SS\patches\CompendiumPatches$AddSortButton.class
 SS\cards\UnderlyingLogic.class
 SS\cards\Haohao\MaximizeHaoCard.class
 SS\relic\SS\BathWater.class
@@ -225,6 +242,7 @@ SS\cards\BlessCard\AbstractBlessCard.class
 SS\packages\LostPackage\LostPackage_v.class
 SS\patches\RewardPatch$LocatorInsertPatch.class
 SS\power\PatiencePower.class
+SS\power\OffenseAsDefensePower.class
 SS\modcore\modcore$CardTags.class
 SS\cardmodifiers\ConjugateModifier.class
 SS\action\common\DrawLambdaCardAction.class
@@ -237,10 +255,13 @@ SS\cards\Haohao\ScrapeBy.class
 SS\cards\SealSupporter.class
 SS\cards\Autophagy.class
 SS\cards\Lost\Perseverance.class
+SS\cards\Shock\OffenseAsDefense.class
 SS\cards\Decompose.class
 SS\power\PhoneItInPower.class
 SS\action\unique\DiligenceAction.class
+SS\patches\CompendiumPatches$CustomOrdering.class
 SS\cards\AbstractDoubleCard.class
+SS\patches\CompendiumPatches$DisableClickForOtherTabs.class
 SS\Dice\EternalDefendDice.class
 SS\helper\ModHelper$1.class
 SS\cards\Lost\TwoChargeVoid.class
@@ -255,6 +276,7 @@ SS\cards\Chastity.class
 SS\Dice\ImmolateDice.class
 SS\patches\EvokeAllPatch$updatePatch.class
 SS\cards\Haohao\Haoflex.class
+SS\cards\Shock\AbstractShockCard.class
 SS\packages\BluePackage\BluePackage_v.class
 SS\relic\SS\HolyReward.class
 SS\cards\Haohao\margropeR.class
@@ -284,6 +306,7 @@ SS\cards\Lost\AbstractLostCard.class
 SS\cards\Lost\PopIn.class
 SS\action\common\DamageFatalAction.class
 SS\cards\Humility.class
+SS\cards\Shock\UnstableShockwave.class
 SS\cards\Haohao\Bin.class
 SS\power\CharityPower.class
 SS\packages\AbstractPackage.class
@@ -304,4 +327,5 @@ SS\helper\SynergismGraph$SynTag.class
 SS\action\common\EchoACardAction.class
 SS\cards\Wrath.class
 SS\action\common\UpdateFiendStanceDescriptions.class
+SS\patches\CompendiumPatches$DetectModTab.class
 SS\power\BleedingPower.class

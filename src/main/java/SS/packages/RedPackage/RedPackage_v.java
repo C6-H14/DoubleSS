@@ -2,17 +2,16 @@ package SS.packages.RedPackage;
 
 import java.util.ArrayList;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
-
 import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class RedPackage_v extends AbstractPackage {
     public static PackageType TYPE = PackageType.VALUE;
     public static String ID = ModHelper.makePath("RedPackage_v");
 
     public RedPackage_v() {
-        super(ID, TYPE, AbstractCard.CardColor.RED, "Double:RED_option", "Double:BoilingBlood");
+        super(ID, TYPE, PackageEnum.RED, "Double:RED_option", "Double:BoilingBlood");
     }
 
     public ArrayList<String> getCards() {

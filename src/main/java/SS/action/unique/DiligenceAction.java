@@ -39,7 +39,6 @@ public class DiligenceAction extends AbstractGameAction {
                     }
                 }
                 int times = Math.max(1, cnt / this.amount);
-                System.out.println("cnt:" + cnt + " times:" + times + " amount:" + this.amount);
                 if (cnt == 0)
                     times = 0;
                 for (int i = 0; i < times; i++) {
