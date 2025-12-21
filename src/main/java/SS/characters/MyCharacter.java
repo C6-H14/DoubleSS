@@ -262,6 +262,8 @@ public class MyCharacter extends CustomPlayer {
             allowedCards.addAll(p.CardLists);
         }
         for (AbstractCard card : CardLibrary.getAllCards()) {
+            if (card.color == AbstractCardEnum.SS_Yellow)
+                continue;
             if (card.color == AbstractDungeon.player.getCardColor()) {
                 allowedCards.add(card.makeStatEquivalentCopy());
             }

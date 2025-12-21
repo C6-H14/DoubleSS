@@ -13,6 +13,7 @@ import SS.action.dice.ChannelDiceAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class Prism extends AbstractHaoCard {
     public static final String ID = ModHelper.makePath("Prism");
@@ -26,6 +27,7 @@ public class Prism extends AbstractHaoCard {
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.RARE;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
     private HashMap<AbstractCard.CardColor, Boolean> hsmap = new HashMap<AbstractCard.CardColor, Boolean>();
+    private HashMap<PackageEnum, Boolean> shmap = new HashMap<>();
 
     public Prism() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
@@ -54,7 +56,16 @@ public class Prism extends AbstractHaoCard {
             }
         }
         hsmap.clear();
+        shmap.clear();
         for (AbstractCard c : p.masterDeck.group) {
+            if (c instanceof AbstractDoubleCard) {
+                PackageEnum pe = ((AbstractDoubleCard) c).packagetype;
+                if (!shmap.containsKey(pe)) {
+                    ++amount;
+                    shmap.put(pe, true);
+                }
+                continue;
+            }
             if (!hsmap.containsKey(c.color)) {
                 ++amount;
                 hsmap.put(c.color, true);

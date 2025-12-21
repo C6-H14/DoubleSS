@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import SS.helper.ModHelper;
 import SS.helper.SynergismGraph;
 import SS.packages.AbstractPackage;
-import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class HaoPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("HaoPackage");
 
     public HaoPackage() {
-        super(ID, TYPE, AbstractCardEnum.Hao_Green, "Double:Hao_Green_option", "Double:GreenApple");
-        addSyng(AbstractCardEnum.Shock_Blue, SynergismGraph.SynTag.Teacher);
+        super(ID, TYPE, PackageEnum.Hao, "Double:Hao_Green_option", "Double:GreenApple");
+        addSyng(PackageEnum.Shock, SynergismGraph.SynTag.Teacher);
     }
 
     public ArrayList<String> getCards() {

@@ -32,7 +32,7 @@ public class YourAttack extends AbstractHaoCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.damage = this.baseDamage = 3;
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 2;
         if (needManager()) {
             updateManager();
         }

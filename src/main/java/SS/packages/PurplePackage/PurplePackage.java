@@ -1,8 +1,7 @@
 package SS.packages.PurplePackage;
 
 import java.util.ArrayList;
-
-import com.megacrit.cardcrawl.cards.AbstractCard;
+import SS.path.PackageEnumList.PackageEnum;
 
 import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
@@ -12,7 +11,7 @@ public class PurplePackage extends AbstractPackage {
     public static String ID = ModHelper.makePath("PurplePackage");
 
     public PurplePackage() {
-        super(ID, TYPE, AbstractCard.CardColor.PURPLE, "Double:PURPLE_option", "Double:BathWater");
+        super(ID, TYPE, PackageEnum.PURPLE, "Double:PURPLE_option", "Double:BathWater");
     }
 
     public ArrayList<String> getCards() {

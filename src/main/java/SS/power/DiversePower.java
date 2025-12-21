@@ -1,8 +1,10 @@
 package SS.power;
 
+import SS.cards.AbstractDoubleCard;
 import SS.cards.Haohao.AbstractHaoCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -41,7 +43,9 @@ public class DiversePower extends AbstractPower {
     }
 
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        if (!card.purgeOnUse && !(card instanceof AbstractHaoCard) && !(card.color == AbstractCardEnum.SS_Yellow)
+        if (!card.purgeOnUse && !(card instanceof AbstractHaoCard)
+                && !(card.color == AbstractCardEnum.SS_Yellow && card instanceof AbstractDoubleCard
+                        && (((AbstractDoubleCard) card).packagetype != PackageEnum.SS))
                 && this.amount > 0) {
             this.flash();
             addToBot(new GainEnergyAction(1));

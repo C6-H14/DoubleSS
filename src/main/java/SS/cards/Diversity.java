@@ -12,6 +12,7 @@ import SS.action.common.UpdateManagerStanceDescriptions;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class Diversity extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Diversity");
@@ -26,6 +27,7 @@ public class Diversity extends AbstractDoubleCard {
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.RARE;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
     private HashMap<AbstractCard.CardColor, Boolean> hsmap = new HashMap<AbstractCard.CardColor, Boolean>();
+    private HashMap<PackageEnum, Boolean> shmap = new HashMap<>();
 
     public Diversity() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
@@ -46,23 +48,48 @@ public class Diversity extends AbstractDoubleCard {
         int amount = 0;
         hsmap.clear();
         for (AbstractCard c : p.drawPile.group) {
+            if (c instanceof AbstractDoubleCard) {
+                PackageEnum pe = ((AbstractDoubleCard) c).packagetype;
+                if (!shmap.containsKey(pe)) {
+                    ++amount;
+                    shmap.put(pe, true);
+                }
+                continue;
+            }
             if (!hsmap.containsKey(c.color)) {
                 ++amount;
                 hsmap.put(c.color, true);
             }
         }
         for (AbstractCard c : p.hand.group) {
+            if (c instanceof AbstractDoubleCard) {
+                PackageEnum pe = ((AbstractDoubleCard) c).packagetype;
+                if (!shmap.containsKey(pe)) {
+                    ++amount;
+                    shmap.put(pe, true);
+                }
+                continue;
+            }
             if (!hsmap.containsKey(c.color)) {
                 ++amount;
                 hsmap.put(c.color, true);
             }
         }
         for (AbstractCard c : p.discardPile.group) {
+            if (c instanceof AbstractDoubleCard) {
+                PackageEnum pe = ((AbstractDoubleCard) c).packagetype;
+                if (!shmap.containsKey(pe)) {
+                    ++amount;
+                    shmap.put(pe, true);
+                }
+                continue;
+            }
             if (!hsmap.containsKey(c.color)) {
                 ++amount;
                 hsmap.put(c.color, true);
             }
         }
+        shmap.clear();
         hsmap.clear();
         for (int i = 0; i < amount; ++i) {
             addToBot(new ChannelDiceAction(new IronwaveDice(this.damage, m)));

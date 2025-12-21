@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 import basemod.abstracts.CustomCard;
 
 public abstract class AbstractDoubleCard extends CustomCard {
@@ -14,6 +15,7 @@ public abstract class AbstractDoubleCard extends CustomCard {
     protected CardStrings CARD_STRINGS;
     protected String[] EXTENDED_DESCRIPTION = { "", "", "", "", "", "" };
     protected boolean isFiend = false, isManager = false;
+    public PackageEnum packagetype;
 
     public AbstractDoubleCard findFather() {
         if (this.fatherCard == null)
@@ -25,9 +27,64 @@ public abstract class AbstractDoubleCard extends CustomCard {
     }
 
     public AbstractDoubleCard(String id, String name, String img, int cost, String rawDescription,
+            AbstractCard.CardType type, PackageEnum pe, AbstractCard.CardRarity rarity,
+            AbstractCard.CardTarget target) {
+        super(id, name, img, cost, rawDescription, type, AbstractCardEnum.SS_Yellow, rarity, target);
+        this.packagetype = pe;
+        repaint();
+        fatherCard = this;
+    }
+
+    public AbstractDoubleCard(String id, String name, RegionName img, int cost, String rawDescription,
+            AbstractCard.CardType type, PackageEnum pe, AbstractCard.CardRarity rarity,
+            AbstractCard.CardTarget target) {
+        super(id, name, img, cost, rawDescription, type, AbstractCardEnum.SS_Yellow, rarity, target);
+        this.packagetype = pe;
+        repaint();
+        fatherCard = this;
+    }
+
+    public AbstractDoubleCard(String id, String name, String img, int cost, String rawDescription,
+            AbstractCard.CardType type, PackageEnum pe, AbstractCard.CardRarity rarity,
+            AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings, boolean fiend,
+            boolean manager) {
+        super(id, name, img, cost, rawDescription, type, AbstractCardEnum.SS_Yellow, rarity, target);
+        this.packagetype = pe;
+        repaint();
+        CARD_STRINGS = card_string;
+        EXTENDED_DESCRIPTION = exstrings;
+        isFiend = fiend;
+        isManager = manager;
+        fatherCard = this;
+        if (fiend)
+            this.tags.add(AbstractCardEnum.Fiend);
+        if (manager)
+            this.tags.add(AbstractCardEnum.Manager);
+    }
+
+    public AbstractDoubleCard(String id, String name, RegionName img, int cost, String rawDescription,
+            AbstractCard.CardType type, PackageEnum pe, AbstractCard.CardRarity rarity,
+            AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings, boolean fiend,
+            boolean manager) {
+        super(id, name, img, cost, rawDescription, type, AbstractCardEnum.SS_Yellow, rarity, target);
+        this.packagetype = pe;
+        repaint();
+        CARD_STRINGS = card_string;
+        EXTENDED_DESCRIPTION = exstrings;
+        isFiend = fiend;
+        isManager = manager;
+        fatherCard = this;
+        if (fiend)
+            this.tags.add(AbstractCardEnum.Fiend);
+        if (manager)
+            this.tags.add(AbstractCardEnum.Manager);
+    }
+
+    public AbstractDoubleCard(String id, String name, String img, int cost, String rawDescription,
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target) {
         super(id, name, img, cost, rawDescription, type, color, rarity, target);
+        this.packagetype = PackageEnum.Default;
         fatherCard = this;
     }
 
@@ -35,6 +92,7 @@ public abstract class AbstractDoubleCard extends CustomCard {
             AbstractCard.CardType type, AbstractCard.CardColor color, AbstractCard.CardRarity rarity,
             AbstractCard.CardTarget target) {
         super(id, name, img, cost, rawDescription, type, color, rarity, target);
+        this.packagetype = PackageEnum.Default;
         fatherCard = this;
     }
 
@@ -43,6 +101,7 @@ public abstract class AbstractDoubleCard extends CustomCard {
             AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings, boolean fiend,
             boolean manager) {
         super(id, name, img, cost, rawDescription, type, color, rarity, target);
+        this.packagetype = PackageEnum.Default;
         CARD_STRINGS = card_string;
         EXTENDED_DESCRIPTION = exstrings;
         isFiend = fiend;
@@ -59,6 +118,7 @@ public abstract class AbstractDoubleCard extends CustomCard {
             AbstractCard.CardTarget target, CardStrings card_string, String[] exstrings, boolean fiend,
             boolean manager) {
         super(id, name, img, cost, rawDescription, type, color, rarity, target);
+        this.packagetype = PackageEnum.Default;
         CARD_STRINGS = card_string;
         EXTENDED_DESCRIPTION = exstrings;
         isFiend = fiend;
@@ -68,6 +128,28 @@ public abstract class AbstractDoubleCard extends CustomCard {
             this.tags.add(AbstractCardEnum.Fiend);
         if (manager)
             this.tags.add(AbstractCardEnum.Manager);
+    }
+
+    private void repaint() {
+        if (this.packagetype == PackageEnum.Default || this.packagetype == PackageEnum.SS) {
+            return;
+        }
+        String s = this.packagetype.toString();
+        this.setOrbTexture("img/512/" + s + "_orb.png", "img/1024/" + s + "_orb.png");
+        switch (this.type) {
+            case ATTACK:
+                this.setBackgroundTexture("img/512/" + s + "_attack.png", "img/1024/" + s + "_attack.png");
+                break;
+            case SKILL:
+                this.setBackgroundTexture("img/512/" + s + "_skill.png", "img/1024/" + s + "_skill.png");
+                break;
+            case POWER:
+                this.setBackgroundTexture("img/512/" + s + "_power.png", "img/1024/" + s + "_power.png");
+                break;
+            default:
+                this.setBackgroundTexture("img/512/" + s + "_skill.png", "img/1024/" + s + "_skill.png");
+                break;
+        }
     }
 
     public void downgrade() {
@@ -121,6 +203,24 @@ public abstract class AbstractDoubleCard extends CustomCard {
     @Override
     public abstract AbstractDoubleCard makeCopy();
 
+    public void triggerOnGlowCheck() {
+        System.out.println(this.cardID);
+        if (hasSyn()) {
+            triggerOnSyn();
+            System.out.println("1");
+        } else {
+            System.out.println("2");
+            if (this.isFiend) {
+                System.out.println("3");
+                triggerOnGlowCheck_Fiend();
+            }
+            if (this.isManager) {
+                System.out.println("4");
+                triggerOnGlowCheck_Manager();
+            }
+        }
+    }
+
     public void triggerOnGlowCheck_Fiend() {
         this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
         if (AbstractDungeon.player.getPower("Double:FiendStance") != null) {
@@ -133,6 +233,17 @@ public abstract class AbstractDoubleCard extends CustomCard {
         if (AbstractDungeon.player.getPower("Double:ManagerStance") != null) {
             this.glowColor = AbstractCard.GOLD_BORDER_GLOW_COLOR.cpy();
         }
+    }
+
+    public void triggerOnSyn() {
+        this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
+        if (hasSyn()) {
+            this.glowColor = new Color(1.0F, 0.0F, 0.0F, 1.0F);
+        }
+    }
+
+    public boolean hasSyn() {
+        return false;
     }
 
     public void UpdateExhaustiveDescription() {

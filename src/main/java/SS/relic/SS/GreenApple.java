@@ -19,6 +19,7 @@ import SS.helper.ModHelper;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 import basemod.abstracts.CustomRelic;
 
 public class GreenApple extends CustomRelic {
@@ -53,7 +54,7 @@ public class GreenApple extends CustomRelic {
         }
         ArrayList<AbstractCard> cardList = new ArrayList<>();
         for (AbstractPackage p : modcore.validPackage) {
-            if (p.OptionCard.color == AbstractCardEnum.Hao_Green) {
+            if (p.OptionCard.packagetype == PackageEnum.Hao) {
                 for (AbstractCard c : p.CardLists) {
                     cardList.add(c);
                 }

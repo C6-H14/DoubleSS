@@ -4,23 +4,23 @@ import java.util.ArrayList;
 
 import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
-import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class ShockPackage_c extends AbstractPackage {
     public static PackageType TYPE = PackageType.CEILING;
     public static String ID = ModHelper.makePath("ShockPackage_c");
 
     public ShockPackage_c() {
-        super(ID, TYPE, AbstractCardEnum.Shock_Blue, "Double:Shock_Blue_option", "Double:MassSpring");
+        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Double:Dishaovery");
-        cards.add("Double:GreatDisciple");
-        cards.add("Double:HaoBludgeon");
-        cards.add("Double:HaoTap");
-        cards.add("Double:MaximizeHaoCard");
+        cards.add("Double:UnstableShockwave");
+        cards.add("Double:Blitzkrieg");
+        cards.add("Double:Resonance");
+        cards.add("Double:OffenseAsDefense");
+        cards.add("Double:TA");
 
         cards.add("Double:HaoStrike");
         cards.add("Double:DeathNotifier");

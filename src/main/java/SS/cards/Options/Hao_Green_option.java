@@ -1,16 +1,17 @@
 package SS.cards.Options;
 
-import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
-public class Hao_Green_option extends CustomCard {
+public class Hao_Green_option extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Hao_Green_option");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
@@ -23,7 +24,7 @@ public class Hao_Green_option extends CustomCard {
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.NONE;
 
     public Hao_Green_option() {
-        super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
+        super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, PackageEnum.Hao, RARITY, TARGET);
     }
 
     public void upgrade() {
@@ -32,7 +33,7 @@ public class Hao_Green_option extends CustomCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
     }
 
-    public AbstractCard makeCopy() {
+    public AbstractDoubleCard makeCopy() {
         return new Hao_Green_option();
     }
 }

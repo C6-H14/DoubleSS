@@ -569,11 +569,11 @@
     },
     "Double:YourAttack":{
         "NAME": "你输出呢？",
-        "DESCRIPTION": "抽2张牌，生成1个攻击颢骰( !D! )，丢弃所有攻击牌。",
-        "UPGRADE_DESCRIPTION": "抽2张牌，生成1个攻击颢骰( !D! )，丢弃所有攻击牌。",
+        "DESCRIPTION": "抽 !M! 张牌，生成1个攻击颢骰( !D! )，丢弃所有攻击牌。",
+        "UPGRADE_DESCRIPTION": "抽 !M! 张牌，生成1个攻击颢骰( !D! )，丢弃所有攻击牌。",
         "EXTENDED_DESCRIPTION": [
-            "抽2张牌，生成1个攻击颢骰( !D! )， *给予 !M! 层虚弱 ，丢弃所有攻击牌。",
-            "抽2张牌，生成1个攻击颢骰( !D! )， *给予 !M! 层虚弱 ，丢弃所有攻击牌。"
+            "抽 !M! 张牌，生成1个攻击颢骰( !D! )， *给予 !M! 层虚弱 ，丢弃所有攻击牌。",
+            "抽 !M! 张牌，生成1个攻击颢骰( !D! )， *给予 !M! 层虚弱 ，丢弃所有攻击牌。"
         ],
         "FLAVOR":" #y群主形态 ：给予 #b1 / #b2 层虚弱。"
     },
@@ -870,5 +870,55 @@
         "NAME": "震荡波牌",
         "DESCRIPTION": "一位震荡波狂热粉丝的群友卡包，同时是一些群友的助教。",
         "UPGRADE_DESCRIPTION": "一位震荡波狂热粉丝的群友卡包，同时是一些群友的助教。"
+    },
+    "Double:UnstableShockwave":{
+        "NAME": "不稳定的震荡波",
+        "DESCRIPTION": "所有敌人随机获得 易伤 和 虚弱 ，共计 !M! 层。",
+        "UPGRADE_DESCRIPTION": "所有敌人随机获得 易伤 和 虚弱 ，共计 !M! 层。",
+        "EXTENDED_DESCRIPTION": [
+            "所有敌人随机获得1层 易伤 和 虚弱 ，重复 !M! 次。",
+            "所有敌人随机获得1层 易伤 和 虚弱 ，重复 !M! 次。"
+        ],
+        "FLAVOR":" #y群主形态 ：改为分多次施加，每次施加1层。"
+    },
+    "Double:Blitzkrieg":{
+        "NAME": "闪电战",
+        "DESCRIPTION": "生成2个燔祭 double:骰子 ( !D! )。 NL 回合结束时若此牌在场上，伤害减1。",
+        "UPGRADE_DESCRIPTION": "生成2个燔祭 double:骰子 ( !D! )，回合结束时若此牌在场上，伤害减1。",
+        "EXTENDED_DESCRIPTION": [
+            "生成2个燔祭 double:骰子 ( !D! )，激发所有 double:骰子 !M! 次。 NL 回合结束时若此牌在场上，伤害减1。",
+            "生成2个燔祭 double:骰子 ( !D! )，激发所有 double:骰子 !M! 次。 NL 回合结束时若此牌在场上，伤害减1。"
+        ],
+        "FLAVOR":" #y群主形态 ：激发所有骰子1/2次。"
+    },
+    "Double:Resonance":{
+        "NAME": "共振",
+        "DESCRIPTION": "回合开始时，给予所有敌人1层 double:震荡 。",
+        "UPGRADE_DESCRIPTION": " 固有 ，回合开始时，给予所有敌人1层 double:震荡 。",
+        "EXTENDED_DESCRIPTION": [
+            "给予所有敌人1层 double:震荡 。 NL 回合开始时，给予所有敌人1层 double:震荡 。",
+            " 固有 ，给予所有敌人1层 double:震荡 。 NL 回合开始时，给予所有敌人1层 double:震荡 。"
+        ],
+        "FLAVOR":" #y群主形态 ：立即给予所有敌人1层震荡。"
+    },
+    "Double:OffenseAsDefense":{
+        "NAME": "以攻代守",
+        "DESCRIPTION": "本回合每当你造成未被格挡的伤害时，获得等量的格挡。",
+        "UPGRADE_DESCRIPTION": "本回合每当你造成未被格挡的伤害时，获得等量的格挡。",
+        "EXTENDED_DESCRIPTION": [
+            "本回合每当你造成未被格挡的伤害时，获得等量的格挡。 NL 用随机的攻击 double:骰子 (1)或防御 double:骰子 (1)填充空槽位。",
+            "本回合每当你造成未被格挡的伤害时，获得等量的格挡。 NL 用随机的攻击 double:骰子 (1)或防御 double:骰子 (1)填充空槽位。"
+        ],
+        "FLAVOR":" #y群主形态 ：用随机的攻击骰子(1)或防御骰子(1)填充空槽位。"
+    },
+    "Double:TA":{
+        "NAME": "为人师表",
+        "DESCRIPTION": "造成 !D! 点伤害。 NL double:协同 (卡组，颢颢)：斩杀时，升级一张卡组中颢颢的卡牌。",
+        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL double:协同 (卡组，颢颢)：斩杀时，升级一张卡组中颢颢的卡牌。",
+        "EXTENDED_DESCRIPTION": [
+            "造成 !D! 点伤害。 NL double:协同 (卡组，学生)：斩杀时，升级一张卡组中颢颢的卡牌。",
+            "造成 !D! 点伤害。 NL double:协同 (卡组，学生)：斩杀时，升级一张卡组中颢颢的卡牌。"
+        ],
+        "FLAVOR":" #y群主形态 ：协同条件升级为(卡组，学生)。"
     }
 }

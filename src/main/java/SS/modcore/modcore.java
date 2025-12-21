@@ -70,6 +70,7 @@ import SS.packages.RedPackage.RedPackage_v;
 import SS.packages.ShockPackage.ShockPackage;
 import SS.patches.CenterGridCardSelectScreen;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 import SS.path.RewardEnum;
 import SS.path.ThmodClassEnum;
 import SS.relic.Merit;
@@ -117,9 +118,9 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         BaseMod.subscribe((ISubscriber) this);
         BaseMod.addColor(AbstractCardEnum.SS_Yellow, COL, COL, COL, COL, COL, COL, COL, BG_ATTACK_512, BG_SKILL_512,
                 BG_POWER_512, ENEYGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
-        addCardColor(AbstractCardEnum.Hao_Green, "hao");
-        addCardColor(AbstractCardEnum.Lost_Black, "lost");
-        addCardColor(AbstractCardEnum.Shock_Blue, "shock");
+        // addCardColor(AbstractCardEnum.Hao_Green, "hao");
+        // addCardColor(AbstractCardEnum.Lost_Black, "lost");
+        // addCardColor(AbstractCardEnum.Shock_Blue, "shock");
     }
 
     private static int needPackage = 2;
@@ -219,7 +220,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     private static void initializeSynergismGraph() {
         for (AbstractPackage p : mainPackageList) {// 加入点和协同tag
             synGraph.vert.add(p.PackageColor.toString());
-            for (Pair<CardColor, SynergismGraph.SynTag> t : p.syng) {
+            for (Pair<PackageEnum, SynergismGraph.SynTag> t : p.syng) {
                 // syng为当前卡包和第一关键字卡包的关系为第二关键字，比如后者是前者的学生，就用student
                 synGraph.add(p.PackageColor.toString(), t.getKey().toString(), t.getValue());
             }
@@ -234,9 +235,9 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public static HashMap<Class<? extends AbstractCard>, String> cardClassParentMap = new HashMap<>();
     public static HashMap<String, AbstractPackage> packageColorMap = new HashMap<>();
 
-    public static ArrayList<AbstractCard.CardColor> validColors = new ArrayList<>();
+    public static ArrayList<PackageEnum> validColors = new ArrayList<>();
     public static ArrayList<AbstractPackage> validPackage = new ArrayList<>();;
-    public static HashMap<AbstractCard.CardColor, AbstractPackage> colorToPackage = new HashMap<>();
+    public static HashMap<PackageEnum, AbstractPackage> colorToPackage = new HashMap<>();
     public static ArrayList<AbstractPackage> colorChoices = new ArrayList<>();
     public static ArrayList<String> allowedColors = new ArrayList<String>();
     public static boolean openedStarterScreen = true;
@@ -283,15 +284,13 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         colorToPackage.clear();
         for (int i = 0; i < 3; ++i) {
             charChoices.addToTop(colorChoices.get(i).OptionCard);
+            PackageEnum packageenum = ((AbstractDoubleCard) colorChoices.get(i).OptionCard).packagetype;
             if (i == 0) {
-                colorToPackage.put(colorChoices.get(i).OptionCard.color,
-                        colorChoices.get(i).SubPackages.get(PackageType.VALUE));
+                colorToPackage.put(packageenum, colorChoices.get(i).SubPackages.get(PackageType.VALUE));
             } else if (i == 1) {
-                colorToPackage.put(colorChoices.get(i).OptionCard.color,
-                        colorChoices.get(i).SubPackages.get(PackageType.CONSISTENCY));
+                colorToPackage.put(packageenum, colorChoices.get(i).SubPackages.get(PackageType.CONSISTENCY));
             } else {
-                colorToPackage.put(colorChoices.get(i).OptionCard.color,
-                        colorChoices.get(i).SubPackages.get(PackageType.CEILING));
+                colorToPackage.put(packageenum, colorChoices.get(i).SubPackages.get(PackageType.CEILING));
             }
         }
         AbstractDungeon.gridSelectScreen.open(charChoices, 1, false,
@@ -478,23 +477,23 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         }
         if (choosingCharacters > -1 && choosingCharacters < needPackage
                 && !AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {// 选了卡包
-            AbstractCard c = AbstractDungeon.gridSelectScreen.selectedCards.get(0);
+            AbstractDoubleCard c = (AbstractDoubleCard) AbstractDungeon.gridSelectScreen.selectedCards.get(0);
             Iterator<AbstractPackage> iterator = colorChoices.iterator();
             while (iterator.hasNext()) {
                 AbstractPackage item = iterator.next();
-                if (item.PackageColor == c.color) {
+                if (item.PackageColor == c.packagetype) {
                     iterator.remove();
                 }
             }
 
-            validColors.add(c.color);
-            validPackage.add(colorToPackage.get(c.color));
+            validColors.add(c.packagetype);
+            validPackage.add(colorToPackage.get(c.packagetype));
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
             if (choosingCharacters == needPackage - 1) {// 选完了
                 choosingCharacters = needPackage;
                 CenterGridCardSelectScreen.centerGridSelect = false;
-                if (!validColors.contains(AbstractDungeon.player.getCardColor())) {
-                    validColors.add(AbstractDungeon.player.getCardColor());
+                if (!validColors.contains(PackageEnum.Default)) {
+                    validColors.add(PackageEnum.Default);
                 }
                 LoadData();
                 for (AbstractPackage p : validPackage) {
@@ -509,7 +508,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 try {
                     SpireConfig config = new SpireConfig("Double", "Common");
                     int i = 0;
-                    for (AbstractCard.CardColor col : validColors) {
+                    for (PackageEnum col : validColors) {
                         ++i;
                         config.setString("validColor" + i, col.toString());
                     }
@@ -538,14 +537,27 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 Properties defaults = new Properties();
                 defaults.setProperty("Initialized", "false");
                 for (int i = 1; i <= needPackage + 1; ++i) {
-                    defaults.setProperty("validColor" + i, "SS_Yellow");
+                    defaults.setProperty("validColor" + i, "Default");
                 }
                 for (int i = 1; i <= needPackage; ++i) {
                     defaults.setProperty("validPackage" + i, "Double:NullPackage");
                 }
                 config = new SpireConfig("Double", "Common", defaults);
                 for (int i = 1; i <= needPackage + 1; ++i) {
-                    validColors.add(AbstractCard.CardColor.valueOf(config.getString("validColor" + i)));
+                    if (config.getString("validColor" + i) == null)
+                        continue;
+                    String sss = config.getString("validColor" + i);
+                    boolean inEnum = false;
+                    for (PackageEnum pe : PackageEnum.values()) {
+                        if (pe.toString().equals(sss)) {
+                            inEnum = true;
+                            break;
+                        }
+                    }
+                    if (!inEnum)
+                        continue;
+                    if (PackageEnum.valueOf(config.getString("validColor" + i)) != null)
+                        validColors.add(PackageEnum.valueOf(config.getString("validColor" + i)));
                 }
                 for (int i = 1; i <= needPackage; ++i) {
                     String s = config.getString("validPackage" + i);

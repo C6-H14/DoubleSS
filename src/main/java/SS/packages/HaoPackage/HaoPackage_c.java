@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
-import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class HaoPackage_c extends AbstractPackage {
     public static PackageType TYPE = PackageType.CEILING;
     public static String ID = ModHelper.makePath("HaoPackage_c");
 
     public HaoPackage_c() {
-        super(ID, TYPE, AbstractCardEnum.Hao_Green, "Double:Hao_Green_option", "Double:GreenApple");
+        super(ID, TYPE, PackageEnum.Hao, "Double:Hao_Green_option", "Double:GreenApple");
     }
 
     public ArrayList<String> getCards() {

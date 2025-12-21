@@ -38,7 +38,7 @@ public class UnderlyingLogicPower extends AbstractPower {
 
     public void onChannel(AbstractOrb orb) {
         if (orb instanceof AttackDice || orb instanceof DefendDice) {
-            addToBot(new ChannelAction(new IronwaveDice(this.amount, AbstractDungeon.getRandomMonster())));
+            addToTop(new ChannelAction(new IronwaveDice(this.amount, AbstractDungeon.getRandomMonster())));
         }
     }
 

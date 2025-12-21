@@ -2,9 +2,9 @@ package SS.packages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import SS.path.PackageEnumList.PackageEnum;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import SS.cards.AbstractDoubleCard;
 import SS.helper.SynergismGraph;
 import SS.modcore.modcore;
 import javafx.util.Pair;
@@ -23,18 +24,20 @@ public abstract class AbstractPackage {
     public ArrayList<AbstractRelic> RelicLists = new ArrayList<AbstractRelic>();
     public ArrayList<AbstractMonster> MonsterLists = new ArrayList<AbstractMonster>();
     public AbstractRelic StartRelic;
-    public AbstractCard OptionCard;
+    public AbstractDoubleCard OptionCard;
     public PackageType TYPE;
     public String ID;
-    public CardColor PackageColor;
-    public ArrayList<Pair<CardColor, SynergismGraph.SynTag>> syng = new ArrayList<>();
+    public PackageEnum PackageColor;
+    public ArrayList<Pair<PackageEnum, SynergismGraph.SynTag>> syng = new ArrayList<>();
 
-    public AbstractPackage(String id, PackageType type, CardColor col, String optioncard, String startRelic) {
+    public AbstractPackage(String id, PackageType type, PackageEnum col, String optioncard, String startRelic) {
         this.ID = id;
         this.TYPE = type;
         this.PackageColor = col;
         AbstractCard c = CardLibrary.getCard(optioncard);
-        this.OptionCard = c.makeStatEquivalentCopy();
+        if (c instanceof AbstractDoubleCard) {
+            this.OptionCard = ((AbstractDoubleCard) c).makeCopy();
+        }
         modcore.cardParentMap.put(c.cardID, this.ID);
         modcore.cardClassParentMap.put(c.getClass(), this.ID);
         this.StartRelic = RelicLibrary.getRelic(startRelic).makeCopy();
@@ -49,8 +52,8 @@ public abstract class AbstractPackage {
 
     public abstract AbstractPackage makeCopy();
 
-    public void addSyng(CardColor c, SynergismGraph.SynTag t) {
-        syng.add(new Pair<AbstractCard.CardColor, SynergismGraph.SynTag>(c, t));
+    public void addSyng(PackageEnum c, SynergismGraph.SynTag t) {
+        syng.add(new Pair<PackageEnum, SynergismGraph.SynTag>(c, t));
     }
 
     public void initializePack() {

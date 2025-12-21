@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import SS.helper.ModHelper;
 import SS.helper.SynergismGraph;
 import SS.packages.AbstractPackage;
-import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class ShockPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("ShockPackage");
 
     public ShockPackage() {
-        super(ID, TYPE, AbstractCardEnum.Shock_Blue, "Double:Shock_Blue_option", "Double:MassSpring");
-        addSyng(AbstractCardEnum.Hao_Green, SynergismGraph.SynTag.Student);
+        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring");
+        addSyng(PackageEnum.Hao, SynergismGraph.SynTag.Student);
     }
 
     public ArrayList<String> getCards() {
