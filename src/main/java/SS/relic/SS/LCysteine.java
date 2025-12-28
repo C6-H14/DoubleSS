@@ -34,6 +34,8 @@ public class LCysteine extends CustomRelic {
         addToBot(new RelicAboveCreatureAction((AbstractCreature) AbstractDungeon.player, this));
         addToBot(new AddTemporaryHPAction((AbstractCreature) AbstractDungeon.player,
                 (AbstractCreature) AbstractDungeon.player, amount));
+        System.out.println(AbstractDungeon.player.hb_x + "----" + AbstractDungeon.player.hb_y);
+        System.out.println(AbstractDungeon.player.healthHb.cX + "----" + AbstractDungeon.player.healthHb.cY);
     }
 
     public AbstractRelic makeCopy() {

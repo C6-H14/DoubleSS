@@ -22,11 +22,11 @@ public class ShockPackage_c extends AbstractPackage {
         cards.add("Double:OffenseAsDefense");
         cards.add("Double:TA");
 
-        cards.add("Double:HaoStrike");
-        cards.add("Double:DeathNotifier");
-        cards.add("Double:Bin");
-        cards.add("Double:WhichPick");
-        cards.add("Double:HaoPack");
+        cards.add("Double:Nightfall");
+        cards.add("Double:GreatWave");
+        cards.add("Double:SlowCook");
+        cards.add("Double:NightOps");
+        cards.add("Double:ArmillarySphere");
         return cards;
     }
 

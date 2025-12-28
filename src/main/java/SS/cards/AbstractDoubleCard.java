@@ -203,19 +203,17 @@ public abstract class AbstractDoubleCard extends CustomCard {
     @Override
     public abstract AbstractDoubleCard makeCopy();
 
+    public void refreshPower() {
+    }
+
     public void triggerOnGlowCheck() {
-        System.out.println(this.cardID);
         if (hasSyn()) {
             triggerOnSyn();
-            System.out.println("1");
         } else {
-            System.out.println("2");
             if (this.isFiend) {
-                System.out.println("3");
                 triggerOnGlowCheck_Fiend();
             }
             if (this.isManager) {
-                System.out.println("4");
                 triggerOnGlowCheck_Manager();
             }
         }

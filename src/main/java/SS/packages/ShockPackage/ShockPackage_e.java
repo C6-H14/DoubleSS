@@ -22,11 +22,11 @@ public class ShockPackage_e extends AbstractPackage {
         cards.add("Double:OffenseAsDefense");
         cards.add("Double:TA");
 
-        cards.add("Double:Haoflex");
-        cards.add("Double:HaoLive");
-        cards.add("Double:YourAttack");
-        cards.add("Double:DiverseLover");
-        cards.add("Double:BossSwapGod");
+        cards.add("Double:Shitpost");
+        cards.add("Double:CripplingShockwave");
+        cards.add("Double:ClassicMove");
+        cards.add("Double:Earthquake");
+        cards.add("Double:Fallen");
         return cards;
     }
 

@@ -59,7 +59,6 @@ public class BossSwapGod extends AbstractHaoCard {
                 continue;
             }
             for (AbstractPackage c : modcore.mainPackageList) {
-                System.out.println("BossSwapGod:" + c.ID);
                 if (c.StartRelic.relicId.equals(r.relicId)) {
                     --amount;
                     break;

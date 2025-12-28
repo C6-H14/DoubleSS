@@ -22,11 +22,11 @@ public class ShockPackage_v extends AbstractPackage {
         cards.add("Double:OffenseAsDefense");
         cards.add("Double:TA");
 
-        cards.add("Double:HaoStab");
-        cards.add("Double:Haoggernaut");
-        cards.add("Double:Prism");
-        cards.add("Double:margropeR");
-        cards.add("Double:ScrapeBy");
+        cards.add("Double:ShootingStar");
+        cards.add("Double:Absorb");
+        cards.add("Double:FeelNoShame");
+        cards.add("Double:EchoOfShock");
+        cards.add("Double:DonQuixoticCharge");
         return cards;
     }
 

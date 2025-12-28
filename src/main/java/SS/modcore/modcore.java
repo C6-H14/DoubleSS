@@ -10,6 +10,7 @@ import basemod.interfaces.EditRelicsSubscriber;
 import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.ISubscriber;
 import basemod.interfaces.OnCardUseSubscriber;
+import basemod.interfaces.OnPowersModifiedSubscriber;
 import basemod.interfaces.OnStartBattleSubscriber;
 import basemod.interfaces.PostExhaustSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
@@ -38,6 +39,7 @@ import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.localization.Keyword;
+import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
@@ -91,7 +93,7 @@ import java.util.Random;
 public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditCharactersSubscriber,
         EditStringsSubscriber, EditKeywordsSubscriber, StartGameSubscriber, PostUpdateSubscriber,
         PostInitializeSubscriber, OnStartBattleSubscriber, OnCardUseSubscriber, RenderSubscriber,
-        PostExhaustSubscriber {
+        PostExhaustSubscriber, OnPowersModifiedSubscriber {
     private static final String BG_ATTACK_512 = "img/512/bg_attack.png";
     private static final String BG_POWER_512 = "img/512/bg_power.png";
     private static final String BG_SKILL_512 = "img/512/bg_skill.png";
@@ -123,7 +125,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         // addCardColor(AbstractCardEnum.Shock_Blue, "shock");
     }
 
-    private static int needPackage = 2;
+    private static int needPackage = 3;
     public static SpireConfig config = null;
 
     public static void initialize() {
@@ -146,6 +148,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         BaseMod.loadCustomStringsFile(CharacterStrings.class, "localization/" + lang + "/characters.json");
         BaseMod.loadCustomStringsFile(RelicStrings.class, "localization/" + lang + "/relic.json");
         BaseMod.loadCustomStringsFile(UIStrings.class, "localization/" + lang + "/ui.json");
+        BaseMod.loadCustomStringsFile(MonsterStrings.class, "localization/" + lang + "/monsters.json");
     }
 
     @Override
@@ -574,6 +577,32 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public void receiveRender(SpriteBatch arg0) {
         if (sinBar != null) {
             sinBar.render(arg0);
+        }
+    }
+
+    @Override
+    public void receivePowersModified() {
+        if (AbstractDungeon.player != null) {
+            for (AbstractCard c : AbstractDungeon.player.hand.group) {
+                if (c instanceof AbstractDoubleCard) {
+                    ((AbstractDoubleCard) c).refreshPower();
+                }
+            }
+            for (AbstractCard c : AbstractDungeon.player.drawPile.group) {
+                if (c instanceof AbstractDoubleCard) {
+                    ((AbstractDoubleCard) c).refreshPower();
+                }
+            }
+            for (AbstractCard c : AbstractDungeon.player.discardPile.group) {
+                if (c instanceof AbstractDoubleCard) {
+                    ((AbstractDoubleCard) c).refreshPower();
+                }
+            }
+            for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
+                if (c instanceof AbstractDoubleCard) {
+                    ((AbstractDoubleCard) c).refreshPower();
+                }
+            }
         }
     }
 }

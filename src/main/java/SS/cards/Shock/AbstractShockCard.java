@@ -1,6 +1,7 @@
 package SS.cards.Shock;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.localization.CardStrings;
 
 import SS.cards.AbstractDoubleCard;
@@ -68,5 +69,13 @@ public abstract class AbstractShockCard extends AbstractDoubleCard {
             this.tags.add(AbstractCardEnum.Fiend);
         if (manager)
             this.tags.add(AbstractCardEnum.Manager);
+    }
+
+    protected int getShock(AbstractCreature m) {
+        int amount = 0;
+        if (m.hasPower("Vulnerable") && m.hasPower("Weakened")) {
+            amount = Math.min(m.getPower("Vulnerable").amount, m.getPower("Weakened").amount);
+        }
+        return amount;
     }
 }

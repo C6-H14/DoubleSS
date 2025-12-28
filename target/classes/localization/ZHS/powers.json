@@ -268,7 +268,7 @@
   "Double:UnbreakablePower": {
     "NAME": "不灭意志",
     "DESCRIPTIONS": [
-      "每当你失去 double:奄息 时，抽 #b",
+      "每当你失去 #y奄息 时，抽 #b",
       " 张牌"
     ]
   },
@@ -283,13 +283,32 @@
     "NAME": "共振",
     "DESCRIPTIONS": [
       "回合开始时，给予所有敌人 #b",
-      " 层 double:震荡 "
+      " 层 #y震荡 "
     ]
   },
   "Double:OffenseAsDefensePower": {
     "NAME": "以攻代守",
     "DESCRIPTIONS": [
       "本回合每当你造成未被格挡的伤害时，获得等量的格挡"
+    ]
+  },
+  "Double:FeelNoShamePower": {
+    "NAME": "无惧猴戏",
+    "DESCRIPTIONS": [
+      "当你对一名敌人造成负面状态时，获得 #b",
+      " 点格挡。"
+    ]
+  },
+  "Double:ArmillarySpherePower": {
+    "NAME": "浑天仪",
+    "DESCRIPTIONS": [
+      "回合开始时，你每拥有1层 #y震荡 ，抽1张牌"
+    ]
+  },
+  "Double:FallenPower": {
+    "NAME": "恶堕",
+    "DESCRIPTIONS": [
+      "你的易伤改为使你受到的伤害减少 #b25% ，你的虚弱改为使你造成的伤害增加 #b25% "
     ]
   }
 }
