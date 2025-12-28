@@ -3,7 +3,7 @@
   "name": "二硫键mod",
   "author_list": ["C6H14"],
   "description": "为二硫键量身定做的mod，内含塔群元素。",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "sts_version": "12-22-2020",
   "mts_version": "3.23.2",
   "dependencies": ["basemod","stslib"]
