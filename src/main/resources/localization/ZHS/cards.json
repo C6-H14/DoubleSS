@@ -328,13 +328,13 @@
     },
     "Double:Diversity":{
         "NAME": "多样性",
-        "DESCRIPTION": "进入群主形态，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !B! )。",
-        "UPGRADE_DESCRIPTION": "进入群主形态，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !B! )。"
+        "DESCRIPTION": "进入 double:群主形态 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !B! )。",
+        "UPGRADE_DESCRIPTION": "进入 double:群主形态 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !B! )。"
     },
     "Double:Pansy":{
         "NAME": "三色堇",
-        "DESCRIPTION": "你每有一种不同的骰子，获得 [E] ，消耗。",
-        "UPGRADE_DESCRIPTION": "你每有一种不同的骰子，获得 [E] 。"
+        "DESCRIPTION": "进入 double:群主形态 ，你每有一种不同的骰子，获得 [E] ，消耗。",
+        "UPGRADE_DESCRIPTION": "进入 double:群主形态 ，你每有一种不同的骰子，获得 [E] 。"
     },
     "Double:Luxuriance":{
         "NAME": "枝繁叶茂",
@@ -920,5 +920,173 @@
             "造成 !D! 点伤害。 NL double:协同 (卡组，学生)：斩杀时，升级一张卡组中颢颢的卡牌。"
         ],
         "FLAVOR":" #y群主形态 ：协同条件升级为(卡组，学生)。"
+    },
+    "Double:ShootingStar":{
+        "NAME": "流星",
+        "DESCRIPTION": "生成1个攻击骰子( !D! )， double:震荡 1：额外生成1个攻击骰子( !D! )。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击骰子( !D! )， double:震荡 1：额外生成1个攻击骰子( !D! )。",
+        "EXTENDED_DESCRIPTION": [
+            "生成1个攻击骰子( !D! )，对每个具有 double:震荡 1的敌人都额外生成1个攻击骰子( !D! )。",
+            "生成1个攻击骰子( !D! )，对每个具有 double:震荡 1的敌人都额外生成1个攻击骰子( !D! )。"
+        ],
+        "FLAVOR":" #y群主形态 ：改为对每个具有震荡1的敌人都额外生成1个攻击骰子。"
+    },
+    "Double:Absorb":{
+        "NAME": "吸收",
+        "DESCRIPTION": "移除目标的所有 double:震荡 ，获得等量的 力量 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "移除目标的所有 double:震荡 ，获得等量的 力量 。",
+        "EXTENDED_DESCRIPTION": [
+            "移除目标的所有 double:震荡 ，获得等量的 力量 ，给予目标1层 double:震荡 ， 消耗 。",
+            "移除目标的所有 double:震荡 ，获得等量的 力量 ，给予目标1层 double:震荡 。"
+        ],
+        "FLAVOR":" #y群主形态 ：目标获得1层震荡。"
+    },
+    "Double:FeelNoShame":{
+        "NAME": "无惧猴戏",
+        "DESCRIPTION": "每当你对一名敌人造成负面状态时，获得 !M! 点格挡。",
+        "UPGRADE_DESCRIPTION": "每当你对一名敌人造成负面状态时，获得 !M! 点格挡。",
+        "EXTENDED_DESCRIPTION": [
+            "每当你对一名敌人造成负面状态时，对其造成1点伤害，你获得 !M! 点格挡。",
+            "每当你对一名敌人造成负面状态时，对其造成1点伤害，你获得 !M! 点格挡。"
+        ],
+        "FLAVOR":" #y群主形态 ：获得1层残虐。"
+    },
+    "Double:EchoOfShock":{
+        "NAME": "震荡的回响",
+        "DESCRIPTION": "给予所有敌人 !M! 层 double:震荡 3次， 消耗 。",
+        "UPGRADE_DESCRIPTION": "给予所有敌人 !M! 层 double:震荡 3次， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "给予所有敌人 !M! 层 double:震荡 3次，给予所有敌人1层 double:沉沦 ， 消耗 。",
+            "给予所有敌人 !M! 层 double:震荡 3次，给予所有敌人1层 double:沉沦 ， 消耗 。"
+        ],
+        "FLAVOR":" #y群主形态 ：给予所有敌人1层沉沦。"
+    },
+    "Double:DonQuixoticCharge":{
+        "NAME": "堂氏冲锋",
+        "DESCRIPTION": "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。",
+        "UPGRADE_DESCRIPTION": "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。",
+        "EXTENDED_DESCRIPTION": [
+            "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。 NL 场上每有一名存活的敌人，你获得1层美德。",
+            "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。 NL 场上每有一名存活的敌人，你获得1层美德。"
+        ],
+        "FLAVOR":" #y群主形态 ：场上每有一名存活的敌人，你获得1层美德。"
+    },
+    "Double:Nightfall":{
+        "NAME": "夜幕降临",
+        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 ，获得等同于你未失去的状态种类数的 [E] 。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 ，获得等同于你未失去的状态种类数的 [E] 。",
+        "EXTENDED_DESCRIPTION": [
+            "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 和1层 脆弱 ，获得等同于你未失去的状态种类数的 [E] 。",
+            "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 和1层 脆弱 ，获得等同于你未失去的状态种类数的 [E] 。"
+        ],
+        "FLAVOR":" #y群主形态 ：失去1层脆弱。"
+    },
+    "Double:GreatWave":{
+        "NAME": "惊涛",
+        "DESCRIPTION": "造成 !D! 点伤害3次，若目标有 易伤 ，每次造成伤害时移除1层 易伤 并获得 [E] 。",
+        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害3次，若目标有 易伤 ，每次造成伤害时移除1层 易伤 并获得 [E] 。",
+        "EXTENDED_DESCRIPTION": [
+            "造成 !D! 点伤害3次，若目标有 易伤 ，每次造成伤害时移除1层 易伤 ，给予1层 虚弱 并获得 [E] 。",
+            "造成 !D! 点伤害3次，若目标有 易伤 ，每次造成伤害时移除1层 易伤 ，给予1层 虚弱 并获得 [E] 。"
+        ],
+        "FLAVOR":" #y群主形态 ：若目标有易伤，每次造成伤害时额外给予1层虚弱。"
+    },
+    "Double:SlowCook":{
+        "NAME": "低温慢煮",
+        "DESCRIPTION": "若你拥有不超过 !M! 层 double:震荡 ，抽2张牌，获得1层 double:震荡 。",
+        "UPGRADE_DESCRIPTION": "若你拥有不超过 !M! 层 double:震荡 ，抽2张牌，获得1层 double:震荡 。",
+        "EXTENDED_DESCRIPTION": [
+            "若你拥有不超过 !M! 层 double:震荡 ，抽2张牌，所有单位获得1层 double:震荡 。",
+            "若你拥有不超过 !M! 层 double:震荡 ，抽2张牌，所有单位获得1层 double:震荡 。"
+        ],
+        "FLAVOR":" #y群主形态 ：改为所有单位获得1层震荡。"
+    },
+    "Double:Tired":{
+        "NAME": "困倦",
+        "DESCRIPTION": "只能在每回合恰好打出过1张牌时打出，结束你的回合，消耗。 NL 若回合结束时此牌仍在手牌中，获得3层 double:震荡 。",
+        "UPGRADE_DESCRIPTION": "只能在每回合恰好打出过1张牌时打出，结束你的回合，消耗。 NL 若回合结束时此牌仍在手牌中，获得3层 double:震荡 。",
+        "FLAVOR":"新！老！"
+    },
+    "Double:NightOps":{
+        "NAME": "夜战",
+        "DESCRIPTION": "每回合首次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。",
+        "UPGRADE_DESCRIPTION": "每回合首次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。",
+        "EXTENDED_DESCRIPTION": [
+            "每回合前2次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。",
+            "每回合前2次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。"
+        ],
+        "FLAVOR":" #y群主形态 ：改为每回合前两次打出时触发。"
+    },
+    "Double:ArmillarySphere":{
+        "NAME": "浑天仪",
+        "DESCRIPTION": "回合开始时，你每拥有1层 double:震荡 ，抽1张牌。",
+        "UPGRADE_DESCRIPTION": "回合开始时，你每拥有1层 double:震荡 ，抽1张牌。",
+        "EXTENDED_DESCRIPTION": [
+            "抽1张牌。 NL 回合开始时，你每拥有1层 double:震荡 ，抽1张牌。",
+            "抽1张牌。 NL 回合开始时，你每拥有1层 double:震荡 ，抽1张牌。"
+        ],
+        "FLAVOR":" #y群主形态 ：立刻抽1张牌。"
+    },
+    "Double:Shitpost":{
+        "NAME": "搬屎",
+        "DESCRIPTION": "获得3层 中毒 ，对所有敌人生成1个攻击颢骰( !D! )， 消耗 。",
+        "UPGRADE_DESCRIPTION": "获得3层 中毒 ，对所有敌人生成1个攻击颢骰( !D! )， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "获得3层 中毒 ，获得 !M! 金币，回复2点生命，对所有敌人生成1个攻击颢骰( !D! )， 消耗 。",
+            "获得3层 中毒 ，获得 !M! 金币，回复3点生命，对所有敌人生成1个攻击颢骰( !D! )， 消耗 。"
+        ],
+        "FLAVOR":" #y群主形态 ：获得10/15金币，回复2/3点生命。"
+    },
+    "Double:CripplingShockwave":{
+        "NAME": "异化震荡波",
+        "DESCRIPTION": "给予所有敌人 !M! 层 中毒 和1层 格挡返还 。",
+        "UPGRADE_DESCRIPTION": "给予所有敌人 !M! 层 中毒 和2层 格挡返还 。",
+        "EXTENDED_DESCRIPTION": [
+            "给予所有敌人 !M! 层 中毒 ，1层 格挡返还 和1层 double:震荡 。",
+            "给予所有敌人 !M! 层 中毒 ，2层 格挡返还 和1层 double:震荡 。"
+        ],
+        "FLAVOR":" #y群主形态 ：给予所有敌人1层震荡。"
+    },
+    "Double:ClassicMove":{
+        "NAME": "保留节目",
+        "DESCRIPTION": "选择普通，罕见，稀有中的一种稀有度，发现一张对应稀有度的牌， 消耗 。",
+        "UPGRADE_DESCRIPTION": "选择普通，罕见，稀有中的一种稀有度，发现一张对应稀有度的牌， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "选择普通，罕见，稀有中的一种稀有度，发现一张对应稀有度的牌，可选牌数加1， 消耗 。",
+            "选择普通，罕见，稀有中的一种稀有度，发现一张对应稀有度的牌，可选牌数加1， 消耗 。"
+        ],
+        "FLAVOR":" #y群主形态 ：发现牌数加1。"
+    },
+    "Double:CommonCardOption":{
+        "NAME": "普通",
+        "DESCRIPTION": "发现一张普通牌。"
+    },
+    "Double:UncommonCardOption":{
+        "NAME": "罕见",
+        "DESCRIPTION": "发现一张罕见牌。"
+    },
+    "Double:RareCardOption":{
+        "NAME": "稀有",
+        "DESCRIPTION": "发现一张稀有牌。"
+    },
+    "Double:Earthquake":{
+        "NAME": "地崩山摧",
+        "DESCRIPTION": "生成 !M! 个攻击 double:骰子 ( !D! )。 NL 本牌费用减少场上敌人拥有的 double:震荡 的最小值。",
+        "UPGRADE_DESCRIPTION": "生成 !M! 个攻击 double:骰子 ( !D! )。 NL 本牌费用减少场上敌人拥有的 double:震荡 的最小值。",
+        "EXTENDED_DESCRIPTION": [
+            "生成 !M! 个攻击 double:骰子 ( !D! )，获得 [E] 。 NL 本牌费用减少场上敌人拥有的 double:震荡 的最小值。",
+            "生成 !M! 个攻击 double:骰子 ( !D! )，获得 [E] 。 NL 本牌费用减少场上敌人拥有的 double:震荡 的最小值。"
+        ],
+        "FLAVOR":" #y群主形态 ：获得 [E] 。"
+    },
+    "Double:Fallen":{
+        "NAME": "恶堕",
+        "DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。",
+        "UPGRADE_DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。",
+        "EXTENDED_DESCRIPTION": [
+            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。",
+            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。"
+        ],
+        "FLAVOR":" #y群主形态 ：获得 [E] 。"
     }
 }

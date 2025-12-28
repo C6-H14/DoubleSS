@@ -49,21 +49,33 @@ public class GreatDiscipleAction extends AbstractGameAction {
             }
 
             this.p.hand.moveToExhaustPile(this.p.hand.getBottomCard());
-            this.tickDuration();
+            this.isDone = true;
         } else {
             ArrayList<AbstractCard> cardList = new ArrayList<>();
             int max = 999;
             for (AbstractCard q : AbstractDungeon.player.hand.group) {
-
-                if (q.costForTurn < max && q.costForTurn >= -1 && !q.isEthereal && !q.selfRetain) {
-
-                    cardList.clear();
-                    cardList.add(q);
-                    max = q.costForTurn;
-                    continue;
+                if (q.cost == -2) {
+                    max = -2;
                 }
-                if (q.costForTurn == max && q.costForTurn >= -1 && !q.isEthereal && !q.selfRetain) {
-                    cardList.add(q);
+            }
+            if (max == -2) {
+                for (AbstractCard q : AbstractDungeon.player.hand.group) {
+                    if (q.cost == -2) {
+                        cardList.add(q);
+                    }
+                }
+            } else {
+                for (AbstractCard q : AbstractDungeon.player.hand.group) {
+                    if (q.costForTurn < max && q.costForTurn >= -1) {
+
+                        cardList.clear();
+                        cardList.add(q);
+                        max = q.costForTurn;
+                        continue;
+                    }
+                    if (q.costForTurn == max && q.costForTurn >= -1) {
+                        cardList.add(q);
+                    }
                 }
             }
             if (!cardList.isEmpty()) {
@@ -81,10 +93,9 @@ public class GreatDiscipleAction extends AbstractGameAction {
                         }
                     }
                 }
-
                 this.p.hand.moveToExhaustPile(c);
-                this.isDone = true;
             }
+            this.isDone = true;
         }
     }
 

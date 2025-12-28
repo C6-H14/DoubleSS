@@ -1,0 +1,9 @@
+{
+    "Double:SoulAlly":{
+        "NAME":"魂火跟班",
+        "DIALOG":[],
+        "MOVES":[
+            "魂火子弹"
+        ]
+    }
+}

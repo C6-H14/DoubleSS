@@ -55,7 +55,6 @@ public class YinYang extends AbstractDoubleCard {
         for (AbstractCard q : CardLibrary.getAllCards()) {
             if (q.hasTag(AbstractCardEnum.Virtues)) {
                 AbstractCard r = q.makeCopy();
-                System.out.println(r + ":" + r.hasTag(AbstractCardEnum.Virtues));
                 if (this.upgraded) {
                     r.upgrade();
                 }

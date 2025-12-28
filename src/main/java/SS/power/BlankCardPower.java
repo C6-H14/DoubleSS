@@ -2,6 +2,7 @@ package SS.power;
 
 import SS.action.common.EchoACardAction;
 import SS.helper.ModHelper;
+import SS.path.AbstractCardEnum;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,7 +59,8 @@ public class BlankCardPower extends AbstractPower {
 
         while (var4.hasNext()) {
             AbstractCard c = (AbstractCard) var4.next();
-            if (c.type != CardType.STATUS && c.type != CardType.CURSE && c.isEthereal) {
+            if (c.type != CardType.STATUS && c.type != CardType.CURSE && c.isEthereal
+                    && !c.hasTag(AbstractCardEnum.Echo)) {
                 tmp.add(c);
             }
         }
