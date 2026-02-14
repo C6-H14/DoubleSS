@@ -2,9 +2,12 @@ package SS.cards;
 
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveField;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
@@ -134,6 +137,10 @@ public abstract class AbstractDoubleCard extends CustomCard {
         if (this.packagetype == PackageEnum.Default || this.packagetype == PackageEnum.SS) {
             return;
         }
+        if (this.packagetype == PackageEnum.RED || this.packagetype == PackageEnum.GREEN
+                || this.packagetype == PackageEnum.BLUE || this.packagetype == PackageEnum.PURPLE) {
+            return;
+        }
         String s = this.packagetype.toString();
         this.setOrbTexture("img/512/" + s + "_orb.png", "img/1024/" + s + "_orb.png");
         switch (this.type) {
@@ -149,6 +156,32 @@ public abstract class AbstractDoubleCard extends CustomCard {
             default:
                 this.setBackgroundTexture("img/512/" + s + "_skill.png", "img/1024/" + s + "_skill.png");
                 break;
+        }
+    }
+
+    protected void setDamage(int amount) {
+        this.damage = this.baseDamage = amount;
+    }
+
+    protected void setBlock(int amount) {
+        this.block = this.baseBlock = amount;
+    }
+
+    protected void setMagic(int amount) {
+        this.magicNumber = this.baseMagicNumber = amount;
+    }
+
+    protected void selfPower(AbstractPower p) {
+        addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, p));
+    }
+
+    protected void enemyPower(AbstractPower p, AbstractMonster m) {
+        addToBot(new ApplyPowerAction(m, m, p));
+    }
+
+    protected void allEnemyPower(AbstractPower p) {
+        for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
+            enemyPower(p, mo);
         }
     }
 

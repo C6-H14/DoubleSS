@@ -184,14 +184,6 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                         UnlockTracker.markRelicAsSeen(relic.relicId);
                     }
                 });
-        // BaseMod.addRelicToCustomPool(new BoilingBlood(), AbstractCardEnum.SS_Yellow);
-        // BaseMod.addRelicToCustomPool(new HalfRingOfTheSnake(),
-        // AbstractCardEnum.SS_Yellow);
-        // BaseMod.addRelicToCustomPool(new CorePieces(), AbstractCardEnum.SS_Yellow);
-        // BaseMod.addRelicToCustomPool(new BathWater(), AbstractCardEnum.SS_Yellow);
-        // BaseMod.addRelicToCustomPool(new LCysteine(), AbstractCardEnum.SS_Yellow);
-        // BaseMod.addRelicToCustomPool(new GreenApple(), AbstractCardEnum.SS_Yellow);
-        // BaseMod.addRelicToCustomPool(new WoodenCross(), AbstractCardEnum.SS_Yellow);
         BaseMod.addRelic(new Merit(), basemod.helpers.RelicType.SHARED);
     }
 
@@ -575,7 +567,8 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     @Override
     public void receiveRender(SpriteBatch arg0) {
-        if (sinBar != null) {
+        if (sinBar != null && AbstractDungeon.player != null
+                && AbstractDungeon.player instanceof MyCharacter) {
             sinBar.render(arg0);
         }
     }

@@ -5,10 +5,9 @@ import java.util.Map;
 
 import basemod.helpers.CardModifierManager;
 import basemod.interfaces.PreStartGameSubscriber;
-import basemod.interfaces.StartGameSubscriber;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 
-public class FindFather implements SaveLoadSubscriber, StartGameSubscriber, PreStartGameSubscriber {
+public class FindFather implements SaveLoadSubscriber, PreStartGameSubscriber {
     public static Map<AbstractCard, AbstractCard> fatherList = new HashMap<AbstractCard, AbstractCard>();
     static ConjugateModifier newConjugate = new ConjugateModifier();
 

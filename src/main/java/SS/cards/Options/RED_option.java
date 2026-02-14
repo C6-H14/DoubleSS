@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class RED_option extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("RED_option");
@@ -23,6 +24,7 @@ public class RED_option extends AbstractDoubleCard {
 
     public RED_option() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
+        this.packagetype = PackageEnum.RED;
     }
 
     public void debugging() {
