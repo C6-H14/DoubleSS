@@ -11,8 +11,10 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.action.common.SpawnAllyAction;
 import SS.action.unique.ss.YinYangAction;
 import SS.helper.ModHelper;
+import SS.monster.ally.SoulAlly;
 import SS.path.AbstractCardEnum;
 
 public class YinYang extends AbstractDoubleCard {
@@ -89,6 +91,7 @@ public class YinYang extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        // addToBot(new SpawnAllyAction(new SoulAlly(300, 250)));
         addToBot(new YinYangAction(p, 1));
         AbstractCard c = new Indulgence();
         if (this.upgraded)

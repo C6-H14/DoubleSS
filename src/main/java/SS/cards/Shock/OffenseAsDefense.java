@@ -34,7 +34,7 @@ public class OffenseAsDefense extends AbstractShockCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(-1);
+            upgradeBaseCost(0);
             UpdateDescription();
             initializeDescription();
         }

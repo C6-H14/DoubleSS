@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
+import SS.path.PackageEnumList.PackageEnum;
 
 public class PURPLE_option extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("PURPLE_option");
@@ -23,6 +24,7 @@ public class PURPLE_option extends AbstractDoubleCard {
 
     public PURPLE_option() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
+        this.packagetype = PackageEnum.PURPLE;
     }
 
     public void upgrade() {

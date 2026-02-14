@@ -12,6 +12,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\helper\PermanentBlockVariable.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\haohao\DrawHaoCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\AbstractLostCard.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\PlaySpecificCardInHand.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\ActionRedirectPatches.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\BinPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\GreenApple.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\EternalAttackDice.java
@@ -131,6 +132,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\HaoBludgeon.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\RareCardOption.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Strike.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\FallenPower.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\common\AllyPlaySpecificCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\CompendiumPatches.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\PatiencePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\haohao\WhichPickAction.java
@@ -142,6 +144,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\power\HaoPackPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\monster\ally\SoulAlly.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Incorporeal.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ShootOff.java
+d:\StSmod\DoubleSS\src\main\java\SS\helper\MonsterIntentSimulator.java
 d:\StSmod\DoubleSS\src\main\java\SS\rewards\HaoReward.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\YinYangAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\GreenPackage\GreenPackage_v.java
@@ -160,9 +163,11 @@ d:\StSmod\DoubleSS\src\main\java\SS\Dice\AttackHaoDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\NextTurnBlockPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage_v.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DowngradeCardAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\helper\MonsterCardContext.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\CounterBlow.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\FiendPact.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Lifeline.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\common\AllyShuffleAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\RedirectDamagePatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Prism.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\ModHelper.java
@@ -179,6 +184,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\patches\AllyHookPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\dice\EvokeDiceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Fiend_option.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\HaoggernautPower.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\common\AllyPlayCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Reroll.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\PatchFromIssac.java
@@ -192,6 +198,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\action\dice\RemoveDiceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\PurplePackage\PurplePackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\BleedingPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Hoarding.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\common\AllyTurnPlannerAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\ResurrectionPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Perseverance.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\FallenPactAction.java
@@ -199,12 +206,14 @@ d:\StSmod\DoubleSS\src\main\java\SS\patches\RewardPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\DaggerInSmile.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Protein.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Manager_option.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\ActionSimulationPatches.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Indulgence.java
 d:\StSmod\DoubleSS\src\main\java\SS\monster\ally\AllyManager.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Haoggernaut.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_v.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\PlaySpecificCardInDrawPile.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\AltarActon.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\CardCalculationPatches.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SinsPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Autophagy.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\UnbreakablePower.java
@@ -224,6 +233,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\margropeR.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\shock\OffenseAsDefenseAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Lost_Black_option.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Saprophytism.java
+d:\StSmod\DoubleSS\src\main\java\SS\monster\AbstractCardMonster.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\VoidStroll.java
 d:\StSmod\DoubleSS\src\main\java\SS\rewards\RewardManager.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\DecomposePower.java
@@ -303,6 +313,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Kindness.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\ShootingStar.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\UncommonCardOption.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\MonsterIntentPatches.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\MaximizeHaoCardPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SulfurBlackPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\interfaces\OnReduceDyingPowerSubscriber.java

@@ -5,39 +5,407 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83136bbe-b2d2-422a-a817-480d9003d1bf" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ToDo.md" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/action/unique/haohao/GreatDiscipleAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/action/unique/haohao/GreatDiscipleAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cardmodifiers/FindFather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cardmodifiers/FindFather.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/AbstractDoubleCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/AbstractDoubleCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Haohao/BossSwapGod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Haohao/BossSwapGod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Shock/AbstractShockCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Shock/AbstractShockCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Options/BLUE_option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Options/BLUE_option.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Options/GREEN_option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Options/GREEN_option.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Options/PURPLE_option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Options/PURPLE_option.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Options/RED_option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Options/RED_option.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Shock/OffenseAsDefense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Shock/OffenseAsDefense.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/YinYang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/YinYang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/packages/ShockPackage/ShockPackage_c.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/packages/ShockPackage/ShockPackage_c.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/packages/ShockPackage/ShockPackage_e.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/packages/ShockPackage/ShockPackage_e.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/packages/ShockPackage/ShockPackage_v.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/packages/ShockPackage/ShockPackage_v.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/power/BlankCardPower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/power/BlankCardPower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/relic/SS/LCysteine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/relic/SS/LCysteine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/cards.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/cards.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/monster/ally/AbstractAlly.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/monster/ally/AbstractAlly.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/monster/ally/SoulAlly.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/monster/ally/SoulAlly.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/powers.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/powers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/DoubleSS.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/DoubleSS.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/haohao/GreatDiscipleAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/action/unique/haohao/GreatDiscipleAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/AbstractDoubleCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/AbstractDoubleCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/BossSwapGod.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/BossSwapGod.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/AbstractShockCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Shock/AbstractShockCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/YinYang.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/YinYang.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/modcore/modcore$CardTags.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/modcore/modcore$CardTags.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/modcore/modcore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/modcore/modcore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_c.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_c.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_e.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_e.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_v.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_v.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/BlankCardPower.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/power/BlankCardPower.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/LCysteine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/relic/SS/LCysteine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/cards.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/cards.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/DoubleSS.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/antrun/build-main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/AbstractDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/AttackDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/AttackHaoDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/DefendDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/DefendHaoDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/EmptyDiceSlot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/EternalAttackDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/EternalDefendDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/ImmolateDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/IronwaveDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/PeptideDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/WitherDice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/UI/Sinsbar.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/AddCardRewardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/FartAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/ChangeStanceAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/ConjugateCardInHandAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/ConjugateCardinDrawPileAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DamageFatalAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DieAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DiscardByTypeAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DiscoveryByRarityAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DowngradeCardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DrawLambdaCardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DrawSameTypeCardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/DrawSpecificCardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/EchoACardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/ExhaustSpecificTypeAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/IncreaseCostAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/IncreasePeptideDamageAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/ModifyPermanentDamageAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/PlaySpecificCardInDrawPile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/PlaySpecificCardInHand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/RemoveConjugateModifierAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/SpawnAllyAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/TriggerPoisonAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/UpdateFiendCardDescriptionsAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/UpdateFiendStanceDescriptions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/UpdateManagerCardDescriptionsAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/common/UpdateManagerStanceDescriptions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/dice/ChannelDiceAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/dice/ChannelOneDiceAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/dice/DiceDamageEnemyAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/dice/EvokeAllDiceAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/dice/EvokeDiceAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/dice/RemoveDiceAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/DiligenceAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/GainVirtueAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/KindnessAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/haohao/DishaoveryAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/haohao/DrawHaoCardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/haohao/GreatDiscipleAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/haohao/WhichPickAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/lost/AltarActon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/lost/FallenPactAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/lost/LifelineAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/lost/LifelinePlayCardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/lost/StratifiedStormAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/lost/VoidStrollAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/shock/OffenseAsDefenseAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/DecomposeAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/DoubleFiendFireAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/GluttonyAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/HoardingAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/NutrientCycleAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/RevengeAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/SelfReliantAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/TaotieRiteAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/TrumpCardAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/YinYangAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cardmodifiers/ConjugateModifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cardmodifiers/FindFather.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cardmodifiers/SaveLoadSubscriber.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/AbstractDoubleCard$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/AbstractDoubleCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Aggression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Autophagy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/BlessCard/AbstractBlessCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/BlessCard/BlessStrike.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/BurningEnvy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Charity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Chastity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Contempt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/DaggerInSmile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/DeafForm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Decompose.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Defend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Diligence.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Diversity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/FiendFire.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/FiendPact.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Gluttony.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/AbstractHaoCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/Bin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/BossSwapGod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/DeathNotifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/Dishaovery.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/DiverseLover.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/GreatDisciple.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoBludgeon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoLive.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoPack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoStab.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoStrike.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoTap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/Haoflex.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/Haoggernaut.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/MaximizeHaoCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/Prism.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/ScrapeBy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/WhichPick.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/YourAttack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/margropeR.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/HedonismShackles.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Hoarding.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Humility.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Hush.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Indulgence.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Irritable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Jealousy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Kindness.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/AbstractLostCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/Altar.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/BlankCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/CounterBlow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/FallenPact.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/GhostBomb.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/Godhead.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/HungrySoul.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/Incorporeal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/LastBreath.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/Lifeline.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/Perseverance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/PopIn.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/Resurrection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/SoulGuard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/SpectreEcho.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/StratifiedStorm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/TrinityShield.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/TwoChargeVoid.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/Unbreakable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lost/VoidStroll.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Lurker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Luxuriance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Miserly.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/MugUp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/MultiFacial.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/NutrientCycle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/ObsessivePhantom.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/BLUE_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/CommonCardOption.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/Fiend_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/GREEN_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/Hao_Green_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/Lost_Black_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/Manager_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/PURPLE_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/RED_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/RareCardOption.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/Shock_Blue_option.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Options/UncommonCardOption.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Pansy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Patience.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Pepsin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/PeptideStrike.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/PhoneItIn.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Protein.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/RecordingTeam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Reroll.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Revenge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Saprophytism.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/SealSupporter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Seething.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/SelfReliant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Absorb.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/AbstractShockCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/ArmillarySphere.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Blitzkrieg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/ClassicMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/CripplingShockwave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/DonQuixoticCharge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Earthquake.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/EchoOfShock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Fallen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/FeelNoShame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/GreatWave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/NightOps.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Nightfall.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/OffenseAsDefense.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Resonance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Shitpost.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/ShootingStar.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/SlowCook.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/TA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/Tired.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/UnstableShockwave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/ShootOff.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Spore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Stingy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Strike.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/SulfurBlack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/TaotieRite.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Temperance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/TransportProtein.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/TrumpCard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/UnderlyingLogic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Wrath.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/YinYang.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$PlayerColorEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$PlayerLibraryEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/effect/DicePassiveEffect.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/effect/DiceTriggeredEffect.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/AllyTriggerHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/ModHelper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/ModHelper$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/ModHelper$Lambda.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/ModHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/PermanentBlockVariable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/PermanentDamageVariable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/PermanentMagicNumberVariable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/SynergismGraph$Edge.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/SynergismGraph$SynTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/helper/SynergismGraph.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/interfaces/OnAllyAttackSubscriber.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/interfaces/OnReduceDyingPowerSubscriber.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/interfaces/PreSetMoveSubscriber.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/modcore/modcore$CardTags.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/modcore/modcore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/monster/ally/AbstractAlly$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/monster/ally/AbstractAlly$TauntType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/monster/ally/AbstractAlly.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/monster/ally/AllyManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/monster/ally/SoulAlly.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/AbstractPackage$PackageType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/AbstractPackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/BluePackage/BluePackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/BluePackage/BluePackage_c.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/BluePackage/BluePackage_e.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/BluePackage/BluePackage_v.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/GreenPackage/GreenPackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/GreenPackage/GreenPackage_c.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/GreenPackage/GreenPackage_e.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/GreenPackage/GreenPackage_v.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/HaoPackage/HaoPackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/HaoPackage/HaoPackage_c.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/HaoPackage/HaoPackage_e.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/HaoPackage/HaoPackage_v.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/LostPackage/LostPackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/LostPackage/LostPackage_c.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/LostPackage/LostPackage_e.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/LostPackage/LostPackage_v.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/NullPackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/PurplePackage/PurplePackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/PurplePackage/PurplePackage_c.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/PurplePackage/PurplePackage_e.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/PurplePackage/PurplePackage_v.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/RedPackage/RedPackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/RedPackage/RedPackage_c.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/RedPackage/RedPackage_e.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/RedPackage/RedPackage_v.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_c.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_e.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/packages/ShockPackage/ShockPackage_v.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AddHaoRewardPatch$DropSeals.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AddHaoRewardPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch$ApplyPowerUpdate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch$ClearPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch$EndTurnPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch$RemovePowerUpdate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch$RenderPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch$StartTurnPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch$UpdatePatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/AllyHookPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CenterGridCardSelectScreen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$AddSortButton$Locator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$AddSortButton.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$CustomOrdering.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$DetectModTab.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$DisableClickForOtherTabs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$HideSortButtonForOtherTabs$HideSortButtonForOtherTabsExprEditor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$HideSortButtonForOtherTabs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$ReduceButtonHitboxSize$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$ReduceButtonHitboxSize.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches$SortCorrectlyOnSwitch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/CompendiumPatches.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateCurlUpPowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateDoubleDamagePowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateEnvenomPowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateFlightPowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateMalleablePowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updatePenNibPowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateSlowPowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateThornsPowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch$updateVigorPowerPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/DiceDamageTypePatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/EvokeAllPatch$updatePatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/EvokeAllPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/FallenPowerPatches$InvertVulnerablePatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/FallenPowerPatches$InvertWeakPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/FallenPowerPatches.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/PatchFromIssac$PatchApplyBackAttack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/PatchFromIssac$PatchDamage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/PatchFromIssac$PatchSetMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/PatchFromIssac.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/RedirectDamagePatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/RewardPatch$LocatorInsertPatch$DoubleLocator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/RewardPatch$LocatorInsertPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/RewardPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/TriggerAtStartOfTurnPatch$updatePatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/patches/TriggerAtStartOfTurnPatch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/AbstractCardEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/DamageInfoEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/LibraryTypeEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/PackageEnumList$PackageEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/PackageEnumList.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/RewardEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/path/ThmodClassEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/AggressionPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/ArmillarySpherePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/BinPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/BlankCardPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/BleedingPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/BurningEnvyPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/CharityPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/ChastityPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/ContemptPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/DeafFormPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/DecomposePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/DelayDamagePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/DiversePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/DyingPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/FallenPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/FeelNoShamePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/FiendStance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/FundsPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/HaoPackPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/HaoTapPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/HaoggernautPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/HolyShieldPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/HumilityPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/ManagerStance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/MaximizeHaoCardPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/MiserlyPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/NextTurnBlockPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/NextTurnDamagePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/OffenseAsDefensePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/OpenInjuryPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/PatiencePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/PepsinPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/PhoneItInPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/RerollPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/ResonancePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/ResurrectionPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/SinsPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/SulfurBlackPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/SunkPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/TemperancePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/TrinityShieldPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/UnbreakablePower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/UnderlyingLogicPower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/Merit.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/BathWater.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/BoilingBlood.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/CorePieces.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/DemonReward.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/GreenApple.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/HalfRingOfTheSnake.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/HolyReward.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/LCysteine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/MassSpring.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/Record.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/relic/SS/WoodenCross.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/rewards/CommonCardReward$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/rewards/CommonCardReward.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/rewards/HaoReward.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/rewards/RewardManager.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/powers.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/powers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,11 +496,6 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java</url>
-          <line>284</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>jar://E:/SteamLibrary/steamapps/common/SlayTheSpire/desktop-1.0.jar!/com/megacrit/cardcrawl/actions/common/ApplyPowerAction.class</url>
           <line>56</line>
           <option name="timeStamp" value="18" />
@@ -144,30 +507,35 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/SS/cards/AbstractDoubleCard.java</url>
-          <line>207</line>
+          <line>211</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/SS/cards/Shock/Earthquake.java</url>
-          <line>84</line>
-          <option name="timeStamp" value="24" />
+          <url>jar://E:/SteamLibrary/steamapps/common/SlayTheSpire/desktop-1.0.jar!/com/badlogic/gdx/math/RandomXS128.class</url>
+          <line>58</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/modcore/modcore.java</url>
+          <line>483</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/monster/ally/AbstractAlly.java</url>
+          <line>130</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/action/common/AllyTurnPlannerAction.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/action/common/AllyPlayCardAction.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="JarApplication">
-        <watch expression="cardBlizzRandomizer" />
-        <watch expression="roll" />
-        <watch expression="customReward.cards" />
-        <watch expression="customReward" />
-        <watch expression="choosingCharacters" />
-        <watch expression="colorChoices" />
-        <watch expression="item.PackageColor == c.color" />
-        <watch expression="item.PackageColor" />
-        <watch expression="c.color" />
-        <watch expression="costForTurn" />
-        <watch expression="tmp.costForTurn" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

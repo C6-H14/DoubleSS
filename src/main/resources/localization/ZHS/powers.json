@@ -172,7 +172,7 @@
   "Double:FundsPower": {
     "NAME": "资金",
     "DESCRIPTIONS": [
-      "层数不小于目标血量时，目标逃跑，并给予你援助。 "
+      "层数不小于目标生命时，目标逃跑，并给予你援助。 "
     ]
   },
   "Double:CharityPower": {

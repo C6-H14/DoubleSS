@@ -1,132 +1,230 @@
 package SS.monster.ally;
 
 import java.util.ArrayList;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
+
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 
+import SS.action.common.AllyPlayCardAction;
+import SS.action.common.AllyTurnPlannerAction;
 import SS.helper.AllyTriggerHelper;
-import basemod.ReflectionHacks;
-import basemod.abstracts.CustomMonster;
+import SS.monster.AbstractCardMonster;
 
-public abstract class AbstractAlly extends CustomMonster {
+public abstract class AbstractAlly extends AbstractCardMonster {
 
     public enum TauntType {
         NONE, SOLID, OVERFLOW
     }
 
     public TauntType tauntType = TauntType.NONE;
-    // 【新增 1】 目标锁定变量
-    protected AbstractMonster lockedTarget = null;
-
-    // 【新增 2】 标记当前意图是否为 AOE (需要在子类 updateIntent 中设置)
+    public AbstractMonster lockedTarget = null;
     protected boolean isAOE = false;
 
-    public AbstractAlly(String name, String id, int maxHealth, String imgUrl, TauntType type) {
-        this(name, id, maxHealth, imgUrl, type, MathUtils.random(-200.0F, 200.0F) * Settings.scale,
-                MathUtils.random(50.0F, 300.0F) * Settings.scale, 150F, 150F);
+    // =================================================================
+    // 构造与初始化
+    // =================================================================
+    // 构造函数 1
+    public AbstractAlly(
+            String name, String id, int maxHealth, String imgUrl, TauntType type,
+            float offsetX, float offsetY, float hb_x, float hb_y,
+            float healthBarOffsetY // 【新增参数】接收高度
+    ) {
+        // 传给父类，最后那个参数就是高度
+        super(name, id, maxHealth, hb_x, hb_y, 150F, 150F, imgUrl, offsetX, offsetY, 3, healthBarOffsetY);
+        this.tauntType = type;
+        commonInit(offsetX, offsetY);
     }
 
-    public AbstractAlly(String name, String id, int maxHealth, String imgUrl, TauntType type, float bx, float by) {
-        this(name, id, maxHealth, imgUrl, type, MathUtils.random(-200.0F, 200.0F) * Settings.scale,
-                MathUtils.random(50.0F, 300.0F) * Settings.scale, bx, by);
+    // 构造函数 2 (自定义能量)
+    public AbstractAlly(
+            String name, String id, int maxHealth, String imgUrl, TauntType type,
+            float offsetX, float offsetY, float hb_x, float hb_y,
+            int energy,
+            float healthBarOffsetY // 【新增参数】接收高度
+    ) {
+        // 传给父类
+        super(name, id, maxHealth, hb_x, hb_y, 150F, 150F, imgUrl, offsetX, offsetY, energy, healthBarOffsetY);
+        this.tauntType = type;
+        commonInit(offsetX, offsetY);
     }
 
-    public AbstractAlly(String name, String id, int maxHealth, String imgUrl, TauntType type, float x, float y,
-            float bx, float by) {
-        // 1. 调用父类构造
-        // 位置先传 0,0，稍后覆盖。HB大小设为 150x150 (标准大小)
-        super(name, id, maxHealth, 0, 0, bx, by, imgUrl, x, y);
+    public AbstractAlly(
+            String name, String id, int maxHealth, String imgUrl, TauntType type,
+            float offsetX, float offsetY, float hb_x, float hb_y, float hb_w, float hb_h,
+            int energy,
+            float healthBarOffsetY // 【新增参数】接收高度
+    ) {
+        // 传给父类
+        super(name, id, maxHealth, hb_x, hb_y, hb_w, hb_h, imgUrl, offsetX, offsetY, energy, healthBarOffsetY);
+        this.tauntType = type;
+        commonInit(offsetX, offsetY);
+    }
 
+    public void init() {
+        this.setMove((byte) 0, Intent.NONE);
+        this.createIntent();
+        // 初始刷新
+        this.refreshIntentCalculation();
+    }
+
+    private void commonInit(float x, float y) {
+        // 1. 设定立绘（图片）的渲染位置
+        // 这是"脚底板"的位置，保持不变，这样立绘就会稳稳站在地上
         this.drawX = AbstractDungeon.player.drawX + x;
         this.drawY = AbstractDungeon.player.drawY + y;
 
-        this.tauntType = type;
+        // 2. 【核心黑科技：灵肉分离】
+        // 我们不使用 hbYOffset 来调整高度了，因为特效不认它。
+        // 我们直接把 Hitbox 本身往上抬！
 
-        // 3. 修正 Hitbox 位置 (关键)
-        this.hb.move(this.drawX, this.drawY + this.hb.height / 2.0F);
+        // 计算目标高度偏移 (由你的参数 healthBarOffsetY 决定)
+        float verticalShift = this.healthBarOffsetY * Settings.scale;
 
-        // 4. 修正血条和意图位置 (关键)
+        // 4. 刷新组件
         this.refreshHitboxLocation();
-        // 血条在头顶
-        this.healthHb.move(this.hb.cX, this.hb.cY + this.hb.height / 2.0F + 10.0F * Settings.scale);
-        // 意图在血条上面
-        this.intentHb.move(this.hb.cX, this.hb.cY + this.hb.height / 2.0F + 40.0F * Settings.scale);
 
-        // 5. 启动血条
+        // 移动 Hitbox
+        // X: 保持在 drawX
+        // Y: 地面(drawY) + 半高(height/2) + 【上移量(verticalShift)】
+        this.hb.move(this.drawX, this.drawY + this.hb.height / 2.0F + verticalShift);
+
+        // 5. 意图位置
+        // 因为 hb 已经抬高了，意图只需要相对 hb 微调即可
+        this.intentHb.move(this.hb.cX, this.hb.cY + this.hb.height / 2.0F + 50.0F * Settings.scale);
+
         this.showHealthBar();
         this.healthBarUpdatedEvent();
+        this.refreshIntentCalculation();
     }
+
+    public void lockTarget(AbstractMonster m) {
+        this.lockedTarget = m;
+    }
+
+    // =================================================================
+    // 渲染与更新 (UI)
+    // =================================================================
 
     @Override
     public void update() {
-        // 让原版逻辑处理所有动画、Buff图标位置、受伤闪烁
         super.update();
-        this.hb.update();
-        this.healthHb.update();
-        this.intentHb.update();
-        this.hbAlpha = 1.0F;
+        // this.hb.update();
+        // this.healthHb.update();
+        // this.intentHb.update();
+        // this.hbAlpha = 1.0F;
     }
 
-    @Override
-    public void render(SpriteBatch sb) {
-        // 【暴力修复 1】
-        // 在调用 super.render 之前，不管 update 有没有跑，
-        // 我强制把透明度设为 1，把偏移量设为 0。
-        // 这样每一帧画图时，系统都认为"血条是满透明度的"且"在正确位置"。
-        this.hbAlpha = 1.0F;
-        ReflectionHacks.setPrivate(this, AbstractCreature.class, "hbYOffset", 0.0F);
+    // =================================================================
+    // 战斗逻辑 (牌堆与回合)
+    // =================================================================
 
-        // 调用父类渲染 (画图片、画血条、画意图)
-        super.render(sb);
+    // 1. 定义行动时机
+    @Override
+    public void atEndOfTurn() {
+        // 友军在玩家回合结束时行动
+        addToBot(new AllyTurnPlannerAction(this));
+
+        super.atEndOfTurn();
     }
 
-    // 必须保留：防误伤逻辑
+    // 2. 定义目标逻辑
     @Override
-    public void damage(DamageInfo info) {
-        if (info.owner != null && info.owner != AbstractDungeon.player) {
-            super.damage(info);
+    protected AbstractCreature getCardTarget(AbstractCard c) {
+        // 如果是攻击牌 -> 打锁定的敌人
+        if (c.target == AbstractCard.CardTarget.ENEMY || c.target == AbstractCard.CardTarget.SELF_AND_ENEMY) {
+            return this.getTarget();
+        }
+        // 如果是 AOE -> null
+        else if (c.target == AbstractCard.CardTarget.ALL_ENEMY) {
+            return null;
+        }
+        // 如果是 Buff/防御 -> 打自己
+        else {
+            return this;
         }
     }
 
-    // 必须保留：死亡逻辑
+    /**
+     * 默认的贪婪 AI：
+     * 遍历手牌，只要能量足够，就打出。
+     * 攻击牌打锁定目标，Buff牌打自己。
+     */
+    protected void defaultAI() {
+        // 使用副本遍历，因为打牌会修改 hand
+        ArrayList<AbstractCard> cardsToPlay = new ArrayList<>(this.hand.group);
+
+        for (AbstractCard c : cardsToPlay) {
+            // 能量判断
+            if (this.energy >= c.costForTurn) {
+
+                // 自动判断目标
+                AbstractCreature target = null;
+
+                // 1. 攻击类：打锁定的敌人
+                if (c.target == AbstractCard.CardTarget.ENEMY || c.target == AbstractCard.CardTarget.SELF_AND_ENEMY) {
+                    target = this.getTarget();
+                }
+                // 2. AOE类：无需目标 (传 null)
+                else if (c.target == AbstractCard.CardTarget.ALL_ENEMY || c.target == AbstractCard.CardTarget.ALL) {
+                    target = null;
+                }
+                // 3. 增益/技能类：打自己
+                else {
+                    target = this;
+                }
+
+                // 加入动作队列
+                AbstractDungeon.actionManager.addToBottom(
+                        new AllyPlayCardAction(this, c, target));
+            }
+        }
+    }
+
+    // =================================================================
+    // 意图与计算 (接入 Phase 3 模拟器)
+    // =================================================================
+
     @Override
-    public void die(boolean triggerRelics) {
-        super.die(triggerRelics);
+    public void applyPowers() {
+        // 1. 先调用原版逻辑(虽然大部分没用，但保持兼容)
+        super.applyPowers();
+
+        // 2. 确保有目标 (如果不加这个，simulate 里的 calculateCardDamage 会算错)
+        if (this.lockedTarget == null || this.lockedTarget.isDeadOrEscaped()) {
+            this.lockedTarget = this.getRandomTarget();
+        }
+
+        // 3. 【核心】触发模拟计算
+        this.refreshIntentCalculation();
     }
 
-    // 业务逻辑接口
-    public void setTauntType(TauntType type) {
-        this.tauntType = type;
-    }
-
+    // 必须实现，但实际上逻辑被 refreshIntentCalculation 接管了
     @Override
     public void getMove(int num) {
-        this.updateIntent(num);
+        this.refreshIntentCalculation();
     }
 
-    @Override
-    public void takeTurn() {
+    // 你原来的 updateIntent 在这里已经不再需要手动编写了，因为全自动了
+
+    // =================================================================
+    // 核心逻辑：目标管理 (补全)
+    // =================================================================
+
+    // 获取当前攻击目标 (带锁定逻辑)
+    public AbstractMonster getTarget() {
+        if (lockedTarget == null || lockedTarget.isDeadOrEscaped()) {
+            lockedTarget = this.getRandomTarget();
+        }
+        return lockedTarget;
     }
 
-    public abstract void updateIntent(int num);
-
-    public void atStartOfTurn() {
-    }
-
-    // 在回合结束时清除锁定，以便下回合重新索敌
-    public void atEndOfTurn() {
-        this.lockedTarget = null;
-    }
-
-    // 索敌与攻击辅助方法
+    // 随机索敌
     public AbstractMonster getRandomTarget() {
         ArrayList<AbstractMonster> validTargets = new ArrayList<>();
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
@@ -139,12 +237,34 @@ public abstract class AbstractAlly extends CustomMonster {
         return validTargets.get(AbstractDungeon.monsterRng.random(validTargets.size() - 1));
     }
 
-    protected void attack(AbstractMonster target, int damage, AbstractGameAction.AttackEffect effect) {
+    // =================================================================
+    // 受击与攻击辅助 (补全)
+    // =================================================================
+
+    // 必须保留：防误伤逻辑
+    @Override
+    public void damage(DamageInfo info) {
+        if (info.owner != null && info.owner != AbstractDungeon.player) {
+            super.damage(info);
+        }
+    }
+
+    @Override
+    public void die(boolean triggerRelics) {
+        super.die(triggerRelics);
+    }
+
+    // 攻击辅助方法 (用于非卡牌攻击，或 ActionQueue 中的回调)
+    public void attack(AbstractMonster target, int damage, AbstractGameAction.AttackEffect effect) {
         if (target == null)
             return;
+
         DamageInfo info = new DamageInfo(this, damage, DamageInfo.DamageType.NORMAL);
-        info.applyPowers(this, target);
+        info.applyPowers(this, target); // 计算力量等
+
         AbstractDungeon.actionManager.addToBottom(new DamageAction(target, info, effect));
+
+        // 触发你的 Helper
         AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
             @Override
             public void update() {
@@ -152,94 +272,5 @@ public abstract class AbstractAlly extends CustomMonster {
                 this.isDone = true;
             }
         });
-    } // =================================================================
-      // 核心逻辑：目标管理
-      // =================================================================
-
-    // 获取当前攻击目标 (带锁定逻辑)
-    public AbstractMonster getTarget() {
-        // 1. 如果没有锁定目标，或者锁定的目标已经死了/逃跑了
-        if (lockedTarget == null || lockedTarget.isDeadOrEscaped()) {
-            // 重新获取一个随机目标
-            lockedTarget = this.getRandomTarget();
-        }
-        // 2. 返回当前锁定的目标
-        return lockedTarget;
-    }
-
-    // =================================================================
-    // 核心逻辑：响应 Power 变化并刷新意图
-    // =================================================================
-
-    @Override
-    public void applyPowers() {
-        // 1. 确保当前有有效目标
-        AbstractMonster target = getTarget();
-
-        // 2. 使用反射获取父类的 intentBaseDmg
-        int baseDmg = ReflectionHacks.getPrivate(this, AbstractMonster.class, "intentBaseDmg");
-
-        // 3. 如果当前有意图伤害 (baseDmg > -1)，重新计算
-        if (baseDmg > -1) {
-            calculateDamage(baseDmg);
-        }
-
-        // 4. 刷新意图图标位置和数字
-        this.refreshIntentHbLocation();
-    }
-
-    protected void calculateDamage(int dmg) {
-        // 1. 确定目标 (AOE 则视为无目标/白板)
-        AbstractMonster target = isAOE ? null : getTarget();
-
-        float tmp = (float) dmg;
-
-        // [原版逻辑 1] 无尽模式荒疫 (DeadlyEnemies)
-        // 原版检查玩家是否有荒疫导致怪物伤害增加。
-        // 友军不是怪物，且友军没有荒疫槽位，所以这段逻辑跳过。
-        // if (Settings.isEndless && ...) { ... }
-
-        // [原版逻辑 2] 攻击者(友军) Powers - atDamageGive
-        // (例如: 力量 Strength, 活力 Vigor)
-        for (AbstractPower p : this.powers) {
-            tmp = p.atDamageGive(tmp, DamageInfo.DamageType.NORMAL);
-        }
-
-        // [原版逻辑 3] 受击者(敌人) Powers - atDamageReceive
-        // (例如: 易伤 Vulnerable, 无实体 Intangible)
-        if (target != null) {
-            for (AbstractPower p : target.powers) {
-                tmp = p.atDamageReceive(tmp, DamageInfo.DamageType.NORMAL);
-            }
-        }
-
-        // [原版逻辑 5] 背袭判定 (Back Attack)
-        // 原版: if (this.applyBackAttack()) { tmp = (float)((int)(tmp * 1.5F)); }
-        // 友军通常没有"背袭"逻辑。而且以撒Mod的Patch明确禁止了友军背袭。
-        // 如果你希望友军能触发夹击，可以保留，否则建议忽略。这里为了"完整性"我先注释掉。
-        // if (this.applyBackAttack()) {
-        // tmp = (float)((int)(tmp * 1.5F));
-        // }
-
-        // [原版逻辑 6] 攻击者(友军) Powers - atDamageFinalGive
-        // (例如: 钢笔尖 Pen Nib)
-        for (AbstractPower p : this.powers) {
-            tmp = p.atDamageFinalGive(tmp, DamageInfo.DamageType.NORMAL);
-        }
-
-        // [原版逻辑 7] 受击者(敌人) Powers - atDamageFinalReceive
-        if (target != null) {
-            for (AbstractPower p : target.powers) {
-                tmp = p.atDamageFinalReceive(tmp, DamageInfo.DamageType.NORMAL);
-            }
-        }
-
-        // [原版逻辑 8] 结算取整
-        dmg = MathUtils.floor(tmp);
-        if (dmg < 0) {
-            dmg = 0;
-        }
-
-        ReflectionHacks.setPrivate(this, AbstractMonster.class, "intentDmg", dmg);
     }
 }
