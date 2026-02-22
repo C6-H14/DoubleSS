@@ -63,6 +63,7 @@ import SS.packages.AbstractPackage;
 import SS.packages.NullPackage;
 import SS.packages.AbstractPackage.PackageType;
 import SS.packages.BluePackage.BluePackage;
+import SS.packages.C6H14Package.C6H14Package;
 import SS.packages.GreenPackage.GreenPackage;
 import SS.packages.HaoPackage.HaoPackage;
 import SS.packages.LostPackage.LostPackage;
@@ -251,6 +252,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         mainPackageList.add(new HaoPackage());
         mainPackageList.add(new LostPackage());
         mainPackageList.add(new ShockPackage());
+        mainPackageList.add(new C6H14Package());
         for (AbstractPackage p : mainPackageList) {// 添加子卡包
             packageList.add(p);
             allowedColors.add(p.PackageColor.toString());

@@ -1,4 +1,4 @@
-package SS.action.common;
+package SS.action.monster;
 
 import java.util.ArrayList;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;

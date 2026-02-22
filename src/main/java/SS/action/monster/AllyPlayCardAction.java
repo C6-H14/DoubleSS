@@ -1,4 +1,4 @@
-package SS.action.common;
+package SS.action.monster;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -20,13 +20,22 @@ public class AllyPlayCardAction extends AbstractGameAction {
     private boolean hasUsedCard = false;
     private float holdDuration = 0.5F; // 打出后悬停等待的时间 (0.5秒)
 
+    // 【新增】是否无视能量限制
+    private boolean ignoreEnergy = false;
+
+    // 默认构造函数 (正常打牌用)
     public AllyPlayCardAction(AbstractCardMonster owner, AbstractCard card, AbstractCreature target) {
+        this(owner, card, target, false);
+    }
+
+    // 【新增】重载构造函数 (强制打牌用)
+    public AllyPlayCardAction(AbstractCardMonster owner, AbstractCard card, AbstractCreature target,
+            boolean ignoreEnergy) {
         this.owner = owner;
         this.card = card;
         this.target = target;
-        // 设置动作总时长 (移动时间 + 悬停时间)
-        // Settings.ACTION_DUR_FAST 大约是 0.25s
-        this.duration = Settings.ACTION_DUR_MED;
+        this.ignoreEnergy = ignoreEnergy;
+        this.duration = Settings.ACTION_DUR_MED + holdDuration;
         this.actionType = ActionType.USE;
     }
 
@@ -42,12 +51,25 @@ public class AllyPlayCardAction extends AbstractGameAction {
         // 阶段 1: 初始化与飞行 (第一帧执行)
         // =============================================================
         if (!hasMovedToLimbo) {
-            // 扣除能量
-            if (owner.energy < card.costForTurn) {
-                this.isDone = true;
-                return;
+            // 【核心修改】能量判定逻辑
+            if (!this.ignoreEnergy) {
+                // 如果不无视能量，且能量不够，直接取消动作
+                if (owner.energy < card.costForTurn && card.costForTurn >= 0) {
+                    this.isDone = true;
+                    return;
+                }
             }
-            owner.energy -= card.costForTurn;
+            // 扣除能量 (即使 ignoreEnergy=true，也要扣除相应能量)
+            if (card.costForTurn > 0) {
+                owner.energy -= card.costForTurn;
+                // 防止能量扣成负数
+                if (owner.energy < 0) {
+                    owner.energy = 0;
+                }
+            } else if (card.costForTurn == -1) {
+                // 如果是 X 费牌，清空所有能量
+                owner.energy = 0;
+            }
 
             // 移动到 Limbo (防止手牌渲染消失)
             if (owner.hand.contains(card)) {

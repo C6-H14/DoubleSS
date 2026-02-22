@@ -1,4 +1,4 @@
-package SS.action.common;
+package SS.action.monster;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;

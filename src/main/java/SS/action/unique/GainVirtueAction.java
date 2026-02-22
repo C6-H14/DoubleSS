@@ -2,7 +2,6 @@ package SS.action.unique;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 
@@ -20,7 +19,7 @@ public class GainVirtueAction extends AbstractGameAction {
         if (this.target.getPower("Double:SinsPower") == null) {
             addToBot(new ApplyPowerAction(target, target, new SinsPower(target, -amount)));
         } else {
-            addToBot(new ReducePowerAction(this.target, this.target, "Double:SinsPower", amount));
+            addToBot(new ApplyPowerAction(target, target, new SinsPower(target, -amount)));
         }
         this.isDone = true;
 

@@ -38,5 +38,10 @@
     "TEXT": [
         "卡包"
     ]
+  },
+  "Double:PaintingModifier": {
+    "TEXT": [
+        " double:染色 。 NL %s"
+    ]
   }
 }

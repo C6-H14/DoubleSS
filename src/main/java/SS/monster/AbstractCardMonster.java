@@ -17,7 +17,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 
-import SS.action.common.AllyPlayCardAction;
+import SS.action.monster.AllyPlayCardAction;
 import SS.helper.MonsterCardContext;
 import SS.helper.MonsterIntentSimulator;
 import basemod.ReflectionHacks;
@@ -33,6 +33,8 @@ public abstract class AbstractCardMonster extends CustomMonster {
     public CardGroup exhaustPile;
     public CardGroup limbo; // 【新增】悬空堆，用于播放打牌动画
     private ArrayList<UUID> cardSortOrder = new ArrayList<>();
+    public int preDrawNumber = 3;
+    public int drawPerTurn = 2;
 
     // 能量数据
     public int energyBase;
@@ -212,7 +214,7 @@ public abstract class AbstractCardMonster extends CustomMonster {
         // 初始化牌堆
         this.initBattleDeck();
         // 初始抽牌 (默认3张，可提取为变量)
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < preDrawNumber; i++) {
             this.drawCard();
         }
     }
@@ -221,7 +223,7 @@ public abstract class AbstractCardMonster extends CustomMonster {
         // 恢复能量
         this.energy = this.energyBase;
         // 回合开始抽牌 (默认2张)
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < drawPerTurn; i++) {
             this.drawCard();
         }
         // 刷新意图 (抽完牌后立刻计算)

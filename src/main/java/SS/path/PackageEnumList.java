@@ -2,6 +2,6 @@ package SS.path;
 
 public class PackageEnumList {
     public enum PackageEnum {
-        SS, Hao, Lost, Shock, Default, RED, BLUE, GREEN, PURPLE;
+        SS, Hao, Lost, Shock, C6H14, Default, RED, BLUE, GREEN, PURPLE;
     }
 }
