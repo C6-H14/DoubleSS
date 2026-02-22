@@ -88,5 +88,12 @@
     "DESCRIPTIONS": [
         "每场战斗前两个回合，给予随机敌人 #b1 层 #ydouble:震荡"
     ]
+  },
+  "Double:JarOfWisps": {
+    "NAME": "魂火罐",
+    "FLAVOR": "你的信仰在增长",
+    "DESCRIPTIONS": [
+        "战斗开始时， #ydouble:唤魂 1"
+    ]
   }
 }

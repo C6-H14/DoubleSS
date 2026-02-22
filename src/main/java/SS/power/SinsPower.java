@@ -80,6 +80,22 @@ public class SinsPower extends AbstractPower implements InvisiblePower {
     }
 
     public void onVictory() {
+        int maxSoulFire = 0;
+        // 遍历友军管理器寻找最大的魂火值
+        for (com.megacrit.cardcrawl.monsters.AbstractMonster m : SS.monster.ally.AllyManager.allies.monsters) {
+            if (m instanceof SS.monster.ally.SoulAlly && !m.isDeadOrEscaped()) {
+                AbstractPower p = m.getPower(SS.power.SoulFirePower.POWER_ID);
+                if (p != null && p.amount > maxSoulFire) {
+                    maxSoulFire = p.amount;
+                }
+            }
+        }
+
+        if (maxSoulFire > 0) {
+            // 根据规则，增加等量的美德 (即 reducePower)
+            // 直接调用方法修改，不要走 Action
+            this.reducePower(maxSoulFire);
+        }
         if (this.amount >= 10) {
             AbstractDungeon.player.decreaseMaxHealth(this.amount / 10);
         } else if (this.amount <= -10) {

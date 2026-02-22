@@ -68,6 +68,8 @@ public class MyCharacter extends CustomPlayer {
         public static CardLibrary.LibraryType Lost_Black;
         @SpireEnum
         public static CardLibrary.LibraryType Shock_Blue;
+        @SpireEnum
+        public static CardLibrary.LibraryType C6H14_Cyan;
     }
 
     public MyCharacter(String name) {

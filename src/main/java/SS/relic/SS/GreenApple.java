@@ -18,7 +18,6 @@ import SS.action.common.EchoACardAction;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;
-import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
 import basemod.abstracts.CustomRelic;
 
@@ -60,7 +59,7 @@ public class GreenApple extends CustomRelic {
                 }
             }
         }
-        Collections.shuffle(cardList, new Random(AbstractDungeon.cardRng.randomLong()));
+        Collections.shuffle(cardList, new Random(AbstractDungeon.cardRandomRng.randomLong()));
         AbstractCard tmp = cardList.get(0);
         for (AbstractCard c : cardList) {
             if (c.rarity == cardRarity) {

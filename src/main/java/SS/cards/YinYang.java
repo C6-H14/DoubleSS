@@ -91,12 +91,12 @@ public class YinYang extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        // addToBot(new SpawnAllyAction(new SoulAlly(300, 250)));
-        addToBot(new YinYangAction(p, 1));
-        AbstractCard c = new Indulgence();
-        if (this.upgraded)
-            c.upgrade();
-        addToBot(new MakeTempCardInHandAction(c));
+        addToBot(new SpawnAllyAction(new SoulAlly(300, 250)));
+        // addToBot(new YinYangAction(p, 1));
+        // AbstractCard c = new Indulgence();
+        // if (this.upgraded)
+        // c.upgrade();
+        // addToBot(new MakeTempCardInHandAction(c));
     }
 
     public void triggerOnGlowCheck() {

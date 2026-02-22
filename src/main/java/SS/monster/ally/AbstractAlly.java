@@ -11,8 +11,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.common.AllyPlayCardAction;
-import SS.action.common.AllyTurnPlannerAction;
+import SS.action.monster.AllyPlayCardAction;
+import SS.action.monster.AllyTurnPlannerAction;
 import SS.helper.AllyTriggerHelper;
 import SS.monster.AbstractCardMonster;
 

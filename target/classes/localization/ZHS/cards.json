@@ -1088,5 +1088,57 @@
             "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。"
         ],
         "FLAVOR":" #y群主形态 ：获得 [E] 。"
+    },
+    "Double:C6H14_Cyan_option":
+    {
+        "NAME": "己烷牌",
+        "DESCRIPTION": "本mod作者。",
+        "UPGRADE_DESCRIPTION": "本mod作者。"
+    },
+    "Double:Revelation":
+    {
+        "NAME": "启示",
+        "DESCRIPTION": "造成 !D! 点伤害，打出被 double:铭刻 的牌，抽 !M! 张牌。",
+        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害，打出被 double:铭刻 的牌，抽 !M! 张牌。"
+    },
+    "Double:VirtualChoir":{
+        "NAME": "虚拟合唱团",
+        "DESCRIPTION": "生成一个攻击 double:骰子 ( !D! )，获得 !M! 点 double:美德 。",
+        "UPGRADE_DESCRIPTION": "生成一个攻击 double:骰子 ( !D! )，获得 !M! 点 double:美德 。",
+        "EXTENDED_DESCRIPTION": [
+            "生成一个攻击 double:骰子 ( !D! )，获得 !M! 点 double:美德 。 NL 获得 2 点 double:美德 。",
+            "生成一个攻击 double:骰子 ( !D! )，获得 !M! 点 double:美德 。 NL 获得 2 点 double:美德 。"
+        ],
+        "FLAVOR":" #y群主形态 ：额外获得2点美德。"
+    },
+    "Double:PaperPenance":{
+        "NAME": "页障",
+        "DESCRIPTION": "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 。",
+        "UPGRADE_DESCRIPTION": "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 。",
+        "EXTENDED_DESCRIPTION": [
+            "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 。 NL 每拥有5点 double:美德 ， double:唤魂 1。",
+            "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 。 NL 每拥有5点 double:美德 ， double:唤魂 1。"
+        ],
+        "FLAVOR":" #y群主形态 ：每拥有5点美德 ，唤魂1。"
+    },
+    "Double:Guidance":{
+        "NAME": "指点",
+        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，所有魂火跟班强制执行一次最左侧的意图。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，所有魂火跟班强制执行一次最左侧的意图。",
+        "EXTENDED_DESCRIPTION": [
+            "生成1个攻击 double:骰子 ( !D! )， double:唤魂 !M! ，所有魂火跟班强制执行一次最左侧的意图 。",
+            "生成1个攻击 double:骰子 ( !D! )， double:唤魂 !M! ，所有魂火跟班强制执行一次最左侧的意图 。"
+        ],
+        "FLAVOR":" #y群主形态 ：唤魂1。"
+    },
+    "Double:Kaleidoscope":{
+        "NAME": "万花筒",
+        "DESCRIPTION": "回合开始时，随机 !M! 张手牌获得 double:染色 。",
+        "UPGRADE_DESCRIPTION": " 固有 ，回合开始时，随机 !M! 张手牌获得 double:染色 。",
+        "EXTENDED_DESCRIPTION": [
+            "随机 !M! 张手牌获得 double:染色 。 NL 回合开始时，随机 !M! 张手牌获得 double:染色 。",
+            " 固有 ，随机 !M! 张手牌获得 double:染色 。 NL 回合开始时，随机 !M! 张手牌获得 double:染色 。"
+        ],
+        "FLAVOR":" #y群主形态 ：打出时随机 !M! 张手牌获得染色。"
     }
 }

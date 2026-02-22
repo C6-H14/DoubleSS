@@ -310,5 +310,33 @@
     "DESCRIPTIONS": [
       "你的易伤改为使你受到的伤害减少 #b25% ，你的虚弱改为使你造成的伤害增加 #b25% "
     ]
+  },
+  "Double:InscribeCardPower": {
+    "NAME": "铭刻牌",
+    "DESCRIPTIONS": [
+      "当前铭刻的牌为：",
+      " ，若显示114514则表示未铭刻任何牌"
+    ]
+  },
+  "Double:PaintingPower": {
+    "NAME": "染色",
+    "DESCRIPTIONS": [
+      "打出下 #b",
+      " 张牌时进行染色并尝试执行意图"
+    ]
+  },
+  "Double:SoulFirePower": {
+    "NAME": "魂火值",
+    "DESCRIPTIONS": [
+      "魂火最大生命值为 #b",
+      " ，造成的伤害增加 #b"
+    ]
+  },
+  "Double:KaleidoscopePower": {
+    "NAME": "万花筒",
+    "DESCRIPTIONS": [
+      "回合开始时，随机 #b",
+      " 张手牌获得染色"
+    ]
   }
 }

@@ -1,10 +1,13 @@
 package SS.patches;
 
+import java.util.ArrayList;
+
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
@@ -46,6 +49,48 @@ public class CardCalculationPatches {
                 for (AbstractPower p : m.powers) {
                     __instance.damage = (int) p.atDamageFinalGive(__instance.damage, __instance.damageTypeForTurn);
                 }
+            }
+            ArrayList<com.megacrit.cardcrawl.monsters.AbstractMonster> monsters = AbstractDungeon
+                    .getCurrRoom().monsters.monsters;
+            float[] tmp = new float[monsters.size()];
+            __instance.multiDamage = new int[monsters.size()];
+
+            for (int i = 0; i < tmp.length; i++) {
+                AbstractMonster mo = monsters.get(i);
+                tmp[i] = (float) __instance.baseDamage;
+
+                // A. 施法者(友军)的加成
+                if (m.powers != null) {
+                    for (AbstractPower p : m.powers) {
+                        tmp[i] = p.atDamageGive(tmp[i], __instance.damageTypeForTurn);
+                    }
+                }
+
+                // B. 受击者(敌人)的加成 (如易伤)
+                // 注意：这里要判断 mo 是否是 target。对于 AOE，所有活着的怪都是 target。
+                if (m.powers != null) {
+                    for (AbstractPower p : m.powers) {
+                        tmp[i] = p.atDamageFinalGive(tmp[i], __instance.damageTypeForTurn);
+                    }
+                }
+
+                if (mo != null) {
+                    for (AbstractPower p : mo.powers) {
+                        tmp[i] = p.atDamageReceive(tmp[i], __instance.damageTypeForTurn);
+                    }
+                    for (AbstractPower p : mo.powers) {
+                        tmp[i] = p.atDamageFinalReceive(tmp[i], __instance.damageTypeForTurn);
+                    }
+                }
+
+                // 取整存入
+                __instance.multiDamage[i] = (int) Math.floor(tmp[i]);
+                if (__instance.multiDamage[i] < 0)
+                    __instance.multiDamage[i] = 0;
+            }
+            // 标记 AOE 伤害是否被修改
+            if (__instance.baseDamage != __instance.multiDamage[0]) {
+                __instance.isDamageModified = true;
             }
 
             // 3. 计算格挡 (模拟玩家的敏捷逻辑)

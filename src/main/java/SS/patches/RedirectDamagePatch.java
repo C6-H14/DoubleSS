@@ -3,12 +3,16 @@ package SS.patches;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.evacipated.cardcrawl.modthespire.lib.ByRef;
+import com.evacipated.cardcrawl.modthespire.lib.LineFinder;
+import com.evacipated.cardcrawl.modthespire.lib.Matcher;
+import com.evacipated.cardcrawl.modthespire.lib.SpireInsertLocator;
+import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import javassist.CtBehavior;
 
 import SS.monster.ally.AbstractAlly;
 import SS.monster.ally.AllyManager;
@@ -16,21 +20,27 @@ import SS.monster.ally.AllyManager;
 @SpirePatch(clz = AbstractPlayer.class, method = "damage")
 public class RedirectDamagePatch {
 
-    @SpirePrefixPatch
-    public static SpireReturn<Void> Prefix(AbstractPlayer player, DamageInfo info) {
-        // 1. 如果伤害来源是友军自己（比如自残），不拦截
+    // 【核心修复】拦截本地变量 damageAmount (它是一个长度为1的数组)
+    @SpireInsertPatch(locator = Locator.class, localvars = { "damageAmount" })
+    public static void Insert(AbstractPlayer __instance, DamageInfo info, @ByRef int[] damageAmount) {
+
+        // 1. 如果伤害来源是友军自己，不拦截
         if (info.owner instanceof AbstractAlly) {
-            return SpireReturn.Continue();
+            return;
         }
 
-        // 2. 如果是生命流失（HP_LOSS），通常穿透护盾和嘲讽，建议不拦截
+        // 2. 如果是生命流失，不拦截
         if (info.type == DamageInfo.DamageType.HP_LOSS) {
-            return SpireReturn.Continue();
+            return;
         }
 
-        // 3. 收集场上所有具有嘲讽能力的友军
-        // 我们需要把 SOLID (类型2) 和 OVERFLOW (类型3) 分开处理
-        // 逻辑：优先让 SOLID 扛，如果没有 SOLID，再让 OVERFLOW 扛
+        // 3. 【关键逻辑】此时的 damageAmount 是玩家扣除格挡后的真实剩余伤害！
+        // 如果玩家用格挡扛下了所有伤害，直接跳过，友军绝对安全。
+        if (damageAmount[0] <= 0) {
+            return;
+        }
+
+        // 4. 收集嘲讽友军
         ArrayList<AbstractAlly> solidTanks = new ArrayList<>();
         ArrayList<AbstractAlly> overflowTanks = new ArrayList<>();
 
@@ -47,81 +57,60 @@ public class RedirectDamagePatch {
             }
         }
 
-        // 如果没有坦克，玩家正常承受伤害
         if (solidTanks.isEmpty() && overflowTanks.isEmpty()) {
-            return SpireReturn.Continue();
+            return; // 没人抗伤害，继续原版逻辑，玩家自己掉血
         }
 
-        // 获取原始伤害值
-        int damageAmount = info.output;
-        if (damageAmount <= 0)
-            return SpireReturn.Continue();
-
         // =================================================================
-        // 处理类型 2：SOLID (硬嘲讽 - 不溢出)
+        // 类型 2：SOLID (硬嘲讽 - 无限抗伤，不溢出)
         // =================================================================
-        // 规则：只要有这种怪，它就吃下全部伤害，哪怕它只有1血。
-        // 如果有多个，默认让第一个扛（或者你可以写逻辑让血最少的扛）
         if (!solidTanks.isEmpty()) {
             AbstractAlly tank = solidTanks.get(0);
+            // 友军承受"剩余的全部伤害"
+            tank.damage(new DamageInfo(info.owner, damageAmount[0], info.type));
 
-            // 让友军受伤
-            tank.damage(new DamageInfo(info.owner, damageAmount, info.type));
-
-            // 拦截玩家收到的伤害，强制 return
-            // 此时玩家受到的伤害被完全抵消
-            return SpireReturn.Return();
+            // 将要对玩家造成的伤害清零，保住玩家的命
+            damageAmount[0] = 0;
+            return;
         }
 
         // =================================================================
-        // 处理类型 3：OVERFLOW (软嘲讽 - 溢出传导)
+        // 类型 3：OVERFLOW (软嘲讽 - 溢出传导)
         // =================================================================
-        // 规则：层层抵扣。如果有剩余伤害，最后打到玩家身上。
         if (!overflowTanks.isEmpty()) {
-
-            // 使用迭代器遍历，方便处理
             Iterator<AbstractAlly> iterator = overflowTanks.iterator();
 
-            while (iterator.hasNext() && damageAmount > 0) {
+            while (iterator.hasNext() && damageAmount[0] > 0) {
                 AbstractAlly tank = iterator.next();
-
-                // 计算友军的"有效生命值" (格挡 + 血量)
                 int effectiveHealth = tank.currentHealth + tank.currentBlock;
 
-                if (damageAmount <= effectiveHealth) {
-                    // 情况 A：友军能扛住所有伤害
-                    tank.damage(new DamageInfo(info.owner, damageAmount, info.type));
-                    damageAmount = 0;
-                    // 伤害被吸收殆尽，玩家安全，直接返回
-                    return SpireReturn.Return();
+                if (damageAmount[0] <= effectiveHealth) {
+                    // 情况 A：友军能扛住剩余的所有伤害
+                    tank.damage(new DamageInfo(info.owner, damageAmount[0], info.type));
+                    damageAmount[0] = 0; // 玩家安全
                 } else {
                     // 情况 B：伤害溢出，友军死亡
-                    // 先对友军造成足以致死的伤害 (为了触发 damage 相关的特效和逻辑)
-                    // 注意：这里为了视觉效果，可以直接传 effectiveHealth 或者 raw damageAmount
-                    // 建议传 effectiveHealth 让他正好死，或者传 damageAmount 让它显示大数字然后死
-
-                    // 这里我们选择对他造成全部伤害，让他死掉
-                    tank.damage(new DamageInfo(info.owner, damageAmount, info.type));
-
-                    // 扣除它的有效生命值
-                    damageAmount -= effectiveHealth;
-
-                    // 继续循环，寻找下一个受害者
+                    tank.damage(new DamageInfo(info.owner, damageAmount[0], info.type));
+                    // 扣除这名友军吸收的量，剩下的伤害继续交给循环处理
+                    damageAmount[0] -= effectiveHealth;
                 }
             }
-
-            // 循环结束后，如果还有 damageAmount > 0，说明所有坦克都死光了还有剩余伤害
-            // 此时，修改 info.output 让玩家承受剩余伤害
-            if (damageAmount > 0) {
-                info.output = damageAmount;
-                // Continue 会继续执行原版 player.damage，使用修改后的数值
-                return SpireReturn.Continue();
-            } else {
-                return SpireReturn.Return();
-            }
         }
-
-        return SpireReturn.Continue();
     }
 
+    // =================================================================
+    // 【精准定位器】确保我们插在原版代码的正确位置
+    // =================================================================
+    private static class Locator extends SpireInsertLocator {
+        @Override
+        public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+            // 找到玩家扣除格挡的那一行： damageAmount = this.decrementBlock(info, damageAmount);
+            Matcher finalMatcher = new Matcher.MethodCallMatcher(AbstractPlayer.class, "decrementBlock");
+            int[] lines = LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+
+            // 必须 +1，表示在扣除格挡【之后】进行拦截
+            lines[0] += 1;
+            return lines;
+        }
+    }
 }

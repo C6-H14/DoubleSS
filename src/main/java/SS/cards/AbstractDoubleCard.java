@@ -3,12 +3,21 @@ package SS.cards;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveField;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.actions.common.HealAction;
+import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
+import SS.helper.CardUtil;
 import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
 import basemod.abstracts.CustomCard;
@@ -183,6 +192,44 @@ public abstract class AbstractDoubleCard extends CustomCard {
         for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
             enemyPower(p, mo);
         }
+    }
+
+    protected void dmgAct(AbstractMonster m, int amount) {
+        addToBot(
+                new DamageAction(m, new DamageInfo(AbstractDungeon.player, amount, DamageInfo.DamageType.NORMAL)));
+    }
+
+    protected void dmgAct(AbstractMonster m, int amount, DamageType type) {
+        addToBot(
+                new DamageAction(m, new DamageInfo(AbstractDungeon.player, amount, type)));
+    }
+
+    protected void blkAct(int amount) {
+        addToBot(new GainBlockAction(AbstractDungeon.player, amount));
+    }
+
+    protected void heal(int amount) {
+        addToBot(new HealAction(AbstractDungeon.player, AbstractDungeon.player, amount));
+    }
+
+    protected void lose(int amount) {
+        addToBot(new LoseHPAction(AbstractDungeon.player, AbstractDungeon.player, amount));
+    }
+
+    protected AbstractCreature getUser() {
+        return CardUtil.getCardSource();
+    }
+
+    protected AbstractPlayer getP() {
+        return AbstractDungeon.player;
+    }
+
+    protected int countPower(String s) {
+        int amount = 0;
+        if (getP().hasPower(s)) {
+            amount = getP().getPower(s).amount;
+        }
+        return amount;
     }
 
     public void downgrade() {

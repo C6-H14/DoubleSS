@@ -13,6 +13,8 @@ public class AbstractCardEnum {
     @SpireEnum
     public static AbstractCard.CardColor Shock_Blue;
     @SpireEnum
+    public static AbstractCard.CardColor C6H14_Cyan;
+    @SpireEnum
     public static AbstractCard.CardTags Manager;
     @SpireEnum
     public static AbstractCard.CardTags Fiend;
