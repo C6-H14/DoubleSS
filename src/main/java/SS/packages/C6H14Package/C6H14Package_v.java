@@ -16,11 +16,11 @@ public class C6H14Package_v extends AbstractPackage {
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Double:BlankCard");
-        cards.add("Double:TwoChargeVoid");
-        cards.add("Double:SoulGuard");
-        cards.add("Double:LastBreath");
-        cards.add("Double:CounterBlow");
+        cards.add("Double:VirtualChoir");
+        cards.add("Double:PaperPenance");
+        cards.add("Double:Guidance");
+        cards.add("Double:Kaleidoscope");
+        cards.add("Double:BrainStorming");
 
         cards.add("Double:Altar");
         cards.add("Double:GhostBomb");

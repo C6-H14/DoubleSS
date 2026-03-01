@@ -338,5 +338,12 @@
       "回合开始时，随机 #b",
       " 张手牌获得染色"
     ]
+  },
+  "Double:MinuteOfDeathPower": {
+    "NAME": "死亡倒计时",
+    "DESCRIPTIONS": [
+      "再过 #b",
+      " 秒立即死亡"
+    ]
   }
 }

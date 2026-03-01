@@ -5,13 +5,15 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import SS.modcore.modcore;
+import SS.path.PackageEnumList.PackageEnum;
 import SS.rewards.HaoReward;
 
 public class AddHaoRewardPatch {
     @SpirePatch(clz = AbstractRoom.class, method = "addPotionToRewards", paramtypez = {})
     public static class DropSeals {
         public static void Postfix(AbstractRoom __instance) {
-            if (AbstractDungeon.player instanceof SS.characters.MyCharacter) {
+            if (AbstractDungeon.player instanceof SS.characters.MyCharacter
+                    && modcore.validColors.contains(PackageEnum.Hao)) {
                 int chance = 10;
                 if (__instance instanceof com.megacrit.cardcrawl.rooms.MonsterRoomElite) {
                     chance = 25;

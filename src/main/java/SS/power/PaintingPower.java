@@ -1,6 +1,7 @@
 package SS.power;
 
 import SS.helper.ModHelper;
+import SS.interfaces.OnPaintingSubscriber;
 import SS.monster.ally.AllyManager;
 import SS.monster.ally.SoulAlly;
 import SS.monster.ally.SoulAlly.SoulColor;
@@ -11,6 +12,7 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -61,6 +63,11 @@ public class PaintingPower extends AbstractPower {
             s.changeColor(SoulColor.PURPLE);
         }
         this.addToBot(new ReducePowerAction(this.owner, this.owner, this, 1));
+        for (AbstractCard c : AbstractDungeon.player.discardPile.group) {
+            if (c instanceof OnPaintingSubscriber) {
+                ((OnPaintingSubscriber) c).triggerOnPainting(c);
+            }
+        }
     }
 
     public void updateDescription() {

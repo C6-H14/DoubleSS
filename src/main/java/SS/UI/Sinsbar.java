@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import SS.power.SinsPower;
 
@@ -102,7 +103,12 @@ public class Sinsbar {// 图片原始尺寸数据 (根据你的测量)
         }
 
         if (AbstractDungeon.getCurrRoom().phase != com.megacrit.cardcrawl.rooms.AbstractRoom.RoomPhase.COMBAT)
-            return;// -----------------------------------------------------------
+            return;
+        if (AbstractDungeon.getCurrRoom() != null
+                && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) {
+            SS.monster.ally.AllyManager.render(sb);
+        }
+        // -----------------------------------------------------------
         // 步骤 A: 计算背景图的位置
         // -----------------------------------------------------------
         // 我们希望整个长条图(1024宽) 在玩家头顶居中
