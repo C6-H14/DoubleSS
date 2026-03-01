@@ -35,10 +35,12 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\NightOps.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\dice\ChannelOneDiceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\effect\DicePassiveEffect.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\NextTurnDamagePower.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\Lily.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Altar.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\UnderlyingLogicPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\HaoStrike.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\BlessCard\BlessStrike.java
+d:\StSmod\DoubleSS\src\main\java\SS\power\MinuteOfDeathPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\monster\AllyShuffleAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\GluttonyAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\MugUp.java
@@ -130,6 +132,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\BathWater.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\Revelation.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Contempt.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\PhoneItInPower.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\BrainStorming.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\DefendDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\SoulGuard.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\CenterGridCardSelectScreen.java
@@ -264,6 +267,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\UnderlyingLogic.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\SelfReliant.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Godhead.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\FartAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\interfaces\OnPaintingSubscriber.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Dishaovery.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\SealSupporter.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\dice\ChannelDiceAction.java
@@ -305,6 +309,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\power\ContemptPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\path\PackageEnumList.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\ArmillarySphere.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Patience.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\unique\c6h14\BrainStormingAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\AddHaoRewardPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\BlankCardPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Miserly.java

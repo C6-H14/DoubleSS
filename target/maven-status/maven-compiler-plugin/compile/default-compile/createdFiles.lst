@@ -84,6 +84,7 @@ SS\patches\ActionSimulationPatches.class
 SS\packages\HaoPackage\HaoPackage_e.class
 SS\cards\C6H14\PaperPenance.class
 SS\relic\SS\Record.class
+SS\power\MinuteOfDeathPower.class
 SS\rewards\CommonCardReward$1.class
 SS\cards\C6H14\VirtualChoir.class
 SS\patches\CompendiumPatches$ReduceButtonHitboxSize$1.class
@@ -98,6 +99,7 @@ SS\power\BinPower.class
 SS\action\unique\shock\OffenseAsDefenseAction.class
 SS\cards\Shock\Absorb.class
 SS\helper\PermanentDamageVariable.class
+SS\cards\C6H14\Lily.class
 SS\patches\AllyHookPatch$RenderPatch.class
 SS\action\unique\lost\LifelineAction.class
 SS\helper\ModHelper.class
@@ -320,6 +322,7 @@ SS\Dice\EmptyDiceSlot.class
 SS\patches\ActionSimulationPatches$InterceptTopPatch.class
 SS\action\unique\haohao\GreatDiscipleAction.class
 SS\relic\Merit.class
+SS\cards\C6H14\BrainStorming.class
 SS\cards\Lost\Lifeline.class
 SS\patches\CompendiumPatches.class
 SS\patches\AddHaoRewardPatch$DropSeals.class
@@ -379,6 +382,7 @@ SS\action\unique\c6h14\PaperPenanceAction.class
 SS\action\dice\ChannelOneDiceAction.class
 SS\patches\PatchFromIssac$PatchApplyBackAttack.class
 SS\cards\Options\Lost_Black_option.class
+SS\action\unique\c6h14\BrainStormingAction.class
 SS\monster\ally\AbstractAlly$TauntType.class
 SS\packages\C6H14Package\C6H14Package_v.class
 SS\power\PatiencePower.class
@@ -392,6 +396,7 @@ SS\packages\ShockPackage\ShockPackage_v.class
 SS\cards\PhoneItIn.class
 SS\cards\Shock\OffenseAsDefense.class
 SS\power\PhoneItInPower.class
+SS\interfaces\OnPaintingSubscriber.class
 SS\patches\CompendiumPatches$CustomOrdering.class
 SS\Dice\EternalDefendDice.class
 SS\cards\Lost\TwoChargeVoid.class

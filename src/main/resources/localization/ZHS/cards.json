@@ -1140,5 +1140,25 @@
             " 固有 ，随机 !M! 张手牌获得 double:染色 。 NL 回合开始时，随机 !M! 张手牌获得 double:染色 。"
         ],
         "FLAVOR":" #y群主形态 ：打出时随机 !M! 张手牌获得染色。"
+    },
+    "Double:BrainStorming":{
+        "NAME": "头脑风暴",
+        "DESCRIPTION": "发现三张牌，第一张必定为本牌的复制版本，1分钟后死亡 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "发现三张牌，第一张必定为本牌的复制版本，1分钟后死亡 ， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "发现三张牌，第一张必定为本牌的复制版本，5分钟后死亡 ， 消耗 。",
+            "发现三张牌，第一张必定为本牌的复制版本，5分钟后死亡 ， 消耗 。"
+        ],
+        "FLAVOR":" #y群主形态 ：死亡时间延长4分钟。"
+    },
+    "Double:Lily":{
+        "NAME": "孤芳",
+        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，每当你触发 double:染色 时，将这张牌从弃牌堆置入你的手牌中。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，每当你触发 double:染色 时，将这张牌从弃牌堆置入你的手牌中。",
+        "EXTENDED_DESCRIPTION": [
+            "生成1个攻击 double:骰子 ( !D! )，每当你触发 double:染色 时，将这张牌从弃牌堆置入你的手牌中。 NL 每回合首次打出时 double:染色 。",
+            "生成1个攻击 double:骰子 ( !D! )，每当你触发 double:染色 时，将这张牌从弃牌堆置入你的手牌中。 NL 每回合首次打出时 double:染色 。"
+        ],
+        "FLAVOR":" #y群主形态 ：每回合首次打出时染色。"
     }
 }
