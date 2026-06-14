@@ -53,6 +53,9 @@ public class DefendDice extends AbstractDice {
              * LoseDexterityPower(this.target, 1), 1));
              */
         }
+        if (result == 5) {
+            block++;
+        }
         if (result == 6) {
             block = block * 3 / 2;
         }

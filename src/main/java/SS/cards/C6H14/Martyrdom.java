@@ -41,7 +41,7 @@ public class Martyrdom extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
+            upgradeBaseCost(2);
             UpdateDescription();
             initializeDescription();
         }

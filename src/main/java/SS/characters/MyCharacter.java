@@ -27,10 +27,12 @@ import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 
 import SS.Dice.AbstractDice;
 import SS.Dice.EmptyDiceSlot;
+import SS.cards.AbstractDoubleCard;
 import SS.cards.MultiFacial;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;
 import SS.path.AbstractCardEnum;
+import SS.path.PackageEnumList.PackageEnum;
 import SS.path.ThmodClassEnum;
 
 import java.util.ArrayList;
@@ -264,8 +266,15 @@ public class MyCharacter extends CustomPlayer {
             allowedCards.addAll(p.CardLists);
         }
         for (AbstractCard card : CardLibrary.getAllCards()) {
-            if (card.color == AbstractCardEnum.SS_Yellow)
+            if (card.color == AbstractCardEnum.SS_Yellow) {
+                if (card instanceof AbstractDoubleCard) {
+                    AbstractDoubleCard d = (AbstractDoubleCard) card;
+                    if (d.packagetype == PackageEnum.Default) {
+                        allowedCards.add(card.makeStatEquivalentCopy());
+                    }
+                }
                 continue;
+            }
             if (card.color == AbstractDungeon.player.getCardColor()) {
                 allowedCards.add(card.makeStatEquivalentCopy());
             }
