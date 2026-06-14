@@ -28,6 +28,7 @@ public class InscribeCardPower extends AbstractPower {
         this.type = AbstractPower.PowerType.BUFF;
         this.card = card;
         this.amount = -1;
+        this.canGoNegative = false;
 
         String path128 = "img/power/InscribeCardPower84.png";
         String path48 = "img/power/InscribeCardPower32.png";
@@ -50,6 +51,15 @@ public class InscribeCardPower extends AbstractPower {
         if (this.card != null) {
             addToBot(new PlayCardAction((AbstractCreature) (AbstractDungeon.getCurrRoom()).monsters
                     .getRandomMonster(null, true, AbstractDungeon.cardRandomRng), this.card, false));
+        }
+        this.card = null;
+        this.updateDescription();
+    }
+
+    public void playAndExhaustCard() {
+        if (this.card != null) {
+            addToBot(new PlayCardAction((AbstractCreature) (AbstractDungeon.getCurrRoom()).monsters
+                    .getRandomMonster(null, true, AbstractDungeon.cardRandomRng), this.card, true));
         }
         this.card = null;
         this.updateDescription();

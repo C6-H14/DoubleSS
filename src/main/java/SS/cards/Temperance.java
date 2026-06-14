@@ -11,6 +11,7 @@ import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.TemperancePower;
 
+@AutoAdd.Ignore
 public class Temperance extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Temperance");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 
 import SS.helper.ModHelper;
 import SS.power.PaintingPower;
+import SS.action.unique.c6h14.CommandAllSoulsAction;
 import basemod.abstracts.AbstractCardModifier;
 
 public class PaintingModifier extends AbstractCardModifier {
@@ -32,6 +33,11 @@ public class PaintingModifier extends AbstractCardModifier {
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         AbstractPlayer p = AbstractDungeon.player;
         addToBot(new ApplyPowerAction(p, p, new PaintingPower(p, 1)));
+        boolean isGenesisActive = SS.helper.EnvironmentManager.inst.activeCard != null &&
+                SS.helper.EnvironmentManager.inst.activeCard.getEnvironmentID().equals("Double:GENESIS");
+        if (isGenesisActive) {
+            addToBot(new CommandAllSoulsAction());
+        }
     }
 
     // modifier的ID

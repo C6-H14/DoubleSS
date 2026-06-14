@@ -11,6 +11,7 @@ import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.PatiencePower;
 
+@AutoAdd.Ignore
 public class Patience extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Patience");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

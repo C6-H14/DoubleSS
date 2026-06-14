@@ -12,6 +12,7 @@ import SS.action.unique.DiligenceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
+@AutoAdd.Ignore
 public class Diligence extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Diligence");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

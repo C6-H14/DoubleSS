@@ -13,6 +13,7 @@ import SS.action.unique.KindnessAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
+@AutoAdd.Ignore
 public class Kindness extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Kindness");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

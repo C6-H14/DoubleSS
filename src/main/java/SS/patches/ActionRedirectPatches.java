@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 import SS.monster.AbstractCardMonster;
 import SS.helper.MonsterCardContext;
+import SS.patches.ActionSimulationPatches;
 
 public class ActionRedirectPatches {
 
@@ -35,6 +36,14 @@ public class ActionRedirectPatches {
     }
 
     private static SpireReturn<Void> processAction(AbstractGameAction action, GameActionManager manager) {
+        // =================================================================
+        // 【核心修复】如果当前正在进行意图模拟，绝对不执行真实的重定向！
+        // 直接放行，交给 ActionSimulationPatches 去拦截并解析
+        // =================================================================
+        if (ActionSimulationPatches.isSimulating) {
+            return SpireReturn.Continue();
+        }
+
         // 只有在【怪物卡牌上下文】中才拦截
         if (MonsterCardContext.activeMonster == null) {
             return SpireReturn.Continue();

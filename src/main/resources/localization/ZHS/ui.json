@@ -43,5 +43,10 @@
     "TEXT": [
         " double:染色 。 NL %s"
     ]
+  },
+  "Double:ChooseHandCardAction": {
+    "TEXT": [
+      "选择一张手牌。"
+    ]
   }
 }

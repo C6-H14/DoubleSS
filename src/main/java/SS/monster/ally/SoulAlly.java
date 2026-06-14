@@ -15,8 +15,10 @@ import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.InflameEffect;
 
 import SS.action.monster.SoulColorCycleAction;
+import SS.cards.C6H14.Covenant;
 import SS.cards.C6H14.Revelation;
 import SS.helper.ModHelper;
+import SS.helper.MonsterIntentSimulator;
 import SS.power.InscribeCardPower;
 import SS.power.SoulFirePower;
 
@@ -28,6 +30,7 @@ public class SoulAlly extends AbstractAlly {
 
     private static final int MAX_HP = 3;
     private static final int DAMAGE_AMOUNT = 3;
+    public int slotIndex = -1;
 
     // =================================================================
     // 1. 颜色枚举与定义
@@ -91,7 +94,8 @@ public class SoulAlly extends AbstractAlly {
             newValue = 1; // 保底
 
         // 2. 强行修正最大生命值
-        this.maxHealth = newValue * 3;
+        if (!AbstractDungeon.player.hasPower("Double:BacktrackingPower"))
+            this.maxHealth = newValue * 3;
         if (this.currentHealth > this.maxHealth) {
             this.currentHealth = this.maxHealth;
         }
@@ -102,13 +106,73 @@ public class SoulAlly extends AbstractAlly {
             // 如果没有，直接添加 (不用 Action，因为状态必须立刻同步)
             this.powers.add(new SoulFirePower(this, newValue));
         } else {
-            p.amount = newValue;
+            if (AbstractDungeon.player.hasPower("Double:BacktrackingPower")) {
+                p.amount = Math.max(p.amount, newValue);
+            } else {
+                p.amount = newValue; // 直接修改 Power 的值
+            }
             p.updateDescription();
         }
 
         // 4. 刷新血条 UI 和 意图伤害 (因为魂火值变了，伤害也变了)
         this.healthBarUpdatedEvent();
         this.refreshIntentCalculation();
+    }
+
+    @Override
+    public void refreshIntentCalculation() {
+        // 判断当前环境卡是否为“创世记”
+        boolean isGenesisActive = SS.helper.EnvironmentManager.inst.activeCard != null &&
+                SS.helper.EnvironmentManager.inst.activeCard.getEnvironmentID().equals("Double:GENESIS");
+
+        // 【核心修正】只有在 创世记 结界下 且 已经染过色，意图才是《圣约》
+        if (isGenesisActive && this.stateColor != SoulColor.WHITE) {
+            int soulFireVal = 1;
+            com.megacrit.cardcrawl.powers.AbstractPower p = this.getPower("Double:SoulFirePower");
+            if (p != null)
+                soulFireVal = p.amount;
+
+            int testamentDmg = 3 + soulFireVal;
+
+            this.intentResult = new MonsterIntentSimulator.SimulationResult();
+            this.intentResult.totalDamage = testamentDmg;
+
+            this.isReadingSimulation = true;
+            this.setMove((byte) 1, Intent.ATTACK, testamentDmg);
+            this.createIntent();
+            this.isReadingSimulation = false;
+
+            this.intentResult.cardsToPlay.clear();
+        } else {
+            // 普通状态：正常走手牌模拟器
+            super.refreshIntentCalculation();
+        }
+    }
+
+    @Override
+    public void atEndOfTurn() {
+        boolean isGenesisActive = SS.helper.EnvironmentManager.inst.activeCard != null &&
+                SS.helper.EnvironmentManager.inst.activeCard.getEnvironmentID().equals("Double:GENESIS");
+
+        // 【核心修正】只有在 创世记 结界下 且 已经染过色，才打出《圣约》
+        if (isGenesisActive && this.stateColor != SoulColor.WHITE) {
+            AbstractCard testament = new Revelation();
+            testament.freeToPlayOnce = true;
+
+            addToBot(new SS.action.monster.AllyPlayCardAction(this, testament, this.getTarget()));
+
+            addToBot(new com.megacrit.cardcrawl.actions.AbstractGameAction() {
+                @Override
+                public void update() {
+                    SoulAlly.this.endTurnDeckLogic();
+                    SoulAlly.this.lockedTarget = null;
+                    this.isDone = true;
+                }
+            });
+        } else {
+            // 正常状态下：像普通跟班一样，正常结算自己的手牌 AI
+            super.atEndOfTurn();
+        }
     }
 
     // 【拦截受伤】
@@ -142,6 +206,11 @@ public class SoulAlly extends AbstractAlly {
     public void changeColor(SoulColor newColor) {
         if (this.stateColor == newColor)
             return;
+        boolean isGenesisActive = SS.helper.EnvironmentManager.inst.activeCard != null &&
+                SS.helper.EnvironmentManager.inst.activeCard.getEnvironmentID().equals("Double:GENESIS");
+        if (isGenesisActive && this.stateColor != SoulColor.WHITE) {
+            return;
+        }
 
         this.stateColor = newColor;
 
@@ -206,21 +275,48 @@ public class SoulAlly extends AbstractAlly {
     public void update() {
         super.update();
 
-        // 2. 渐变逻辑
+        // 1. 颜色渐变与锁定逻辑 (保持原样不变)
         if (isChangingColor) {
             this.colorTimer += Gdx.graphics.getDeltaTime();
             float progress = Math.min(1.0f, this.colorTimer / this.colorDuration);
             this.tint.color.set(colorStart).lerp(colorTarget, Interpolation.pow2Out.apply(progress));
             if (progress >= 1.0f)
                 isChangingColor = false;
-        }
-        // 3. 【核心修复】强制锁定颜色
-        // 只要当前状态不是白色，就强制覆盖 tint.color
-        // 这会阻止父类把它慢慢淡出回白色
-        else if (this.stateColor != SoulColor.WHITE) {
-            // 直接赋值，不要加 if 判断
+        } else if (this.stateColor != SoulColor.WHITE) {
             this.tint.color.set(this.colorTarget);
         }
+
+        // =================================================================
+        // 【核心修改】：彻底不碰 hbYOffset 变量！不修改碰撞箱大小！
+        // 所有的立绘、血条、状态图标高度完全由你的自变量公式在构造阶段定死。
+        // =================================================================
+        this.modelScale = 1.0f;
+
+        // 能量面板、能力图标永远保持默认大图标
+        this.energyScale = 0.8F;
+        this.energyOffsetX = 10.0F;
+        this.energyOffsetY = 30.0F;
+        this.powerIconScale = 0.8F;
+        this.powerTextScale = 1.0F;
+
+        // 检测“创世记”环境是否激活
+        boolean isGenesisActive = SS.helper.EnvironmentManager.inst.activeCard != null &&
+                SS.helper.EnvironmentManager.inst.activeCard.getEnvironmentID().equals("Double:GENESIS");
+
+        if (isGenesisActive) {
+            // 仅让卡牌意图大小保持缩小
+            this.cardScale = 0.15F;
+            this.hoverScale = 0.45F;
+            this.handOffsetY = -120.0F; // 保持卡牌贴近头部
+            this.handOffsetX = 0.0F;
+        } else {
+            // 正常状态下的卡牌大小
+            this.cardScale = 0.25F;
+            this.hoverScale = 0.75F;
+            this.handOffsetY = -80.0F;
+            this.handOffsetX = 0.0F;
+        }
+
         syncSoulFire();
     }
 
@@ -253,6 +349,45 @@ public class SoulAlly extends AbstractAlly {
 
         // 最后必须调用父类的死亡逻辑，让他真正“死透”
         super.die(triggerRelics);
+    }
+
+    // =================================================================
+    // 【新增】进入创世记：洗牌，手牌变为1张圣约，抽牌堆塞2张圣约
+    // =================================================================
+    public void transformToGenesisDeck() {
+        // 1. 彻底清空所有战斗牌堆
+        this.hand.clear();
+        this.drawPile.clear();
+        this.discardPile.clear();
+        this.exhaustPile.clear();
+        this.limbo.clear();
+
+        // 2. 放入 1 张圣约到手牌
+        AbstractCard t1 = new Covenant(); // 或者是你自定义的圣约类
+        this.hand.addToTop(t1);
+
+        // 3. 放入 2 张圣约到抽牌堆
+        AbstractCard t2 = new Covenant();
+        AbstractCard t3 = new Covenant();
+        this.drawPile.addToBottom(t2);
+        this.drawPile.addToBottom(t3);
+
+        // 4. 重新计算并刷新视觉、意图
+        this.refreshIntentCalculation();
+    }
+
+    // =================================================================
+    // 【新增】退出创世记：清空牌堆，手牌改回1张启示 (Revelation)，抽牌堆塞1张启示
+    // =================================================================
+    public void revertFromGenesisDeck() {
+        // 1. 初始化原版牌堆 (这会清空牌堆，并将原版的 2 张《启示》放入抽牌堆)
+        this.initBattleDeck();
+
+        // 2. 抽 1 张牌到手牌中 (恢复战斗开始时的 1 手牌、1 抽牌堆的状态)
+        this.drawCard();
+
+        // 3. 重新计算并刷新视觉、意图
+        this.refreshIntentCalculation();
     }
 
 }
