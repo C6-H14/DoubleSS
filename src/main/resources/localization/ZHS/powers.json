@@ -345,5 +345,25 @@
       "再过 #b",
       " 秒立即死亡"
     ]
+  },
+  "Double:BacktrackingPower": {
+    "NAME": "回溯",
+    "DESCRIPTIONS": [
+      "魂火值不再减少，回合结束时，唤魂 #b",
+      " 。"
+    ]
+  },
+  "Double:SermonPower": {
+    "NAME": "布道",
+    "DESCRIPTIONS": [
+      "本回合每当你唤魂时，染色。"
+    ]
+  },
+  "Double:SunbowPower": {
+    "NAME": "长虹贯日",
+    "DESCRIPTIONS": [
+      "回合开始时，唤魂 #b",
+      " ，并切换至抽牌堆顶牌的对应颜色。"
+    ]
   }
 }

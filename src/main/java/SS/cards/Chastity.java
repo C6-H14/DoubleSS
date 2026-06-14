@@ -11,6 +11,7 @@ import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.ChastityPower;
 
+@AutoAdd.Ignore
 public class Chastity extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Chastity");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.core.OverlayMenu;
 
 import SS.monster.ally.AllyManager;
 
@@ -40,6 +41,7 @@ public class AllyHookPatch {
         @SpirePostfixPatch
         public static void Postfix() {
             AllyManager.clear();
+            SS.helper.EnvironmentManager.inst.clear();
         }
     }
 
@@ -83,6 +85,38 @@ public class AllyHookPatch {
             if (__instance.isDone) {
                 AllyManager.refreshIntents();
             }
+        }
+    }
+
+    // 在你的 SS.patches.AllyHookPatch (或类似的全局挂载类) 中添加：
+
+    @SpirePatch(clz = com.megacrit.cardcrawl.core.OverlayMenu.class, method = "update")
+    public static class EnvUpdatePatch {
+        public static void Postfix(com.megacrit.cardcrawl.core.OverlayMenu __instance) {
+            if (AbstractDungeon.getCurrRoom() != null
+                    && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) {
+                // 每帧更新环境状态
+                SS.helper.EnvironmentManager.inst.update();
+            }
+        }
+    }
+
+    @SpirePatch(clz = com.megacrit.cardcrawl.core.OverlayMenu.class, method = "render")
+    public static class EnvRenderPatch {
+        public static void Postfix(com.megacrit.cardcrawl.core.OverlayMenu __instance, SpriteBatch sb) {
+            if (AbstractDungeon.getCurrRoom() != null
+                    && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT) {
+                // 渲染环境卡
+                SS.helper.EnvironmentManager.inst.render(sb);
+            }
+        }
+    }
+
+    @SpirePatch(clz = com.megacrit.cardcrawl.rooms.AbstractRoom.class, method = "endBattle")
+    public static class EnvClearPatch {
+        public static void Postfix(com.megacrit.cardcrawl.rooms.AbstractRoom __instance) {
+            // 战斗结束，清理环境卡状态
+            SS.helper.EnvironmentManager.inst.clear();
         }
     }
 }

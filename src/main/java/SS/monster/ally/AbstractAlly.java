@@ -244,7 +244,8 @@ public abstract class AbstractAlly extends AbstractCardMonster {
     // 必须保留：防误伤逻辑
     @Override
     public void damage(DamageInfo info) {
-        if (info.owner != null && info.owner != AbstractDungeon.player) {
+        if (SS.patches.AllyDamagePatch.allowFriendlyFire.get(info) ||
+                (info.owner != AbstractDungeon.player)) {
             super.damage(info);
         }
     }

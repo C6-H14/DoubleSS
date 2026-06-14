@@ -22,11 +22,11 @@ public class C6H14Package_c extends AbstractPackage {
         cards.add("Double:Kaleidoscope");
         cards.add("Double:BrainStorming");
 
-        cards.add("Double:SpectreEcho");
-        cards.add("Double:Incorporeal");
-        cards.add("Double:Lifeline");
-        cards.add("Double:PopIn");
-        cards.add("Double:Unbreakable");
+        cards.add("Double:ExactSequence");
+        cards.add("Double:KernelMapping");
+        cards.add("Double:Eraser");
+        cards.add("Double:SoulStorage");
+        cards.add("Double:Sunbow");
         return cards;
     }
 

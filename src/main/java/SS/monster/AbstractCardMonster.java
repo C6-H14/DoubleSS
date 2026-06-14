@@ -75,6 +75,8 @@ public abstract class AbstractCardMonster extends CustomMonster {
     private float intentIconScale = 0.5f;
     public boolean isReadingSimulation = false;
 
+    public float modelScale = 1.0f; // 默认 1.0 倍大小
+
     // =================================================================
 
     // 构造函数 1
@@ -158,12 +160,52 @@ public abstract class AbstractCardMonster extends CustomMonster {
         }
     }
 
+    private static com.badlogic.gdx.graphics.Texture blankTexture = null;
+
+    private static com.badlogic.gdx.graphics.Texture getBlankTexture() {
+        if (blankTexture == null) {
+            com.badlogic.gdx.graphics.Pixmap pixmap = new com.badlogic.gdx.graphics.Pixmap(
+                    1, 1, com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888);
+            pixmap.setColor(new com.badlogic.gdx.graphics.Color(0.0F, 0.0F, 0.0F, 0.0F)); // 完全透明
+            pixmap.fill();
+            blankTexture = new com.badlogic.gdx.graphics.Texture(pixmap);
+            pixmap.dispose(); // 释放内存
+        }
+        return blankTexture;
+    }
+
     @Override
     public void render(SpriteBatch sb) {
+        // 备份立绘引用
+        com.badlogic.gdx.graphics.Texture backupImg = this.img;
+
+        // 如果开启了缩放 (不等于1.0)，临时将 img 设为 null，阻止 super.render(sb) 绘制默认大小的大图
+
+        if (this.modelScale != 1.0f) {
+            this.img = getBlankTexture();
+        }
+
         ArrayList<com.megacrit.cardcrawl.powers.AbstractPower> backupPowers = new ArrayList<>(this.powers);
         this.powers.clear();
-        super.render(sb);
+        super.render(sb); // 此时 super 只会画血条、意图，不会画图片
         this.powers.addAll(backupPowers);
+
+        // 还原立绘引用
+        this.img = backupImg;
+
+        // 【核心修改】如果是缩放状态，手动使用 SpriteBatch 绘制缩小的立绘
+        if (this.img != null && this.modelScale != 1.0f) {
+            sb.setColor(this.tint.color);
+            sb.draw(this.img,
+                    this.drawX - this.img.getWidth() * Settings.scale / 2.0F + this.animX,
+                    this.drawY + this.animY,
+                    this.img.getWidth() / 2.0F, 0.0F, // 以底部中心为缩放原点
+                    this.img.getWidth(), this.img.getHeight(),
+                    this.modelScale * Settings.scale, this.modelScale * Settings.scale,
+                    0.0F, 0, 0, this.img.getWidth(), this.img.getHeight(),
+                    this.isEscaping, false);
+        }
+
         renderEnergyPanel(sb);
         renderHand(sb);
         renderLimbo(sb);

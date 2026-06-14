@@ -11,6 +11,7 @@ import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.CharityPower;
 
+@AutoAdd.Ignore
 public class Charity extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Charity");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

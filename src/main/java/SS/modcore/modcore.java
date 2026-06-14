@@ -3,6 +3,7 @@ package SS.modcore;
 import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.abstracts.CustomRelic;
+import basemod.abstracts.CustomSavable;
 import basemod.interfaces.EditCardsSubscriber;
 import basemod.interfaces.EditCharactersSubscriber;
 import basemod.interfaces.EditKeywordsSubscriber;
@@ -94,7 +95,7 @@ import java.util.Random;
 public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditCharactersSubscriber,
         EditStringsSubscriber, EditKeywordsSubscriber, StartGameSubscriber, PostUpdateSubscriber,
         PostInitializeSubscriber, OnStartBattleSubscriber, OnCardUseSubscriber, RenderSubscriber,
-        PostExhaustSubscriber, OnPowersModifiedSubscriber {
+        PostExhaustSubscriber, OnPowersModifiedSubscriber, CustomSavable<Integer> {
     private static final String BG_ATTACK_512 = "img/512/bg_attack.png";
     private static final String BG_POWER_512 = "img/512/bg_power.png";
     private static final String BG_SKILL_512 = "img/512/bg_skill.png";
@@ -107,6 +108,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public static final Color COL = CardHelper.getColor(252, 235, 43);
     public static int Hao_chance = 0;
     public static int combatExhausts = 0;
+    public static int orbitMisc = 0;
     public static Sinsbar sinBar;
 
     private void addCardColor(CardColor c, String s) {
@@ -119,11 +121,28 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     public modcore() {
         BaseMod.subscribe((ISubscriber) this);
+        BaseMod.addSaveField("Double:orbitMisc", this);
         BaseMod.addColor(AbstractCardEnum.SS_Yellow, COL, COL, COL, COL, COL, COL, COL, BG_ATTACK_512, BG_SKILL_512,
                 BG_POWER_512, ENEYGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
         // addCardColor(AbstractCardEnum.Hao_Green, "hao");
         // addCardColor(AbstractCardEnum.Lost_Black, "lost");
         // addCardColor(AbstractCardEnum.Shock_Blue, "shock");
+    }
+
+    @Override
+    public Integer onSave() {
+        // 保存时，把当前的加成存入存档文件
+        return orbitMisc;
+    }
+
+    @Override
+    public void onLoad(Integer savedBonus) {
+        // 读档时恢复数值。注意防空指针 (如果是第一次玩这个Mod，存档里没有这个字段)
+        if (savedBonus != null) {
+            orbitMisc = savedBonus;
+        } else {
+            orbitMisc = 0;
+        }
     }
 
     private static int needPackage = 3;
@@ -133,6 +152,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         new modcore();
     }
 
+    // 注册
     @Override
     public void receiveEditStrings() {
         String lang = "ZHS";
@@ -316,6 +336,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public void receiveStartGame() {
         initializeBlessMap();
         if (!CardCrawlGame.loadingSave) {
+            orbitMisc = 0;
             openedStarterScreen = false;
             validColors = new ArrayList<>();
             validPackage = new ArrayList<>();

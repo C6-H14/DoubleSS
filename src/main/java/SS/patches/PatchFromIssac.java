@@ -17,6 +17,9 @@ public class PatchFromIssac {
     public static class PatchDamage {
         @SpireInsertPatch(rloc = 69, localvars = { "damageAmount" })
         public static void Insert(final AbstractMonster m, final DamageInfo info, @ByRef final int[] _damageAmount) {
+            if (m instanceof AbstractAlly) {
+                return;
+            }
             if (info.owner != null && info.owner != m) {
                 for (final AbstractPower power : info.owner.powers) {
                     power.onInflictDamage(info, _damageAmount[0], (AbstractCreature) m);

@@ -1,6 +1,7 @@
 package SS.action.monster;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -9,6 +10,7 @@ import SS.action.common.SpawnAllyAction;
 import SS.action.unique.GainVirtueAction;
 import SS.monster.ally.AllyManager;
 import SS.monster.ally.SoulAlly;
+import SS.power.PaintingPower;
 
 public class EvokeSoulAction extends AbstractGameAction {
 
@@ -25,7 +27,13 @@ public class EvokeSoulAction extends AbstractGameAction {
     @Override
     public void update() {
         // 1. 获得 1 点美德
-        addToTop(new GainVirtueAction(AbstractDungeon.player, 1));
+        addToTop(new GainVirtueAction(AbstractDungeon.player, this.amount));
+        if (this.amount >= 1) {
+            if (AbstractDungeon.player.hasPower("Double:SermonPower")) {
+                addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
+                        new PaintingPower(AbstractDungeon.player, 1)));
+            }
+        }
 
         // 2. 查找场上是否有 SoulAlly
         boolean hasSoulFire = false;

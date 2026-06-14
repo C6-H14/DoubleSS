@@ -32,7 +32,7 @@ public class Incorporeal extends AbstractLostCard {
         this.isEthereal = true;
         this.isInnate = true;
         this.exhaust = true;
-        this.permanentMagicNumber = this.basePermanentMagicNumber = 3;
+        this.permanentMagicNumber = this.basePermanentMagicNumber = 1;
         if (needManager()) {
             updateManager();
         }
@@ -51,7 +51,8 @@ public class Incorporeal extends AbstractLostCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         int cnt = this.permanentMagicNumber;
         cnt = Math.max(0, cnt - p.currentHealth / 10);
-        addToBot(new ApplyPowerAction(p, p, new IntangiblePlayerPower(p, cnt)));
+        if (cnt > 0)
+            addToBot(new ApplyPowerAction(p, p, new IntangiblePlayerPower(p, cnt)));
         if (needManager()) {
             addToBot(new HealAction(p, p, 5));
         }
