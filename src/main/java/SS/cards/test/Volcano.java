@@ -21,7 +21,9 @@ import SS.interfaces.IEnvironmentCard;
 import SS.path.AbstractCardEnum;
 import SS.power.BleedingPower;
 import SS.power.VolcanoPower;
+import basemod.AutoAdd;
 
+@AutoAdd.Ignore
 public class Volcano extends AbstractDoubleCard implements IEnvironmentCard {
     public static final String ID = ModHelper.makePath("TestCard1");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
