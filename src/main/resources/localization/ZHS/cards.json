@@ -341,11 +341,11 @@
     },
     "Double:Stingy":{
         "NAME": "吝啬",
-        "DESCRIPTION": "失去15金币，生成 !M! 个攻击骰子( !D! )，获得2点 double:罪孽 。",
-        "UPGRADE_DESCRIPTION": "失去15金币，生成 !M! 个攻击骰子( !D! )，获得2点 double:罪孽 。",
+        "DESCRIPTION": "失去15金币，生成1个攻击骰子( !D! )，获得2点 double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "失去15金币，生成1个攻击骰子( !D! )，获得2点 double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "失去15金币，生成 !M! 个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。",
-            "失去15金币，生成 !M! 个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。"
+            "失去15金币，生成1个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。",
+            "失去15金币，生成1个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：获得的金币增加 #b2  。"
     },
@@ -371,13 +371,13 @@
     },
     "Double:NutrientCycle":{
         "NAME": "物质循环",
-        "DESCRIPTION": "将场上的牌重新洗牌放入抽牌堆，洗牌前你每有一张手牌便抽一张牌、生成一个防御 double:骰子 (X)与 [E] ，消耗。",
-        "UPGRADE_DESCRIPTION": "抽一张牌，将场上的牌重新洗牌放入抽牌堆，洗牌前你每有一张手牌便抽一张牌、生成一个防御 double:骰子 (X)与 [E] ，消耗。"
+        "DESCRIPTION": "将场上的牌重新洗牌放入抽牌堆，抽Y张牌、生成Y个防御 double:骰子 (X)，获得Y [E] (Y为洗牌前你的手牌数)，消耗。",
+        "UPGRADE_DESCRIPTION": "抽一张牌，将场上的牌重新洗牌放入抽牌堆，抽Y张牌、生成Y个防御 double:骰子 (X)，获得Y [E] (Y为洗牌前你的手牌数)，消耗。"
     },
     "Double:Diversity":{
         "NAME": "多样性",
-        "DESCRIPTION": "进入 double:群主形态 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !B! )。",
-        "UPGRADE_DESCRIPTION": "进入 double:群主形态 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !B! )。"
+        "DESCRIPTION": "进入 double:群主形态 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !D! )。",
+        "UPGRADE_DESCRIPTION": "进入 double:群主形态 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !D! )。"
     },
     "Double:Pansy":{
         "NAME": "三色堇",
@@ -441,8 +441,8 @@
     },
     "Double:Saprophytism":{
         "NAME": "腐生",
-        "DESCRIPTION": "消耗堆中每有1张牌，生成1个铁斩波 double:骰子 (!D!) 。",
-        "UPGRADE_DESCRIPTION": "消耗堆中每有1张牌，生成1个铁斩波 double:骰子 (!D!) 。"
+        "DESCRIPTION": "消耗堆中每有1张牌，生成1个铁斩波 double:骰子 ( !D! ) 。",
+        "UPGRADE_DESCRIPTION": "消耗堆中每有1张牌，生成1个铁斩波 double:骰子 ( !D! ) 。"
     },
     "Double:Diligence":{
         "NAME": "勤奋",
@@ -481,11 +481,11 @@
     },
     "Double:YinYang":{
         "NAME": "阴阳",
-        "DESCRIPTION": "选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券 。",
-        "UPGRADE_DESCRIPTION": "选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券+ 。",
+        "DESCRIPTION": " double:唤魂 !M! ，获得一张 *赎罪券 。",
+        "UPGRADE_DESCRIPTION": " double:唤魂 !M! ，获得一张 *赎罪券+ 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]保留[] ，选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券 。",
-            " [#cf3fbe]保留[] ，选择将一张七宗罪转化为对应的美德卡，获得一张 *赎罪券+ 。"
+            " [#cf3fbe]保留[] ， double:唤魂 !M! ，获得一张 *赎罪券 。",
+            " [#cf3fbe]保留[] ， double:唤魂 !M! ，获得一张 *赎罪券+ 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：获得保留  。"
     },
@@ -714,7 +714,7 @@
     "Double:SoulGuard":{
         "NAME": "魂佑",
         "DESCRIPTION": " 虚无 ， double:持恒 ，消耗，生成1个永恒防御 double:骰子 ( !Double:PermanentBlock! )。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，消耗，生成1个永恒攻击 double:骰子 ( !Double:PermanentBlock! )。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，消耗，生成1个永恒防御 double:骰子 ( !Double:PermanentBlock! )。",
         "EXTENDED_DESCRIPTION": [
             " 虚无 ， double:持恒 ，消耗，生成1个永恒攻击 double:骰子 ( !Double:PermanentBlock! )， *获得 double:圣盾 。",
             " 虚无 ， double:持恒 ，消耗，生成1个永恒攻击 double:骰子 ( !Double:PermanentBlock! )， *获得 double:圣盾 。"
@@ -1068,10 +1068,10 @@
     "Double:ArmillarySphere":{
         "NAME": "浑天仪",
         "DESCRIPTION": "回合开始时，你每拥有1层 double:震荡 ，抽1张牌。",
-        "UPGRADE_DESCRIPTION": "回合开始时，你每拥有1层 double:震荡 ，抽1张牌。",
+        "UPGRADE_DESCRIPTION": " 固有 ，回合开始时，你每拥有1层 double:震荡 ，抽1张牌。",
         "EXTENDED_DESCRIPTION": [
             "抽1张牌。 NL 回合开始时，你每拥有1层 double:震荡 ，抽1张牌。",
-            "抽1张牌。 NL 回合开始时，你每拥有1层 double:震荡 ，抽1张牌。"
+            " 固有 ，抽1张牌。 NL 回合开始时，你每拥有1层 double:震荡 ，抽1张牌。"
         ],
         "FLAVOR":" #y群主形态 ：立刻抽1张牌。"
     },
@@ -1129,11 +1129,11 @@
     },
     "Double:Fallen":{
         "NAME": "恶堕",
-        "DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。",
-        "UPGRADE_DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。",
+        "DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。",
+        "UPGRADE_DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。",
         "EXTENDED_DESCRIPTION": [
-            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。",
-            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25% ，你的 虚弱 改为使你造成的伤害增加 *25% 。"
+            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。",
+            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。"
         ],
         "FLAVOR":" #y群主形态 ：获得 [E] 。"
     },
@@ -1228,10 +1228,10 @@
     "Double:Localization":{
         "NAME": "局部化",
         "DESCRIPTION": "打出并消耗魂火 double:铭刻 的牌，将此牌的攻击与防御数值添加到一张选定的手牌中。",
-        "UPGRADE_DESCRIPTION": "打出并消耗魂火 double:铭刻 的牌，将此牌的攻击与防御数值添加到一张选定的手牌中（无论数值多少，都至少为3）。",
+        "UPGRADE_DESCRIPTION": "打出并消耗魂火 double:铭刻 的牌，将此牌的攻击与防御数值添加到一张选定的手牌中（无论数值多少，至少为3）。",
         "EXTENDED_DESCRIPTION": [
             "打出并消耗魂火 double:铭刻 的牌，将此牌的攻击与防御数值添加到一张选定的手牌中。 NL 获得 [E] 。",
-            "打出并消耗魂火 double:铭刻 的牌，将此牌的攻击与防御数值添加到一张选定的手牌中（无论数值多少，都至少为3）。 NL 获得 [E] 。"
+            "打出并消耗魂火 double:铭刻 的牌，将此牌的攻击与防御数值添加到一张选定的手牌中（无论数值多少，至少为3）。 NL 获得 [E] 。"
         ],
         "FLAVOR":" #y群主形态 ：获得 [E] 。"
     },

@@ -43,11 +43,11 @@ public class AttackDice extends AbstractDice {
         boolean flag = false;
         int temp = result, damage = this.evokeAmount;
         // System.out.println(temp);
-        if (temp == 1) {
+        if (temp <= 2) {
             damage--;
         }
         if (temp == 5) {
-            flag = true;
+            damage++;
         }
         if (temp == 6) {
             damage = damage * 3 / 2;

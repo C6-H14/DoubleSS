@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.common.SpawnAllyAction;
+import SS.action.monster.EvokeSoulAction;
 import SS.action.unique.ss.YinYangAction;
 import SS.helper.ModHelper;
 import SS.monster.ally.SoulAlly;
@@ -34,15 +35,18 @@ public class YinYang extends AbstractDoubleCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
         this.tags.add(AbstractCardEnum.Fiend);
+        this.magicNumber = this.baseMagicNumber = 1;
         if (needFiend()) {
             updateFiend();
         }
         UpdateDescription();
+        this.cardsToPreview = new Indulgence();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
+            this.cardsToPreview.upgrade();
             UpdateDescription();
             initializeDescription();
         }
@@ -91,12 +95,12 @@ public class YinYang extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new SpawnAllyAction(new SoulAlly(300, 250)));
-        // addToBot(new YinYangAction(p, 1));
-        // AbstractCard c = new Indulgence();
-        // if (this.upgraded)
-        // c.upgrade();
-        // addToBot(new MakeTempCardInHandAction(c));
+        addToBot(new EvokeSoulAction(this.magicNumber));
+        addToBot(new YinYangAction(p, 1));
+        AbstractCard c = new Indulgence();
+        if (this.upgraded)
+            c.upgrade();
+        addToBot(new MakeTempCardInHandAction(c));
     }
 
     public void triggerOnGlowCheck() {

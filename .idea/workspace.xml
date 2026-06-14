@@ -6,29 +6,41 @@
   <component name="ChangeListManager">
     <list default="true" id="83136bbe-b2d2-422a-a817-480d9003d1bf" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Charity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Charity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Chastity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Chastity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Diligence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Diligence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Humility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Humility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Kindness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Kindness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Patience.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Patience.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Temperance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Temperance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModTheSpire.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModTheSpire.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img/1024/lost_power.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/1024/lost_power.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img/512/lost_power.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/512/lost_power.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo.md" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/Dice/AttackDice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/Dice/AttackDice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/Dice/DefendDice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/Dice/DefendDice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/C6H14/Guidance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/C6H14/Guidance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/C6H14/Martyrdom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/C6H14/Martyrdom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/C6H14/Sermon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/C6H14/Sermon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Haohao/HaoStab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Haohao/HaoStab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Haohao/margropeR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Haohao/margropeR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/Shock/DonQuixoticCharge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/Shock/DonQuixoticCharge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/cards/YinYang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/cards/YinYang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/characters/MyCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/characters/MyCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SS/power/SinsPower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SS/power/SinsPower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/UI/SinsBar/Sinsbar.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/UI/SinsBar/Sinsbar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/cards.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/cards.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/keywords.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/keywords.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/localization/ZHS/orb.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/localization/ZHS/orb.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/DoubleSS.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/DoubleSS.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ModTheSpire.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ModTheSpire.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/YinYangAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/action/unique/ss/YinYangAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/FinalJudgement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/FinalJudgement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Charity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Charity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Chastity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Chastity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Diligence.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Diligence.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Humility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Humility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Kindness.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Kindness.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Patience.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Patience.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Temperance.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Temperance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img/1024/lost_power.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/img/1024/lost_power.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img/512/lost_power.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/img/512/lost_power.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/AttackDice.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/Dice/AttackDice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/Dice/DefendDice.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/Dice/DefendDice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/Guidance.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/Guidance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/Martyrdom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/Martyrdom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/Sermon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/C6H14/Sermon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoStab.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/HaoStab.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/margropeR.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Haohao/margropeR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/Shock/DonQuixoticCharge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/Shock/DonQuixoticCharge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/cards/YinYang.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/cards/YinYang.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$PlayerColorEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$PlayerColorEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$PlayerLibraryEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter$PlayerLibraryEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/characters/MyCharacter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SS/power/SinsPower.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SS/power/SinsPower.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/img/UI/SinsBar/Sinsbar.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/img/UI/SinsBar/Sinsbar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/cards.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/cards.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/keywords.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/keywords.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/localization/ZHS/orb.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/localization/ZHS/orb.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,11 +156,6 @@
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/SS/monster/ally/SoulAlly.java</url>
-          <line>180</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>jar://E:/SteamLibrary/steamapps/common/SlayTheSpire/desktop-1.0.jar!/com/megacrit/cardcrawl/actions/common/DamageAction.class</url>
           <line>90</line>
           <option name="timeStamp" value="54" />
@@ -168,6 +175,31 @@
           <line>47</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://E:/SteamLibrary/steamapps/common/SlayTheSpire/desktop-1.0.jar!/com/megacrit/cardcrawl/core/AbstractCreature.class</url>
+          <line>236</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/characters/MyCharacter.java</url>
+          <line>295</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/characters/MyCharacter.java</url>
+          <line>267</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/characters/MyCharacter.java</url>
+          <line>281</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/SS/characters/MyCharacter.java</url>
+          <line>271</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -175,6 +207,7 @@
         <watch expression="AbstractDungeon.actionManager.actions" language="JAVA" />
         <watch expression="this.isDone" />
         <watch expression="this.target" />
+        <watch expression="AbstractDungeon.commonCardPool" />
       </configuration>
     </watches-manager>
   </component>

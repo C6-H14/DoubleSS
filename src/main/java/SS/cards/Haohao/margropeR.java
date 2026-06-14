@@ -42,7 +42,7 @@ public class margropeR extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(1);
+            upgradeMagicNumber(1);
             this.cardsToPreview.upgrade();
             UpdateDescription();
             initializeDescription();

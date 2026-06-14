@@ -67,7 +67,7 @@ public class SinsPower extends AbstractPower implements InvisiblePower {
     }
 
     public void onInitialApplication() {
-        AbstractDungeon.player.decreaseMaxHealth(this.amount);
+        // AbstractDungeon.player.decreaseMaxHealth(this.amount / 10);
     }
 
     public void atEndOfTurn(final boolean isPlayer) {

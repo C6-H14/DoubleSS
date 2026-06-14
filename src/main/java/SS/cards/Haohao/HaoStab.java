@@ -53,7 +53,6 @@ public class HaoStab extends AbstractHaoCard {
         addToBot(new DamageAction(m, new DamageInfo(p, this.damage, DamageInfo.DamageType.NORMAL)));
         addToBot(new ChannelDiceAction(new AttackHaoDice(this.damage, m)));
         addToBot(new DrawCardAction(1));
-        addToBot(new DrawHaoCardAction(1));
         if (needManager()) {
             addToBot(new TriggerPoisonAction(m, p));
         }
