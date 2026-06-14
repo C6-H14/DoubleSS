@@ -45,11 +45,14 @@ public class RecordingTeam extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (p.getPower("Double:SinsPower") != null && p.getPower("Double:SinsPower").amount > this.magicNumber) {
-            addToBot(new ApplyPowerAction(p, p, new SinsPower(p, -this.magicNumber), -this.magicNumber));
-        } else {
-            addToTop(new RemoveSpecificPowerAction(p, p, "Double:SinsPower"));
+        if (p.getPower("Double:SinsPower") != null && p.getPower("Double:SinsPower").amount > 0) {
+            if (p.getPower("Double:SinsPower").amount > this.magicNumber) {
+                addToBot(new ApplyPowerAction(p, p, new SinsPower(p, -this.magicNumber), -this.magicNumber));
+            } else {
+                addToTop(new RemoveSpecificPowerAction(p, p, "Double:SinsPower"));
+            }
         }
+
         addToBot(new MakeTempCardInHandAction(this.cardsToPreview, this.magicNumber));
         for (int i = 0; i < this.magicNumber; ++i) {
             addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));

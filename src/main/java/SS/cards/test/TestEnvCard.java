@@ -16,6 +16,9 @@ import SS.helper.ModHelper;
 import SS.interfaces.IEnvironmentCard;
 import SS.path.AbstractCardEnum;
 import SS.power.BleedingPower;
+import basemod.AutoAdd;
+
+@AutoAdd.Ignore
 
 public class TestEnvCard extends AbstractDoubleCard implements IEnvironmentCard {
     public static final String ID = ModHelper.makePath("TestCard");
