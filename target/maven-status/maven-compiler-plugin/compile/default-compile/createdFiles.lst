@@ -88,6 +88,7 @@ SS\action\common\DowngradeCardAction.class
 SS\action\dice\DiceDamageEnemyAction.class
 SS\helper\EnvironmentManager$State.class
 SS\action\dice\EvokeAllDiceAction.class
+SS\cards\BlessCard\BlessDefend.class
 SS\cards\Options\C6H14_Cyan_option.class
 SS\patches\ActionSimulationPatches.class
 SS\packages\HaoPackage\HaoPackage_e.class

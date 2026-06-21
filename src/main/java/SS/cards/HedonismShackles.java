@@ -34,7 +34,7 @@ public class HedonismShackles extends AbstractDoubleCard {
     public HedonismShackles() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
         ExhaustiveField.ExhaustiveFields.baseExhaustive.set(this, Integer.valueOf(2));
         ExhaustiveField.ExhaustiveFields.exhaustive.set(this, Integer.valueOf(2));
         this.tags.add(AbstractCardEnum.Fiend);
@@ -57,14 +57,13 @@ public class HedonismShackles extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-            addToBot(new ApplyPowerAction(mo, p,
-                    (AbstractPower) new StrengthPower(mo, -1), -1, true, AbstractGameAction.AttackEffect.NONE));
+            addToBot(new ApplyPowerAction(mo, p, new StrengthPower(mo, -1), -1, true,
+                    AbstractGameAction.AttackEffect.NONE));
         }
         if (!this.upgraded) {
             for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
                 if (!mo.hasPower("Artifact")) {
-                    addToBot(new ApplyPowerAction(mo, p,
-                            (AbstractPower) new GainStrengthPower(mo, 1), 1, true,
+                    addToBot(new ApplyPowerAction(mo, p, new GainStrengthPower(mo, 1), 1, true,
                             AbstractGameAction.AttackEffect.NONE));
                 }
             }

@@ -32,7 +32,7 @@ public class Jealousy extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Envy);
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
         this.exhaust = true;
         if (needFiend()) {
             updateFiend();

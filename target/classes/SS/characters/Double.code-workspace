@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../../.."
+		},
+		{
+			"path": "D:/杀戮尖塔mod"
+		}
+	],
+    "settings": {
+        "java.configuration.updateBuildConfiguration": "interactive"
+    }
+}

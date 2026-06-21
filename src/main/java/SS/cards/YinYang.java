@@ -35,7 +35,7 @@ public class YinYang extends AbstractDoubleCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
         this.tags.add(AbstractCardEnum.Fiend);
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 2;
         if (needFiend()) {
             updateFiend();
         }
@@ -47,6 +47,7 @@ public class YinYang extends AbstractDoubleCard {
         if (!this.upgraded) {
             upgradeName();
             this.cardsToPreview.upgrade();
+            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
@@ -96,7 +97,6 @@ public class YinYang extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new EvokeSoulAction(this.magicNumber));
-        addToBot(new YinYangAction(p, 1));
         AbstractCard c = new Indulgence();
         if (this.upgraded)
             c.upgrade();

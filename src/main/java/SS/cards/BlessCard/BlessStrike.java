@@ -25,19 +25,22 @@ public class BlessStrike extends AbstractBlessCard {
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.BASIC;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
 
+    static {
+        blessCardFrom = "Double:Strike";
+    }
+
     public BlessStrike() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.damage = this.baseDamage = 60;
+        this.damage = this.baseDamage = 30;
         this.tags.add(AbstractCard.CardTags.STARTER_STRIKE);
         this.tags.add(AbstractCard.CardTags.STRIKE);
-        this.blessCardFrom = "Double:Strike";
         modcore.blessMap.put(this.blessCardFrom, this.cardID);
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(30);
+            upgradeDamage(10);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
