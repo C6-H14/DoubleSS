@@ -24,7 +24,7 @@ public class Reroll extends AbstractDoubleCard {
 
     public Reroll() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 2;
         initializeDescription();
     }
 

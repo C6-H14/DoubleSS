@@ -57,7 +57,7 @@ public class DeafFormPower extends AbstractPower {
         return damageAmount;
     }
 
-    public void atEndOfRound(final boolean isPlayer) {
+    public void atEndOfRound() {
         count++;
     }
 

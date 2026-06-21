@@ -341,13 +341,13 @@
     },
     "Double:Stingy":{
         "NAME": "吝啬",
-        "DESCRIPTION": "失去15金币，生成1个攻击骰子( !D! )，获得2点 double:罪孽 。",
-        "UPGRADE_DESCRIPTION": "失去15金币，生成1个攻击骰子( !D! )，获得2点 double:罪孽 。",
+        "DESCRIPTION": "失去 !M! 金币，生成1个攻击骰子( !D! )，获得2点 double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "失去 !M! 金币，生成1个攻击骰子( !D! )，获得2点 double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "失去15金币，生成1个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。",
-            "失去15金币，生成1个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。"
+            "失去 !M! 金币，生成1个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。",
+            "失去 !M! 金币，生成1个攻击骰子( !D! )， [#cf3fbe]抽1张牌[] 获得2点 double:罪孽 。"
         ],
-        "FLAVOR":" #p恶魔之焰形态 ：获得的金币增加 #b2  。"
+        "FLAVOR":" #p恶魔之焰形态 ：抽1张牌。"
     },
     "Double:Hoarding":{
         "NAME": "囤积居奇",
@@ -853,11 +853,11 @@
     },
     "Double:SpectreEcho":{
         "NAME": "怨灵回响",
-        "DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。",
-            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中你每消耗过1张牌，此牌伤害加 !Double:PermanentMagicNumber! 。"
+            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。",
+            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。"
         ],
         "FLAVOR":" #y群主形态 ：额外生成1个骰子 。"
     },
@@ -893,11 +893,11 @@
     },
     "Double:Godhead":{
         "NAME": "神性",
-        "DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。获得1层 double:奄息 。",
-            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层，每失去一层本牌生成 double:骰子 数加1。获得2层 double:奄息 。"
+            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。获得1层 double:奄息 。",
+            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。获得2层 double:奄息 。"
         ],
         "FLAVOR":" #y群主形态 ：获得1/2层奄息。"
     },
@@ -910,8 +910,8 @@
     "Double:BlessDefend":
     {
         "NAME": "祝福：防御",
-        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )。",
-        "UPGRADE_DESCRIPTION": " 生成一个防御 double:骰子 ( !B! )。"
+        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，获得 !M! 层 金属化 。",
+        "UPGRADE_DESCRIPTION": " 生成一个防御 double:骰子 ( !B! )，获得 !M! 层 金属化 。"
     },
     "Double:Shock_Blue_option":
     {
@@ -1021,11 +1021,11 @@
     },
     "Double:Nightfall":{
         "NAME": "夜幕降临",
-        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 ，获得等同于你未失去的状态种类数的 [E] 。",
-        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 ，获得等同于你未失去的状态种类数的 [E] 。",
+        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 double:震荡 ，获得等同于你未失去的状态种类数的 [E] 。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 double:震荡 ，获得等同于你未失去的状态种类数的 [E] 。",
         "EXTENDED_DESCRIPTION": [
-            "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 和1层 脆弱 ，获得等同于你未失去的状态种类数的 [E] 。",
-            "生成1个攻击 double:骰子 ( !D! )，失去1层 易伤 ，1层 虚弱 和1层 脆弱 ，获得等同于你未失去的状态种类数的 [E] 。"
+            "生成1个攻击 double:骰子 ( !D! )，失去1层 double:震荡 和1层 脆弱 ，获得等同于你未失去的状态种类数的 [E] 。",
+            "生成1个攻击 double:骰子 ( !D! )，失去1层 double:震荡 和1层 脆弱 ，获得等同于你未失去的状态种类数的 [E] 。"
         ],
         "FLAVOR":" #y群主形态 ：失去1层脆弱。"
     },
@@ -1051,17 +1051,17 @@
     },
     "Double:Tired":{
         "NAME": "困倦",
-        "DESCRIPTION": "只能在每回合恰好打出过1张牌时打出，结束你的回合，消耗。 NL 若回合结束时此牌仍在手牌中，获得3层 double:震荡 。",
-        "UPGRADE_DESCRIPTION": "只能在每回合恰好打出过1张牌时打出，结束你的回合，消耗。 NL 若回合结束时此牌仍在手牌中，获得3层 double:震荡 。",
+        "DESCRIPTION": "只能在本回合出过1张牌时打出，结束你的回合， 消耗 。 NL 若回合结束时此牌仍在手中，获得3层 double:震荡 。",
+        "UPGRADE_DESCRIPTION": "只能在本回合出过1张牌时打出，结束你的回合， 消耗 。 NL 若回合结束时此牌仍在手中，获得3层 double:震荡 。",
         "FLAVOR":"新！老！"
     },
     "Double:NightOps":{
         "NAME": "夜战",
-        "DESCRIPTION": "每回合首次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。",
-        "UPGRADE_DESCRIPTION": "每回合首次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。",
+        "DESCRIPTION": "每回合首次打出时，获得2 [E] 、 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 置于抽牌堆顶处。",
+        "UPGRADE_DESCRIPTION": "每回合首次打出时，获得2 [E] 、 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 置于抽牌堆顶处。",
         "EXTENDED_DESCRIPTION": [
-            "每回合前2次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。",
-            "每回合前2次打出时，获得2 [E] ，获得 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 放置于抽牌堆顶处。"
+            "每回合前2次打出时，获得2 [E] 、 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 置于抽牌堆顶处。",
+            "每回合前2次打出时，获得2 [E] 、 !M! 层 临时力量 与 临时敏捷 ，将一张 *困倦 置于抽牌堆顶处。"
         ],
         "FLAVOR":" #y群主形态 ：改为每回合前两次打出时触发。"
     },
@@ -1129,11 +1129,11 @@
     },
     "Double:Fallen":{
         "NAME": "恶堕",
-        "DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。",
-        "UPGRADE_DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。",
+        "DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。",
+        "UPGRADE_DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。",
         "EXTENDED_DESCRIPTION": [
-            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。",
-            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到的伤害减少 *25%) ，你的 虚弱 改为使你造成的伤害增加 *25%) 。"
+            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。",
+            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。"
         ],
         "FLAVOR":" #y群主形态 ：获得 [E] 。"
     },
@@ -1217,11 +1217,11 @@
     },
     "Double:Orbit":{
         "NAME": "轨道",
-        "DESCRIPTION": "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 ，所有同名牌在本局游戏中的格挡值永久增加 2 ， 消耗 。",
-        "UPGRADE_DESCRIPTION": "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 ，所有同名牌在本局游戏中的格挡值永久增加 4 ， 消耗 。",
+        "DESCRIPTION": "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 ，本局游戏中所有同名牌格挡值增加 2 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "生成2个防御 double:骰子 ( !B! )，获得 !M! 点 double:美德 ，本局游戏中所有同名牌格挡值增加 4 ， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "生成2个防御 double:骰子 ( !B! )，获得 !B! 点格挡，获得 !M! 点 double:美德 ，所有同名牌在本局游戏中的格挡值永久增加 2 ， 消耗 。",
-            "生成2个防御 double:骰子 ( !B! )，获得 !B! 点格挡，获得 !M! 点 double:美德 ，所有同名牌在本局游戏中的格挡值永久增加 4 ， 消耗 。"
+            "生成2个防御 double:骰子 ( !B! )，获得 !B! 点格挡，获得 !M! 点 double:美德 ，本局游戏中所有同名牌格挡值增加 2 ， 消耗 。",
+            "生成2个防御 double:骰子 ( !B! )，获得 !B! 点格挡，获得 !M! 点 double:美德 ，本局游戏中所有同名牌格挡值增加 4 ， 消耗 。"
         ],
         "FLAVOR":" #y群主形态 ：额外获得 !B! 点格挡。"
     },
@@ -1247,21 +1247,21 @@
     },
     "Double:Trisagion":{
         "NAME": "三圣颂",
-        "DESCRIPTION": "只有当你拥有 !M 点 double:美德 时才能打出 NL 生成3个燔祭 double:骰子 ( !D! )。所有魂火切换至红色，再切换至白色，重复3次。",
-        "UPGRADE_DESCRIPTION": "只有当你拥有 !M! 点 double:美德 时才能打出 NL 生成3个燔祭 double:骰子 ( !D! )。所有魂火切换至红色，再切换至白色，重复3次。",
+        "DESCRIPTION": "只有当你拥有 !M 点 double:美德 时才能打出。 NL 生成3个燔祭 double:骰子 ( !D! )。所有魂火染红，再染白，重复3次。",
+        "UPGRADE_DESCRIPTION": "只有当你拥有 !M! 点 double:美德 时才能打出。 NL 生成3个燔祭 double:骰子 ( !D! )。所有魂火染红，再染白，重复3次。",
         "EXTENDED_DESCRIPTION": [
-            "只有当你拥有 !M 点 double:美德 时才能打出 NL 生成3个燔祭 double:骰子 ( !D! )，获得 !M! 点 double:美德 。所有魂火切换至红色，再切换至白色，重复3次。",
-            "只有当你拥有 !M 点 double:美德 时才能打出 NL 生成3个燔祭 double:骰子 ( !D! )，获得 !M! 点 double:美德 。所有魂火切换至红色，再切换至白色，重复3次。"
+            "只有当你拥有 !M 点 double:美德 时才能打出。 NL 生成3个燔祭 double:骰子 ( !D! )，获得 !M! 点 double:美德 。所有魂火染红，再染白，重复3次。",
+            "只有当你拥有 !M 点 double:美德 时才能打出。 NL 生成3个燔祭 double:骰子 ( !D! )，获得 !M! 点 double:美德 。所有魂火染红，再染白，重复3次。"
         ],
         "FLAVOR":" #y群主形态 ：获得 !M! 点 double:美德 。"
     },
     "Double:ExactSequence":{
         "NAME": "正合列",
-        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，生成1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。",
-        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，生成1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。",
+        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )和1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )和1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。",
         "EXTENDED_DESCRIPTION": [
-            "生成1个攻击 double:骰子 ( !D! )，生成1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。",
-            "生成1个攻击 double:骰子 ( !D! )，生成1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。"
+            "生成1个攻击 double:骰子 ( !D! )和1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。",
+            "生成1个攻击 double:骰子 ( !D! )和1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。"
         ],
         "FLAVOR":" #y群主形态 ：伤害与格挡加1 。"
     },
@@ -1287,11 +1287,11 @@
     },
     "Double:SoulStorage":{
         "NAME": "灵魂储能",
-        "DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] ，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。",
-        "UPGRADE_DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] ，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。",
+        "DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。",
+        "UPGRADE_DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。",
         "EXTENDED_DESCRIPTION": [
-            "对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] ，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。",
-            "对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] ，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。"
+            "对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。",
+            "对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] ， 消耗性  !stslib:ex! 。"
         ],
         "FLAVOR":" #y群主形态 ：魂火获得6点格挡。"
     },
