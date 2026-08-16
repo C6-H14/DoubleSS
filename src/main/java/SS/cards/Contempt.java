@@ -9,11 +9,13 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DemonFormPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import basemod.AutoAdd;
 
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.ContemptPower;
 
+@AutoAdd.Ignore
 public class Contempt extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Contempt");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

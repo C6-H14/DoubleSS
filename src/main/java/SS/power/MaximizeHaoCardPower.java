@@ -3,6 +3,9 @@ package SS.power;
 import SS.action.common.DrawSpecificCardAction;
 import SS.action.common.EchoACardAction;
 import SS.helper.ModHelper;
+import SS.path.AbstractCardEnum;
+
+import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -20,14 +23,15 @@ public class MaximizeHaoCardPower extends AbstractPower {
     private static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     private int cnt = 0;
     private AbstractCard last = null;
+    private ArrayList<String> cards = new ArrayList<>();
 
-    public MaximizeHaoCardPower(AbstractCreature owner) {
+    public MaximizeHaoCardPower(AbstractCreature owner, int amount) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
         this.type = AbstractPower.PowerType.BUFF;
 
-        this.amount = -1;
+        this.amount = amount;
 
         String path128 = "img/power/MaximizeHaoCardPower84.png";
         String path48 = "img/power/MaximizeHaoCardPower32.png";
@@ -40,8 +44,16 @@ public class MaximizeHaoCardPower extends AbstractPower {
         this.description = DESCRIPTIONS[0] + last + DESCRIPTIONS[1] + this.cnt + DESCRIPTIONS[2];
     }
 
+    public void atStartOfTurn() {
+        cards.clear();
+    }
+
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        addToBot(new DrawSpecificCardAction(card, 1));
+        if (card.hasTag(AbstractCardEnum.Echo) || cards.contains(card.cardID)) {
+            last = null;
+            cnt = 0;
+            return;
+        }
         if (last == null) {
             cnt = 1;
             last = card;
@@ -53,10 +65,10 @@ public class MaximizeHaoCardPower extends AbstractPower {
                 last = card;
             }
         }
-        if (cnt == 3) {
+        if (cnt == 2) {
             flash();
-            action.exhaustCard = true;
-            addToBot(new EchoACardAction(card, true));
+            for (int i = 0; i < amount; i++)
+                addToBot(new EchoACardAction(card, true));
         }
         updateDescription();
     }

@@ -46,11 +46,8 @@ public class AttackDice extends AbstractDice {
         if (temp <= 2) {
             damage--;
         }
-        if (temp == 5) {
+        if (temp >= 5) {
             damage++;
-        }
-        if (temp == 6) {
-            damage = damage * 3 / 2;
         }
         AbstractDungeon.actionManager
                 .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, flag));

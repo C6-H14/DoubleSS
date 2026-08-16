@@ -45,7 +45,7 @@ public class MaximizeHaoCard extends AbstractHaoCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ApplyPowerAction(p, p, new MaximizeHaoCardPower(p)));
+        addToBot(new ApplyPowerAction(p, p, new MaximizeHaoCardPower(p, 1)));
         if (needManager()) {
             addToBot(new GainEnergyAction(1));
         }

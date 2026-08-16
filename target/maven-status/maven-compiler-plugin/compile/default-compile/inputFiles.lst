@@ -67,6 +67,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\patches\EvokeAllPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\rewards\CommonCardReward.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Chastity.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\UpdateFiendStanceDescriptions.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\BestIronclad.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\RedPackage\RedPackage_c.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SoulFirePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\KaleidoscopePower.java
@@ -173,6 +174,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\NutrientCycleAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Bin.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\VirtualChoir.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_e.java
+d:\StSmod\DoubleSS\src\main\java\SS\power\BestIroncladPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\MaximizeHaoCardPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SulfurBlackPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\GreatDisciple.java

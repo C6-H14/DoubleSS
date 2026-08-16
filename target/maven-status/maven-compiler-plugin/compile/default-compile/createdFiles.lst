@@ -369,6 +369,7 @@ SS\cards\Options\PURPLE_option.class
 SS\Dice\AbstractDice.class
 SS\packages\AbstractPackage$PackageType.class
 SS\cards\Shock\ShootingStar.class
+SS\power\BestIroncladPower.class
 SS\cards\FiendFire.class
 SS\characters\MyCharacter$1.class
 SS\power\SunkPower.class
@@ -377,6 +378,7 @@ SS\packages\HaoPackage\HaoPackage.class
 SS\cards\Kindness.class
 SS\path\PackageEnumList.class
 SS\patches\AllyHookPatch$RemovePowerUpdate.class
+SS\cards\BestIronclad.class
 SS\cards\Temperance.class
 SS\effect\DiceTriggeredEffect.class
 SS\cards\Haohao\HaoPack.class

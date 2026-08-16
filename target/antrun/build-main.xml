@@ -2,5 +2,6 @@
 <project name="maven-antrun-" default="main"  >
 <target name="main">
   <copy file="target/DoubleSS.jar" tofile="E:\SteamLibrary\steamapps/common/SlayTheSpire/mods/DoubleSS.jar"/>
+  <copy file="target/DoubleSS.jar" tofile="E:\SteamLibrary\steamapps/common/SlayTheSpire/DoubleSS/content/DoubleSS.jar"/>
 </target>
 </project>
