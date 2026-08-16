@@ -44,13 +44,24 @@ public class DeafFormPower extends AbstractPower {
             if (p.hasPower("Double:DelayDamagePower" + (this.count + this.amount))) {
                 for (AbstractPower q : p.powers) {
                     if (q.ID.equals("Double:DelayDamagePower" + (this.count + this.amount))) {
-                        ((DelayDamagePower) q).addCount(damageAmount);
+                        ((DelayDamagePower) q).addCount(damageAmount / 2);
                         break;
                     }
                 }
             } else {
-                addToTop(new ApplyPowerAction(p, p, new DelayDamagePower(p, this.amount, this.count, damageAmount),
+                addToTop(new ApplyPowerAction(p, p, new DelayDamagePower(p, this.amount, this.count, damageAmount / 2),
                         this.amount));
+            }
+            if (p.hasPower("Double:DelayDamagePower" + (this.count + 1))) {
+                for (AbstractPower q : p.powers) {
+                    if (q.ID.equals("Double:DelayDamagePower" + (this.count + 1))) {
+                        ((DelayDamagePower) q).addCount(damageAmount / 2);
+                        break;
+                    }
+                }
+            } else {
+                addToTop(new ApplyPowerAction(p, p, new DelayDamagePower(p, 1, this.count, damageAmount / 2),
+                        1));
             }
             return 0;
         }

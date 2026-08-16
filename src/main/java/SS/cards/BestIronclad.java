@@ -4,23 +4,17 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.DemonFormPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
-import basemod.AutoAdd;
-
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.ContemptPower;
+import SS.power.BestIroncladPower;
 
-@AutoAdd.Ignore
-public class Contempt extends AbstractDoubleCard {
-    public static final String ID = ModHelper.makePath("Contempt");
+public class BestIronclad extends AbstractDoubleCard {
+    public static final String ID = ModHelper.makePath("BestIronclad");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/Contempt.png";
+    private static final String IMG_PATH = "img/cards/BestIronclad.png";
     private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;
@@ -28,7 +22,7 @@ public class Contempt extends AbstractDoubleCard {
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
-    public Contempt() {
+    public BestIronclad() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
         this.tags.add(AbstractCardEnum.Fiend);
@@ -44,25 +38,29 @@ public class Contempt extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
+            this.isInnate = true;
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (needFiend()) {
-            addToBot(new ApplyPowerAction(p, p, new StrengthPower(p, this.magicNumber),
-                    this.magicNumber));
-        }
-        addToBot(new ApplyPowerAction(p, p, new DemonFormPower(p, this.magicNumber)));
-        for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-            addToBot(new ApplyPowerAction(mo, p, new StrengthPower(mo, 1), 1));
-            addToBot(new ApplyPowerAction(mo, p, new ContemptPower(mo, 1), 1));
-        }
+        addToBot(new ApplyPowerAction(p, p, new BestIroncladPower(p, this.magicNumber), this.magicNumber));
+    }
+
+    public void updateFiend() {
+        upgradeMagicNumber(2);
+        UpdateDescription();
+        initializeDescription();
+    }
+
+    public void exitFiend() {
+        upgradeMagicNumber(-2);
+        UpdateDescription();
+        initializeDescription();
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Contempt();
+        return new BestIronclad();
     }
 }
