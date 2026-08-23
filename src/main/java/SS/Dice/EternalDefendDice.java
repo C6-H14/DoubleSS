@@ -56,6 +56,7 @@ public class EternalDefendDice extends AbstractDice {
         if (result == 6) {
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new BufferPower(p, 1)));
         }
+        block = Math.max(0, block);
         AbstractDungeon.actionManager
                 .addToBottom(new ApplyPowerAction(p, p, new NextTurnBlockPower(p, this.evokeAmount)));
     }

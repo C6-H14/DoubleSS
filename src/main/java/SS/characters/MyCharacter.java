@@ -80,7 +80,7 @@ public class MyCharacter extends CustomPlayer {
         this.dialogY = this.drawY + 150.0F * Settings.scale;
         initializeClass("img/char/Character.png", "img/char/shoulder2.png", "img/char/shoulder.png",
                 "img/char/Corpse.png",
-                getLoadout(), 0.0F, 0.0F, 300.0F, 300.0F, new EnergyManager(3));
+                getLoadout(), 0.0F, 0.0F, 300.0F, 350.0F, new EnergyManager(3));
     }
 
     public ArrayList<String> getStartingDeck() {
@@ -99,7 +99,7 @@ public class MyCharacter extends CustomPlayer {
 
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
-        retVal.add("Double:LCysteine");
+        retVal.add("Double:Egg");
         return retVal;
     }
 

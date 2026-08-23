@@ -19,7 +19,7 @@ public class HaoStrike extends AbstractHaoCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/Haohao/HaoStrike.png";
-    private static final int COST = 1;
+    private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.Hao_Green;
@@ -29,7 +29,7 @@ public class HaoStrike extends AbstractHaoCard {
     public HaoStrike() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 3;
+        this.damage = this.baseDamage = 1;
         this.magicNumber = this.baseMagicNumber = 1;
         this.tags.add(AbstractCard.CardTags.STRIKE);
         if (needManager()) {

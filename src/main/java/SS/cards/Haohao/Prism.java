@@ -20,7 +20,7 @@ public class Prism extends AbstractHaoCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/Haohao/Prism.png";
-    private static final int COST = 1;
+    private static final int COST = 3;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.Hao_Green;
@@ -32,7 +32,7 @@ public class Prism extends AbstractHaoCard {
     public Prism() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 2;
+        this.damage = this.baseDamage = 0;
         if (needManager()) {
             updateManager();
         }
@@ -42,7 +42,7 @@ public class Prism extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(1);
+            this.isInnate = true;
             UpdateDescription();
             initializeDescription();
         }

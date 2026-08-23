@@ -46,7 +46,7 @@ public class Stingy extends AbstractDoubleCard {
         if (!this.upgraded) {
             this.upgraded = true;
             upgradeName();
-            upgradeMagicNumber(1);
+            upgradeDamage(5);
             UpdateDescription();
             initializeDescription();
         }

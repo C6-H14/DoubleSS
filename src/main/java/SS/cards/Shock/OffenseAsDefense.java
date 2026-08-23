@@ -6,6 +6,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.NoBlockPower;
+
 import SS.action.unique.shock.OffenseAsDefenseAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -15,8 +17,8 @@ public class OffenseAsDefense extends AbstractShockCard {
     public static final String ID = ModHelper.makePath("OffenseAsDefense");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/NoImage_skill.png";
-    private static final int COST = 1;
+    private static final String IMG_PATH = "img/cards/Shock/OffenseAsDefense.png";
+    private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
@@ -28,13 +30,14 @@ public class OffenseAsDefense extends AbstractShockCard {
         if (needManager()) {
             updateManager();
         }
+        this.exhaust = true;
         UpdateDescription();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(0);
+            upgradeBaseCost(1);
             UpdateDescription();
             initializeDescription();
         }
@@ -42,8 +45,8 @@ public class OffenseAsDefense extends AbstractShockCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ApplyPowerAction(p, p, new OffenseAsDefensePower(p, 1)));
-        if (needManager()) {
-            addToBot(new OffenseAsDefenseAction());
+        if (!needManager()) {
+            addToBot(new ApplyPowerAction(p, p, new NoBlockPower(p, 1, false)));
         }
     }
 

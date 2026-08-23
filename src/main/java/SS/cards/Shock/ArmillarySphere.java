@@ -16,7 +16,7 @@ public class ArmillarySphere extends AbstractShockCard {
     public static final String ID = ModHelper.makePath("ArmillarySphere");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/NoImage_power.png";
+    private static final String IMG_PATH = "img/cards/Shock/ArmillarySphere.png";
     private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;

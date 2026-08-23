@@ -28,7 +28,7 @@ public class TA extends AbstractShockCard {
     public static final String ID = ModHelper.makePath("TA");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/NoImage_attack.png";
+    private static final String IMG_PATH = "img/cards/Shock/TA.png";
     private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
@@ -38,7 +38,7 @@ public class TA extends AbstractShockCard {
     public TA() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 13;
+        this.damage = this.baseDamage = 16;
         if (needManager()) {
             updateManager();
         }
@@ -48,7 +48,7 @@ public class TA extends AbstractShockCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(5);
+            upgradeDamage(6);
             UpdateDescription();
             initializeDescription();
         }

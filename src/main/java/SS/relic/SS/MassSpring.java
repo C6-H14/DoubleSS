@@ -2,17 +2,22 @@ package SS.relic.SS;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerToRandomEnemyAction;
+import com.evacipated.cardcrawl.mod.stslib.relics.ClickableRelic;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rooms.MonsterRoom;
+
+import SS.action.common.MessageCaller;
 import SS.helper.ModHelper;
 import basemod.abstracts.CustomRelic;
 
-public class MassSpring extends CustomRelic {
+public class MassSpring extends CustomRelic implements ClickableRelic {
     public static final String ID = ModHelper.makePath("MassSpring");
     private static final RelicStrings RELIC_STRINGS = CardCrawlGame.languagePack.getRelicStrings(ID);
     private static final String IMG_PATH = "img/relic/MassSpring.png";
@@ -42,8 +47,22 @@ public class MassSpring extends CustomRelic {
         }
         --this.amount;
         this.flash();
-        addToBot(new ApplyPowerToRandomEnemyAction(AbstractDungeon.player, new VulnerablePower(null, 1, false), 1));
-        addToBot(new ApplyPowerToRandomEnemyAction(AbstractDungeon.player, new WeakPower(null, 1, false), 1));
+        AbstractMonster abstractMonster = AbstractDungeon.getRandomMonster();
+        if (abstractMonster != null) {
+            addToBot(new ApplyPowerAction(abstractMonster, AbstractDungeon.player,
+                    new VulnerablePower(abstractMonster, 1, false), 1));
+            addToBot(new ApplyPowerAction(abstractMonster, AbstractDungeon.player,
+                    new WeakPower(abstractMonster, 1, false), 1));
+        }
+    }
+
+    @Override
+    public void onRightClick() {
+        // 1. 安全检查：必须在战斗房间内右键才触发
+        if (AbstractDungeon.getCurrRoom() instanceof MonsterRoom) {
+
+            this.addToBot(new MessageCaller("Shock"));
+        }
     }
 
     public AbstractRelic makeCopy() {

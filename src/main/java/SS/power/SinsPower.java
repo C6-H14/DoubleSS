@@ -70,15 +70,6 @@ public class SinsPower extends AbstractPower implements InvisiblePower {
         // AbstractDungeon.player.decreaseMaxHealth(this.amount / 10);
     }
 
-    public void atEndOfTurn(final boolean isPlayer) {
-        AbstractPlayer p = AbstractDungeon.player;
-        if (p.hasPower("Double:SulfurBlackPower"))
-            return;
-        this.flash();
-        if (this.amount >= 10)
-            addToBot(new DamageAction(p, new DamageInfo(p, this.amount / 10)));
-    }
-
     public void onVictory() {
         int maxSoulFire = 0;
         // 遍历友军管理器寻找最大的魂火值

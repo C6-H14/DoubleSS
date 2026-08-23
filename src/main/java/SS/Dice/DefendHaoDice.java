@@ -49,12 +49,13 @@ public class DefendHaoDice extends AbstractDice {
             }
         }
         // System.out.println(temp);
-        if (result == 1) {
+        if (result <= 2) {
             block--;
         }
-        if (result == 6) {
-            block = block * 3 / 2;
+        if (result >= 5) {
+            block++;
         }
+        block = Math.max(0, block);
         AbstractDungeon.actionManager.addToBottom(new GainBlockAction((AbstractPlayer) this.target, block));
     }
 

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.evacipated.cardcrawl.mod.stslib.relics.ClickableRelic;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
@@ -13,15 +14,17 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rooms.MonsterRoom;
 
 import SS.action.common.EchoACardAction;
+import SS.action.common.MessageCaller;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;
 import SS.path.PackageEnumList.PackageEnum;
 import basemod.abstracts.CustomRelic;
 
-public class GreenApple extends CustomRelic {
+public class GreenApple extends CustomRelic implements ClickableRelic {
     public static final String ID = ModHelper.makePath("GreenApple");
     private static final RelicStrings RELIC_STRINGS = CardCrawlGame.languagePack.getRelicStrings(ID);
     private static final String IMG_PATH = "img/relic/GreenApple.png";
@@ -79,6 +82,15 @@ public class GreenApple extends CustomRelic {
         }
 
         return derp;
+    }
+
+    @Override
+    public void onRightClick() {
+        // 1. 安全检查：必须在战斗房间内右键才触发
+        if (AbstractDungeon.getCurrRoom() instanceof MonsterRoom) {
+
+            this.addToBot(new MessageCaller("Hao"));
+        }
     }
 
     public AbstractRelic makeCopy() {

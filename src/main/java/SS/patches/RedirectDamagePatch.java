@@ -23,7 +23,9 @@ public class RedirectDamagePatch {
     // 【核心修复】拦截本地变量 damageAmount (它是一个长度为1的数组)
     @SpireInsertPatch(locator = Locator.class, localvars = { "damageAmount" })
     public static void Insert(AbstractPlayer __instance, DamageInfo info, @ByRef int[] damageAmount) {
-
+        if (info.owner == __instance) {
+            return;
+        }
         // 1. 如果伤害来源是友军自己，不拦截
         if (info.owner instanceof AbstractAlly) {
             return;

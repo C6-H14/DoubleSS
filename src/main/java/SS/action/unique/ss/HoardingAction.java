@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 
 import SS.modcore.modcore;
@@ -27,7 +28,7 @@ public class HoardingAction extends AbstractGameAction {
             this.target.damage(this.info);
             if ((((AbstractMonster) this.target).isDying || this.target.currentHealth <= 0) && !this.target.halfDead
                     && !this.target.hasPower("Minion") && modcore.combatReward.rewards.isEmpty()) {
-                modcore.combatReward.addCardReward(1);
+                AbstractDungeon.getCurrRoom().rewards.add(new RewardItem());
             }
 
             if (AbstractDungeon.getCurrRoom().monsters.areMonstersBasicallyDead()) {

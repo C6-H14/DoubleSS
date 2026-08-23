@@ -77,6 +77,7 @@ public class ImmolateDice extends AbstractDice {
         if (temp == 6) {
             CardModifierManager.addModifier(c, new EtherealMod());
         }
+        damage = Math.max(0, damage);
         AbstractDungeon.actionManager
                 .addToBottom(new MakeTempCardInDiscardAction(c, 1));
     }

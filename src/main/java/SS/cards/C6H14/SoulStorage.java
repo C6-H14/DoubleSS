@@ -22,7 +22,7 @@ public class SoulStorage extends AbstractC6H14Card {
     public static final String ID = ModHelper.makePath("SoulStorage");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/NoImage_attack.png";
+    private static final String IMG_PATH = "img/cards/C6H14/SoulStorage.png";
     private static final int COST = 3;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;

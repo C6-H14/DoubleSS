@@ -26,7 +26,9 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import SS.helper.ModHelper;
 import basemod.abstracts.CustomRelic;
 import basemod.abstracts.CustomSavable;
+import basemod.AutoAdd;
 
+@AutoAdd.Ignore
 public class Merit extends CustomRelic implements CustomSavable<Map<String, Integer>> {
     public static final String ID = ModHelper.makePath("Merit");
     private static final String IMG_PATH = "img/relic/Merit.png";

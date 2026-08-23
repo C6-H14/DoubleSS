@@ -31,7 +31,7 @@ public class SealSupporter extends AbstractDoubleCard implements CustomSavable<B
 
     public SealSupporter() {
         super(ID, NAME, testOutput % 2 == 0 ? IMG_PATH : IMG_PATH1, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.magicNumber = this.baseMagicNumber = 4;
+        this.magicNumber = this.baseMagicNumber = 3;
         this.exhaust = true;
         if (testOutput % 2 == 0) {
             this.flag = true;
@@ -90,13 +90,13 @@ public class SealSupporter extends AbstractDoubleCard implements CustomSavable<B
 
     @Override
     public void onLoad(Boolean arg0) {
+        System.out.println("本次启动游戏程序开始，累计第" + ++testOutput + "次SL");
+        System.out.println("此时布尔值为" + this.flag);
         if (testOutput % 2 == 0) {
             this.flag = true;
         } else {
             this.flag = false;
         }
-        System.out.println("本次启动游戏程序开始，累计第" + ++testOutput + "次SL");
-        System.out.println("此时布尔值为" + this.flag);
         if (flag) {
             if (this.upgraded) {
                 this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
@@ -135,7 +135,7 @@ public class SealSupporter extends AbstractDoubleCard implements CustomSavable<B
         } else {
             int amount = this.magicNumber;
             for (AbstractCard c : p.hand.group) {
-                if (c.type != CardType.ATTACK) {
+                if (c.type != CardType.ATTACK && c != this) {
                     --amount;
                     if (amount < 0) {
                         amount = 0;

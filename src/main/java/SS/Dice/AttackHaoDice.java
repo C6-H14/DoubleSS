@@ -51,14 +51,20 @@ public class AttackHaoDice extends AbstractDice {
                 ++poi;
             }
         }
+        if (temp <= 2) {
+            damage--;
+        }
         if (temp == 1) {
-            damage++;
             poi--;
         }
-        if (temp == 6) {
+        if (temp >= 5) {
             damage++;
+        }
+        if (temp == 6) {
             poi++;
         }
+        damage = Math.max(0, damage);
+        poi = Math.max(0, poi);
         AbstractDungeon.actionManager
                 .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false));
         AbstractDungeon.actionManager

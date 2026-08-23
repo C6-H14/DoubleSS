@@ -74,11 +74,11 @@
     "Double:Seething":
     {
         "NAME": "急了",
-        "DESCRIPTION": "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 。",
-        "UPGRADE_DESCRIPTION": " 激发所有 double:骰子  !M! 次，获得 !M! 点 double:罪孽 。",
+        "DESCRIPTION": "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": " 激发所有 double:骰子  !M! 次，获得 !M! 点 double:罪孽  。",
         "EXTENDED_DESCRIPTION": [
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ，抽1张牌。",
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ，抽1张牌。"
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， [#cf3fbe]抽1张牌[] ， 消耗 。",
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， [#cf3fbe]抽1张牌[] 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：抽1张牌。"
     },
@@ -95,8 +95,8 @@
     "Double:DeafForm":
     {
         "NAME": "二龙形态",
-        "DESCRIPTION": "你受到的所有未被格挡的伤害将分别在本回合及 !M! 回合后结算一半的伤害。",
-        "UPGRADE_DESCRIPTION": " 你受到的所有未被格挡的伤害将分别在本回合及 !M! 回合后结算一半的伤害。"
+        "DESCRIPTION": "获得10点罪孽。你受到的未被格挡伤害将在本回合及 !M! 回合后结算一半的伤害。",
+        "UPGRADE_DESCRIPTION": "获得10点罪孽。你受到的未被格挡伤害将在本回合及 !M! 回合后结算一半的伤害。"
     },
     "Double:RED_option":
     {
@@ -162,12 +162,7 @@
     "Double:SelfReliant":{
         "NAME": "自食其力",
         "DESCRIPTION": "保留，消耗。 NL 本牌被消耗时，本场战斗中每打出过一张 *肽链打击 ，获得 !B! 点格挡。",
-        "UPGRADE_DESCRIPTION": "保留，消耗。 NL 本牌被消耗时，本场战斗中每打出过一张 *肽链打击 ，获得 !B! 点格挡。",
-        "EXTENDED_DESCRIPTION": [
-            "保留，消耗。 NL 本牌被消耗时，本场战斗中每打出过一张 *肽链打击 ，获得 !B! 点格挡， [#cf3fbe]给予所有敌人[] !M! [#cf3fbe]层易伤。[] ",
-            "保留，消耗。 NL 本牌被消耗时，本场战斗中每打出过一张 *肽链打击 ，获得 !B! 点格挡， [#cf3fbe]给予所有敌人[] !M! [#cf3fbe]层易伤。[] "
-        ],
-        "FLAVOR":" #p恶魔之焰形态 ：给予所有敌人 #b1 / #b2 层易伤。"
+        "UPGRADE_DESCRIPTION": "保留，消耗。 NL 本牌被消耗时，本场战斗中每打出过一张 *肽链打击 ，获得 !B! 点格挡。"
     },
     "Double:TaotieRite":{
         "NAME": "饕餮仪式",
@@ -261,13 +256,13 @@
     },
     "Double:PhoneItIn":{
         "NAME": "水视频",
-        "DESCRIPTION": " 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。",
-        "UPGRADE_DESCRIPTION": " 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。",
+        "DESCRIPTION": " 虚无 ，回合开始时，触发一张上回合打出的群友牌未升级效果，每10点 double:罪孽 能力层数加1。",
+        "UPGRADE_DESCRIPTION": "回合开始时，触发一张上回合打出的群友牌未升级效果，每10点 double:罪孽 能力层数加1。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe] 失去5点 [] double:罪孽 ， 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。",
-            " [#cf3fbe] 失去5点 [] double:罪孽 ， 消耗 每回合首张打出的非消耗非能力牌，获得一张其未升级的版本；若此牌未升级，获得2点 double:罪孽 。"
+            " 虚无 ， [#cf3fbe] 获得5点 double:罪孽 [] ，回合开始时，触发一张上回合打出的群友牌未升级版效果，每10点 double:罪孽 能力层数加1。",
+            " [#cf3fbe] 获得5点 double:罪孽 [] ，回合开始时，触发一张上回合打出的群友牌未升级版效果，每10点 double:罪孽 能力层数加1。"
         ],
-        "FLAVOR":" #p恶魔之焰形态 ：打出时，失去 #b5 点罪孽。"
+        "FLAVOR":" #p恶魔之焰形态 ：打出本牌后获得5点罪孽。"
     },
     "Double:DaggerInSmile":{
         "NAME": "笑里藏刀",
@@ -327,27 +322,27 @@
             "每当你打出攻击牌时获得 [E] 和2点 double:罪孽 ，每回合打出第 !M! 张攻击牌时结束你的回合。",
             " 固有 ，每当你打出攻击牌时获得 [E] 和2点 double:罪孽 ，每回合打出第 !M! 张攻击牌时结束你的回合。"
         ],
-        "FLAVOR":" #p恶魔之焰形态 ：限制增加3张 。"
+        "FLAVOR":" #p恶魔之焰形态 ：限制增加2张 。"
     },
     "Double:TrumpCard":{
         "NAME": "底牌",
-        "DESCRIPTION": "将一张 腾跃 放入抽牌堆底，打出抽牌堆所有牌，本回合其他同名牌失效，下回合死亡， 消耗 。",
-        "UPGRADE_DESCRIPTION": " 固有 ，将一张 腾跃 放入抽牌堆底，打出抽牌堆所有牌，之后立即结束你的回合，本回合其他同名牌失效，下回合死亡， 消耗 。",
+        "DESCRIPTION": "将一张 *腾跃 放入抽牌堆底，打出抽牌堆所有牌，本回合其他同名牌失效，下回合死亡， 消耗 。",
+        "UPGRADE_DESCRIPTION": " 固有 ，将一张 *腾跃 放入抽牌堆底，打出抽牌堆所有牌，之后立即结束你的回合，本回合其他同名牌失效，下回合死亡， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]将场上的牌重新洗牌放入抽牌堆[] ，将一张 腾跃 放入抽牌堆底，打出抽牌堆所有牌，本回合其他同名牌失效，下回合死亡， 消耗 。",
-            " 固有 ， [#cf3fbe]将场上的牌重新洗牌放入抽牌堆[] ，将一张 腾跃 放入抽牌堆底，打出抽牌堆所有牌，本回合其他同名牌失效，下回合死亡， 消耗 。"
+            " [#cf3fbe]将场上的牌重新洗牌放入抽牌堆[] ，将一张 *腾跃 放入抽牌堆底，打出抽牌堆所有牌，本回合其他同名牌失效，下回合死亡， 消耗 。",
+            " 固有 ， [#cf3fbe]将场上的牌重新洗牌放入抽牌堆[] ，将一张 *腾跃 放入抽牌堆底，打出抽牌堆所有牌，本回合其他同名牌失效，下回合死亡， 消耗 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：先将场上的牌重新洗牌放入抽牌堆 。"
     },
     "Double:Miserly":{
         "NAME": "视财如命",
-        "DESCRIPTION": "每回合前3次失去生命时，获得 !M! 金币。",
-        "UPGRADE_DESCRIPTION": "每回合前3次失去生命时，获得 !M! 金币。",
+        "DESCRIPTION": "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命 ，优先选择手牌。",
+        "UPGRADE_DESCRIPTION": "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命 ，优先选择手牌。",
         "EXTENDED_DESCRIPTION": [
-            "每回合前3次失去生命时，获得 !M! 金币。",
-            "每回合前3次失去生命时，获得 !M! 金币。"
+            "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命+ ，优先选择手牌。",
+            "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命+ ，优先选择手牌。"
         ],
-        "FLAVOR":" #p恶魔之焰形态 ：获得的金币增肌 #b2  。"
+        "FLAVOR":" #p恶魔之焰形态 ：改为变成视财如命+  。"
     },
     "Double:Stingy":{
         "NAME": "吝啬",
@@ -361,11 +356,11 @@
     },
     "Double:Hoarding":{
         "NAME": "囤积居奇",
-        "DESCRIPTION": "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次普通卡牌奖励 。",
-        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次普通卡牌奖励 。",
+        "DESCRIPTION": "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
+        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
         "EXTENDED_DESCRIPTION": [
-            "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次普通卡牌奖励 。",
-            "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次普通卡牌奖励 。"
+            "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
+            "造成 !D! 点伤害， 保留 ， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。"
         ],
         "FLAVOR":" #p恶魔之焰形态 ：伤害翻倍  。"
     },
@@ -381,8 +376,8 @@
     },
     "Double:NutrientCycle":{
         "NAME": "物质循环",
-        "DESCRIPTION": "将场上的牌重新洗牌放入抽牌堆，抽Y张牌、生成Y个防御 double:骰子 (X)，获得Y [E] (Y为洗牌前你的手牌数)，消耗。",
-        "UPGRADE_DESCRIPTION": "抽一张牌，将场上的牌重新洗牌放入抽牌堆，抽Y张牌、生成Y个防御 double:骰子 (X)，获得Y [E] (Y为洗牌前你的手牌数)，消耗。"
+        "DESCRIPTION": "下一回合，获得X [E] ，随机打出弃牌堆和消耗堆中的X张群友牌或异色牌，消耗。",
+        "UPGRADE_DESCRIPTION": "下一回合，获得X+1 [E] ，随机打出弃牌堆和消耗堆中的X+1张群友牌或异色牌，消耗。"
     },
     "Double:Diversity":{
         "NAME": "多样性",
@@ -416,8 +411,8 @@
     },
     "Double:UnderlyingLogic":{
         "NAME": "底层逻辑",
-        "DESCRIPTION": "每当你生成一个攻击 double:骰子 或一个防御 double:骰子 时，额外生成一个铁斩波 double:骰子 ( !M! )。",
-        "UPGRADE_DESCRIPTION": "每当你生成一个攻击 double:骰子 或一个防御 double:骰子 时，额外生成一个铁斩波 double:骰子 ( !M! )。"
+        "DESCRIPTION": "每当你生成1个攻击 double:骰子 或防御 double:骰子 时，生成1个铁斩波 double:骰子 ( !M! )。",
+        "UPGRADE_DESCRIPTION": "每当你生成1个攻击 double:骰子 或防御 double:骰子 时，生成1个铁斩波 double:骰子 ( !M! )。"
     },
     "Double:SealSupporter":{
         "NAME": "豹白键",
@@ -436,8 +431,8 @@
     },
     "Double:SulfurBlack":{
         "NAME": "硫黑",
-        "DESCRIPTION": "每当你获得负面效果或 double:罪孽 时，生成一个防御 double:骰子 ( !M! )。 NL 回合结束时不再受到罪孽的伤害 。",
-        "UPGRADE_DESCRIPTION": "每当你获得负面效果或 double:罪孽 时，生成一个防御 double:骰子 ( !M! )。 NL 回合结束时不再受到罪孽的伤害 。"
+        "DESCRIPTION": "每当你获得负面效果或 double:罪孽 时，生成一个防御 double:骰子 ( !M! )。",
+        "UPGRADE_DESCRIPTION": "每当你获得负面效果或 double:罪孽 时，生成一个防御 double:骰子 ( !M! )。"
     },
     "Double:Hush":{
         "NAME": "禁言",
@@ -499,6 +494,16 @@
         ],
         "FLAVOR":" #p恶魔之焰形态 ：获得保留  。"
     },
+    "Double:SpiritualCompanionship":{
+        "NAME": "灵魂伴侣",
+        "DESCRIPTION": " double:唤魂 !M! ，获得一张 *赎罪券 。",
+        "UPGRADE_DESCRIPTION": " double:唤魂 !M! ，获得一张 *赎罪券+ 。",
+        "EXTENDED_DESCRIPTION": [
+            " [#cf3fbe]保留[] ， double:唤魂 !M! ，获得一张 *赎罪券 。",
+            " [#cf3fbe]保留[] ， double:唤魂 !M! ，获得一张 *赎罪券+ 。"
+        ],
+        "FLAVOR":" #p恶魔之焰形态 ：获得保留  。"
+    },
     "Double:Hao_Green_option":
     {
         "NAME": "颢颢牌",
@@ -547,11 +552,11 @@
     },
     "Double:MaximizeHaoCard":{
         "NAME": "颢牌多抓",
-        "DESCRIPTION": " 虚无 ，连续打出2张非 double:回响 的相同名称牌时，获得一张第二张牌的0费 double:回响 ，本回合同名牌不再触发该效果。",
-        "UPGRADE_DESCRIPTION": "连续打出2张非 double:回响 的相同名称牌时，获得一张第二张牌的0费 double:回响 ，本回合同名牌不再触发该效果。",
+        "DESCRIPTION": " 虚无 ，连续打出2张非 double:回响 的同名牌时，获得第二张牌的0费 double:回响 ，本回合同名牌不再触发。",
+        "UPGRADE_DESCRIPTION": "连续打出2张非 double:回响 的同名牌时，获得第二张牌的0费 double:回响 ，本回合同名牌不再触发。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ，获得 [E] 。连续打出2张非 double:回响 的相同名称牌时，获得一张第二张牌的0费 double:回响 ，本回合同名牌不再触发该效果。",
-            "获得 [E] 。连续打出2张非 double:回响 的相同名称牌时，获得一张第二张牌的0费 double:回响 ，本回合同名牌不再触发该效果。"
+            " 虚无 ，获得 [E] 。连续打出2张非 double:回响 的同名牌时，获得第二张牌的0费 double:回响 ，本回合同名牌不再触发。",
+            "获得 [E] 。连续打出2张非 double:回响 的同名牌时，获得第二张牌的0费 double:回响 ，本回合同名牌不再触发。"
         ],
         "FLAVOR":" #y群主形态 ：获得 [E]  。"
     },
@@ -567,21 +572,21 @@
     },
     "Double:Haoggernaut":{
         "NAME": "颢不可当",
-        "DESCRIPTION": "本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) 。",
-        "UPGRADE_DESCRIPTION": "本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) 。",
+        "DESCRIPTION": "本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) ， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            " 保留 ，*本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) 。",
-            " 保留 ，*本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) 。"
+            " 保留 ，本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) ， 消耗 。",
+            " 保留 ，本回合每当你获得格挡时，生成1个攻击颢骰( !M! ) ， 消耗 。"
         ],
         "FLAVOR":" #y群主形态 ：获得保留。"
     },
     "Double:Prism":{
         "NAME": "棱彩透镜",
-        "DESCRIPTION": "卡组中每有1中不同颜色的牌，生成1个攻击颢骰( !D! )。",
-        "UPGRADE_DESCRIPTION": "卡组中每有1中不同颜色的牌，生成1个攻击颢骰( !D! )。",
+        "DESCRIPTION": "卡组中每有一种不同颜色的牌，生成1个攻击颢骰( !D! )。",
+        "UPGRADE_DESCRIPTION": " 固有 ，卡组中每有一种不同颜色的牌，生成1个攻击颢骰( !D! )。",
         "EXTENDED_DESCRIPTION": [
-            "卡组中每有1中不同颜色的牌，生成1个攻击颢骰( !D! )， *若你有棱镜碎片，伤害翻倍 。",
-            "卡组中每有1中不同颜色的牌，生成1个攻击颢骰( !D! )， *若你有棱镜碎片，伤害翻倍 。"
+            "卡组中每有一种不同颜色的牌，生成1个攻击颢骰( !D! )， *若你有棱镜碎片，伤害翻倍 。",
+            " 固有 ，卡组中每有一种不同颜色的牌，生成1个攻击颢骰( !D! )， *若你有棱镜碎片，伤害翻倍 。"
         ],
         "FLAVOR":" #y群主形态 ：若你有棱镜碎片，伤害翻倍。"
     },
@@ -607,11 +612,11 @@
     },
     "Double:Haoflex":{
         "NAME": "颢能反应",
-        "DESCRIPTION": "消耗1个颢骰，抽 !M! 张牌。",
-        "UPGRADE_DESCRIPTION": "消耗1个颢骰，抽 !M! 张牌。",
+        "DESCRIPTION": "只有在拥有颢骰的时候才能打出。 NL 消耗1个颢骰，抽 !M! 张牌。",
+        "UPGRADE_DESCRIPTION": "只有在拥有颢骰的时候才能打出。 NL 消耗1个颢骰，抽 !M! 张牌。",
         "EXTENDED_DESCRIPTION": [
-            "消耗1个 double:骰子 ，抽 !M! 张牌。",
-            "消耗1个 double:骰子 ，抽 !M! 张牌。"
+            "只有在拥有骰子的时候才能打出。 NL 消耗1个 double:骰子 ，抽 !M! 张牌。",
+            "只有在拥有骰子的时候才能打出。 NL 消耗1个 double:骰子 ，抽 !M! 张牌。"
         ],
         "FLAVOR":" #y群主形态 ：改为消耗任意骰子  。"
     },
@@ -647,33 +652,33 @@
     },
     "Double:BossSwapGod":{
         "NAME": "换四领域大神",
-        "DESCRIPTION": "回合开始时获得 !M! [E] ，每个初始遗物或卡包选择获得的遗物使少获得 1 [E] (最多减少 !M! [E] )。",
-        "UPGRADE_DESCRIPTION": "回合开始时获得 !M! [E] ，每个初始遗物或卡包选择获得的遗物使少获得 1 [E] (最多减少 !M! [E] )。",
+        "DESCRIPTION": "回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。",
+        "UPGRADE_DESCRIPTION": "回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。",
         "EXTENDED_DESCRIPTION": [
-            "获得 *飞身踢 的回响。回合开始时获得 !M! [E] ，每个初始遗物或卡包选择获得的遗物使少获得 1 [E] (最多减少 !M! [E] )。",
-            "获得 *飞身踢+ 的回响。回合开始时获得 !M! [E] ，每个初始遗物或卡包选择获得的遗物使少获得 1 [E] (最多减少 !M! [E ])。"
+            "获得 *飞身踢 的回响。回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。",
+            "获得 *飞身踢+ 的回响。回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。"
         ],
         "FLAVOR":" #y群主形态 ：获得飞身踢(+)的回响。"
     },
     "Double:HaoStrike":{
         "NAME": "颢神打击",
-        "DESCRIPTION": "造成 !D! 点伤害。 NL 你每有一张颢牌，伤害+ !M! 。",
-        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL 你每有一张颢牌，伤害+ !M! 。",
+        "DESCRIPTION": "生成1个攻击颢骰( !D! )。 NL 你每有一张颢牌，伤害+ !M! 。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击颢骰( !D! )。 NL 你每有一张颢牌，伤害+ !M! 。",
         "EXTENDED_DESCRIPTION": [
-            "造成 !D! 点伤害。 NL 你每有一张颢牌，伤害+ !M! 。 NL 获得一张本牌的 double:回响 。",
-            "造成 !D! 点伤害。 NL 你每有一张颢牌，伤害+ !M! 。 NL 获得一张本牌的 double:回响 。"
+            "生成1个攻击颢骰( !D! )。 NL 你每有一张颢牌，伤害+ !M! 。 NL 获得一张本牌的 double:回响 。",
+            "生成1个攻击颢骰( !D! )。 NL 你每有一张颢牌，伤害+ !M! 。 NL 获得一张本牌的 double:回响 。"
         ],
         "FLAVOR":" #y群主形态 ：获得一张本牌的回响。"
     },
     "Double:DeathNotifier":{
         "NAME": "催逝员",
-        "DESCRIPTION": "给予所有敌人 !M! 层中毒，下回合获得4张 *催化剂 ，消耗。",
-        "UPGRADE_DESCRIPTION": "给予所有敌人 !M! 层中毒，下回合获得4张 *催化剂+ ，消耗。",
+        "DESCRIPTION": "下回合获得3张 *催化剂 ，消耗。",
+        "UPGRADE_DESCRIPTION": "下回合获得4张 *催化剂 ，消耗。",
         "EXTENDED_DESCRIPTION": [
-            "给予所有敌人 !M! 层中毒，下回合获得4张 *催化剂 与 [E] ，消耗。",
-            "给予所有敌人 !M! 层中毒，下回合获得4张 *催化剂 与2 [E] ，消耗。"
+            " *给予所有敌人 !M! *层 中毒 ，下回合获得3张 *催化剂，消耗。",
+            " *给予所有敌人 !M! *层 中毒 ，下回合获得4张 *催化剂，消耗。"
         ],
-        "FLAVOR":" #y群主形态 ：下回合获得 #b1 / #b2 [E] 。"
+        "FLAVOR":" #y群主形态 ：给予所有敌人 4/6 层中毒 。"
     },
     "Double:Bin":{
         "NAME": "二进制",
@@ -903,11 +908,11 @@
     },
     "Double:Godhead":{
         "NAME": "神性",
-        "DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子 。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子 。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。获得1层 double:奄息 。",
-            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子。获得2层 double:奄息 。"
+            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子 。获得1层 double:奄息 。",
+            " 虚无 ， double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子 。获得2层 double:奄息 。"
         ],
         "FLAVOR":" #y群主形态 ：获得1/2层奄息。"
     },
@@ -961,13 +966,13 @@
     },
     "Double:OffenseAsDefense":{
         "NAME": "以攻代守",
-        "DESCRIPTION": "本回合每当你造成未被格挡的伤害时，获得等量的格挡。",
-        "UPGRADE_DESCRIPTION": "本回合每当你造成未被格挡的伤害时，获得等量的格挡。",
+        "DESCRIPTION": "本回合每当你造成未被格挡的伤害时，获得等量的格挡，获得1层无法格挡，消耗。",
+        "UPGRADE_DESCRIPTION": "本回合每当你造成未被格挡的伤害时，获得等量的格挡，获得1层无法格挡，消耗。",
         "EXTENDED_DESCRIPTION": [
-            "本回合每当你造成未被格挡的伤害时，获得等量的格挡。 NL 用随机的攻击 double:骰子 (1)或防御 double:骰子 (1)填充空槽位。",
-            "本回合每当你造成未被格挡的伤害时，获得等量的格挡。 NL 用随机的攻击 double:骰子 (1)或防御 double:骰子 (1)填充空槽位。"
+            "本回合每当你造成未被格挡的伤害时，获得等量的格挡，消耗。",
+            "本回合每当你造成未被格挡的伤害时，获得等量的格挡，消耗。"
         ],
-        "FLAVOR":" #y群主形态 ：用随机的攻击骰子(1)或防御骰子(1)填充空槽位。"
+        "FLAVOR":" #y群主形态 ：不再获得无法格挡。"
     },
     "Double:TA":{
         "NAME": "为人师表",
@@ -1024,10 +1029,10 @@
         "DESCRIPTION": "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。",
         "UPGRADE_DESCRIPTION": "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。",
         "EXTENDED_DESCRIPTION": [
-            "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。 NL 场上每有一名存活的敌人，你获得1层美德。",
-            "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。 NL 场上每有一名存活的敌人，你获得1层美德。"
+            "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。 NL 场上每有一名存活的敌人，你获得1点 double:美德 。",
+            "生成 !M! 个攻击 double:骰子 ( !D! )，给予自己2层 易伤 和2层 脆弱 ，本回合不能再抽牌。 NL 场上每有一名存活的敌人，你获得1点 double:美德 。"
         ],
-        "FLAVOR":" #y群主形态 ：场上每有一名存活的敌人，你获得1层美德。"
+        "FLAVOR":" #y群主形态 ：场上每有一名存活的敌人，你获得1点美德。"
     },
     "Double:Nightfall":{
         "NAME": "夜幕降临",
@@ -1142,10 +1147,10 @@
         "DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。",
         "UPGRADE_DESCRIPTION": "获得6点罪孽，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。",
         "EXTENDED_DESCRIPTION": [
-            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。",
-            "获得6点罪孽，给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。"
+            "获得6点罪孽， *给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。",
+            "获得6点罪孽， *给予所有角色1层 double:震荡 ，你的 易伤 改为使你受到伤害减少 *25%) ，你的 虚弱 改为使你造成伤害增加 *25%) 。"
         ],
-        "FLAVOR":" #y群主形态 ：获得 [E] 。"
+        "FLAVOR":" #y群主形态 ：立即给予所有角色一层震荡 。"
     },
     "Double:C6H14_Cyan_option":
     {

@@ -20,7 +20,7 @@ public class NightOps extends AbstractShockCard {
     public static final String ID = ModHelper.makePath("NightOps");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/NoImage_skill.png";
+    private static final String IMG_PATH = "img/cards/Shock/NightOps.png";
     private static final int COST = 0;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;

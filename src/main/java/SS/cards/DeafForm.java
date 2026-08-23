@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.DeafFormPower;
+import SS.power.SinsPower;
 
 public class DeafForm extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("DeafForm");
@@ -40,6 +41,7 @@ public class DeafForm extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 10)));
         addToBot(new ApplyPowerAction(p, p, new DeafFormPower(p, this.magicNumber),
                 this.magicNumber));
     }

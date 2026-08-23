@@ -1,6 +1,5 @@
 package SS.cards;
 
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -37,10 +36,7 @@ public class NutrientCycle extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (this.upgraded) {
-            addToBot(new DrawCardAction(1));
-        }
-        addToBot(new NutrientCycleAction(p, this.freeToPlayOnce, this.energyOnUse));
+        addToBot(new NutrientCycleAction(p, this.freeToPlayOnce, this.energyOnUse, this.upgraded));
     }
 
     public AbstractDoubleCard makeCopy() {

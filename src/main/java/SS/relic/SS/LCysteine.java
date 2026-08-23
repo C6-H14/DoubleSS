@@ -12,7 +12,9 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 
 import SS.helper.ModHelper;
 import basemod.abstracts.CustomRelic;
+import basemod.AutoAdd;
 
+@AutoAdd.Ignore
 public class LCysteine extends CustomRelic {
     public static final String ID = ModHelper.makePath("LCysteine");
     private static final RelicStrings RELIC_STRINGS = CardCrawlGame.languagePack.getRelicStrings(ID);
