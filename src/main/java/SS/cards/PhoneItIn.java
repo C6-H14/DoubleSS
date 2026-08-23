@@ -1,7 +1,6 @@
 package SS.cards;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -31,6 +30,7 @@ public class PhoneItIn extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Sloth);
+        this.isEthereal = true;
         if (needFiend()) {
             updateFiend();
         }
@@ -40,21 +40,21 @@ public class PhoneItIn extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(2);
+            this.isEthereal = false;
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (p.getPower("Double:FiendStance") != null) {
-            if (p.getPower("Double:SinsPower") != null && p.getPower("Double:SinsPower").amount > 5) {
-                addToBot(new ApplyPowerAction(p, p, new SinsPower(p, -5), -5));
-            } else {
-                addToTop(new RemoveSpecificPowerAction(p, p, "Double:SinsPower"));
-            }
+        int amount = 1;
+        if (p.getPower("Double:SinsPower") != null && p.getPower("Double:SinsPower").amount > 0) {
+            amount += p.getPower("Double:SinsPower").amount / 10;
         }
-        addToBot(new ApplyPowerAction(p, p, new PhoneItInPower(p, 1)));
+        addToBot(new ApplyPowerAction(p, p, new PhoneItInPower(p, amount)));
+        if (p.getPower("Double:FiendStance") != null) {
+            addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 5), 5));
+        }
     }
 
     public void triggerOnGlowCheck() {

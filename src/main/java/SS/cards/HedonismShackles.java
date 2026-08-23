@@ -49,7 +49,6 @@ public class HedonismShackles extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(-1);
             UpdateDescription();
             initializeDescription();
         }

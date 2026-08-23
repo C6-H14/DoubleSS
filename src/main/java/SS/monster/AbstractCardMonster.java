@@ -16,6 +16,9 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.helpers.PowerTip;
+import com.megacrit.cardcrawl.helpers.TipHelper;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import SS.action.monster.AllyPlayCardAction;
 import SS.helper.MonsterCardContext;
@@ -23,88 +26,125 @@ import SS.helper.MonsterIntentSimulator;
 import basemod.ReflectionHacks;
 import basemod.abstracts.CustomMonster;
 
+/**
+ * 卡牌怪物基类：让怪物/友军带一套手牌，并把"原版意图 UI"和"自定义 UI"彻底解耦。
+ *
+ * <p>渲染约定：本类 {@link #render} 完整重写且不调 {@code super.render()}，
+ * 另外把原版意图的 4 个绘制方法（{@code renderIntent/renderDamageRange/
+ * renderIntentVfxBehind/renderIntentVfxAfter}）覆写为 no-op —— 双保险屏蔽原版意图
+ * 的图标/伤害数字/粒子，但意图的<b>状态与决策逻辑</b>（intent/intentDmg/createIntent/
+ * 模拟器）照常运行。
+ */
 public abstract class AbstractCardMonster extends CustomMonster {
 
+    // =====================================================================
     // 牌堆数据
+    // masterDeck 为"母版牌堆"，未来可用于记录/还原初始牌组（保留给子类使用）。
+    // =====================================================================
     public CardGroup masterDeck;
     public CardGroup drawPile;
     public CardGroup hand;
     public CardGroup discardPile;
     public CardGroup exhaustPile;
-    public CardGroup limbo; // 【新增】悬空堆，用于播放打牌动画
+    public CardGroup limbo; // 悬空堆，用于播放打牌动画
     private ArrayList<UUID> cardSortOrder = new ArrayList<>();
-    public int preDrawNumber = 3;
-    public int drawPerTurn = 2;
+    public int preDrawNumber = 3; // usePreBattleAction 时初始抽牌张数
+    public int drawPerTurn = 2; // 每回合 atStartOfTurn 抽牌张数
 
     // 能量数据
     public int energyBase;
     public int energy = 0;
     private Color energyColor = Color.WHITE.cpy();
 
-    // =================================================================
-    // 【新增】UI 调整参数 (可在子类构造函数中修改)
-    // =================================================================
+    // =====================================================================
+    // 【UI 参量总览】调各 UI 元素的位置 / 大小，改下面对应字段即可。
+    // 所有 Offset 的语义都是 "屏幕像素 × Settings.scale"，方向：X 向右为正、Y 向上为正。
+    //
+    //   立绘 sprite          -> modelScale（整体缩放）
+    //   血条 / 名字          -> 跟随 hb（见 AbstractAlly.commonInit 里对 hb 的 move，
+    //                           用 healthBarOffsetY 抬高碰撞箱）
+    //   提示框 renderTip     -> 用 hb.cX/hb.width 定位，自动贴合，无需参量
+    //   手牌（头顶扇形）     -> cardScale, hoverScale, handOffsetX/Y,
+    //                           handSpacing, handHoverLift
+    //   能量球 + 数字        -> energyScale（球）, energyTextScale（数字字体）,
+    //                           energyOffsetX/Y（相对 hb 左下角）
+    //   能力图标 + 数字      -> powerIconScale, powerTextScale, powerOffsetX/Y,
+    //                           powerIconWidth, powerIconStartOffset,
+    //                           powerNumberXOffset/YOffset
+    //   卡牌意图队列         -> cardIntentOffsetX/Y, cardIntentSpacing
+    // =====================================================================
 
-    // 【新增】血条位置微调变量
-    public float healthBarOffsetX = 0.0F;
-    public float healthBarOffsetY = -20.0F; // 默认稍微往下一点，你可以改
+    // ---- 立绘 ----
+    public float modelScale = 1.0f; // 立绘整体缩放（注意：子类若每帧在 update 里改它，会以 update 为准）
 
-    // 手牌大小缩放
-    public float cardScale = 0.3f; // 原来0.4太大了，改小
-    public float hoverScale = 0.6f;
+    // ---- 卡牌意图队列（独立于原版意图，坐标完全参数化）----
+    public float cardIntentOffsetX = 0.0F; // 左右偏移（正往右、负往左）
+    public float cardIntentOffsetY = 280.0F; // 上下高度（越大卡牌意图越高）
+    public float cardIntentSpacing = 30.0F; // 多张卡牌意图之间的间距
 
-    // 手牌相对于头顶的位置偏移
-    public float handOffsetX = 0.0F;
-    public float handOffsetY = 150.0F;
+    // ---- 血条 / 碰撞箱 ----
+    public float healthBarOffsetY = -20.0F; // 抬高 hb（进而抬高血条/名字/提示框锚点）；构造时传入
 
-    // 能量球相对于 Hitbox 左下角(hb.x, hb.y) 的偏移
-    // 你可以在 SoulAlly 里修改这两个值来解决错位
-    public float energyOffsetX = 0.0F;
-    public float energyOffsetY = 0.0F;
+    // ---- 手牌 ----
+    public float cardScale = 0.3f; // 手牌默认大小
+    public float hoverScale = 0.6f; // 手牌悬停放大
+    public float handOffsetX = 0.0F; // 手牌整体左右偏移（相对 hb.cX）
+    public float handOffsetY = 150.0F; // 手牌整体上下偏移（相对 hb 顶部）
+    public float handSpacing = 110.0F; // 手牌扇形间距基准（实际间距 = handSpacing × cardScale）
+    public float handHoverLift = 50.0F; // 悬停时卡牌抬升高度
 
-    // 能量球的缩放
-    public float energyScale = 0.8F;// 自定义缩放变量
-    public float powerIconScale = 0.8F; // 图标缩小
-    public float powerTextScale = 1.0F; // 字体缩小
+    // ---- 能量面板 ----
+    public float energyOffsetX = 0.0F; // 能量球相对 hb 左下角 (hb.x, hb.y) 的水平偏移
+    public float energyOffsetY = 0.0F; // 能量球相对 hb 左下角的垂直偏移
+    public float energyScale = 0.8F; // 能量球（图标）缩放
+    public float energyTextScale = 0.7F; // 能量数字字体缩放（要更小的数字就调低，如 0.4f）
 
-    public float powerOffsetX = 0.0F; // 【变量1】整体左右微调
-    public float powerOffsetY = -5.0F; // 【变量2】整体上下微调
+    // ---- 能力图标 ----
+    public float powerIconScale = 0.8F; // 能力图标缩放
+    public float powerTextScale = 1.0F; // 能力数字字体缩放
+    public float powerOffsetX = 0.0F; // 能力图标整体左右微调
+    public float powerOffsetY = -5.0F; // 能力图标整体上下微调
+    public float powerIconWidth = 48.0F; // 能力图标基准宽度（原版 48px）
+    public float powerIconStartOffset = 10.0F; // 第一枚图标相对起点的水平偏移
+    public float powerNumberXOffset = 32.0F; // 能力数字相对图标的水平偏移
+    public float powerNumberYOffset = 66.0F; // 能力数字相对起点的垂直偏移
+
     // 意图模拟结果
     protected MonsterIntentSimulator.SimulationResult intentResult;
-    // 意图图标缩放
-    private float intentIconScale = 0.5f;
-    public boolean isReadingSimulation = false;
+    public boolean isReadingSimulation = false; // 被 MonsterIntentPatches 读取的"模拟锁"
 
-    public float modelScale = 1.0f; // 默认 1.0 倍大小
+    // =====================================================================
+    // 构造函数
+    // =====================================================================
 
-    // =================================================================
-
-    // 构造函数 1
+    // 构造函数 1（带立绘偏移 offsetX/offsetY）
     public AbstractCardMonster(
             String name, String id, int maxHealth,
             float hb_x, float hb_y, float hb_w, float hb_h,
             String imgUrl,
             float offsetX, float offsetY,
             int energyBase,
-            float healthBarOffsetY // 【新增参数】
-    ) {
+            float healthBarOffsetY) {
         super(name, id, maxHealth, hb_x, hb_y, hb_w, hb_h, imgUrl, offsetX, offsetY);
         this.energyBase = energyBase;
-        this.healthBarOffsetY = healthBarOffsetY; // 保存下来
+        this.healthBarOffsetY = healthBarOffsetY;
         initializeDecks();
     }
 
-    // 构造函数 2
+    // 构造函数 2（无立绘偏移；把意图碰撞箱清零并把 intentOffsetX 甩到无穷远，
+    // 作为"屏蔽原版意图"的第二道保险）
     public AbstractCardMonster(
             String name, String id, int maxHealth,
             float hb_x, float hb_y, float hb_w, float hb_h,
             String imgUrl,
             int energyBase,
-            float healthBarOffsetY // 【新增参数】
-    ) {
+            float healthBarOffsetY) {
         super(name, id, maxHealth, hb_x, hb_y, hb_w, hb_h, imgUrl);
         this.energyBase = energyBase;
-        this.healthBarOffsetY = healthBarOffsetY; // 保存下来
+        this.healthBarOffsetY = healthBarOffsetY;
+        this.intentHb.width = 0.0F;
+        this.intentHb.height = 0.0F;
+        this.intentOffsetX = -99999.0F;
         initializeDecks();
     }
 
@@ -135,14 +175,13 @@ public abstract class AbstractCardMonster extends CustomMonster {
         this.energy = this.energyBase;
     }
 
-    // =================================================================
+    // =====================================================================
     // 更新与渲染
-    // =================================================================
+    // =====================================================================
 
     @Override
     public void update() {
-        // 不需要再设置 hbYOffset 了，保持为 0 即可
-        // 也不要手动 move healthHb 了，父类会跟随 hb 的位置
+        // hbYOffset 保持 0，healthHb 由父类跟随 hb 的位置，这里不手动 move
         super.update();
 
         this.hb.update();
@@ -160,57 +199,80 @@ public abstract class AbstractCardMonster extends CustomMonster {
         }
     }
 
-    private static com.badlogic.gdx.graphics.Texture blankTexture = null;
-
-    private static com.badlogic.gdx.graphics.Texture getBlankTexture() {
-        if (blankTexture == null) {
-            com.badlogic.gdx.graphics.Pixmap pixmap = new com.badlogic.gdx.graphics.Pixmap(
-                    1, 1, com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888);
-            pixmap.setColor(new com.badlogic.gdx.graphics.Color(0.0F, 0.0F, 0.0F, 0.0F)); // 完全透明
-            pixmap.fill();
-            blankTexture = new com.badlogic.gdx.graphics.Texture(pixmap);
-            pixmap.dispose(); // 释放内存
-        }
-        return blankTexture;
-    }
-
     @Override
     public void render(SpriteBatch sb) {
-        // 备份立绘引用
-        com.badlogic.gdx.graphics.Texture backupImg = this.img;
+        if (!this.isDead && !this.escaped) {
+            // 1. 立绘（以底部中心为原点，支持 modelScale 缩放）
+            if (this.img != null) {
+                sb.setColor(this.tint.color);
+                sb.draw(this.img,
+                        this.drawX - (float) this.img.getWidth() * Settings.scale / 2.0F + this.animX,
+                        this.drawY + this.animY,
+                        (float) this.img.getWidth() / 2.0F, 0.0F,
+                        (float) this.img.getWidth(), (float) this.img.getHeight(),
+                        this.modelScale * Settings.scale, this.modelScale * Settings.scale,
+                        0.0F, 0, 0, this.img.getWidth(), this.img.getHeight(),
+                        this.flipHorizontal, this.flipVertical);
+            }
 
-        // 如果开启了缩放 (不等于1.0)，临时将 img 设为 null，阻止 super.render(sb) 绘制默认大小的大图
+            // 2. 选中高亮光晕
+            if (this == AbstractDungeon.getCurrRoom().monsters.hoveredMonster && this.atlas == null
+                    && this.img != null) {
+                sb.setBlendFunction(770, 1);
+                sb.setColor(new Color(1.0F, 1.0F, 1.0F, 0.1F));
+                sb.draw(this.img,
+                        this.drawX - (float) this.img.getWidth() * Settings.scale / 2.0F + this.animX,
+                        this.drawY + this.animY,
+                        (float) this.img.getWidth() / 2.0F, 0.0F,
+                        (float) this.img.getWidth(), (float) this.img.getHeight(),
+                        this.modelScale * Settings.scale, this.modelScale * Settings.scale,
+                        0.0F, 0, 0, this.img.getWidth(), this.img.getHeight(),
+                        this.flipHorizontal, this.flipVertical);
+                sb.setBlendFunction(770, 771);
+            }
 
-        if (this.modelScale != 1.0f) {
-            this.img = getBlankTexture();
+            // 3. 原版意图的图标/伤害/粒子在这里一律不绘制（见下方 no-op 覆写说明）。
+
+            // 4. 调试碰撞箱（如开启了调试显示）
+            this.hb.render(sb);
+            this.healthHb.render(sb);
         }
 
-        ArrayList<com.megacrit.cardcrawl.powers.AbstractPower> backupPowers = new ArrayList<>(this.powers);
-        this.powers.clear();
-        super.render(sb); // 此时 super 只会画血条、意图，不会画图片
-        this.powers.addAll(backupPowers);
-
-        // 还原立绘引用
-        this.img = backupImg;
-
-        // 【核心修改】如果是缩放状态，手动使用 SpriteBatch 绘制缩小的立绘
-        if (this.img != null && this.modelScale != 1.0f) {
-            sb.setColor(this.tint.color);
-            sb.draw(this.img,
-                    this.drawX - this.img.getWidth() * Settings.scale / 2.0F + this.animX,
-                    this.drawY + this.animY,
-                    this.img.getWidth() / 2.0F, 0.0F, // 以底部中心为缩放原点
-                    this.img.getWidth(), this.img.getHeight(),
-                    this.modelScale * Settings.scale, this.modelScale * Settings.scale,
-                    0.0F, 0, 0, this.img.getWidth(), this.img.getHeight(),
-                    this.isEscaping, false);
+        // 5. 血条与怪物名字
+        if (!AbstractDungeon.player.isDead) {
+            this.renderHealth(sb);
+            this.renderName(sb);
         }
 
+        // 6. 自定义 UI（能量、手牌、Limbo、能力图标、卡牌意图队列）
         renderEnergyPanel(sb);
         renderHand(sb);
         renderLimbo(sb);
         renderCustomPowerIcons(sb);
         renderIntentQueue(sb);
+    }
+
+    @Override
+    public void renderTip(SpriteBatch sb) {
+        // 只显示能力 Tip（过滤掉 this.intentTip），定位用 hb.cX/hb.width，自动贴合碰撞箱
+        this.tips.clear();
+        for (AbstractPower p : this.powers) {
+            if (p.region48 != null) {
+                this.tips.add(new PowerTip(p.name, p.description, p.region48));
+            } else {
+                this.tips.add(new PowerTip(p.name, p.description, p.img));
+            }
+        }
+
+        if (!this.tips.isEmpty()) {
+            if (this.hb.cX + this.hb.width / 2.0F < TIP_X_THRESHOLD) {
+                TipHelper.queuePowerTips(this.hb.cX + this.hb.width / 2.0F + TIP_OFFSET_R_X,
+                        this.hb.cY + TipHelper.calculateAdditionalOffset(this.tips, this.hb.cY), this.tips);
+            } else {
+                TipHelper.queuePowerTips(this.hb.cX - this.hb.width / 2.0F + TIP_OFFSET_L_X,
+                        this.hb.cY + TipHelper.calculateAdditionalOffset(this.tips, this.hb.cY), this.tips);
+            }
+        }
     }
 
     private void renderLimbo(SpriteBatch sb) {
@@ -219,43 +281,76 @@ public abstract class AbstractCardMonster extends CustomMonster {
         }
     }
 
+    // =====================================================================
+    // 【解耦】彻底屏蔽原版意图渲染（图标 / 伤害数字 / 粒子特效）
+    //
+    // 这四个方法在 AbstractMonster 里是 private，BaseMod 的 CustomMonster 用
+    // @SpireOverride 重新暴露为 protected，因此这里可以覆写为 no-op。
+    //
+    // 关键点：无论调用方是谁（本类 render、基类 render、第三方 mod 的 patch、
+    // 或任何外部渲染管线），原版意图图标/伤害数字/粒子一律不再绘制 ——
+    // 这是对"某个未知来源在额外调用意图渲染"最稳的兜底。
+    //
+    // 不受影响的部分：
+    //   - 意图的【状态与逻辑】：intent / intentDmg / intentHb / intentAlpha /
+    //     createIntent / updateIntent / setMove 全部照跑（战斗决策模拟保留）。
+    //   - 【卡牌意图队列】renderIntentQueue：是我们显式调用的独立方法，与这四个无关。
+    //   - 【提示框】renderTip：用 hb.cX/hb.width 定位，与意图无关，位置不变。
+    // =====================================================================
+
+    @Override
+    protected void renderIntent(final SpriteBatch sb) {
+        // no-op：不绘制原版意图图标
+    }
+
+    @Override
+    protected void renderDamageRange(final SpriteBatch sb) {
+        // no-op：不绘制原版伤害数字
+    }
+
+    @Override
+    protected void renderIntentVfxBehind(final SpriteBatch sb) {
+        // no-op：不绘制原版意图粒子（图标前）
+    }
+
+    @Override
+    protected void renderIntentVfxAfter(final SpriteBatch sb) {
+        // no-op：不绘制原版意图粒子（图标后）
+    }
+
+    // 卡牌意图队列（独立于原版意图渲染，坐标完全由 cardIntentOffsetX/Y、cardIntentSpacing 参数化）。
+    // 注意：这里【不】画原版 UNKNOWN 意图的金色"?"——它曾被误认为原版意图泄漏，
+    // 实际来源就是本方法 hasUnknown 分支的字体"?"（已按需求移除）。
+    // 未来若要在这里画出 cardsToPlay 的卡牌预览，直接用下面的 x/y/spacing 布局即可。
     private void renderIntentQueue(SpriteBatch sb) {
         if (this.intentResult == null || this.intentResult.cardsToPlay.isEmpty()) {
             return;
         }
 
-        float x = this.intentHb.cX;
-        float y = this.intentHb.cY + 50.0F * Settings.scale;
-        float spacing = 30.0F * Settings.scale;
+        // 使用独立的偏移参数进行定位
+        float x = this.drawX + this.animX + this.cardIntentOffsetX * Settings.scale;
+        float y = this.drawY + this.animY + this.cardIntentOffsetY * Settings.scale;
+        float spacing = this.cardIntentSpacing * Settings.scale;
 
-        int totalCount = this.intentResult.cardsToPlay.size() + (this.intentResult.hasUnknown ? 1 : 0);
+        int totalCount = this.intentResult.cardsToPlay.size();
         float totalWidth = (totalCount - 1) * spacing;
         x -= totalWidth / 2.0F;
 
-        // 备份原来的 SB 颜色
         Color originalSbColor = sb.getColor().cpy();
-
-        // 恢复 SB 颜色，否则会影响后续渲染
         sb.setColor(originalSbColor);
-
-        if (this.intentResult.hasUnknown) {
-            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, "?", x, y, Color.GOLD, 0.6f);
-        }
     }
 
-    // =================================================================
+    // =====================================================================
     // 牌堆操作
-    // =================================================================
+    // =====================================================================
 
-    // =================================================================
-    // 1. 通用初始化逻辑 (从 Ally 上移)
-    // =================================================================
+    // 战斗开始前的初始化（从 Ally 上移的通用逻辑）
     @Override
     public void usePreBattleAction() {
         super.usePreBattleAction();
         // 初始化牌堆
         this.initBattleDeck();
-        // 初始抽牌 (默认3张，可提取为变量)
+        // 初始抽牌
         for (int i = 0; i < preDrawNumber; i++) {
             this.drawCard();
         }
@@ -264,7 +359,7 @@ public abstract class AbstractCardMonster extends CustomMonster {
     public void atStartOfTurn() {
         // 恢复能量
         this.energy = this.energyBase;
-        // 回合开始抽牌 (默认2张)
+        // 回合开始抽牌
         for (int i = 0; i < drawPerTurn; i++) {
             this.drawCard();
         }
@@ -273,19 +368,17 @@ public abstract class AbstractCardMonster extends CustomMonster {
     }
 
     public void atEndOfTurn() {
-        // 注意：友军在这里打牌，但敌人不是。
-        // 所以这里只处理牌堆清理，打牌逻辑由子类决定何时调用。
-        // 我们把"清理牌堆"单独封装，不要在这里直接调用，
-        // 因为如果友军在 atEndOfTurn 打牌，清理动作必须排在打牌动作之后。
+        // 友军在这里打牌，但敌人不是。这里只保留"回合结束"的钩子；
+        // 牌堆清理单独封装在 endTurnDeckLogic()，打牌逻辑由子类决定何时调用，
+        // 以保证"清理"排在"打牌"动作之后。
     }
 
-    // =================================================================
-    // 2. 通用 AI 逻辑 (从 Ally 上移)
-    // =================================================================
+    // =====================================================================
+    // 通用 AI 逻辑（保留给子类在合适时机调用：友军在 atEndOfTurn，敌人在 takeTurn）
+    // =====================================================================
 
     /**
-     * 核心出牌逻辑。
-     * 子类需要在合适的时机调用此方法（友军在 atEndOfTurn，敌人在 takeTurn）。
+     * 核心出牌逻辑：遍历手牌，能量足够就打出，最后统一清理手牌。
      */
     protected void performTurnAI() {
         ArrayList<AbstractCard> cardsToPlay = new ArrayList<>(this.hand.group);
@@ -313,9 +406,8 @@ public abstract class AbstractCardMonster extends CustomMonster {
     }
 
     /**
-     * 【抽象方法】子类必须决定这张牌打谁
-     * 友军：返回锁定的敌人
-     * 敌人：返回玩家
+     * 【抽象方法】子类必须决定这张牌打谁。
+     * 友军：返回锁定的敌人；敌人：返回玩家。
      */
     protected abstract AbstractCreature getCardTarget(AbstractCard c);
 
@@ -365,7 +457,7 @@ public abstract class AbstractCardMonster extends CustomMonster {
         c.current_y = this.hb.cY;
         c.setAngle(0.0F);
         c.drawScale = 0.01f;
-        c.targetDrawScale = cardScale; // 使用变量
+        c.targetDrawScale = cardScale; // 使用参量
         c.triggerWhenDrawn();
         c.unhover();
         c.untip();
@@ -386,27 +478,21 @@ public abstract class AbstractCardMonster extends CustomMonster {
         }
     }
 
-    // =================================================================
+    // =====================================================================
     // UI 逻辑细节
-    // =================================================================
+    // =====================================================================
 
     private void updateHandLogic() {
-        // 【核心修改】将整个手牌更新逻辑包裹在 Context 中
+        // 【核心】将整个手牌更新逻辑包裹在 Context 中
         MonsterCardContext.run(this, () -> {
             for (AbstractCard c : this.hand.group) {
-                // 原版逻辑：
+                // 原版逻辑
                 c.update();
                 c.updateHoverLogic();
 
                 // 【新增】强制让卡牌根据当前 Context 刷新数值
                 // 因为 update 内部不一定会每帧调用 applyPowers
                 c.applyPowers();
-
-                // 【可选】如果卡牌是单体的，且友军锁定了目标，可以进一步计算针对目标的伤害
-                // if (this instanceof AbstractAlly && ((AbstractAlly)this).getTarget() != null)
-                // {
-                // c.calculateCardDamage(((AbstractAlly)this).getTarget());
-                // }
             }
         });
     }
@@ -417,16 +503,15 @@ public abstract class AbstractCardMonster extends CustomMonster {
         refreshIntentCalculation();
     }
 
-    // 【核心修复】计算卡牌坐标
+    // 计算手牌扇形坐标：以 hb.cX/hb 顶部为基准，间距 = handSpacing × cardScale
     private void refreshHandPositions() {
         int count = this.hand.size();
         if (count == 0)
             return;
 
-        // 根据卡牌大小动态调整间距
-        float spacing = 110.0F * cardScale * Settings.scale;
-        float startX = this.hb.cX + handOffsetX * Settings.scale;
-        float startY = this.hb.cY + this.hb.height / 2.0F + handOffsetY * Settings.scale;
+        float spacing = this.handSpacing * this.cardScale * Settings.scale;
+        float startX = this.hb.cX + this.handOffsetX * Settings.scale;
+        float startY = this.hb.cY + this.hb.height / 2.0F + this.handOffsetY * Settings.scale;
 
         for (int i = 0; i < count; i++) {
             AbstractCard c = this.hand.group.get(i);
@@ -439,10 +524,10 @@ public abstract class AbstractCardMonster extends CustomMonster {
             c.targetAngle = -offset * 0.1f;
 
             if (c.hb.hovered) {
-                c.targetDrawScale = hoverScale; // 使用变量
-                c.target_y = startY + 50.0F * Settings.scale;
+                c.targetDrawScale = this.hoverScale;
+                c.target_y = startY + this.handHoverLift * Settings.scale;
             } else {
-                c.targetDrawScale = cardScale; // 使用变量
+                c.targetDrawScale = this.cardScale;
             }
         }
     }
@@ -451,29 +536,30 @@ public abstract class AbstractCardMonster extends CustomMonster {
         this.intentResult = MonsterIntentSimulator.simulate(this);
 
         if (this.intentResult.hasUnknown) {
-            this.setMove((byte) 0, Intent.UNKNOWN);
+            // this.setMove((byte) 0, Intent.UNKNOWN);
+            this.setMove((byte) 0, Intent.NONE);
             this.createIntent();
         } else if (this.intentResult.totalDamage > 0) {
-            // 1. 设置意图 (传入模拟好的总伤 8)
+            // 1. 设置意图 (传入模拟好的总伤)
             this.isReadingSimulation = true; // 打开锁
 
-            // 传入模拟器算好的 8 点
-            // setMove 会把 8 存为 baseDamage
-            // createIntent 会调用 calculateDamage(8)
-            // 我们的 Patch 会检测到锁开了，直接令 intentDmg = 8，跳过力量加成
-            this.setMove((byte) 1, Intent.ATTACK, this.intentResult.totalDamage);
+            // setMove 把总伤存为 baseDamage，createIntent 会调用 calculateDamage(总伤)
+            // 我们的 Patch 会检测到锁开了，直接令 intentDmg = 总伤，跳过力量加成
+            this.setMove((byte) 1, Intent.NONE);
             this.createIntent();
 
             this.isReadingSimulation = false; // 关上锁，以免影响其他逻辑
-
         } else if (this.intentResult.totalBlock > 0) {
-            this.setMove((byte) 2, Intent.DEFEND);
+            // this.setMove((byte) 2, Intent.DEFEND);
+            this.setMove((byte) 2, Intent.NONE);
             this.createIntent();
         } else if (!this.intentResult.cardsToPlay.isEmpty()) {
-            this.setMove((byte) 3, Intent.BUFF);
+            // this.setMove((byte) 3, Intent.BUFF);
+            this.setMove((byte) 3, Intent.NONE);
             this.createIntent();
         } else {
-            this.setMove((byte) 4, Intent.STUN);
+            // this.setMove((byte) 4, Intent.STUN);
+            this.setMove((byte) 4, Intent.NONE);
             this.createIntent();
         }
     }
@@ -485,15 +571,16 @@ public abstract class AbstractCardMonster extends CustomMonster {
         }
         for (AbstractCard c : this.hand.group) {
             if (c.hb.hovered)
-                c.render(sb); // 渲染放大的牌
+                c.render(sb); // 悬停放大的牌最后画
         }
     }
 
+    // 能量面板：能量球 + "能量/上限"数字。
+    // 球大小 = energyScale，数字字体 = energyTextScale，位置 = hb 左下角 + energyOffsetX/Y。
     private void renderEnergyPanel(SpriteBatch sb) {
-        // 【修复】改为 AtlasRegion 类型
         TextureAtlas.AtlasRegion orbImg = ImageMaster.CARD_RED_ORB;
 
-        // 计算坐标：引入 energyOffsetX/Y 变量供微调
+        // 坐标：以 hb 左下角为基准 + energyOffsetX/Y 微调
         float x = this.hb.x + this.energyOffsetX * Settings.scale;
         float y = this.hb.y + this.energyOffsetY * Settings.scale;
 
@@ -501,46 +588,43 @@ public abstract class AbstractCardMonster extends CustomMonster {
 
         sb.setColor(Color.WHITE);
 
-        // 【修复】使用 draw 的 AtlasRegion 重载方法
         sb.draw(orbImg,
-                x - (orbImg.packedWidth / 2f), y - (orbImg.packedHeight / 2f), // 坐标 (减去一半宽高以居中)
-                orbImg.packedWidth / 2f, orbImg.packedHeight / 2f, // 旋转中心
-                orbImg.packedWidth, orbImg.packedHeight, // 宽高
-                scale, scale, 0f); // 缩放与旋转
+                x - (orbImg.packedWidth / 2f), y - (orbImg.packedHeight / 2f),
+                orbImg.packedWidth / 2f, orbImg.packedHeight / 2f,
+                orbImg.packedWidth, orbImg.packedHeight,
+                scale, scale, 0f);
 
         String energyText = this.energy + "/" + this.energyBase;
-        // 字体位置微调，确保居中于图标
-        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, energyText, x, y, energyColor, 0.7f);
+        // 数字与球同心，字体大小由 energyTextScale 控制
+        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, energyText, x, y, energyColor,
+                this.energyTextScale);
     }
 
+    // 能力图标 + 数字。整体位置 = hb 左下角 + powerOffsetX/Y（+ 父类 hbYOffset）。
+    // 图标大小 = powerIconScale，数字字体 = powerTextScale。
     private void renderCustomPowerIcons(SpriteBatch sb) {
         if (this.powers.isEmpty())
             return;
 
-        // 1. 基础坐标计算 (完全照搬原版逻辑 + 你的微调变量)
-        // 原版: x = this.hb.cX - this.hb.width / 2.0F; (即 hb.x)
-        // 原版: y = this.hb.cY - this.hb.height / 2.0F + this.hbYOffset; (即 hb.y +
-        // offset)
+        // 基准坐标：原版 x = hb.x；y = hb.y + hbYOffset，再叠加 powerOffsetX/Y 微调
         float x = this.hb.cX - this.hb.width / 2.0F + (this.powerOffsetX * Settings.scale);
         float hbYOffset = ReflectionHacks.getPrivate(this, AbstractCreature.class, "hbYOffset");
         float y = this.hb.cY - this.hb.height / 2.0F + hbYOffset + (this.powerOffsetY * Settings.scale);
 
-        // 间距：48是原版图标宽度，乘以缩放比例
-        float spacing = 48.0F * Settings.scale * this.powerIconScale;
+        // 间距：图标基准宽度 × 缩放
+        float spacing = this.powerIconWidth * Settings.scale * this.powerIconScale;
 
         // =================================================================
-        // 循环 1: 渲染图标 (起始 offset = 10.0F)
+        // 循环 1: 渲染图标
         // =================================================================
-        float offset = 10.0F * Settings.scale;
+        float offset = this.powerIconStartOffset * Settings.scale;
 
-        for (com.megacrit.cardcrawl.powers.AbstractPower p : this.powers) {
+        for (AbstractPower p : this.powers) {
             if (p.region48 != null) {
                 sb.setColor(Color.WHITE);
 
-                // 原版 Desktop: y - 48.0F
-                // 我们修改为: y - (48.0F * scale * iconScale) 以适应缩小
                 float drawX = x + offset;
-                float drawY = y - (48.0F * Settings.scale * this.powerIconScale);
+                float drawY = y - (this.powerIconWidth * Settings.scale * this.powerIconScale);
 
                 sb.draw(p.region48,
                         drawX - p.region48.packedWidth / 2.0F,
@@ -550,16 +634,16 @@ public abstract class AbstractCardMonster extends CustomMonster {
                         this.powerIconScale * Settings.scale, this.powerIconScale * Settings.scale,
                         0.0F);
 
-                // Tip 悬停检测 (必须手动补，因为坐标变了)
-                float hbSize = 48.0F * this.powerIconScale * Settings.scale;
+                // Tip 悬停检测 (坐标变了，必须手动补)
+                float hbSize = this.powerIconWidth * this.powerIconScale * Settings.scale;
                 if (com.megacrit.cardcrawl.helpers.input.InputHelper.mX >= drawX - hbSize / 2 &&
                         com.megacrit.cardcrawl.helpers.input.InputHelper.mX <= drawX + hbSize / 2 &&
                         com.megacrit.cardcrawl.helpers.input.InputHelper.mY >= drawY - hbSize / 2 &&
                         com.megacrit.cardcrawl.helpers.input.InputHelper.mY <= drawY + hbSize / 2) {
 
-                    java.util.ArrayList<com.megacrit.cardcrawl.helpers.PowerTip> tips = new java.util.ArrayList<>();
-                    tips.add(new com.megacrit.cardcrawl.helpers.PowerTip(p.name, p.description));
-                    com.megacrit.cardcrawl.helpers.TipHelper.queuePowerTips(
+                    ArrayList<PowerTip> tips = new ArrayList<>();
+                    tips.add(new PowerTip(p.name, p.description));
+                    TipHelper.queuePowerTips(
                             drawX + sb.getTransformMatrix().val[com.badlogic.gdx.math.Matrix4.M03],
                             drawY + sb.getTransformMatrix().val[com.badlogic.gdx.math.Matrix4.M13],
                             tips);
@@ -569,23 +653,21 @@ public abstract class AbstractCardMonster extends CustomMonster {
         }
 
         // =================================================================
-        // 循环 2: 渲染数字 (起始 offset = 0.0F, 照搬原版)
+        // 循环 2: 渲染数字
         // =================================================================
         offset = 0.0F * Settings.scale;
 
-        for (com.megacrit.cardcrawl.powers.AbstractPower p : this.powers) {
+        for (AbstractPower p : this.powers) {
             if (p.amount != 0) {
                 sb.setColor(Color.WHITE);
                 Color c = Color.WHITE.cpy();
-                if (p.amount > 0 && p.type == com.megacrit.cardcrawl.powers.AbstractPower.PowerType.BUFF)
+                if (p.amount > 0 && p.type == AbstractPower.PowerType.BUFF)
                     c = Color.GREEN.cpy();
-                else if (p.amount < 0 && p.type == com.megacrit.cardcrawl.powers.AbstractPower.PowerType.DEBUFF)
+                else if (p.amount < 0 && p.type == AbstractPower.PowerType.DEBUFF)
                     c = Color.RED.cpy();
 
-                // 原版 Desktop X: x + offset + 32.0F
-                // 原版 Desktop Y: y - 66.0F
-                float drawX = x + offset + (32.0F * Settings.scale * this.powerIconScale);
-                float drawY = y - (66.0F * Settings.scale * this.powerIconScale);
+                float drawX = x + offset + (this.powerNumberXOffset * Settings.scale * this.powerIconScale);
+                float drawY = y - (this.powerNumberYOffset * Settings.scale * this.powerIconScale);
 
                 FontHelper.renderFontRightTopAligned(
                         sb,

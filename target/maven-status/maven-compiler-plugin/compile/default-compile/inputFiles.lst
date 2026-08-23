@@ -145,6 +145,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\action\dice\ChannelDiceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\effect\DiceTriggeredEffect.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\GreenPackage\GreenPackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\GhostBomb.java
+d:\StSmod\DoubleSS\src\main\java\SS\cardmodifiers\EchoTagModifier.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\BossSwapGod.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Unbreakable.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage_c.java
@@ -185,6 +186,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\YourAttack.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\DyingPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\BLUE_option.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\monster\AllyPlayCardAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\power\NutrientCyclePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\AddCardRewardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\LastBreath.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\PepsinPower.java
@@ -228,6 +230,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\power\TemperancePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Shock_Blue_option.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\PermanentMagicNumberVariable.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\IncreasePeptideDamageAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\AllyPowerRenderPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\GreenPackage\GreenPackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\StratifiedStormAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\C6H14_Cyan_option.java
@@ -296,6 +299,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\Resonance.java
 d:\StSmod\DoubleSS\src\main\java\SS\interfaces\OnAllyAttackSubscriber.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\ClassicMove.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\UseCardActionPatch.java
+d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\Egg.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\AllyHookPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\dice\EvokeDiceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Fiend_option.java
@@ -341,6 +345,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\HaoStab.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\DefendHaoDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_c.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Hao_Green_option.java
+d:\StSmod\DoubleSS\src\main\java\SS\action\common\MessageCaller.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DrawSameTypeCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\ImmolateDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\FallenPowerPatches.java
@@ -376,6 +381,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\vfx\AllyAbsorbCardEffect.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Wrath.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\TA.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\GreenPackage\GreenPackage_c.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\SpiritualCompanionship.java
 d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\CorePieces.java
 d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\DemonReward.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\HaoTap.java

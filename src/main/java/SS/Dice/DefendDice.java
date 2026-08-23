@@ -42,7 +42,7 @@ public class DefendDice extends AbstractDice {
     public void myEvoke() {
         int block = this.evokeAmount;
         // System.out.println(temp);
-        if (result == 1) {
+        if (result <= 2) {
             block--;
             /*
              * AbstractDungeon.actionManager
@@ -53,12 +53,10 @@ public class DefendDice extends AbstractDice {
              * LoseDexterityPower(this.target, 1), 1));
              */
         }
-        if (result == 5) {
+        if (result >= 5) {
             block++;
         }
-        if (result == 6) {
-            block = block * 3 / 2;
-        }
+        block = Math.max(0, block);
         AbstractDungeon.actionManager.addToBottom(new GainBlockAction((AbstractPlayer) this.target, block));
     }
 

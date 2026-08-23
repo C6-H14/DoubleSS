@@ -44,12 +44,12 @@ public class PeptideDice extends AbstractDice {
     public void myEvoke() {
         int temp = this.result, damage = this.evokeAmount;
         // System.out.println(temp);
-        if (temp == 6 || temp == 1) {
+        if (temp >= 5) {
             damage++;
         }
         AbstractDungeon.actionManager
                 .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false));
-        if (temp != 1) {
+        if (temp >= 3) {
             AbstractDungeon.actionManager.addToBottom(new IncreasePeptideDamageAction(1));
         }
     }

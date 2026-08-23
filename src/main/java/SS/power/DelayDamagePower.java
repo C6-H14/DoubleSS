@@ -25,7 +25,7 @@ public class DelayDamagePower extends AbstractPower {
         this.name = NAME;
         this.ID = POWER_ID + (count + amount);
         this.owner = owner;
-        this.type = AbstractPower.PowerType.DEBUFF;
+        this.type = AbstractPower.PowerType.BUFF;
         this.amount = amount;
         this.count = damage;
 

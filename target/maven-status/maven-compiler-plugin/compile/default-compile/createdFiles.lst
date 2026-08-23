@@ -50,6 +50,7 @@ SS\action\common\ModifyPermanentDamageAction.class
 SS\cards\DeafForm.class
 SS\cards\Haohao\GreatDisciple.class
 SS\action\unique\c6h14\KernelMappingAction.class
+SS\action\common\MessageCaller.class
 SS\patches\DiceDamageTypePatch$updateEnvenomPowerPatch.class
 SS\cards\C6H14\Guidance.class
 SS\cards\Pansy.class
@@ -192,6 +193,7 @@ SS\cards\C6H14\Eraser.class
 SS\cards\AbstractDoubleCard.class
 SS\patches\CompendiumPatches$DisableClickForOtherTabs.class
 SS\helper\ModHelper$1.class
+SS\cardmodifiers\EchoTagModifier.class
 SS\power\HolyShieldPower.class
 SS\action\common\UpdateFiendCardDescriptionsAction.class
 SS\patches\DiceDamageTypePatch$updateMalleablePowerPatch.class
@@ -221,6 +223,7 @@ SS\cards\Saprophytism.class
 SS\cards\Options\RED_option.class
 SS\cards\Lost\AbstractLostCard.class
 SS\cards\Lost\PopIn.class
+SS\power\NutrientCyclePower.class
 SS\cards\Humility.class
 SS\cards\Haohao\Bin.class
 SS\power\CharityPower.class
@@ -325,6 +328,7 @@ SS\cards\TaotieRite.class
 SS\cards\Shock\Nightfall.class
 SS\cards\Shock\Shitpost.class
 SS\power\DelayDamagePower.class
+SS\patches\AllyPowerRenderPatch.class
 SS\helper\AllyTriggerHelper.class
 SS\characters\MyCharacter$PlayerColorEnum.class
 SS\patches\FallenPowerPatches.class
@@ -388,6 +392,7 @@ SS\action\common\ConjugateCardinDrawPileAction.class
 SS\packages\LostPackage\LostPackage_c.class
 SS\cards\Lost\FallenPact.class
 SS\cards\C6H14\Orbit.class
+SS\cards\SpiritualCompanionship.class
 SS\action\common\ChangeStanceAction.class
 SS\patches\AllyHookPatch$ClearPatch.class
 SS\power\HaoTapPower.class
@@ -397,6 +402,7 @@ SS\cards\HedonismShackles.class
 SS\Dice\IronwaveDice.class
 SS\cards\Diversity.class
 SS\path\ThmodClassEnum.class
+SS\relic\SS\Egg.class
 SS\patches\AddHaoRewardPatch.class
 SS\patches\AllyHookPatch.class
 SS\power\ContemptPower.class

@@ -18,7 +18,7 @@ public class UncommonCardOption extends CustomCard {
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
 
     public UncommonCardOption() {
-        super(ID, NAME, "img/cards/NoImage_skill.png", -2, DESCRIPTION, CardType.SKILL,
+        super(ID, NAME, "img/cards/Shock/Uncommon.png", -2, DESCRIPTION, CardType.SKILL,
                 CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
     }
 

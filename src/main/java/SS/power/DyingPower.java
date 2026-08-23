@@ -80,8 +80,8 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
     public boolean onPlayerDeath(AbstractPlayer p, DamageInfo info) {
         if (p.hasPower("Double:ResurrectionPower"))
             return true;
-        if (reduce(1)) {
-            AbstractDungeon.player.decreaseMaxHealth(10);
+        if (reduce(this.amount - 1)) {
+            this.owner.decreaseMaxHealth(10);
             addToBot(new HealAction(this.owner, this.owner, this.owner.maxHealth));
             return false;
         }
@@ -92,7 +92,7 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
         addToBot(new DieAction());
     }
 
-    public void atStartOfTurn() {
+    public void atEndOfTurn(boolean isPlayer) {
         reduce(1);
     }
 

@@ -17,7 +17,7 @@ public class BlankCard extends AbstractLostCard {
     public static final String ID = ModHelper.makePath("BlankCard");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/NoImage_power.png";
+    private static final String IMG_PATH = "img/cards/Lost/BlankCard.png";
     private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;

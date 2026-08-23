@@ -48,17 +48,13 @@ public class IronwaveDice extends AbstractDice {
     public void myEvoke() {
         int temp = result, damage = this.evokeAmount;
         AbstractPlayer p = AbstractDungeon.player;
-        if (temp == 1) {
+        if (temp <= 3) {
             damage--;
         }
-        if (temp == 10) {
+        if (temp >= 8) {
             ++damage;
         }
-        if (temp == 6) {
-            AbstractDungeon.actionManager
-                    .addToBottom(new VFXAction(
-                            (AbstractGameEffect) new IronWaveEffect(p.hb.cX, p.hb.cY, this.target.hb.cX), 0.5F));
-        }
+        damage = Math.max(0, damage);
         AbstractDungeon.actionManager
                 .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false));
         AbstractDungeon.actionManager.addToBottom(new GainBlockAction((AbstractPlayer) p, damage));

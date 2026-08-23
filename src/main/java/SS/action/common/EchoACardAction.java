@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 
+import SS.cardmodifiers.EchoTagModifier;
 import SS.path.AbstractCardEnum;
 
 public class EchoACardAction extends AbstractGameAction {
@@ -29,13 +30,15 @@ public class EchoACardAction extends AbstractGameAction {
     }
 
     public void update() {
-        if (this.cardToEcho.hasTag(AbstractCardEnum.Echo)) {
+        if (this.cardToEcho.hasTag(AbstractCardEnum.Echo)
+                || CardModifierManager.hasModifier(this.cardToEcho, (new EchoTagModifier()).ID)) {
             this.isDone = true;
             return;
         }
         AbstractCard card = this.cardToEcho.makeStatEquivalentCopy();
         CardModifierManager.addModifier(card, new EtherealMod());
         CardModifierManager.addModifier(card, new ExhaustMod());
+        CardModifierManager.addModifier(card, new EchoTagModifier());
         if (this.free) {
             card.freeToPlayOnce = true;
         }

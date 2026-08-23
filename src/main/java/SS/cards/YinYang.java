@@ -11,13 +11,12 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.common.SpawnAllyAction;
 import SS.action.monster.EvokeSoulAction;
-import SS.action.unique.ss.YinYangAction;
 import SS.helper.ModHelper;
-import SS.monster.ally.SoulAlly;
 import SS.path.AbstractCardEnum;
+import basemod.AutoAdd;
 
+@AutoAdd.Ignore
 public class YinYang extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("YinYang");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

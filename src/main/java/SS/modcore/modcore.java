@@ -44,6 +44,7 @@ import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
+import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
@@ -77,7 +78,6 @@ import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
 import SS.path.RewardEnum;
 import SS.path.ThmodClassEnum;
-import SS.relic.Merit;
 import SS.relic.SS.LCysteine;
 import SS.rewards.HaoReward;
 import SS.rewards.RewardManager;
@@ -109,6 +109,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public static int Hao_chance = 0;
     public static int combatExhausts = 0;
     public static int orbitMisc = 0;
+    public static int orbitMiscAtCombatStart = 0;   // 本场战斗开始时的 orbitMisc 快照（不存档，战斗中 SL 时用于回滚）
     public static Sinsbar sinBar;
 
     private void addCardColor(CardColor c, String s) {
@@ -131,7 +132,14 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     @Override
     public Integer onSave() {
-        // 保存时，把当前的加成存入存档文件
+        // 战斗进行中（phase==COMBAT 且未结束）被存档时——例如 QuickRestart 在战斗中 SL——
+        // 必须存"本场战斗开始时"的快照值，保证读档重开战斗后 orbitMisc 回到进入房间时的状态，
+        // 无法靠"战斗中打 Orbit + SL"刷高本局计数；
+        // 房间边界（ENTER_ROOM，此刻 currRoom 还是上一房间）与战斗胜利后（POST_COMBAT，phase 已 COMPLETE）存当前值。
+        AbstractRoom room = AbstractDungeon.getCurrRoom();
+        if (room != null && room.phase == AbstractRoom.RoomPhase.COMBAT && !room.isBattleOver) {
+            return orbitMiscAtCombatStart;
+        }
         return orbitMisc;
     }
 
@@ -170,6 +178,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         BaseMod.loadCustomStringsFile(RelicStrings.class, "localization/" + lang + "/relic.json");
         BaseMod.loadCustomStringsFile(UIStrings.class, "localization/" + lang + "/ui.json");
         BaseMod.loadCustomStringsFile(MonsterStrings.class, "localization/" + lang + "/monsters.json");
+        BaseMod.loadCustomStringsFile(TutorialStrings.class, "localization/" + lang + "/tutorial.json");
     }
 
     @Override
@@ -205,7 +214,6 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                         UnlockTracker.markRelicAsSeen(relic.relicId);
                     }
                 });
-        BaseMod.addRelic(new Merit(), basemod.helpers.RelicType.SHARED);
     }
 
     @Override
@@ -379,6 +387,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         }
         Hao_chance = 0;
         combatExhausts = 0;
+        orbitMiscAtCombatStart = orbitMisc;   // 快照：本场战斗开始（= 进房时）的 orbitMisc
     }
 
     @Override

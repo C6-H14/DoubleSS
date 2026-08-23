@@ -16,7 +16,7 @@ public class FeelNoShame extends AbstractShockCard {
     public static final String ID = ModHelper.makePath("FeelNoShame");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/NoImage_power.png";
+    private static final String IMG_PATH = "img/cards/Shock/FeelNoShame.png";
     private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;
@@ -26,7 +26,7 @@ public class FeelNoShame extends AbstractShockCard {
     public FeelNoShame() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.magicNumber = this.baseMagicNumber = 3;
+        this.magicNumber = this.baseMagicNumber = 2;
         if (needManager()) {
             updateManager();
         }

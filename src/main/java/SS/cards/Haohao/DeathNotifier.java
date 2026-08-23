@@ -43,14 +43,13 @@ public class DeathNotifier extends AbstractHaoCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeMagicNumber(2);
-            this.cardsToPreview.upgrade();
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
+        if (needManager() && !AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
             this.flash();
             for (final AbstractMonster monster : AbstractDungeon.getMonsters().monsters) {
                 if (!monster.isDead && !monster.isDying) {
@@ -59,13 +58,7 @@ public class DeathNotifier extends AbstractHaoCard {
                 }
             }
         }
-        addToBot(new ApplyPowerAction(p, p, new NightmarePower(p, 4, this.cardsToPreview)));
-        if (needManager()) {
-            if (this.upgraded)
-                addToBot(new ApplyPowerAction(p, p, new EnergizedPower(p, 1), 1));
-            else
-                addToBot(new ApplyPowerAction(p, p, new EnergizedPower(p, 2), 2));
-        }
+        addToBot(new ApplyPowerAction(p, p, new NightmarePower(p, upgraded ? 4 : 3, this.cardsToPreview)));
     }
 
     public AbstractDoubleCard makeCopy() {

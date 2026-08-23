@@ -42,22 +42,10 @@ public class Miserly extends AbstractDoubleCard {
         if (!this.upgraded) {
             this.upgraded = true;
             upgradeName();
-            upgradeMagicNumber(3);
+            upgradeBaseCost(0);
             UpdateDescription();
             initializeDescription();
         }
-    }
-
-    public void updateFiend() {
-        upgradeMagicNumber(2);
-        UpdateDescription();
-        initializeDescription();
-    }
-
-    public void exitFiend() {
-        upgradeMagicNumber(-2);
-        UpdateDescription();
-        initializeDescription();
     }
 
     public void triggerOnGlowCheck() {
@@ -65,7 +53,8 @@ public class Miserly extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ApplyPowerAction(p, p, new MiserlyPower((AbstractCreature) p, this.magicNumber)));
+        addToBot(new ApplyPowerAction(p, p,
+                new MiserlyPower((AbstractCreature) p, this.magicNumber, needFiend() ? 1 : 0)));
     }
 
     public AbstractDoubleCard makeCopy() {

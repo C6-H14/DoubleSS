@@ -28,7 +28,6 @@ public class InscribeCardPower extends AbstractPower {
         this.type = AbstractPower.PowerType.BUFF;
         this.card = card;
         this.amount = -1;
-        this.canGoNegative = false;
 
         String path128 = "img/power/InscribeCardPower84.png";
         String path48 = "img/power/InscribeCardPower32.png";
