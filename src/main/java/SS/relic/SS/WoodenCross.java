@@ -12,6 +12,8 @@ import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
+import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 
 import SS.action.common.MessageCaller;
 import SS.helper.ModHelper;
@@ -49,15 +51,16 @@ public class WoodenCross extends CustomRelic implements CustomSavable<int[]>, Cl
 
     @Override
     public void onVictory() {
-        // 战斗胜利时计数 +1
-        this.counter++;
-        if (this.counter >= 6) {
-            this.counter = 0;
-            this.amount++;
-            this.flash();
+        if (AbstractDungeon.getCurrRoom() instanceof MonsterRoom
+                && !(AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite
+                        || AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss)) {
+            this.counter++;
+            if (this.counter >= 6) {
+                this.counter = 0;
+                this.amount++;
+                this.flash();
+            }
         }
-        // 及时刷新遗物描述（悬停提示框中的文本）
-        updateDescription();
     }
 
     @Override
@@ -92,7 +95,6 @@ public class WoodenCross extends CustomRelic implements CustomSavable<int[]>, Cl
 
     @Override
     public void onRightClick() {
-        // 1. 安全检查：必须在战斗房间内右键才触发
         if (AbstractDungeon.getCurrRoom() instanceof MonsterRoom) {
 
             this.addToBot(new MessageCaller("Lost"));

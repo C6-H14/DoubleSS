@@ -26,7 +26,7 @@ public class Spore extends AbstractDoubleCard {
 
     public Spore() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.block = this.baseBlock = 7;
+        this.block = this.baseBlock = 5;
     }
 
     public void upgrade() {

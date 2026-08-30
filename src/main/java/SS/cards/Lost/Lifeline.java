@@ -46,6 +46,8 @@ public class Lifeline extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Lifeline();
+        Lifeline c = new Lifeline();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

@@ -34,7 +34,7 @@ public class FeelNoShamePower extends AbstractPower {
     }
 
     public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-        if (power.type == AbstractPower.PowerType.DEBUFF && !power.ID.equals("Shackled") && source == this.owner
+        if (power.type == AbstractPower.PowerType.DEBUFF && !power.ID.equals("Shackled") && source != target
                 && target != this.owner && !target.hasPower("Artifact")) {
             addToBot(new GainBlockAction(owner, amount));
         }

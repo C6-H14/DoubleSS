@@ -1,7 +1,6 @@
 package SS.Dice;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -10,9 +9,6 @@ import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import com.megacrit.cardcrawl.vfx.combat.IronWaveEffect;
-
 import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -26,6 +22,7 @@ public class IronwaveDice extends AbstractDice {
     private static final float ORB_BORDER_SCALE = 1.2F;
 
     public IronwaveDice(int damage, AbstractMonster m) {
+        super(10);
         this.ID = ORB_ID;
         this.img = ImageMaster.loadImage("img/dice/IronwaveDice.png");
         this.name = orbString.NAME;
@@ -35,7 +32,6 @@ public class IronwaveDice extends AbstractDice {
         this.angle = MathUtils.random(360.0F);
         this.myColor = CardHelper.getColor(249, 0, 0);
         this.target = m;
-        this.faces = 10;
         this.tags.add(AbstractCardEnum.AggresiveDice);
         updateDescription();
     }

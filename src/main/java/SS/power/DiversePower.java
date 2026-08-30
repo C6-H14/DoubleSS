@@ -43,10 +43,11 @@ public class DiversePower extends AbstractPower {
     }
 
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        if (!card.purgeOnUse && !(card instanceof AbstractHaoCard)
-                && !(card.color == AbstractCardEnum.SS_Yellow && card instanceof AbstractDoubleCard
-                        && (((AbstractDoubleCard) card).packagetype != PackageEnum.SS))
-                && this.amount > 0) {
+        if (!card.purgeOnUse && (card.color != AbstractCardEnum.SS_Yellow
+                || card.color == AbstractCardEnum.SS_Yellow && card instanceof AbstractDoubleCard
+                        && (((AbstractDoubleCard) card).packagetype != PackageEnum.Default
+                                && (((AbstractDoubleCard) card).packagetype != PackageEnum.Hao))
+                        && this.amount > 0)) {
             this.flash();
             addToBot(new GainEnergyAction(1));
             --this.amount;

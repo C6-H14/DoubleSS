@@ -26,8 +26,8 @@ public class ScrapeBy extends AbstractHaoCard {
     public ScrapeBy() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.magicNumber = this.baseMagicNumber = 15;
-        this.block = this.baseBlock = 3;
+        this.magicNumber = this.baseMagicNumber = 20;
+        this.block = this.baseBlock = 2;
         if (needManager()) {
             updateManager();
         }
@@ -44,13 +44,13 @@ public class ScrapeBy extends AbstractHaoCard {
     }
 
     public void updateManager() {
-        upgradeMagicNumber(-3);
+        upgradeMagicNumber(-4);
         UpdateDescription();
         initializeDescription();
     }
 
     public void exitManager() {
-        upgradeMagicNumber(3);
+        upgradeMagicNumber(4);
         UpdateDescription();
         initializeDescription();
     }

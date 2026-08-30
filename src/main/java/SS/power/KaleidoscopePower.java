@@ -3,6 +3,7 @@ package SS.power;
 import SS.action.unique.c6h14.KaleidoscopeAction;
 import SS.helper.ModHelper;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
@@ -31,7 +32,7 @@ public class KaleidoscopePower extends AbstractPower {
     }
 
     public void atStartOfTurnPostDraw() {
-        addToBot(new KaleidoscopeAction(amount));
+        addToBot(new ApplyPowerAction(owner, owner, new PaintingPower(owner, amount)));
     }
 
     public void updateDescription() {

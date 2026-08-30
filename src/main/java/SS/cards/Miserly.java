@@ -16,7 +16,7 @@ public class Miserly extends AbstractDoubleCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/Miserly.png";
-    private static final int COST = 1;
+    private static final int COST = 0;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
@@ -42,7 +42,7 @@ public class Miserly extends AbstractDoubleCard {
         if (!this.upgraded) {
             this.upgraded = true;
             upgradeName();
-            upgradeBaseCost(0);
+            upgradeMagicNumber(3);
             UpdateDescription();
             initializeDescription();
         }

@@ -11,16 +11,14 @@ public class PurplePackage_e extends AbstractPackage {
     public static String ID = ModHelper.makePath("PurplePackage_e");
 
     public PurplePackage_e() {
-        super(ID, TYPE, PackageEnum.PURPLE, "Double:PURPLE_option", "Double:BathWater");
+        super(ID, TYPE, PackageEnum.PURPLE, "Double:PURPLE_option", "Double:BathWater", "HolyWater");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Tantrum");
-        cards.add("FearNoEvil");
-        cards.add("EmptyMind");
-        cards.add("MasterReality");
-        cards.add("Vault");
+        for (String c : PurplePackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("PathToVictory");
         cards.add("Prostrate");
@@ -41,6 +39,10 @@ public class PurplePackage_e extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Vigilance";
     }
 
     public AbstractPackage makeCopy() {

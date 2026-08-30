@@ -11,16 +11,14 @@ public class RedPackage_v extends AbstractPackage {
     public static String ID = ModHelper.makePath("RedPackage_v");
 
     public RedPackage_v() {
-        super(ID, TYPE, PackageEnum.RED, "Double:RED_option", "Double:BoilingBlood");
+        super(ID, TYPE, PackageEnum.RED, "Double:RED_option", "Double:BoilingBlood", "Black Blood");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Pommel Strike");
-        cards.add("Iron Wave");
-        cards.add("Dark Embrace");
-        cards.add("Inflame");
-        cards.add("True Grit");
+        for (String c : RedPackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Feel No Pain");
         cards.add("Impervious");
@@ -41,6 +39,10 @@ public class RedPackage_v extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Bash";
     }
 
     public AbstractPackage makeCopy() {

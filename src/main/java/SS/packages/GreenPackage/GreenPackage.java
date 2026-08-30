@@ -10,8 +10,17 @@ public class GreenPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("GreenPackage");
 
+    // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
+    public static final String[] COMMON_CARDS = {
+        "Acrobatics",
+        "Reflex",
+        "PiercingWail",
+        "Eviscerate",
+        "Prepared",
+    };
+
     public GreenPackage() {
-        super(ID, TYPE, PackageEnum.GREEN, "Double:GREEN_option", "Double:HalfRingOfTheSnake");
+        super(ID, TYPE, PackageEnum.GREEN, "Double:GREEN_option", "Double:HalfRingOfTheSnake", "Ring of the Serpent");
     }
 
     public ArrayList<String> getCards() {
@@ -36,6 +45,10 @@ public class GreenPackage extends AbstractPackage {
             monsters.addAll(pack.getMonsters());
         }
         return monsters;
+    }
+
+    public String getStarterCard() {
+        return "Neutralize";
     }
 
     protected void initializeSubPackage() {

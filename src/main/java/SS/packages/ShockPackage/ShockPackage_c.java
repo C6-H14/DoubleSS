@@ -7,20 +7,18 @@ import SS.packages.AbstractPackage;
 import SS.path.PackageEnumList.PackageEnum;
 
 public class ShockPackage_c extends AbstractPackage {
-    public static PackageType TYPE = PackageType.CEILING;
+    public static PackageType TYPE = PackageType.CONSISTENCY;
     public static String ID = ModHelper.makePath("ShockPackage_c");
 
     public ShockPackage_c() {
-        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring");
+        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring", "Double:Pendulum");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Double:UnstableShockwave");
-        cards.add("Double:Blitzkrieg");
-        cards.add("Double:Resonance");
-        cards.add("Double:OffenseAsDefense");
-        cards.add("Double:TA");
+        for (String c : ShockPackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Double:Nightfall");
         cards.add("Double:GreatWave");
@@ -41,6 +39,10 @@ public class ShockPackage_c extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Double:YieldPoint";
     }
 
     public AbstractPackage makeCopy() {

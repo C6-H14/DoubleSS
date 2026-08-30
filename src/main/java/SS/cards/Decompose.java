@@ -26,14 +26,16 @@ public class Decompose extends AbstractDoubleCard {
 
     public Decompose() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.damage = this.baseDamage = 6;
+        setDamage(4);
+        this.isEthereal = true;
+        setMagic(2);
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            this.isInnate = true;
-            upgradeDamage(3);
+            upgradeDamage(2);
+            upgradeMagicNumber(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
@@ -41,7 +43,7 @@ public class Decompose extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new DamageAction(m, new DamageInfo(p, this.damage, DamageInfo.DamageType.NORMAL)));
-        addToBot(new DecomposeAction(m, p, this.upgraded ? 2 : 3));
+        addToBot(new DecomposeAction(m, p, magicNumber));
     }
 
     public AbstractDoubleCard makeCopy() {

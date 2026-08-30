@@ -34,7 +34,7 @@ public class DaggerInSmile extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Envy);
         this.damage = this.baseDamage = 2;
-        this.magicNumber = this.baseMagicNumber = 3;
+        this.magicNumber = this.baseMagicNumber = 1;
         if (needFiend()) {
             updateFiend();
         }
@@ -45,7 +45,6 @@ public class DaggerInSmile extends AbstractDoubleCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeDamage(2);
-            upgradeMagicNumber(2);
             UpdateDescription();
             initializeDescription();
         }
@@ -54,7 +53,7 @@ public class DaggerInSmile extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
         addToBot(new ChannelDiceAction(new WitherDice(this.magicNumber, m)));
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.upgraded ? 3 : 4)));
     }
 
     public void triggerOnGlowCheck() {

@@ -31,42 +31,50 @@ public abstract class AbstractAlly extends AbstractCardMonster {
     public AbstractMonster lockedTarget = null; // 当前锁定的攻击目标
     protected boolean isAOE = false;
 
+    // 站位槽位（0..4，见 AllyPositionHelper.SLOT_COUNT）；所有重定位只走 relocateToSlot。
+    public int slotIndex = 0;
+
+    // 手牌"头部上方"保底的头部余量（1920 基准设计像素）：
+    // 手牌基线不得低于 立绘头顶 + 该余量，防止友军立绘增高时手牌压到头部/侵入玩家选牌区
+    private static final float HAND_ABOVE_HEAD_MARGIN = 40.0F;
+
     // =====================================================================
     // 构造与初始化
-    // 三个构造函数都最终走父类 (AbstractCardMonster)。healthBarOffsetY 用来抬高
-    // 碰撞箱 hb（进而抬高血条/名字/提示框锚点）；立绘 drawX/drawY 则由 commonInit 定死。
+    // 构造函数统一走父类 (AbstractCardMonster)。站位只由 slotIndex 决定
+    // （AllyPositionHelper：player.drawX / floorY 锚定 + 偏移×scale），
+    // 构造末尾 relocateToSlot 立即覆盖父类按 offsetX/offsetY 算出的初始坐标
+    // （传 0F/0F，父类初始位为 0.75W/floorY，不会被渲染到）。
+    // 悬浮高度由 hb_y / hb_h 决定：父类每帧 refreshHitboxLocation 会据此重算 hb，
+    // 构造期手动抬 hb 的写法会被逐帧覆盖（死代码），故不写。
     // =====================================================================
 
     // 构造函数 1：固定碰撞箱 150×150、能量 3
     public AbstractAlly(
             String name, String id, int maxHealth, String imgUrl, TauntType type,
-            float offsetX, float offsetY, float hb_x, float hb_y,
-            float healthBarOffsetY) {
-        super(name, id, maxHealth, hb_x, hb_y, 150F, 150F, imgUrl, offsetX, offsetY, 3, healthBarOffsetY);
+            int slotIndex, float hb_x, float hb_y) {
+        super(name, id, maxHealth, hb_x, hb_y, 150F, 150F, imgUrl, 0F, 0F, 3, -20F);
         this.tauntType = type;
-        commonInit(offsetX, offsetY);
+        commonInit(slotIndex);
     }
 
     // 构造函数 2：固定碰撞箱 150×150，自定义能量
     public AbstractAlly(
             String name, String id, int maxHealth, String imgUrl, TauntType type,
-            float offsetX, float offsetY, float hb_x, float hb_y,
-            int energy,
-            float healthBarOffsetY) {
-        super(name, id, maxHealth, hb_x, hb_y, 150F, 150F, imgUrl, offsetX, offsetY, energy, healthBarOffsetY);
+            int slotIndex, float hb_x, float hb_y,
+            int energy) {
+        super(name, id, maxHealth, hb_x, hb_y, 150F, 150F, imgUrl, 0F, 0F, energy, -20F);
         this.tauntType = type;
-        commonInit(offsetX, offsetY);
+        commonInit(slotIndex);
     }
 
     // 构造函数 3：完全自定义碰撞箱尺寸与能量（SoulAlly 使用这个）
     public AbstractAlly(
             String name, String id, int maxHealth, String imgUrl, TauntType type,
-            float offsetX, float offsetY, float hb_x, float hb_y, float hb_w, float hb_h,
-            int energy,
-            float healthBarOffsetY) {
-        super(name, id, maxHealth, hb_x, hb_y, hb_w, hb_h, imgUrl, offsetX, offsetY, energy, healthBarOffsetY);
+            int slotIndex, float hb_x, float hb_y, float hb_w, float hb_h,
+            int energy) {
+        super(name, id, maxHealth, hb_x, hb_y, hb_w, hb_h, imgUrl, 0F, 0F, energy, -20F);
         this.tauntType = type;
-        commonInit(offsetX, offsetY);
+        commonInit(slotIndex);
     }
 
     public void init() {
@@ -76,28 +84,28 @@ public abstract class AbstractAlly extends AbstractCardMonster {
         this.refreshIntentCalculation();
     }
 
-    private void commonInit(float x, float y) {
-        // 1. 立绘（图片）渲染位置：以"脚底板"为基准，保持站在地面上
-        this.drawX = AbstractDungeon.player.drawX + x;
-        this.drawY = AbstractDungeon.player.drawY + y;
-
-        // 2. 【灵肉分离】不用 hbYOffset 抬高度（特效不认它），直接把 Hitbox 本身往上抬。
-        //    抬高量 = healthBarOffsetY（构造参数）× scale。
-        float verticalShift = this.healthBarOffsetY * Settings.scale;
-
-        // 3. 刷新组件位置，再把 hb 抬到目标高度
-        this.refreshHitboxLocation();
-        // X: 保持在 drawX
-        // Y: 地面(drawY) + 半高(hb.height/2) + 上移量(verticalShift)
-        this.hb.move(this.drawX, this.drawY + this.hb.height / 2.0F + verticalShift);
-
-        // 4. 意图碰撞箱甩到无穷远处（配合 AbstractCardMonster 里 render 的 no-op 覆写，
-        //    双保险屏蔽原版意图渲染）
-        this.intentHb.move(-9999.0F, -9999.0F);
-
+    private void commonInit(int slotIndex) {
+        this.relocateToSlot(slotIndex);
         this.showHealthBar();
         this.healthBarUpdatedEvent();
         this.refreshIntentCalculation();
+    }
+
+    /**
+     * 把本友军移动到指定槽位。所有重定位（召唤、阵法变换、回归）只走这里。
+     * X/Y 锚点与偏移换算全部见 {@link AllyPositionHelper}；
+     * drawX/drawY 落下后 refreshHitboxLocation 随之重算 hb
+     * （基类每帧也会再算一遍，所以这里只需设 drawX/drawY 并同步一次，保证当帧 hb 已就位）。
+     */
+    public void relocateToSlot(int slotIndex) {
+        this.slotIndex = AllyPositionHelper.clampSlot(slotIndex);
+        this.drawX = AllyPositionHelper.slotDrawX(this.slotIndex);
+        this.drawY = AllyPositionHelper.slotDrawY(this.slotIndex);
+        this.refreshHitboxLocation();
+        // 持久屏蔽原版意图碰撞箱：每帧 refreshIntentHbLocation 都会按 intentOffsetX 重算，
+        // 所以必须把偏移量本身甩到无穷远（旧写法构造期 hb.move(-9999) 只活一帧，已被重置）。
+        this.intentOffsetX = -99999.0F;
+        this.refreshIntentHbLocation();
     }
 
     public void lockTarget(AbstractMonster m) {
@@ -111,6 +119,18 @@ public abstract class AbstractAlly extends AbstractCardMonster {
     @Override
     public void update() {
         super.update();
+
+        // 【手牌头部上方保底】基类 refreshHandPositions 在 super.update() 里已按 hb 算好 target_y，
+        // 这里只做"抬不压"钳制：手牌基线不得低于 立绘头顶 + 余量。
+        // 已经更高的手牌（含悬停抬升）不受影响；SoulAlly 现有参数下钳制不触发，纯为立绘增高兜底。
+        if (this.hand.size() > 0 && this.img != null) {
+            float headTop = this.drawY + this.img.getHeight() * this.modelScale * Settings.scale;
+            float minHandY = headTop + HAND_ABOVE_HEAD_MARGIN * Settings.scale;
+            for (AbstractCard c : this.hand.group) {
+                if (c.target_y < minHandY)
+                    c.target_y = minHandY;
+            }
+        }
     }
 
     // =====================================================================

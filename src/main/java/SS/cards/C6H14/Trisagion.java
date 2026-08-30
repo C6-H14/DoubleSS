@@ -28,7 +28,7 @@ public class Trisagion extends AbstractC6H14Card {
     public Trisagion() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        setDamage(8);
+        setDamage(4);
         setMagic(10);
         if (needManager()) {
             updateManager();
@@ -45,16 +45,9 @@ public class Trisagion extends AbstractC6H14Card {
         }
     }
 
-    public boolean canUse(AbstractPlayer p, AbstractMonster m) {
-        if (!super.canUse(p, m)) {
-            return false;
-        }
-        if (getVirtue() < this.magicNumber)
-            return false;
-        return true;
-    }
-
     public void use(AbstractPlayer p, AbstractMonster m) {
+        if (getVirtue() < this.magicNumber)
+            return;
         for (int i = 0; i < 3; i++) {
             addToBot(new ChannelDiceAction(new ImmolateDice(8, m)));
         }

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardTags;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.screens.CardRewardScreen;
@@ -37,7 +38,8 @@ public class BrainStormingAction extends AbstractGameAction {
             // 补充 2 张随机牌
             while (generatedCards.size() < 3) {
                 AbstractCard randomCard = AbstractDungeon.returnTrulyRandomCardInCombat().makeCopy();
-
+                if (randomCard.hasTag(CardTags.HEALING))
+                    continue;
                 // 去重检测：防止出现两张一模一样的随机牌
                 boolean isDuplicate = false;
                 for (AbstractCard c : generatedCards) {

@@ -1,68 +1,58 @@
 package SS.Dice;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
+import com.megacrit.cardcrawl.orbs.AbstractOrb;
+import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 
 import SS.helper.ModHelper;
 
-public class EmptyDiceSlot extends AbstractDice {
+/**
+ * 骰子空充能槽。
+ *
+ * 继承原版的 {@link EmptyOrbSlot}（而不是 AbstractDice）：原版约 15 处"instanceof
+ * EmptyOrbSlot"判空槽的检查（AbstractPlayer.evokeOrb / hasEmptyOrb / filledOrbCount /
+ * channelOrb、Cables 遗物、ChannelAction、Flux/Blaster/Impulse/Redo 等）就能自然把
+ * 它认作空槽 —— 骰子给 Defect 等其他角色时，不会再把空骰槽误当成真球。
+ *
+ * 保留 mod 自己的 ID（"Double:Empty"，名称/描述走 orb.json）；贴图、onEvoke 空实现
+ * 全部直接继承原版（与旧版渲染一致）。
+ */
+public class EmptyDiceSlot extends EmptyOrbSlot {
     public static final String ORB_ID = ModHelper.makePath("Empty");
     private static final OrbStrings orbString = CardCrawlGame.languagePack.getOrbString(ORB_ID);
     public static final String[] DESC = orbString.DESCRIPTION;
 
     public EmptyDiceSlot(float x, float y) {
-        this.angle = MathUtils.random(360.0F);
-        this.ID = "SS:Empty";
+        super(x, y);
+        this.ID = ORB_ID;
         this.name = orbString.NAME;
-        this.evokeAmount = 0;
-        this.cX = x;
-        this.cY = y;
-        updateDescription();
-        this.channelAnimTimer = 0.5F;
+        this.updateDescription();
     }
 
     public EmptyDiceSlot() {
-        this.angle = MathUtils.random(360.0F);
+        super();
+        this.ID = ORB_ID;
         this.name = orbString.NAME;
-        this.evokeAmount = 0;
-        this.cX = AbstractDungeon.player.drawX + AbstractDungeon.player.hb_x;
-        this.cY = AbstractDungeon.player.drawY + AbstractDungeon.player.hb_y + AbstractDungeon.player.hb_h / 2.0F;
-        updateDescription();
+        this.updateDescription();
     }
 
+    @Override
     public void updateDescription() {
         this.description = DESC[0];
     }
 
-    public void myEvoke() {
-    }
-
+    @Override
     public void updateAnimation() {
         super.updateAnimation();
-        this.angle += Gdx.graphics.getDeltaTime() * 10.0F;
+        // 旧版空槽经由 AbstractDice.updateAnimation 额外 angle += dt*2；现继承
+        // EmptyOrbSlot（仅 dt*10），补回 dt*2 让空槽旋转速度与旧版一致。
+        this.angle += Gdx.graphics.getDeltaTime() * 2.0F;
     }
 
-    public void render(SpriteBatch sb) {
-        sb.setColor(this.c);
-        sb.draw(ImageMaster.ORB_SLOT_2, this.cX - 48.0F - this.bobEffect.y / 8.0F,
-                this.cY - 48.0F + this.bobEffect.y / 8.0F, 48.0F, 48.0F, 96.0F, 96.0F, this.scale, this.scale, 0.0F, 0,
-                0, 96, 96, false, false);
-        sb.draw(ImageMaster.ORB_SLOT_1, this.cX - 48.0F + this.bobEffect.y / 8.0F,
-                this.cY - 48.0F - this.bobEffect.y / 8.0F, 48.0F, 48.0F, 96.0F, 96.0F, this.scale, this.scale,
-                this.angle, 0, 0, 96, 96, false, false);
-        renderText(sb);
-        this.hb.render(sb);
-    }
-
-    public AbstractDice makeCopy() {
+    @Override
+    public AbstractOrb makeCopy() {
         return new EmptyDiceSlot();
-    }
-
-    public void playChannelSFX() {
     }
 }

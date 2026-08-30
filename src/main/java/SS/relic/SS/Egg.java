@@ -37,8 +37,6 @@ public class Egg extends CustomRelic implements ClickableRelic {
         addToBot(new RelicAboveCreatureAction((AbstractCreature) AbstractDungeon.player, this));
         addToBot(new AddTemporaryHPAction((AbstractCreature) AbstractDungeon.player,
                 (AbstractCreature) AbstractDungeon.player, amount));
-        System.out.println(AbstractDungeon.player.hb_x + "----" + AbstractDungeon.player.hb_y);
-        System.out.println(AbstractDungeon.player.healthHb.cX + "----" + AbstractDungeon.player.healthHb.cY);
     }
 
     @Override

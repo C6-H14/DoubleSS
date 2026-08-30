@@ -49,9 +49,9 @@ public class EvokeSoulAction extends AbstractGameAction {
             }
         }
 
-        // 3. 如果没有，生成一个
+        // 3. 如果没有，生成一个（0 号槽：玩家右前方首发位）
         if (!hasSoulFire) {
-            addToBot(new SpawnAllyAction(new SoulAlly(300, 250)));
+            addToBot(new SpawnAllyAction(new SoulAlly(0)));
         }
 
         this.isDone = true;

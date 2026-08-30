@@ -40,6 +40,7 @@ public class ShootOff extends AbstractDoubleCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
         this.damage = this.baseDamage = 10;
+        this.magicNumber = this.baseMagicNumber = 10;
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Lust);
@@ -74,10 +75,7 @@ public class ShootOff extends AbstractDoubleCard {
         }
         addToBot(new DamageAllEnemiesAction(p, this.damage, this.damageTypeForTurn,
                 AbstractGameAction.AttackEffect.NONE));
-        for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-            addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
-        }
-        UpdateExhaustiveDescription();
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, magicNumber)));
     }
 
     public AbstractDoubleCard makeCopy() {

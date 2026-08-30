@@ -13,8 +13,10 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import SS.action.common.EchoACardAction;
 import SS.cards.AbstractDoubleCard;
+import SS.cards.Reroll;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.power.RerollPower;
 
 public class margropeR extends AbstractHaoCard {
     public static final String ID = ModHelper.makePath("margropeR");
@@ -31,7 +33,7 @@ public class margropeR extends AbstractHaoCard {
     public margropeR() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
         this.cardsToPreview = new Reprogram();
         if (needManager()) {
             updateManager();
@@ -50,7 +52,7 @@ public class margropeR extends AbstractHaoCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ApplyPowerAction(p, p, new FocusPower(p, -this.magicNumber), -this.magicNumber));
+        addToBot(new ApplyPowerAction(p, p, new RerollPower(p, -this.magicNumber), -this.magicNumber));
         addToBot(new ApplyPowerAction(p, p, new StrengthPower(p, this.magicNumber), this.magicNumber));
         addToBot(new ApplyPowerAction(p, p, new DexterityPower(p, this.magicNumber), this.magicNumber));
         if (needManager()) {

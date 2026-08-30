@@ -24,6 +24,7 @@ public abstract class AbstractPackage {
     public ArrayList<AbstractRelic> RelicLists = new ArrayList<AbstractRelic>();
     public ArrayList<AbstractMonster> MonsterLists = new ArrayList<AbstractMonster>();
     public AbstractRelic StartRelic;
+    public AbstractRelic BossRelic;
     public AbstractDoubleCard OptionCard;
     public PackageType TYPE;
     public String ID;
@@ -41,6 +42,23 @@ public abstract class AbstractPackage {
         modcore.cardParentMap.put(c.cardID, this.ID);
         modcore.cardClassParentMap.put(c.getClass(), this.ID);
         this.StartRelic = RelicLibrary.getRelic(startRelic).makeCopy();
+        this.BossRelic = null;
+        initializePack();
+    }
+
+    public AbstractPackage(String id, PackageType type, PackageEnum col, String optioncard, String startRelic,
+            String bossRelic) {
+        this.ID = id;
+        this.TYPE = type;
+        this.PackageColor = col;
+        AbstractCard c = CardLibrary.getCard(optioncard);
+        if (c instanceof AbstractDoubleCard) {
+            this.OptionCard = ((AbstractDoubleCard) c).makeCopy();
+        }
+        modcore.cardParentMap.put(c.cardID, this.ID);
+        modcore.cardClassParentMap.put(c.getClass(), this.ID);
+        this.StartRelic = RelicLibrary.getRelic(startRelic).makeCopy();
+        this.BossRelic = RelicLibrary.getRelic(bossRelic).makeCopy();
         initializePack();
     }
 
@@ -49,6 +67,8 @@ public abstract class AbstractPackage {
     public abstract ArrayList<String> getRelics();
 
     public abstract ArrayList<String> getMonsters();
+
+    public abstract String getStarterCard();
 
     public abstract AbstractPackage makeCopy();
 

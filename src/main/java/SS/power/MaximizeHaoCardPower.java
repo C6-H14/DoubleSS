@@ -41,7 +41,7 @@ public class MaximizeHaoCardPower extends AbstractPower {
     }
 
     public void updateDescription() {
-        this.description = DESCRIPTIONS[0] + last + DESCRIPTIONS[1] + this.cnt + DESCRIPTIONS[2];
+        this.description = DESCRIPTIONS[0] + last;
     }
 
     public void atStartOfTurn() {
@@ -49,7 +49,7 @@ public class MaximizeHaoCardPower extends AbstractPower {
     }
 
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        if (card.hasTag(AbstractCardEnum.Echo) || cards.contains(card.cardID)) {
+        if (cards.contains(card.cardID)) {
             last = null;
             cnt = 0;
             return;
@@ -68,7 +68,7 @@ public class MaximizeHaoCardPower extends AbstractPower {
         if (cnt == 2) {
             flash();
             for (int i = 0; i < amount; i++)
-                addToBot(new EchoACardAction(card, true));
+                addToBot(new EchoACardAction(card, true, true));
         }
         updateDescription();
     }

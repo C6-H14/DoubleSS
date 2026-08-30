@@ -16,7 +16,7 @@ public class UnderlyingLogic extends AbstractDoubleCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/UnderlyingLogic.png";
-    private static final int COST = 1;
+    private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
@@ -31,7 +31,7 @@ public class UnderlyingLogic extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
+            this.selfRetain = true;
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }

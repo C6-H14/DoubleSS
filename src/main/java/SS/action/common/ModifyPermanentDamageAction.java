@@ -24,9 +24,15 @@ public class ModifyPermanentDamageAction extends AbstractGameAction {
         while (var1.hasNext()) {
             AbstractCard c = (AbstractCard) var1.next();
             if (c instanceof AbstractLostCard) {
-                ((AbstractLostCard) c).basePermanentDamage += this.amount;
-                if (((AbstractLostCard) c).basePermanentDamage < 0) {
-                    ((AbstractLostCard) c).basePermanentDamage = 0;
+                if (this.amount != 0) {
+                    AbstractLostCard l = (AbstractLostCard) c;
+                    l.basePermanentDamage += this.amount;
+                    if (l.basePermanentDamage < 0) {
+                        l.basePermanentDamage = 0;
+                    }
+                    // 同步当前值并置位强化标志：数值变了就该按"已强化"渲染色（绿）
+                    l.permanentDamage = l.basePermanentDamage;
+                    l.upgradePermanentDamage = true;
                 }
             }
         }

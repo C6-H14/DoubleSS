@@ -1,0 +1,20 @@
+{
+  "Double:CustomPackToggle": {
+    "TEXT": [
+      "Custom Pack Selection",
+      "When checked, pick a subpack for each of the three pack slots below. Keep \"Default\" to keep the in-game pack selection."
+    ]
+  },
+  "Double:CustomPackOptionDefault": {
+    "TEXT": [
+      "Default (select in game)"
+    ]
+  },
+  "Double:OptionCardSuffix": {
+    "TEXT": [
+      "Value",
+      "Consistency",
+      "Ceiling"
+    ]
+  }
+}

@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.AttackDice;
+import SS.Dice.ImmolateDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -25,7 +26,7 @@ public class ShootingStar extends AbstractShockCard {
     public ShootingStar() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 6;
+        this.damage = this.baseDamage = 5;
         if (needManager()) {
             updateManager();
         }
@@ -42,7 +43,7 @@ public class ShootingStar extends AbstractShockCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
+        addToBot(new ChannelDiceAction(new ImmolateDice(this.damage, m)));
         if (needManager()) {
             for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
                 if (getShock(mo) >= 1) {

@@ -16,7 +16,7 @@ public class PhoneItIn extends AbstractDoubleCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/PhoneItIn.png";
-    private static final int COST = 3;
+    private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;

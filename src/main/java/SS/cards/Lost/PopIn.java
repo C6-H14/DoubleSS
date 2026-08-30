@@ -63,6 +63,8 @@ public class PopIn extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new PopIn();
+        PopIn c = new PopIn();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

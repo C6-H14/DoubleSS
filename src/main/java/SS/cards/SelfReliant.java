@@ -3,7 +3,6 @@ package SS.cards;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.action.unique.ss.SelfReliantAction;
@@ -15,7 +14,7 @@ public class SelfReliant extends AbstractDoubleCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/SelfReliant.png";
-    private static final int COST = 1;
+    private static final int COST = 0;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
@@ -28,30 +27,29 @@ public class SelfReliant extends AbstractDoubleCard {
                 CARD_STRINGS.EXTENDED_DESCRIPTION, false, false);
         this.exhaust = true;
         this.selfRetain = true;
-        this.block = this.baseBlock = 2;
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 2;
+        if (needFiend()) {
+            updateFiend();
+        }
         UpdateDescription();
     }
 
+    @Override
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBlock(1);
             upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
     }
 
+    @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-
+        addToBot(new SelfReliantAction(this.magicNumber));
     }
 
-    public void triggerOnExhaust() {
-        AbstractPlayer p = AbstractDungeon.player;
-        addToBot(new SelfReliantAction(p, this.block));
-    }
-
+    @Override
     public AbstractDoubleCard makeCopy() {
         return new SelfReliant();
     }

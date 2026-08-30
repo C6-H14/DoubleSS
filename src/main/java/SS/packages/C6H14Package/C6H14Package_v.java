@@ -11,16 +11,14 @@ public class C6H14Package_v extends AbstractPackage {
     public static String ID = ModHelper.makePath("C6H14Package_v");
 
     public C6H14Package_v() {
-        super(ID, TYPE, PackageEnum.C6H14, "Double:C6H14_Cyan_option", "Double:JarOfWisps");
+        super(ID, TYPE, PackageEnum.C6H14, "Double:C6H14_Cyan_option", "Double:JarOfWisps", "Double:BookOfVirtue");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Double:VirtualChoir");
-        cards.add("Double:PaperPenance");
-        cards.add("Double:Guidance");
-        cards.add("Double:Kaleidoscope");
-        cards.add("Double:BrainStorming");
+        for (String c : C6H14Package.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Double:Lily");
         cards.add("Double:Orbit");
@@ -41,6 +39,10 @@ public class C6H14Package_v extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Double:SpiritualCompanionship";
     }
 
     public AbstractPackage makeCopy() {

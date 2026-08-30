@@ -1,11 +1,14 @@
 package SS.power;
 
 import SS.helper.ModHelper;
+import SS.path.DamageInfoEnum;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -52,7 +55,9 @@ public class NextTurnDamagePower extends AbstractPower {
     public int onAttacked(final DamageInfo info, final int damageAmount) {
         if (damageAmount <= 0)
             return 0;
-        addToBot(new RemoveSpecificPowerAction(owner, owner, this));
+        if (info.owner != this.owner && info.type != DamageType.HP_LOSS
+                || info.owner == this.owner && info.type == DamageInfoEnum.DELAY)
+            addToBot(new RemoveSpecificPowerAction(owner, owner, this));
         return damageAmount;
     }
 

@@ -47,6 +47,8 @@ public class VoidStroll extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new VoidStroll();
+        VoidStroll c = new VoidStroll();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

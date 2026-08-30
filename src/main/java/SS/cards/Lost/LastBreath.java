@@ -56,6 +56,8 @@ public class LastBreath extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new LastBreath();
+        LastBreath c = new LastBreath();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

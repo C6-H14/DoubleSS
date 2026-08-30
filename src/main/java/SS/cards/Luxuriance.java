@@ -44,7 +44,6 @@ public class Luxuriance extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
         int amount = 0;
         hsmap.clear();
         for (AbstractOrb c : p.orbs) {
@@ -55,6 +54,7 @@ public class Luxuriance extends AbstractDoubleCard {
         }
         hsmap.clear();
         addToBot(new DrawCardAction(amount));
+        addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
     }
 
     public AbstractDoubleCard makeCopy() {

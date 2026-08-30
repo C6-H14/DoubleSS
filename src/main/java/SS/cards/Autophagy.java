@@ -23,7 +23,7 @@ public class Autophagy extends AbstractDoubleCard {
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public Autophagy() {

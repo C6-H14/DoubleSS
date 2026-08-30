@@ -11,16 +11,14 @@ public class HaoPackage_v extends AbstractPackage {
     public static String ID = ModHelper.makePath("HaoPackage_v");
 
     public HaoPackage_v() {
-        super(ID, TYPE, PackageEnum.Hao, "Double:Hao_Green_option", "Double:GreenApple");
+        super(ID, TYPE, PackageEnum.Hao, "Double:Hao_Green_option", "Double:GreenApple", "Double:GoldenApple");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Double:Dishaovery");
-        cards.add("Double:GreatDisciple");
-        cards.add("Double:HaoBludgeon");
-        cards.add("Double:HaoTap");
-        cards.add("Double:MaximizeHaoCard");
+        for (String c : HaoPackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Double:HaoStab");
         cards.add("Double:Haoggernaut");
@@ -41,6 +39,10 @@ public class HaoPackage_v extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Double:BossSwap";
     }
 
     public AbstractPackage makeCopy() {

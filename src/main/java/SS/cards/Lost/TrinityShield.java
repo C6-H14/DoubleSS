@@ -52,6 +52,8 @@ public class TrinityShield extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new TrinityShield();
+        TrinityShield c = new TrinityShield();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

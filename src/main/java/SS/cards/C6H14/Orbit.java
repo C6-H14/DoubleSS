@@ -21,13 +21,13 @@ public class Orbit extends AbstractC6H14Card {
     private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public Orbit() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        setBlock(2 + modcore.orbitMisc);
+        setBlock(1 + modcore.orbitMisc);
         setMagic(5);
         this.tags.add(CardTags.HEALING);
         this.exhaust = true;
@@ -48,7 +48,7 @@ public class Orbit extends AbstractC6H14Card {
 
     @Override
     public void applyPowers() {
-        this.baseBlock = 2 + modcore.orbitMisc;
+        this.baseBlock = 1 + modcore.orbitMisc;
         super.applyPowers();
         this.initializeDescription();
     }
@@ -61,8 +61,7 @@ public class Orbit extends AbstractC6H14Card {
         if (needManager()) {
             addToBot(new GainBlockAction(p, block));
         }
-        // 本局游戏中所有同名牌格挡值增加 2（升级后 4）
-        modcore.orbitMisc += this.upgraded ? 4 : 2;
+        modcore.orbitMisc += this.upgraded ? 2 : 1;
         this.applyPowers();
         for (AbstractCard c : p.hand.group) {
             if (c instanceof Orbit) {

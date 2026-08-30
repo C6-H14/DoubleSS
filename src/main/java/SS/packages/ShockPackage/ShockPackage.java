@@ -11,8 +11,17 @@ public class ShockPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("ShockPackage");
 
+    // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
+    public static final String[] COMMON_CARDS = {
+        "Double:UnstableShockwave",
+        "Double:Blitzkrieg",
+        "Double:Resonance",
+        "Double:OffenseAsDefense",
+        "Double:TA",
+    };
+
     public ShockPackage() {
-        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring");
+        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring", "Double:Pendulum");
         addSyng(PackageEnum.Hao, SynergismGraph.SynTag.Student);
     }
 
@@ -38,6 +47,10 @@ public class ShockPackage extends AbstractPackage {
             monsters.addAll(pack.getMonsters());
         }
         return monsters;
+    }
+
+    public String getStarterCard() {
+        return "Double:YieldPoint";
     }
 
     protected void initializeSubPackage() {

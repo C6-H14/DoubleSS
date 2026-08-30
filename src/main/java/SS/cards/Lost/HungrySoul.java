@@ -57,6 +57,8 @@ public class HungrySoul extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new HungrySoul();
+        HungrySoul c = new HungrySoul();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

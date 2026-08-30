@@ -15,13 +15,13 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import SS.cards.Charity;
-import SS.cards.Chastity;
-import SS.cards.Diligence;
-import SS.cards.Humility;
-import SS.cards.Kindness;
-import SS.cards.Patience;
-import SS.cards.Temperance;
+import SS.cards.ZZZDEPRECATED.Charity;
+import SS.cards.ZZZDEPRECATED.Chastity;
+import SS.cards.ZZZDEPRECATED.Diligence;
+import SS.cards.ZZZDEPRECATED.Humility;
+import SS.cards.ZZZDEPRECATED.Kindness;
+import SS.cards.ZZZDEPRECATED.Patience;
+import SS.cards.ZZZDEPRECATED.Temperance;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 

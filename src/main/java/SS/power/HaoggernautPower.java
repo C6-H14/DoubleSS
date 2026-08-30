@@ -18,6 +18,7 @@ public class HaoggernautPower extends AbstractPower {
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private static final String NAME = powerStrings.NAME;
     private static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
+    private int count = 10;
 
     public HaoggernautPower(AbstractCreature owner, int amount) {
         this.name = NAME;
@@ -42,6 +43,9 @@ public class HaoggernautPower extends AbstractPower {
         if (blockAmount > 0.0F) {
             flash();
             addToBot(new ChannelAction(new AttackHaoDice(this.amount, AbstractDungeon.getRandomMonster())));
+            --count;
+            if (count <= 0)
+                addToBot(new RemoveSpecificPowerAction(owner, owner, this));
         }
     }
 

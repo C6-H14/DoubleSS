@@ -31,13 +31,13 @@ public class Diversity extends AbstractDoubleCard {
 
     public Diversity() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.baseDamage = this.damage = 4;
+        this.baseDamage = this.damage = 2;
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(2);
+            upgradeDamage(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }

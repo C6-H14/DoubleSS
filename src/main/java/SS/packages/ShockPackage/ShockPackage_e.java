@@ -11,16 +11,14 @@ public class ShockPackage_e extends AbstractPackage {
     public static String ID = ModHelper.makePath("ShockPackage_e");
 
     public ShockPackage_e() {
-        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring");
+        super(ID, TYPE, PackageEnum.Shock, "Double:Shock_Blue_option", "Double:MassSpring", "Double:Pendulum");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Double:UnstableShockwave");
-        cards.add("Double:Blitzkrieg");
-        cards.add("Double:Resonance");
-        cards.add("Double:OffenseAsDefense");
-        cards.add("Double:TA");
+        for (String c : ShockPackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Double:Shitpost");
         cards.add("Double:CripplingShockwave");
@@ -41,6 +39,10 @@ public class ShockPackage_e extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Double:YieldPoint";
     }
 
     public AbstractPackage makeCopy() {

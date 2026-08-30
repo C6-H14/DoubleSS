@@ -28,6 +28,7 @@ public class UnstableShockwave extends AbstractShockCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.magicNumber = this.baseMagicNumber = 3;
+        this.exhaust = true;
         if (needManager()) {
             updateManager();
         }
@@ -63,8 +64,10 @@ public class UnstableShockwave extends AbstractShockCard {
                     ++amount;
             }
             for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-                addToBot(new ApplyPowerAction(mo, p, new WeakPower(mo, amount, false)));
-                addToBot(new ApplyPowerAction(mo, p, new VulnerablePower(mo, this.magicNumber - amount, false)));
+                if (amount > 0)
+                    addToBot(new ApplyPowerAction(mo, p, new WeakPower(mo, amount, false)));
+                if (this.magicNumber > amount)
+                    addToBot(new ApplyPowerAction(mo, p, new VulnerablePower(mo, this.magicNumber - amount, false)));
             }
         }
     }

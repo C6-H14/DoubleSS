@@ -59,6 +59,22 @@ public class AllyManager {
         allies.monsters.clear();
     }
 
+    /** 所有存活友军（含未来新增的 AbstractAlly 子类）。 */
+    public static java.util.ArrayList<AbstractAlly> getAliveAllies() {
+        java.util.ArrayList<AbstractAlly> alive = new java.util.ArrayList<>();
+        for (AbstractMonster m : allies.monsters) {
+            if (m instanceof AbstractAlly && !m.isDeadOrEscaped()) {
+                alive.add((AbstractAlly) m);
+            }
+        }
+        return alive;
+    }
+
+    /** 场上存活友军（任意 AbstractAlly 子类）是否已达槽位上限；满则不能再召唤。 */
+    public static boolean canAddAlly() {
+        return getAliveAllies().size() < AllyPositionHelper.SLOT_COUNT;
+    }
+
     // =================================================================
     // 回合逻辑 (需要强转，因为 MonsterGroup 存的是 AbstractMonster)
     // =================================================================
