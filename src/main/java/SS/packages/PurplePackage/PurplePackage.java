@@ -10,8 +10,17 @@ public class PurplePackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("PurplePackage");
 
+    // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
+    public static final String[] COMMON_CARDS = {
+        "Tantrum",
+        "FearNoEvil",
+        "EmptyMind",
+        "MasterReality",
+        "Vault",
+    };
+
     public PurplePackage() {
-        super(ID, TYPE, PackageEnum.PURPLE, "Double:PURPLE_option", "Double:BathWater");
+        super(ID, TYPE, PackageEnum.PURPLE, "Double:PURPLE_option", "Double:BathWater", "HolyWater");
     }
 
     public ArrayList<String> getCards() {
@@ -36,6 +45,10 @@ public class PurplePackage extends AbstractPackage {
             monsters.addAll(pack.getMonsters());
         }
         return monsters;
+    }
+
+    public String getStarterCard() {
+        return "Vigilance";
     }
 
     protected void initializeSubPackage() {

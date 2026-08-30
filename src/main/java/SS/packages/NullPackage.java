@@ -28,6 +28,10 @@ public class NullPackage extends AbstractPackage {
         return monsters;
     }
 
+    public String getStarterCard() {
+        return "Madness";
+    }
+
     public AbstractPackage makeCopy() {
         return new NullPackage();
     }

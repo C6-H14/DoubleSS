@@ -11,16 +11,14 @@ public class BluePackage_e extends AbstractPackage {
     public static String ID = ModHelper.makePath("BluePackage_e");
 
     public BluePackage_e() {
-        super(ID, TYPE, PackageEnum.BLUE, "Double:BLUE_option", "Double:CorePieces");
+        super(ID, TYPE, PackageEnum.BLUE, "Double:BLUE_option", "Double:CorePieces", "Double:CorePieces");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Turbo");
-        cards.add("Undo");
-        cards.add("Skim");
-        cards.add("Self Repair");
-        cards.add("Buffer");
+        for (String c : BluePackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Barrage");
         cards.add("Recycle");
@@ -41,6 +39,10 @@ public class BluePackage_e extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Charge Battery";
     }
 
     public AbstractPackage makeCopy() {

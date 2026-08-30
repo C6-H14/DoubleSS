@@ -31,7 +31,7 @@ public class SealSupporter extends AbstractDoubleCard implements CustomSavable<B
 
     public SealSupporter() {
         super(ID, NAME, testOutput % 2 == 0 ? IMG_PATH : IMG_PATH1, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.magicNumber = this.baseMagicNumber = 3;
+        this.magicNumber = this.baseMagicNumber = 2;
         this.exhaust = true;
         if (testOutput % 2 == 0) {
             this.flag = true;

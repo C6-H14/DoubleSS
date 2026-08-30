@@ -59,6 +59,8 @@ public class CounterBlow extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new CounterBlow();
+        CounterBlow c = new CounterBlow();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

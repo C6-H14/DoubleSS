@@ -37,6 +37,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
+import com.megacrit.cardcrawl.helpers.SaveHelper;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.localization.Keyword;
@@ -47,6 +48,7 @@ import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.TutorialStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -56,11 +58,13 @@ import SS.UI.Sinsbar;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.BlessCard.BlessStrike;
 import SS.cards.Haohao.AbstractHaoCard;
+import SS.characters.AbstractSSCharacter;
 import SS.characters.MyCharacter;
 import SS.helper.PermanentBlockVariable;
 import SS.helper.PermanentDamageVariable;
 import SS.helper.PermanentMagicNumberVariable;
 import SS.helper.SynergismGraph;
+import SS.helper.TempRelicManager;
 import SS.packages.AbstractPackage;
 import SS.packages.NullPackage;
 import SS.packages.AbstractPackage.PackageType;
@@ -73,6 +77,7 @@ import SS.packages.PurplePackage.PurplePackage;
 import SS.packages.RedPackage.RedPackage;
 import SS.packages.RedPackage.RedPackage_v;
 import SS.packages.ShockPackage.ShockPackage;
+import SS.patches.CharacterSelectPackPatch;
 import SS.patches.CenterGridCardSelectScreen;
 import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
@@ -87,6 +92,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Random;
@@ -109,7 +115,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public static int Hao_chance = 0;
     public static int combatExhausts = 0;
     public static int orbitMisc = 0;
-    public static int orbitMiscAtCombatStart = 0;   // 本场战斗开始时的 orbitMisc 快照（不存档，战斗中 SL 时用于回滚）
+    public static int orbitMiscAtCombatStart = 0; // 本场战斗开始时的 orbitMisc 快照（不存档，战斗中 SL 时用于回滚）
     public static Sinsbar sinBar;
 
     private void addCardColor(CardColor c, String s) {
@@ -125,6 +131,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         BaseMod.addSaveField("Double:orbitMisc", this);
         BaseMod.addColor(AbstractCardEnum.SS_Yellow, COL, COL, COL, COL, COL, COL, COL, BG_ATTACK_512, BG_SKILL_512,
                 BG_POWER_512, ENEYGY_ORB, BG_ATTACK_1024, BG_SKILL_1024, BG_POWER_1024, BIG_ORB, SMALL_ORB);
+        new TempRelicManager();
         // addCardColor(AbstractCardEnum.Hao_Green, "hao");
         // addCardColor(AbstractCardEnum.Lost_Black, "lost");
         // addCardColor(AbstractCardEnum.Shock_Blue, "shock");
@@ -153,7 +160,9 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         }
     }
 
-    private static int needPackage = 3;
+    /** 本局固定 3 个卡包槽位；人物选择界面可预置其中若干个，其余进游戏后选择。 */
+    public static final int PACK_SLOTS = 3;
+    private static int needPackage = PACK_SLOTS;
     public static SpireConfig config = null;
 
     public static void initialize() {
@@ -298,6 +307,13 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         return packageColorMap.get(s);
     }
 
+    /** 保证卡包已初始化（人物选择界面早于开局流程，新进程此时 mainPackageList 还是空的）。 */
+    public static void ensurePackages() {
+        if (!packageLoaded) {
+            initializePackage();
+        }
+    }
+
     public static class CardTags {
         @SpireEnum
         public static AbstractCard.CardTags Separateble;
@@ -307,8 +323,21 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         Collections.shuffle(colorChoices, new Random(AbstractDungeon.cardRng.randomLong()));
         CardGroup charChoices = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
         colorToPackage.clear();
+        // 左中右 = _v/_e/_c（value/consistency/ceiling），后缀见 ui.json "Double:OptionCardSuffix"
+        String[] suffixes = null;
+        try {
+            suffixes = CardCrawlGame.languagePack.getUIString("Double:OptionCardSuffix").TEXT;
+        } catch (Exception e) {
+            suffixes = null;
+        }
+        // 每轮固定展示 3 个选择（3 个随机颜色的 数值/运转/上限）；轮数由 needPackage 决定
         for (int i = 0; i < 3; ++i) {
-            charChoices.addToTop(colorChoices.get(i).OptionCard);
+            // 每轮用副本改标题，不污染共享的 OptionCard 实例（否则下轮会变成"牌:数值:运转"）
+            AbstractDoubleCard shown = ((AbstractDoubleCard) colorChoices.get(i).OptionCard).makeCopy();
+            if (suffixes != null && suffixes.length > i) {
+                shown.name = shown.name + ":" + suffixes[i];
+            }
+            charChoices.addToTop(shown);
             PackageEnum packageenum = ((AbstractDoubleCard) colorChoices.get(i).OptionCard).packagetype;
             if (i == 0) {
                 colorToPackage.put(packageenum, colorChoices.get(i).SubPackages.get(PackageType.VALUE));
@@ -387,7 +416,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         }
         Hao_chance = 0;
         combatExhausts = 0;
-        orbitMiscAtCombatStart = orbitMisc;   // 快照：本场战斗开始（= 进房时）的 orbitMisc
+        orbitMiscAtCombatStart = orbitMisc; // 快照：本场战斗开始（= 进房时）的 orbitMisc
     }
 
     @Override
@@ -409,10 +438,6 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 continue;
             }
             allowedCards.addAll(p.CardLists);
-            if (AbstractDungeon.player.getRelic(p.StartRelic.relicId) == null) {
-                AbstractRelic s = RelicLibrary.getRelic(p.StartRelic.relicId);
-                RelicLibrary.getRelic(s.relicId).makeCopy().instantObtain();
-            }
         }
         for (AbstractCard card : CardLibrary.getAllCards()) {
             if (card.color == AbstractDungeon.player.getCardColor()) {
@@ -431,7 +456,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     }
 
     public static void TriggerAtGameStart() {
-        if (AbstractDungeon.player instanceof MyCharacter) {
+        if (AbstractDungeon.player instanceof AbstractSSCharacter) {
             validColors.clear();
             validPackage.clear();
             choosingCharacters = 0;
@@ -449,17 +474,82 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                     }
                 }
             }
+            // 人物选择界面预置的卡包：直接写入结果，其主卡包不再出现在游戏内选择中
+            HashSet<PackageEnum> preApplied = new HashSet<>();
+            for (int i = 0; i < PACK_SLOTS; i++) {
+                AbstractPackage sub = CharacterSelectPackPatch.resolveSelection(i);
+                if (sub == null || preApplied.contains(sub.PackageColor)) {
+                    continue;
+                }
+                preApplied.add(sub.PackageColor);
+                validColors.add(sub.PackageColor);
+                validPackage.add(sub);
+            }
+            // 需要游戏内选择的槽位数 = 总槽位 - 已预置数（UI 防重复已保证同一主卡包只占一个槽位）
+            needPackage = PACK_SLOTS - preApplied.size();
             for (AbstractPackage p : mainPackageList) {
-                if (p.ID.equals("Double:NullPackage")) {
+                if (p.ID.equals("Double:NullPackage") || preApplied.contains(p.PackageColor)) {
                     continue;
                 }
                 colorChoices.add(p);
             }
-            CenterGridCardSelectScreen.centerGridSelect = true;
-            addClassChoice();
+            if (needPackage <= 0) {// 三个槽位全部预置完成，跳过游戏内选择直接收尾
+                choosingCharacters = needPackage;
+                finalizePackageSelection();
+            } else {
+                CenterGridCardSelectScreen.centerGridSelect = true;
+                addClassChoice();
+            }
         } else {
             System.out.println("unknown error");
         }
+    }
+
+    // 收尾卡包选择结果：加载卡池、发放起始圣物 + 起始卡、存盘。
+    // 「游戏内选满」与「人物选择界面预置满三个槽位」两条路径共用。
+    private static void finalizePackageSelection() {
+        choosingCharacters = needPackage;
+        CenterGridCardSelectScreen.centerGridSelect = false;
+        if (!validColors.contains(PackageEnum.Default)) {
+            validColors.add(PackageEnum.Default);
+        }
+        LoadData();
+        for (AbstractPackage p : validPackage) {
+            if (p.ID.equals("Double:NullPackage")) {
+                continue;
+            }
+            if (AbstractDungeon.player.getRelic(p.StartRelic.relicId) == null) {
+                AbstractRelic s = RelicLibrary.getRelic(p.StartRelic.relicId);
+                RelicLibrary.getRelic(s.relicId).makeCopy().instantObtain();
+            }
+            if (!p.getStarterCard().equals("Madness")) {
+                AbstractCard ccc = CardLibrary.getCard(p.getStarterCard());
+                if (ccc != null) {
+                    AbstractDungeon.player.masterDeck.addToTop(ccc.makeCopy());
+                }
+            }
+        }
+        try {
+            SpireConfig config = new SpireConfig("Double", "Common");
+            int i = 0;
+            for (PackageEnum col : validColors) {
+                ++i;
+                config.setString("validColor" + i, col.toString());
+            }
+            i = 0;
+            for (AbstractPackage p : validPackage) {
+                if (p.ID.equals("Double:NullPackage")) {
+                    continue;
+                }
+                ++i;
+                config.setString("validPackage" + i, p.ID);
+            }
+            config.setString("Initialized", "true");
+            config.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SaveHelper.saveIfAppropriate(SaveFile.SaveType.ENTER_ROOM);
     }
 
     public void receivePostInitialize() {
@@ -517,41 +607,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             validPackage.add(colorToPackage.get(c.packagetype));
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
             if (choosingCharacters == needPackage - 1) {// 选完了
-                choosingCharacters = needPackage;
-                CenterGridCardSelectScreen.centerGridSelect = false;
-                if (!validColors.contains(PackageEnum.Default)) {
-                    validColors.add(PackageEnum.Default);
-                }
-                LoadData();
-                for (AbstractPackage p : validPackage) {
-                    if (p.ID.equals("Double:NullPackage")) {
-                        continue;
-                    }
-                    if (AbstractDungeon.player.getRelic(p.StartRelic.relicId) == null) {
-                        AbstractRelic s = RelicLibrary.getRelic(p.StartRelic.relicId);
-                        RelicLibrary.getRelic(s.relicId).makeCopy().instantObtain();
-                    }
-                }
-                try {
-                    SpireConfig config = new SpireConfig("Double", "Common");
-                    int i = 0;
-                    for (PackageEnum col : validColors) {
-                        ++i;
-                        config.setString("validColor" + i, col.toString());
-                    }
-                    i = 0;
-                    for (AbstractPackage p : validPackage) {
-                        if (p.ID.equals("Double:NullPackage")) {
-                            continue;
-                        }
-                        ++i;
-                        config.setString("validPackage" + i, p.ID);
-                    }
-                    config.setString("Initialized", "true");
-                    config.save();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                finalizePackageSelection();
             } else if (choosingCharacters < needPackage - 1) {
                 choosingCharacters++;
                 addClassChoice();
@@ -563,14 +619,14 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 validColors.clear();
                 Properties defaults = new Properties();
                 defaults.setProperty("Initialized", "false");
-                for (int i = 1; i <= needPackage + 1; ++i) {
+                for (int i = 1; i <= PACK_SLOTS + 1; ++i) {
                     defaults.setProperty("validColor" + i, "Default");
                 }
-                for (int i = 1; i <= needPackage; ++i) {
+                for (int i = 1; i <= PACK_SLOTS; ++i) {
                     defaults.setProperty("validPackage" + i, "Double:NullPackage");
                 }
                 config = new SpireConfig("Double", "Common", defaults);
-                for (int i = 1; i <= needPackage + 1; ++i) {
+                for (int i = 1; i <= PACK_SLOTS + 1; ++i) {
                     if (config.getString("validColor" + i) == null)
                         continue;
                     String sss = config.getString("validColor" + i);
@@ -586,7 +642,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                     if (PackageEnum.valueOf(config.getString("validColor" + i)) != null)
                         validColors.add(PackageEnum.valueOf(config.getString("validColor" + i)));
                 }
-                for (int i = 1; i <= needPackage; ++i) {
+                for (int i = 1; i <= PACK_SLOTS; ++i) {
                     String s = config.getString("validPackage" + i);
                     validPackage.add(getPackageByID(s));
                 }
@@ -600,7 +656,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     @Override
     public void receiveRender(SpriteBatch arg0) {
         if (sinBar != null && AbstractDungeon.player != null
-                && AbstractDungeon.player instanceof MyCharacter) {
+                && AbstractDungeon.player instanceof AbstractSSCharacter) {
             sinBar.render(arg0);
         }
     }

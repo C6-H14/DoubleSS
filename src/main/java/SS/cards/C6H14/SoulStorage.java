@@ -33,8 +33,6 @@ public class SoulStorage extends AbstractC6H14Card {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         setDamage(6);
-        ExhaustiveField.ExhaustiveFields.baseExhaustive.set(this, Integer.valueOf(2));
-        ExhaustiveField.ExhaustiveFields.exhaustive.set(this, Integer.valueOf(2));
         if (needManager()) {
             updateManager();
         }

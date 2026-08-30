@@ -60,7 +60,7 @@ public class Wrath extends AbstractDoubleCard {
         addToBot(new IncreaseCostAction(this.uuid, 1));
         this.playedTime++;
         this.playedTime = Math.min(this.playedTime, 20);
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
         UpdateDescription();
         initializeDescription();
     }

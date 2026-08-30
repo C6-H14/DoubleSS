@@ -32,13 +32,10 @@ public class ExitEvokeSoulEnvAction extends AbstractGameAction {
         // 1. 保留第 0 个魂火作为“火种”
         SoulAlly primarySoul = aliveSouls.get(0);
 
-        // 将第一个魂火复原大小和位置
+        // 将第一个魂火复原大小，并回到 0 号槽（玩家右前方首发位）
         primarySoul.modelScale = 1.0f;
         primarySoul.hb.resize(150.0F * Settings.scale, 250.0F * Settings.scale);
-        primarySoul.drawX = AbstractDungeon.player.drawX + 300.0F * Settings.scale; // 回到默认位置
-        primarySoul.drawY = AbstractDungeon.player.drawY + 250.0F * Settings.scale;
-        primarySoul.hb.move(primarySoul.drawX,
-                primarySoul.drawY + primarySoul.hb.height / 2.0F + primarySoul.healthBarOffsetY * Settings.scale);
+        primarySoul.relocateToSlot(0);
         primarySoul.syncSoulFire(); // 刷新
 
         primarySoul.revertFromGenesisDeck();

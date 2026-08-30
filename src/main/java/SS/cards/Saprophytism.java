@@ -3,6 +3,7 @@ package SS.cards;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
@@ -25,23 +26,46 @@ public class Saprophytism extends AbstractDoubleCard {
 
     public Saprophytism() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.damage = this.baseDamage = 3;
+        setDamage(5);
+        setMagic(3);
         initializeDescription();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(1);
+            upgradeMagicNumber(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        for (int i = p.exhaustPile.size(); i > 0; --i) {
+        for (int i = 1; i >= 0; --i) {
             addToBot(new ChannelDiceAction(new IronwaveDice(this.damage, m)));
         }
+    }
+
+    public static int countCards() {
+        return AbstractDungeon.player.exhaustPile.size() / 3;
+    }
+
+    @Override
+    public void calculateCardDamage(final AbstractMonster mo) {
+        final int realBaseDamage = this.baseDamage;
+        this.baseDamage += this.magicNumber * countCards();
+        super.calculateCardDamage(mo);
+        this.baseDamage = realBaseDamage;
+        this.isDamageModified = (this.damage != this.baseDamage);
+    }
+
+    @Override
+    public void applyPowers() {
+        final int realBaseDamage = this.baseDamage;
+        this.baseDamage += this.magicNumber * countCards();
+        super.applyPowers();
+        this.baseDamage = realBaseDamage;
+        this.isDamageModified = (this.damage != this.baseDamage);
     }
 
     public AbstractDoubleCard makeCopy() {

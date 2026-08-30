@@ -8,11 +8,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.GainStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveField;
-
 import SS.action.common.ConjugateCardInHandAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -34,9 +31,8 @@ public class HedonismShackles extends AbstractDoubleCard {
     public HedonismShackles() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
-        this.magicNumber = this.baseMagicNumber = 1;
-        ExhaustiveField.ExhaustiveFields.baseExhaustive.set(this, Integer.valueOf(2));
-        ExhaustiveField.ExhaustiveFields.exhaustive.set(this, Integer.valueOf(2));
+        this.magicNumber = this.baseMagicNumber = 2;
+        this.exhaust = true;
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Lust);
@@ -49,6 +45,7 @@ public class HedonismShackles extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
+            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
@@ -67,9 +64,8 @@ public class HedonismShackles extends AbstractDoubleCard {
                 }
             }
         }
-        addToBot(new ConjugateCardInHandAction(p, m, 2));
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.magicNumber)));
-        UpdateExhaustiveDescription();
+        addToBot(new ConjugateCardInHandAction(p, m, magicNumber));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
     }
 
     public AbstractDoubleCard makeCopy() {

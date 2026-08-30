@@ -32,14 +32,14 @@ public class Hush extends AbstractDoubleCard {
     public Hush() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
         this.exhaust = true;
-        this.damage = this.baseDamage = 9;
+        this.damage = this.baseDamage = 6;
         initializeDescription();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(2);
+            upgradeDamage(3);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }

@@ -16,8 +16,10 @@ public class PermanentMagicNumberVariable extends DynamicVariable {
 
     @Override
     public boolean isModified(AbstractCard card) {
+        // 只有升级过（upgrade/Perseverance 强化）数值才变绿；
+        // 之前写成 tags.contains(Permanent) 恒为 true，导致未升级也永远渲染成绿色
         if (card instanceof AbstractLostCard) {
-            return card.tags.contains(AbstractCardEnum.Permanent);
+            return ((AbstractLostCard) card).upgradePermanentMagicNumber;
         }
         return false;
         // Set to true if the value is modified from the base value.

@@ -1,4 +1,4 @@
-package SS.cards;
+package SS.cards.ZZZDEPRECATED;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,8 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.monster.EvokeSoulAction;
+import SS.cards.AbstractDoubleCard;
+import SS.cards.Indulgence;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import basemod.AutoAdd;

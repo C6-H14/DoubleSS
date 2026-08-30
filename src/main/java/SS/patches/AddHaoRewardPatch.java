@@ -12,7 +12,7 @@ public class AddHaoRewardPatch {
     @SpirePatch(clz = AbstractRoom.class, method = "addPotionToRewards", paramtypez = {})
     public static class DropSeals {
         public static void Postfix(AbstractRoom __instance) {
-            if (AbstractDungeon.player instanceof SS.characters.MyCharacter
+            if (AbstractDungeon.player instanceof SS.characters.AbstractSSCharacter
                     && modcore.validColors.contains(PackageEnum.Hao)) {
                 int chance = 10;
                 if (__instance instanceof com.megacrit.cardcrawl.rooms.MonsterRoomElite) {

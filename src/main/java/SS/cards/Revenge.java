@@ -1,5 +1,7 @@
 package SS.cards;
 
+import SS.Dice.AttackDice;
+import SS.action.dice.ChannelDiceAction;
 import SS.action.unique.ss.RevengeAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -23,9 +25,8 @@ public class Revenge extends AbstractDoubleCard {
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
-    private int mult = 1;
 
     public Revenge() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
@@ -34,9 +35,8 @@ public class Revenge extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Wrath);
         this.tags.add(AbstractCard.CardTags.HEALING);
-        this.damage = this.baseDamage = 8;
-        this.magicNumber = this.baseMagicNumber = 3;
-        this.mult = 1;
+        this.damage = this.baseDamage = 7;
+        this.magicNumber = this.baseMagicNumber = 2;
         if (needFiend()) {
             updateFiend();
         }
@@ -49,25 +49,23 @@ public class Revenge extends AbstractDoubleCard {
             upgradeName();
             upgradeDamage(2);
             upgradeMagicNumber(1);
-            this.mult = 2;
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        DamageInfo info = new DamageInfo(p, this.damage, this.damageTypeForTurn);
         if (p.getPower("Double:FiendStance") != null) {
-            addToBot(new RevengeAction(m,
-                    new DamageInfo(p, this.damage + this.damage * mult * (p.maxHealth - p.currentHealth) / p.maxHealth,
-                            this.damageTypeForTurn),
-                    this.magicNumber));
+            addToBot(new RevengeAction(m, info, this.magicNumber));
         } else {
-            addToBot(new DamageAction(m,
-                    new DamageInfo(p, this.damage + this.damage * mult * (p.maxHealth - p.currentHealth) / p.maxHealth,
-                            this.damageTypeForTurn),
-                    this.magicNumber));
+            addToBot(new DamageAction(m, info, this.magicNumber));
         }
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
+        int temp = (p.maxHealth - p.currentHealth) * 10 / p.maxHealth / 3;
+        for (int i = 0; i < temp; ++i) {
+            addToBot(new ChannelDiceAction(new AttackDice(magicNumber, m)));
+        }
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, temp)));
     }
 
     public AbstractDoubleCard makeCopy() {

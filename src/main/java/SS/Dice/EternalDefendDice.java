@@ -11,9 +11,9 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
-import com.megacrit.cardcrawl.powers.BufferPower;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.power.DyingPower;
 import SS.power.NextTurnBlockPower;
 
 public class EternalDefendDice extends AbstractDice {
@@ -35,7 +35,6 @@ public class EternalDefendDice extends AbstractDice {
         this.myColor = CardHelper.getColor(249, 0, 0);
         this.target = p;
         this.faces = 6;
-        this.result = getDiceResult();
         this.tags.add(AbstractCardEnum.DefensiveDice);
         updateDescription();
     }
@@ -47,14 +46,14 @@ public class EternalDefendDice extends AbstractDice {
     public void myEvoke() {
         int block = this.evokeAmount;
         AbstractPlayer p = AbstractDungeon.player;
-        if (result == 1) {
+        if (result <= 1) {
             if (AbstractDungeon.player.currentBlock > 0) {
                 AbstractDungeon.actionManager.addToBottom(
                         new DamageAction(p, new DamageInfo((AbstractCreature) p, 1, DamageInfo.DamageType.NORMAL)));
             }
         }
-        if (result == 6) {
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new BufferPower(p, 1)));
+        if (result >= 6) {
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new DyingPower(p, 1)));
         }
         block = Math.max(0, block);
         AbstractDungeon.actionManager

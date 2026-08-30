@@ -1,14 +1,12 @@
 package SS.cards;
 
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.StrengthPower;
-
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -21,12 +19,12 @@ public class FiendPact extends AbstractDoubleCard {
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.BASIC;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public FiendPact() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 2;
     }
 
     public void upgrade() {
@@ -40,9 +38,8 @@ public class FiendPact extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ExhaustAction(1, false));
-        if (p.getPower("SinsPower") != null) {
-            addToBot(new ApplyPowerAction(p, p, new StrengthPower(p, this.magicNumber * p.getPower("SinsPower").amount),
-                    this.magicNumber * p.getPower("SinsPower").amount));
+        if (p.getPower("SinsPower") != null && p.getPower("SinsPower").amount >= 10) {
+            addToBot(new DrawCardAction(this.magicNumber));
         }
     }
 

@@ -1,44 +1,32 @@
 package SS.characters;
 
-import basemod.abstracts.CustomPlayer;
+import basemod.BaseMod;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.defect.AnimateOrbAction;
-import com.megacrit.cardcrawl.actions.defect.ChannelAction;
-import com.megacrit.cardcrawl.actions.defect.EvokeOrbAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.cutscenes.CutscenePanel;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
-import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
-import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
-import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 
-import SS.Dice.AbstractDice;
-import SS.Dice.EmptyDiceSlot;
-import SS.cards.AbstractDoubleCard;
-import SS.cards.MultiFacial;
-import SS.modcore.modcore;
-import SS.packages.AbstractPackage;
 import SS.path.AbstractCardEnum;
-import SS.path.PackageEnumList.PackageEnum;
 import SS.path.ThmodClassEnum;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class MyCharacter extends CustomPlayer {
+/**
+ * 二硫键（SS）。
+ *
+ * 只保留身份差异：颜色/牌库枚举、起始牌组与圣物、人物选择信息、本地化文本、
+ * cutscene、渲染颜色、SpireEnum 注册。
+ * 机制（骰子充能、卡包卡池、选角色特效等）全部在 {@link AbstractSSCharacter}，
+ * 未来变种直接 extends AbstractSSCharacter 即继承整套机制。
+ */
+public class MyCharacter extends AbstractSSCharacter {
     private static final String MY_CHARACTER_SHOULDER_1 = "img/char/shoulder.png";
     private static final String MY_CHARACTER_SHOULDER_2 = "img/char/shoulder2.png";
     private static final String CORPSE_IMAGE = "img/char/Corpse.png";
@@ -86,10 +74,10 @@ public class MyCharacter extends CustomPlayer {
     public ArrayList<String> getStartingDeck() {
         ArrayList<String> retVal = new ArrayList<>();
         int x;
-        for (x = 0; x < 4; x++) {
+        for (x = 0; x < 3; x++) {
             retVal.add("Double:Strike");
         }
-        for (x = 0; x < 4; x++) {
+        for (x = 0; x < 3; x++) {
             retVal.add("Double:Defend");
         }
         retVal.add("Double:RecordingTeam");
@@ -113,83 +101,13 @@ public class MyCharacter extends CustomPlayer {
         return "二硫键";
     }
 
+    @Override
     public AbstractCard.CardColor getCardColor() {
         return AbstractCardEnum.SS_Yellow;
     }
 
-    public AbstractCard getStartCardForEvent() {
-        return new MultiFacial();
-    }
-
     public Color getCardTrailColor() {
         return SS_Yellow;
-    }
-
-    public int getAscensionMaxHPLoss() {
-        return 7;
-    }
-
-    public BitmapFont getEnergyNumFont() {
-        return FontHelper.energyNumFontBlue;
-    }
-
-    public void doCharSelectScreenSelectEffect() {
-        CardCrawlGame.screenShake.shake(ScreenShake.ShakeIntensity.MED, ScreenShake.ShakeDur.SHORT, false);
-    }
-
-    @Override
-    public void channelOrb(AbstractOrb orbToSet)// 产生骰子
-    {
-        if (orbToSet instanceof com.megacrit.cardcrawl.orbs.EmptyOrbSlot || orbToSet instanceof EmptyDiceSlot)
-            return;
-        if (!(orbToSet instanceof AbstractDice)) {
-            AbstractDungeon.effectList.add(new ThoughtBubble(this.dialogX, this.dialogY, 3.0F,
-                    /* (CardCrawlGame.languagePack.getTutorialString("SS:exception")).TEXT[0] */"我不是故障机器人，不能生成充能球。",
-                    true));
-        } else if (this.maxOrbs <= 0) {
-            AbstractDungeon.effectList.add(new ThoughtBubble(this.dialogX, this.dialogY, 3.0F, MSG[4], true));
-        } else {
-            int index = -1;
-            for (int i = 0; i < this.orbs.size(); i++) {
-                if (this.orbs.get(i) instanceof EmptyDiceSlot) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index != -1) {
-                orbToSet.cX = ((AbstractOrb) this.orbs.get(index)).cX;
-                orbToSet.cY = ((AbstractOrb) this.orbs.get(index)).cY;
-                this.orbs.set(index, orbToSet);
-                ((AbstractOrb) this.orbs.get(index)).setSlot(index, this.maxOrbs);
-                orbToSet.playChannelSFX();
-                for (AbstractPower p : this.powers)
-                    p.onChannel(orbToSet);
-                AbstractDungeon.actionManager.orbsChanneledThisCombat.add(orbToSet);
-                AbstractDungeon.actionManager.orbsChanneledThisTurn.add(orbToSet);
-            } else {
-                AbstractDungeon.actionManager.addToTop(new ChannelAction((AbstractOrb) orbToSet));
-                AbstractDungeon.actionManager.addToTop(new EvokeOrbAction(1));
-                AbstractDungeon.actionManager.addToTop(new AnimateOrbAction(1));
-            }
-        }
-    }
-
-    public void increaseMaxOrbSlots(int amount, boolean playSfx) {
-        if (this.maxOrbs >= 5) {
-            AbstractDungeon.effectList.add(new ThoughtBubble(this.dialogX, this.dialogY, 3.0F, "槽位已满！", true));
-        } else {
-            if (playSfx)
-                CardCrawlGame.sound.play("ORB_SLOT_GAIN", 0.1F);
-            this.maxOrbs += amount;
-            int i;
-            for (i = 0; i < amount; i++) {
-                this.orbs.add(new EmptyDiceSlot());
-            }
-            for (i = 0; i < this.orbs.size(); i++) {
-                ((AbstractOrb) this.orbs.get(i)).setSlot(i, this.maxOrbs);
-            }
-
-        }
     }
 
     public ArrayList<CutscenePanel> getCutscenePanels() {
@@ -200,26 +118,6 @@ public class MyCharacter extends CustomPlayer {
         return panels;
     }
 
-    public void evokeOrb() {
-        if (!this.orbs.isEmpty() && !(this.orbs.get(0) instanceof EmptyOrbSlot)
-                && !(this.orbs.get(0) instanceof EmptyDiceSlot)) {
-            ((AbstractOrb) this.orbs.get(0)).onEvoke();
-            AbstractOrb orbSlot = new EmptyDiceSlot();
-
-            int i;
-            for (i = 1; i < this.orbs.size(); ++i) {
-                Collections.swap(this.orbs, i, i - 1);
-            }
-
-            this.orbs.set(this.orbs.size() - 1, orbSlot);
-
-            for (i = 0; i < this.orbs.size(); ++i) {
-                ((AbstractOrb) this.orbs.get(i)).setSlot(i, this.maxOrbs);
-            }
-        }
-
-    }
-
     public String getCustomModeCharacterButtonSoundKey() {
         return "ATTACK_HEAVY";
     }
@@ -228,6 +126,7 @@ public class MyCharacter extends CustomPlayer {
         return "二硫键";
     }
 
+    @Override
     public AbstractPlayer newInstance() {
         return (AbstractPlayer) new MyCharacter(this.name);
     }
@@ -241,60 +140,11 @@ public class MyCharacter extends CustomPlayer {
     }
 
     public String getVampireText() {
-        return "在一条昏暗的街上，你遇见几个戴着兜帽的人在进行某种黑暗的仪式。当你靠近时，他们全都同时转身面对你，让你觉得十分诡异。 其中个子最高的一个微微一笑，露出了长长的尖牙，向你伸出了一只苍白而瘦长的手： NL ~“加入我们，小逼崽子。一起来感受高塔的温暖吧。”~";
+        // 本地化：characters.json 的 Double:Double TEXT[2]（含 NL 换行与 ~...~ 颜色标记）
+        return characterStrings.TEXT[2];
     }
 
     public Color getCardRenderColor() {
         return SS_Yellow;
-    }
-
-    public AbstractGameAction.AttackEffect[] getSpireHeartSlashEffect() {
-        return new AbstractGameAction.AttackEffect[] { AbstractGameAction.AttackEffect.SLASH_HEAVY,
-                AbstractGameAction.AttackEffect.FIRE, AbstractGameAction.AttackEffect.SLASH_DIAGONAL,
-                AbstractGameAction.AttackEffect.SLASH_HEAVY, AbstractGameAction.AttackEffect.FIRE,
-                AbstractGameAction.AttackEffect.SLASH_DIAGONAL };
-    }
-
-    public ArrayList<AbstractCard> getCardPool(ArrayList<AbstractCard> tmpPool) {
-        ArrayList<AbstractCard> poolCards = new ArrayList<>();
-        ArrayList<AbstractCard> allowedCards = new ArrayList<>();
-        for (AbstractPackage p : modcore.validPackage) {
-            System.out.println(p.ID);
-            if (p.ID.equals("Double:NullPackage")) {
-                continue;
-            }
-            allowedCards.addAll(p.CardLists);
-        }
-        for (AbstractCard card : CardLibrary.getAllCards()) {
-            if (card.color == AbstractCardEnum.SS_Yellow) {
-                if (card instanceof AbstractDoubleCard) {
-                    AbstractDoubleCard d = (AbstractDoubleCard) card;
-                    if (d.packagetype == PackageEnum.Default) {
-                        allowedCards.add(card.makeStatEquivalentCopy());
-                    }
-                }
-                continue;
-            }
-            if (card.color == AbstractDungeon.player.getCardColor()) {
-                allowedCards.add(card.makeStatEquivalentCopy());
-            }
-        }
-        System.out.println("allowedCards:");
-        for (AbstractCard c : allowedCards) {
-            System.out.println(c);
-            poolCards.add(c);
-            switch (c.rarity) {
-                case COMMON:
-                    AbstractDungeon.commonCardPool.addToTop(c);
-                    break;
-                case UNCOMMON:
-                    AbstractDungeon.uncommonCardPool.addToTop(c);
-                    break;
-                case RARE:
-                    AbstractDungeon.rareCardPool.addToTop(c);
-                    break;
-            }
-        }
-        return poolCards;
     }
 }

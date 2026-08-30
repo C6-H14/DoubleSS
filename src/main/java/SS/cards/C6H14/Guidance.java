@@ -27,7 +27,7 @@ public class Guidance extends AbstractC6H14Card {
     public Guidance() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        setDamage(8);
+        setDamage(5);
         setMagic(1);
         if (needManager()) {
             updateManager();
@@ -38,13 +38,14 @@ public class Guidance extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(4);
+            upgradeDamage(2);
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        addToBot(new ChannelDiceAction(new AttackDice(damage, m)));
         addToBot(new ChannelDiceAction(new AttackDice(damage, m)));
         if (needManager()) {
             addToBot(new EvokeSoulAction(magicNumber));

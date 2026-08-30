@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.helper.ModHelper;
 import SS.power.BleedingPower;
-import SS.power.OpenInjuryPower;
 
 public class WitherDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("WitherDice");
@@ -22,6 +21,7 @@ public class WitherDice extends AbstractDice {
     private static final float ORB_BORDER_SCALE = 1.2F;
 
     public WitherDice(int amount, AbstractMonster m) {
+        super(4);
         this.ID = ORB_ID;
         this.img = ImageMaster.loadImage("img/dice/WitherDice.png");
         this.name = orbString.NAME;
@@ -31,7 +31,6 @@ public class WitherDice extends AbstractDice {
         this.angle = MathUtils.random(360.0F);
         this.myColor = CardHelper.getColor(249, 0, 0);
         this.target = m;
-        this.faces = 4;
         updateDescription();
     }
 
@@ -41,16 +40,14 @@ public class WitherDice extends AbstractDice {
 
     public void myEvoke() {
         int temp = result, amount = this.evokeAmount;
-        if (temp == 1) {
+        if (temp <= 1) {
             amount--;
+        }
+        if (temp >= 4) {
+            amount++;
         }
         AbstractDungeon.actionManager.addToBottom(
                 new ApplyPowerAction(this.target, this.target, new BleedingPower(this.target, amount), amount));
-        if (temp == 4) {
-            AbstractDungeon.actionManager
-                    .addToBottom(
-                            new ApplyPowerAction(this.target, this.target, new OpenInjuryPower(this.target, 1), 1));
-        }
     }
 
     public AbstractDice makeCopy() {

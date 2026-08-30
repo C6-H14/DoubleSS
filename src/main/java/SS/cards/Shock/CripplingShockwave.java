@@ -30,6 +30,7 @@ public class CripplingShockwave extends AbstractShockCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.magicNumber = this.baseMagicNumber = 5;
+        this.exhaust = true;
         if (needManager()) {
             updateManager();
         }

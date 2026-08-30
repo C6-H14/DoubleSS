@@ -34,14 +34,13 @@ public class DeafForm extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 10)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.upgraded ? 10 : 20)));
         addToBot(new ApplyPowerAction(p, p, new DeafFormPower(p, this.magicNumber),
                 this.magicNumber));
     }

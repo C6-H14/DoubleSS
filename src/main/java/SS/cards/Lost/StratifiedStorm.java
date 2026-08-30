@@ -27,7 +27,7 @@ public class StratifiedStorm extends AbstractLostCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.tags.add(AbstractCardEnum.Permanent);
-        this.permanentDamage = this.basePermanentDamage = 5;
+        this.permanentDamage = this.basePermanentDamage = 6;
         if (needManager()) {
             updateManager();
         }
@@ -49,6 +49,8 @@ public class StratifiedStorm extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new StratifiedStorm();
+        StratifiedStorm c = new StratifiedStorm();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

@@ -42,7 +42,7 @@ public class Prism extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            this.isInnate = true;
+            upgradeBaseCost(2);
             UpdateDescription();
             initializeDescription();
         }

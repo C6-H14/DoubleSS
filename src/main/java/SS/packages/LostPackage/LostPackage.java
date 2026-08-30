@@ -10,8 +10,17 @@ public class LostPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("LostPackage");
 
+    // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
+    public static final String[] COMMON_CARDS = {
+        "Double:BlankCard",
+        "Double:TwoChargeVoid",
+        "Double:SoulGuard",
+        "Double:LastBreath",
+        "Double:CounterBlow",
+    };
+
     public LostPackage() {
-        super(ID, TYPE, PackageEnum.Lost, "Double:Lost_Black_option", "Double:WoodenCross");
+        super(ID, TYPE, PackageEnum.Lost, "Double:Lost_Black_option", "Double:WoodenCross", "Double:HolyMantle");
     }
 
     public ArrayList<String> getCards() {
@@ -36,6 +45,10 @@ public class LostPackage extends AbstractPackage {
             monsters.addAll(pack.getMonsters());
         }
         return monsters;
+    }
+
+    public String getStarterCard() {
+        return "Double:Ferry";
     }
 
     protected void initializeSubPackage() {

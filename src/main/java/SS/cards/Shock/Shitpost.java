@@ -31,7 +31,7 @@ public class Shitpost extends AbstractShockCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.damage = this.baseDamage = 3;
-        this.magicNumber = this.baseMagicNumber = 10;
+        this.magicNumber = this.baseMagicNumber = 5;
         this.exhaust = true;
         this.tags.add(CardTags.HEALING);
         if (needManager()) {

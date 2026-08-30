@@ -7,20 +7,18 @@ import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
 
 public class BluePackage_c extends AbstractPackage {
-    public static PackageType TYPE = PackageType.CEILING;
+    public static PackageType TYPE = PackageType.CONSISTENCY;
     public static String ID = ModHelper.makePath("BluePackage_c");
 
     public BluePackage_c() {
-        super(ID, TYPE, PackageEnum.BLUE, "Double:BLUE_option", "Double:CorePieces");
+        super(ID, TYPE, PackageEnum.BLUE, "Double:BLUE_option", "Double:CorePieces", "Double:CorePieces");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Turbo");
-        cards.add("Undo");
-        cards.add("Skim");
-        cards.add("Self Repair");
-        cards.add("Buffer");
+        for (String c : BluePackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Hologram");
         cards.add("Heatsinks");
@@ -41,6 +39,10 @@ public class BluePackage_c extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Charge Battery";
     }
 
     public AbstractPackage makeCopy() {

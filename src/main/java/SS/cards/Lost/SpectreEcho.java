@@ -64,6 +64,8 @@ public class SpectreEcho extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new SpectreEcho();
+        SpectreEcho c = new SpectreEcho();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

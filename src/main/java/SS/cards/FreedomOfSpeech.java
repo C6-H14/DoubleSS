@@ -15,11 +15,11 @@ import SS.action.common.UpdateManagerStanceDescriptions;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
-public class Pansy extends AbstractDoubleCard {
-    public static final String ID = ModHelper.makePath("Pansy");
+public class FreedomOfSpeech extends AbstractDoubleCard {
+    public static final String ID = ModHelper.makePath("FreedomOfSpeech");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/Pansy.png";
+    private static final String IMG_PATH = "img/cards/FreedomOfSpeech.png";
     private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
@@ -29,7 +29,7 @@ public class Pansy extends AbstractDoubleCard {
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
     private HashMap<String, Boolean> hsmap = new HashMap<String, Boolean>();
 
-    public Pansy() {
+    public FreedomOfSpeech() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
         this.exhaust = true;
     }
@@ -58,6 +58,6 @@ public class Pansy extends AbstractDoubleCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Pansy();
+        return new FreedomOfSpeech();
     }
 }

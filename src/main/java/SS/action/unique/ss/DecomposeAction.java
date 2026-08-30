@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
+import SS.Dice.WitherDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.cardmodifiers.ConjugateModifier;
 import SS.helper.ModHelper;
@@ -35,23 +36,27 @@ public class DecomposeAction extends AbstractGameAction {
     }
 
     public void update() {
+        boolean tag = false;
         for (AbstractCard c : p.drawPile.group) {
             if (c.type == AbstractCard.CardType.STATUS) {
                 addToTop(new ExhaustSpecificCardAction(c, p.drawPile));
-                addToTop(new ChannelDiceAction(new AttackDice(this.amount, (AbstractMonster) this.target)));
+                tag = true;
             }
         }
         for (AbstractCard c : p.hand.group) {
             if (c.type == AbstractCard.CardType.STATUS) {
                 addToTop(new ExhaustSpecificCardAction(c, p.hand));
-                addToTop(new ChannelDiceAction(new AttackDice(this.amount, (AbstractMonster) this.target)));
+                tag = true;
             }
         }
         for (AbstractCard c : p.discardPile.group) {
             if (c.type == AbstractCard.CardType.STATUS) {
                 addToTop(new ExhaustSpecificCardAction(c, p.discardPile));
-                addToTop(new ChannelDiceAction(new AttackDice(this.amount, (AbstractMonster) this.target)));
+                tag = true;
             }
+        }
+        if (tag) {
+            addToTop(new ChannelDiceAction(new WitherDice(this.amount, (AbstractMonster) this.target)));
         }
         this.isDone = true;
 

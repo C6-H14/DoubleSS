@@ -30,8 +30,8 @@ public class MugUp extends AbstractDoubleCard {
     public MugUp() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
-        this.block = this.baseBlock = 11;
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.block = this.baseBlock = 12;
+        this.magicNumber = this.baseMagicNumber = 3;
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Sloth);

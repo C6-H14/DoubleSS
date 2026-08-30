@@ -27,7 +27,7 @@ public class Blitzkrieg extends AbstractShockCard {
     public Blitzkrieg() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 6;
+        this.damage = this.baseDamage = 4;
         this.magicNumber = this.baseMagicNumber = 1;
         if (needManager()) {
             updateManager();
@@ -38,7 +38,7 @@ public class Blitzkrieg extends AbstractShockCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(2);
+            upgradeDamage(1);
             upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();

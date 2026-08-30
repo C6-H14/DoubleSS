@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.DefendDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.action.monster.EvokeSoulAction;
 import SS.action.unique.c6h14.PaperPenanceAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -50,7 +51,7 @@ public class PaperPenance extends AbstractC6H14Card {
         addVirtue(magicNumber);
         if (needManager()) {
             ModHelper.atbLambda(() -> {
-                addToBot(new PaperPenanceAction());
+                addToBot(new EvokeSoulAction(2));
             });
         }
     }

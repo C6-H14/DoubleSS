@@ -30,9 +30,8 @@ public class Godhead extends AbstractLostCard {
     public Godhead() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.isEthereal = true;
         this.tags.add(AbstractCardEnum.Permanent);
-        this.permanentDamage = this.basePermanentDamage = 9;
+        this.permanentDamage = this.basePermanentDamage = 7;
         this.permanentMagicNumber = this.basePermanentMagicNumber = 1;
         if (needManager()) {
             updateManager();
@@ -58,6 +57,9 @@ public class Godhead extends AbstractLostCard {
             amount = p.getPower("Double:DyingPower").amount - 1;
         }
         addToBot(new ReducePowerAction(p, p, "Double:DyingPower", amount));
+        for (int i = 0; i < amount; ++i) {
+            addToBot(new ChannelDiceAction(new EternalAttackDice(this.permanentDamage, p)));
+        }
         if (needManager()) {
             addToBot(new ApplyPowerAction(p, p, new DyingPower(p, this.upgraded ? 2 : 1)));
         }
@@ -65,6 +67,8 @@ public class Godhead extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Godhead();
+        Godhead c = new Godhead();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

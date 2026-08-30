@@ -62,8 +62,8 @@
   "Double:BleedingPower": {
     "NAME": "流血",
     "DESCRIPTIONS": [
-      "每当你受到未被格挡的伤害时，额外失去 #b",
-      " 点生命，并获得 #b1 层流血；下回合开始时移除所有流血并获得等量的格挡。"
+      "每当你受到伤害时，额外失去 #b",
+      " 点生命，每回合首次受到伤害时获得 #b1 层流血；回合开始时失去一半的流血。"
     ]
   },
   "Double:OpenInjuryPower": {
@@ -193,9 +193,7 @@
   "Double:MaximizeHaoCardPower": {
     "NAME": "颢牌多抓",
     "DESCRIPTIONS": [
-      "打出牌时，获得抽牌堆中的一张同名牌。连续打出3张同名牌时，消耗第3张牌，并获得此牌的0费 #y回响 。上次打出牌为：",
-      "，已连续打出 #b",
-      " 次。"
+      "连续打出2张同名牌时，获得第二张牌的0费回响，本回合同名牌不再触发。上次打出牌为： #b"
     ]
   },
   "Double:HaoggernautPower": {
@@ -256,7 +254,7 @@
     "NAME": "空白卡牌",
     "DESCRIPTIONS": [
       "回合开始时，获得 #b",
-      " 张非状态或诅咒的虚无牌 #y回响 。"
+      " 张随机非状态诅咒回响的虚无牌 #y回响 。"
     ]
   },
   "Double:TrinityShieldPower": {
@@ -335,8 +333,8 @@
   "Double:KaleidoscopePower": {
     "NAME": "万花筒",
     "DESCRIPTIONS": [
-      "回合开始时，随机 #b",
-      " 张手牌获得染色"
+      "回合开始时，获得 #b",
+      " 层 #y染色"
     ]
   },
   "Double:MinuteOfDeathPower": {

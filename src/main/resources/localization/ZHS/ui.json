@@ -14,7 +14,7 @@
   },
   "Double:ConjugateModifier": {
     "TEXT": [
-        "本牌已绑定"
+        "本牌已 double:绑定 。 NL %s"
     ]
   },
   "Double:YinYangAction": {
@@ -47,6 +47,24 @@
   "Double:ChooseHandCardAction": {
     "TEXT": [
       "选择一张手牌。"
+    ]
+  },
+  "Double:OptionCardSuffix":{
+    "TEXT":[
+        "数值",
+        "运转",
+        "上限"
+    ]
+  },
+  "Double:CustomPackToggle":{
+    "TEXT":[
+        "自定义卡包游玩",
+        "勾选后在下方为三个卡包槽位分别指定卡包子包；保留「默认选项」则维持进游戏后的卡包选择"
+    ]
+  },
+  "Double:CustomPackOptionDefault":{
+    "TEXT":[
+        "默认选项（进游戏后选择）"
     ]
   }
 }

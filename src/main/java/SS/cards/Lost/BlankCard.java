@@ -38,7 +38,7 @@ public class BlankCard extends AbstractLostCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
+            upgradeBaseCost(0);
             UpdateDescription();
             initializeDescription();
         }
@@ -52,6 +52,8 @@ public class BlankCard extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new BlankCard();
+        BlankCard c = new BlankCard();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

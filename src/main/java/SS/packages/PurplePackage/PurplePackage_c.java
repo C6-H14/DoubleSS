@@ -7,20 +7,18 @@ import SS.helper.ModHelper;
 import SS.packages.AbstractPackage;
 
 public class PurplePackage_c extends AbstractPackage {
-    public static PackageType TYPE = PackageType.CEILING;
+    public static PackageType TYPE = PackageType.CONSISTENCY;
     public static String ID = ModHelper.makePath("PurplePackage_c");
 
     public PurplePackage_c() {
-        super(ID, TYPE, PackageEnum.PURPLE, "Double:PURPLE_option", "Double:BathWater");
+        super(ID, TYPE, PackageEnum.PURPLE, "Double:PURPLE_option", "Double:BathWater", "HolyWater");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Tantrum");
-        cards.add("FearNoEvil");
-        cards.add("EmptyMind");
-        cards.add("MasterReality");
-        cards.add("Vault");
+        for (String c : PurplePackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("ThirdEye");
         cards.add("InnerPeace");
@@ -41,6 +39,10 @@ public class PurplePackage_c extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Vigilance";
     }
 
     public AbstractPackage makeCopy() {

@@ -61,6 +61,8 @@ public class FallenPact extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new FallenPact();
+        FallenPact c = new FallenPact();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

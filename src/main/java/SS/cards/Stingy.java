@@ -58,13 +58,11 @@ public class Stingy extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.player.loseGold(this.magicNumber);
-        for (int i = 0; i < this.magicNumber; ++i) {
-            addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
-        }
+        addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
         if (needFiend()) {
             addToBot(new DrawCardAction(1));
         }
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
     }
 
     public AbstractDoubleCard makeCopy() {

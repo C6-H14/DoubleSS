@@ -1,57 +1,57 @@
-package SS.cards;
+package SS.cards.ZZZDEPRECATED;
 
+import com.evacipated.cardcrawl.mod.stslib.patches.core.AbstractCreature.TempHPField;
+import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import basemod.AutoAdd;
 
-import SS.action.unique.DiligenceAction;
+import SS.action.unique.KindnessAction;
+import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
 @AutoAdd.Ignore
-public class Diligence extends AbstractDoubleCard {
-    public static final String ID = ModHelper.makePath("Diligence");
+public class Kindness extends AbstractDoubleCard {
+    public static final String ID = ModHelper.makePath("Kindness");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
-    private static final String IMG_PATH = "img/cards/Diligence.png";
+    private static final String IMG_PATH = "img/cards/Kindness.png";
     private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
-    private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
+    private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardColor COLOR = AbstractCard.CardColor.COLORLESS;
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
-    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
+    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
-    public Diligence() {
+    public Kindness() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.damage = this.baseDamage = 8;
-        this.magicNumber = this.baseMagicNumber = 8;
-        this.selfRetain = true;
+        this.magicNumber = this.baseMagicNumber = 6;
         this.exhaust = true;
         this.tags.add(AbstractCardEnum.Virtues);
-        this.tags.add(AbstractCardEnum.Diligence);
+        this.tags.add(AbstractCardEnum.Kindness);
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(4);
-            upgradeMagicNumber(-2);
+            upgradeMagicNumber(-1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new DiligenceAction(m, this.magicNumber,
-                new DamageInfo((AbstractCreature) p, this.damage, this.damageTypeForTurn)));
+        int amount = p.currentHealth + ((Integer) TempHPField.tempHp.get(AbstractDungeon.player)).intValue();
+        addToBot(new LoseHPAction(p, p, amount - 1));
+        addToBot(new KindnessAction(p, amount, this.magicNumber));
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Diligence();
+        return new Kindness();
     }
 }

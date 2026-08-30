@@ -32,7 +32,6 @@ public class Hoarding extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Greed);
         this.damage = this.baseDamage = 6;
-        this.selfRetain = true;
         this.exhaust = true;
         if (needFiend()) {
             updateFiend();
@@ -43,7 +42,7 @@ public class Hoarding extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(2);
+            this.selfRetain = true;
             UpdateDescription();
             initializeDescription();
         }

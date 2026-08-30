@@ -61,6 +61,8 @@ public class TwoChargeVoid extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new TwoChargeVoid();
+        TwoChargeVoid c = new TwoChargeVoid();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

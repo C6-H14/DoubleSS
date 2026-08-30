@@ -19,7 +19,7 @@ public class Perseverance extends AbstractLostCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/Lost/Perseverance.png";
-    private static final int COST = 3;
+    private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.Lost_Black;
@@ -30,18 +30,19 @@ public class Perseverance extends AbstractLostCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.isEthereal = true;
-        this.permanentMagicNumber = this.basePermanentMagicNumber = 3;
+        this.permanentMagicNumber = this.basePermanentMagicNumber = 1;
         this.tags.add(AbstractCardEnum.Permanent);
         if (needManager()) {
             updateManager();
         }
+        this.exhaust = true;
         UpdateDescription();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradePermanentMagicNumber(2);
+            upgradePermanentMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
@@ -52,9 +53,30 @@ public class Perseverance extends AbstractLostCard {
         ModHelper.atbLambda(() -> {
             int amount = 0;
             if (AbstractDungeon.player.hasPower("Double:DyingPower")) {
-                amount = AbstractDungeon.player.getPower("Double:DyingPower").amount;
+                amount = AbstractDungeon.player.getPower("Double:DyingPower").amount / 2;
+            }
+            for (AbstractCard c : AbstractDungeon.player.drawPile.group) {
+                if (c instanceof AbstractLostCard && c.hasTag(AbstractCardEnum.Permanent)) {
+                    ((AbstractLostCard) c).upgradePermanentDamage(amount);
+                    ((AbstractLostCard) c).upgradePermanentBlock(amount);
+                    ((AbstractLostCard) c).upgradePermanentMagicNumber(amount);
+                }
             }
             for (AbstractCard c : AbstractDungeon.player.hand.group) {
+                if (c instanceof AbstractLostCard && c.hasTag(AbstractCardEnum.Permanent)) {
+                    ((AbstractLostCard) c).upgradePermanentDamage(amount);
+                    ((AbstractLostCard) c).upgradePermanentBlock(amount);
+                    ((AbstractLostCard) c).upgradePermanentMagicNumber(amount);
+                }
+            }
+            for (AbstractCard c : AbstractDungeon.player.discardPile.group) {
+                if (c instanceof AbstractLostCard && c.hasTag(AbstractCardEnum.Permanent)) {
+                    ((AbstractLostCard) c).upgradePermanentDamage(amount);
+                    ((AbstractLostCard) c).upgradePermanentBlock(amount);
+                    ((AbstractLostCard) c).upgradePermanentMagicNumber(amount);
+                }
+            }
+            for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
                 if (c instanceof AbstractLostCard && c.hasTag(AbstractCardEnum.Permanent)) {
                     ((AbstractLostCard) c).upgradePermanentDamage(amount);
                     ((AbstractLostCard) c).upgradePermanentBlock(amount);
@@ -68,6 +90,8 @@ public class Perseverance extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Perseverance();
+        Perseverance c = new Perseverance();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

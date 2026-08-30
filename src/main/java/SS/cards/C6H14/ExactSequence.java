@@ -43,6 +43,7 @@ public class ExactSequence extends AbstractC6H14Card {
         if (!this.upgraded) {
             upgradeName();
             upgradeDamage(2);
+            upgradeBlock(2);
             UpdateDescription();
             initializeDescription();
         }

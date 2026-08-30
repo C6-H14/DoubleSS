@@ -52,6 +52,8 @@ public class Resurrection extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Resurrection();
+        Resurrection c = new Resurrection();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

@@ -11,16 +11,14 @@ public class LostPackage_e extends AbstractPackage {
     public static String ID = ModHelper.makePath("LostPackage_e");
 
     public LostPackage_e() {
-        super(ID, TYPE, PackageEnum.Lost, "Double:Lost_Black_option", "Double:WoodenCross");
+        super(ID, TYPE, PackageEnum.Lost, "Double:Lost_Black_option", "Double:WoodenCross", "Double:HolyMantle");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Double:BlankCard");
-        cards.add("Double:TwoChargeVoid");
-        cards.add("Double:SoulGuard");
-        cards.add("Double:LastBreath");
-        cards.add("Double:CounterBlow");
+        for (String c : LostPackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Double:SpectreEcho");
         cards.add("Double:Incorporeal");
@@ -41,6 +39,10 @@ public class LostPackage_e extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Double:Ferry";
     }
 
     public AbstractPackage makeCopy() {

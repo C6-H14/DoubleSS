@@ -10,8 +10,17 @@ public class BluePackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("BluePackage");
 
+    // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
+    public static final String[] COMMON_CARDS = {
+        "Turbo",
+        "Undo",
+        "Skim",
+        "Self Repair",
+        "Buffer",
+    };
+
     public BluePackage() {
-        super(ID, TYPE, PackageEnum.BLUE, "Double:BLUE_option", "Double:CorePieces");
+        super(ID, TYPE, PackageEnum.BLUE, "Double:BLUE_option", "Double:CorePieces", "Double:CorePieces");
     }
 
     public ArrayList<String> getCards() {
@@ -36,6 +45,10 @@ public class BluePackage extends AbstractPackage {
             monsters.addAll(pack.getMonsters());
         }
         return monsters;
+    }
+
+    public String getStarterCard() {
+        return "Charge Battery";
     }
 
     protected void initializeSubPackage() {

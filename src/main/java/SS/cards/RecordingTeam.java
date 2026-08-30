@@ -52,11 +52,8 @@ public class RecordingTeam extends AbstractDoubleCard {
                 addToTop(new RemoveSpecificPowerAction(p, p, "Double:SinsPower"));
             }
         }
-
         addToBot(new MakeTempCardInHandAction(this.cardsToPreview, this.magicNumber));
-        for (int i = 0; i < this.magicNumber; ++i) {
-            addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
-        }
+        addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
     }
 
     public AbstractDoubleCard makeCopy() {

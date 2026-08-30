@@ -11,16 +11,14 @@ public class GreenPackage_v extends AbstractPackage {
     public static String ID = ModHelper.makePath("GreenPackage_v");
 
     public GreenPackage_v() {
-        super(ID, TYPE, PackageEnum.GREEN, "Double:GREEN_option", "Double:HalfRingOfTheSnake");
+        super(ID, TYPE, PackageEnum.GREEN, "Double:GREEN_option", "Double:HalfRingOfTheSnake", "Ring of the Serpent");
     }
 
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
-        cards.add("Acrobatics");
-        cards.add("Reflex");
-        cards.add("PiercingWail");
-        cards.add("Eviscerate");
-        cards.add("Prepared");
+        for (String c : GreenPackage.COMMON_CARDS) {
+            cards.add(c);
+        }
 
         cards.add("Dash");
         cards.add("Phantasmal Killer");
@@ -41,6 +39,10 @@ public class GreenPackage_v extends AbstractPackage {
     }
 
     protected void initializeSubPackage() {
+    }
+
+    public String getStarterCard() {
+        return "Neutralize";
     }
 
     public AbstractPackage makeCopy() {

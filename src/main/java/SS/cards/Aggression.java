@@ -1,11 +1,9 @@
 package SS.cards;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
@@ -37,6 +35,7 @@ public class Aggression extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Pride);
         this.damage = this.baseDamage = 4;
         this.magicNumber = this.baseMagicNumber = 1;
+        this.exhaust = true;
         if (needFiend()) {
             updateFiend();
         }
@@ -55,18 +54,9 @@ public class Aggression extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         int M = this.magicNumber;
-        for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-            if (mo == m) {
-                continue;
-            }
-            addToBot(new ReducePowerAction(mo, p, new AggressionPower(m, M), M));
-        }
-        if (p.getPower("Double:FiendStance") != null) {
-            ++M;
-        }
         addToBot(new ApplyPowerAction(m, p, new AggressionPower(m, M), M));
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 4)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, needFiend() ? 3 : 5)));
     }
 
     public void triggerOnGlowCheck() {

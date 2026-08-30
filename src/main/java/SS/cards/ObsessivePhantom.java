@@ -30,7 +30,7 @@ public class ObsessivePhantom extends AbstractDoubleCard {
     public ObsessivePhantom() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
-        this.block = this.baseBlock = 7;
+        this.block = this.baseBlock = 5;
         this.magicNumber = this.baseMagicNumber = 2;
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
@@ -54,7 +54,6 @@ public class ObsessivePhantom extends AbstractDoubleCard {
         addToBot(new ChannelDiceAction(new DefendDice(this.block, p)));
         addToBot(new ConjugateCardinDrawPileAction(p, m, this.magicNumber));
         addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
-        UpdateExhaustiveDescription();
     }
 
     public AbstractDoubleCard makeCopy() {

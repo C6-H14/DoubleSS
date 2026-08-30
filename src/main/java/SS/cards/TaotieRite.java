@@ -15,7 +15,7 @@ public class TaotieRite extends AbstractDoubleCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/TaotieRite.png";
-    private static final int COST = 3;
+    private static final int COST = 2;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
@@ -26,7 +26,7 @@ public class TaotieRite extends AbstractDoubleCard {
     public TaotieRite() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
         this.exhaust = true;
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
@@ -46,7 +46,6 @@ public class TaotieRite extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(-1);
             AbstractCard c = new PeptideStrike();
             c.upgrade();
             this.cardsToPreview = c;

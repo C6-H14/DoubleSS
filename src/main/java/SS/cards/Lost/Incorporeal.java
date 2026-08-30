@@ -59,6 +59,8 @@ public class Incorporeal extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Incorporeal();
+        Incorporeal c = new Incorporeal();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

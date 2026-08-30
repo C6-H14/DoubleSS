@@ -11,8 +11,17 @@ public class HaoPackage extends AbstractPackage {
     public static PackageType TYPE = PackageType.MAIN;
     public static String ID = ModHelper.makePath("HaoPackage");
 
+    // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
+    public static final String[] COMMON_CARDS = {
+        "Double:Dishaovery",
+        "Double:GreatDisciple",
+        "Double:HaoBludgeon",
+        "Double:HaoTap",
+        "Double:MaximizeHaoCard",
+    };
+
     public HaoPackage() {
-        super(ID, TYPE, PackageEnum.Hao, "Double:Hao_Green_option", "Double:GreenApple");
+        super(ID, TYPE, PackageEnum.Hao, "Double:Hao_Green_option", "Double:GreenApple", "Double:GoldenApple");
         addSyng(PackageEnum.Shock, SynergismGraph.SynTag.Teacher);
     }
 
@@ -38,6 +47,10 @@ public class HaoPackage extends AbstractPackage {
             monsters.addAll(pack.getMonsters());
         }
         return monsters;
+    }
+
+    public String getStarterCard() {
+        return "Double:BossSwap";
     }
 
     protected void initializeSubPackage() {

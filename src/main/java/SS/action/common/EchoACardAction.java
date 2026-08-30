@@ -19,6 +19,7 @@ public class EchoACardAction extends AbstractGameAction {
     }
 
     private boolean free = false;
+    private boolean permitEcho = false;
 
     public EchoACardAction(AbstractCard cardToEcho) {
         this(cardToEcho, 1);
@@ -29,8 +30,14 @@ public class EchoACardAction extends AbstractGameAction {
         this.free = freeToUse;
     }
 
+    public EchoACardAction(AbstractCard cardToEcho, boolean freeToUse, boolean permitEcho) {
+        this(cardToEcho, 1);
+        this.free = freeToUse;
+        this.permitEcho = permitEcho;
+    }
+
     public void update() {
-        if (this.cardToEcho.hasTag(AbstractCardEnum.Echo)
+        if ((this.cardToEcho.hasTag(AbstractCardEnum.Echo) && !this.permitEcho)
                 || CardModifierManager.hasModifier(this.cardToEcho, (new EchoTagModifier()).ID)) {
             this.isDone = true;
             return;

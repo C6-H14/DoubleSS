@@ -48,6 +48,8 @@ public class Altar extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Altar();
+        Altar c = new Altar();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }

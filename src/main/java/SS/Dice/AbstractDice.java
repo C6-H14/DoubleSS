@@ -63,15 +63,14 @@ public abstract class AbstractDice extends AbstractOrb {
     }
 
     protected void renderText(SpriteBatch sb) {
-        if (!(this instanceof EmptyDiceSlot)) {
-            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
-                    Integer.toString(this.passiveAmount), this.cX + NUM_X_OFFSET,
-                    this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET - 4.0F * Settings.scale,
-                    new Color(0.2F, 1.0F, 1.0F, this.c.a), this.fontScale);
-            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
-                    Integer.toString(this.evokeAmount), this.cX + NUM_X_OFFSET,
-                    this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET + 20.0F * Settings.scale, this.c, this.fontScale);
-        }
+        // 空骰槽已改为 EmptyOrbSlot 子类，不会再走这里的渲染，直接画数字
+        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                Integer.toString(this.passiveAmount), this.cX + NUM_X_OFFSET,
+                this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET - 4.0F * Settings.scale,
+                new Color(0.2F, 1.0F, 1.0F, this.c.a), this.fontScale);
+        FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                Integer.toString(this.evokeAmount), this.cX + NUM_X_OFFSET,
+                this.cY + this.bobEffect.y / 2.0F + NUM_Y_OFFSET + 20.0F * Settings.scale, this.c, this.fontScale);
     }
 
     public int getDiceResult(boolean useCardRng)// 骰子随机数判定
@@ -81,9 +80,9 @@ public abstract class AbstractDice extends AbstractOrb {
             amount += AbstractDungeon.player.getPower("Double:RerollPower").amount;
         }
         if (useCardRng) {
-            return Math.min(faces, amount + AbstractDungeon.cardRandomRng.random(faces - 1) + 1);
+            return Math.max(1, Math.min(faces, amount + AbstractDungeon.cardRandomRng.random(faces - 1)));
         } else {
-            return Math.min(faces, MathUtils.random(faces - 1) + amount);
+            return Math.max(1, Math.min(faces, MathUtils.random(faces - 1) + amount));
         }
     }
 
@@ -93,8 +92,6 @@ public abstract class AbstractDice extends AbstractOrb {
 
     public void onEvoke()// 激发骰子
     {
-        if (this instanceof EmptyDiceSlot)
-            return;
         myEvoke();
     }
 
@@ -112,7 +109,7 @@ public abstract class AbstractDice extends AbstractOrb {
         updateDescription();
         this.angle += Gdx.graphics.getDeltaTime() * 2.0F;
         this.vfxTimer -= Gdx.graphics.getDeltaTime();
-        if (!(this instanceof EmptyDiceSlot) && this.vfxTimer < 0.0F) {
+        if (this.vfxTimer < 0.0F) {
 
             AbstractDungeon.effectList.add(new DicePassiveEffect(this.cX, this.cY, this.myColor.cpy()));
             if (MathUtils.randomBoolean()) {

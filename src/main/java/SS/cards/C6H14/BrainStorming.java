@@ -26,7 +26,7 @@ public class BrainStorming extends AbstractC6H14Card {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.exhaust = true;
-        setMagic(1);
+        setMagic(30);
         if (needManager()) {
             updateManager();
         }
@@ -46,9 +46,9 @@ public class BrainStorming extends AbstractC6H14Card {
         addToBot(new BrainStormingAction(this));
         if (countPower("Double:MinuteOfDeathPower") <= 0) {
             if (needManager()) {
-                selfPower(new MinuteOfDeathPower(p, this.magicNumber * 60 + 240));
+                selfPower(new MinuteOfDeathPower(p, this.magicNumber + 30));
             } else {
-                selfPower(new MinuteOfDeathPower(p, this.magicNumber * 60));
+                selfPower(new MinuteOfDeathPower(p, this.magicNumber));
             }
         }
     }

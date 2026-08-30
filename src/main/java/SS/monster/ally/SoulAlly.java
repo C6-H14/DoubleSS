@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -38,7 +37,7 @@ public class SoulAlly extends AbstractAlly {
 
     private static final int MAX_HP = 3; // 最大生命值
     private static final int DAMAGE_AMOUNT = 3; // 《圣约》基础伤害
-    public int slotIndex = -1; // 召唤槽位（EnterEvokeSoulEnvAction 使用）
+    // （slotIndex 已上移到 AbstractAlly，所有重定位走 relocateToSlot）
 
     // =====================================================================
     // 1. 颜色枚举与定义
@@ -56,12 +55,12 @@ public class SoulAlly extends AbstractAlly {
     private float colorDuration = 1.0f; // 渐变耗时 (秒)
     private boolean isChangingColor = false;
 
-    public SoulAlly(float offsetX, float offsetY) {
-        // 注意最后一个参数 60.0F：Hitbox 比脚底板高 60 像素，
-        // 这样格挡碎裂特效会出现在半空中，而不是脚底。
+    public SoulAlly(int slotIndex) {
+        // 站位完全由 slotIndex 决定（AllyPositionHelper）。
+        // hb 参数 (0F, -10F, 150F, 250F)：碰撞箱中心比立绘脚底高 115·scale，
+        // 立绘悬浮感由它提供；血条/名字/能力图标/能量球都锚定 hb，随之悬浮。
         super(NAME, ID, MAX_HP, IMG_PATH, TauntType.OVERFLOW,
-                offsetX, offsetY - 50.0F * Settings.scale, 0F, -10F, 150F, 250F,
-                MAX_HP, 60.0F);
+                slotIndex, 0F, -10F, 150F, 250F, MAX_HP);
 
         // UI 微调（基线值）。注意：能量/能力/卡牌/手牌这些参量每帧都会被 update() 重设，
         // 所以真正的"每帧生效值"以 update() 为准（见下方 update 中的【每帧 UI 参数】段）。

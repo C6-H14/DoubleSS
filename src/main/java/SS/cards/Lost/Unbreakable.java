@@ -52,6 +52,8 @@ public class Unbreakable extends AbstractLostCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Unbreakable();
+        Unbreakable c = new Unbreakable();
+        c.copyPermanentFieldsFrom(this);
+        return c;
     }
 }
