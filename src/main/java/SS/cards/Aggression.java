@@ -24,7 +24,7 @@ public class Aggression extends AbstractDoubleCard {
     private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.RARE;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
 
     public Aggression() {
@@ -56,7 +56,7 @@ public class Aggression extends AbstractDoubleCard {
         int M = this.magicNumber;
         addToBot(new ApplyPowerAction(m, p, new AggressionPower(m, M), M));
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, needFiend() ? 3 : 5)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, needFiend() ? 7 : 10)));
     }
 
     public void triggerOnGlowCheck() {

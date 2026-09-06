@@ -13,8 +13,10 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.patches.ApplyPowerDiceSource;
 import SS.power.DyingPower;
 import SS.power.NextTurnBlockPower;
+import SS.stats.DiceAttribution;
 
 public class EternalDefendDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("EternalDefendDice");
@@ -56,8 +58,12 @@ public class EternalDefendDice extends AbstractDice {
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new DyingPower(p, 1)));
         }
         block = Math.max(0, block);
-        AbstractDungeon.actionManager
-                .addToBottom(new ApplyPowerAction(p, p, new NextTurnBlockPower(p, this.evokeAmount)));
+        // 战斗统计：延迟格挡的归属快照（回合开始结算时挂到 GainBlockAction 上）
+        NextTurnBlockPower ntp = new NextTurnBlockPower(p, this.evokeAmount);
+        ntp.diceAttribution = DiceAttribution.of(this);
+        ApplyPowerAction ap = new ApplyPowerAction(p, p, ntp);
+        ApplyPowerDiceSource.diceRef.set(ap, this);
+        AbstractDungeon.actionManager.addToBottom(ap);
     }
 
     public AbstractDice makeCopy() {

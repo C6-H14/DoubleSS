@@ -79,6 +79,7 @@ import SS.packages.RedPackage.RedPackage_v;
 import SS.packages.ShockPackage.ShockPackage;
 import SS.patches.CharacterSelectPackPatch;
 import SS.patches.CenterGridCardSelectScreen;
+import SS.stats.CardStats;
 import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
 import SS.path.RewardEnum;
@@ -372,6 +373,27 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     public void receiveStartGame() {
         initializeBlessMap();
+        // 战斗统计：读取开关。BaseMod 的 StartGame 事件有两个触发点（ActChangeHooks）：
+        // 4 参 dungeon 构造器（仅真新开局：levelId=="Exordium" && floorNum==0）与
+        // 3 参存档构造器（每次 SL 读档无条件触发；此刻 loadingSave 仍为 true，
+        // CardCrawlGame:654 在 getDungeon 返回后才置 false）。
+        // 幕切换走 4 参构造器但 levelId 非 Exordium → 不发事件，不会清数据。
+        try {
+            Properties statsDefaults = new Properties();
+            statsDefaults.setProperty("StatsExport", "true");
+            SpireConfig statsConfig = new SpireConfig("Double", "Common", statsDefaults);
+            CardStats.enabled = "true".equals(statsConfig.getString("StatsExport"));
+        } catch (IOException e) {
+            CardStats.enabled = true;
+        }
+        if (com.megacrit.cardcrawl.core.CardCrawlGame.loadingSave) {
+            // SL 读档：保留已固化的局内数据——回滚未固化的当前战斗临时数据，
+            // 从 analysis/_cardstats_state.json（每场战斗胜利时的快照）恢复。
+            // 否则每次 SL 都会清掉之前所有幕的统计（"只剩最后一幕"bug 的根因）。
+            CardStats.onLoadSave();
+        } else {
+            CardStats.reset();
+        }
         if (!CardCrawlGame.loadingSave) {
             orbitMisc = 0;
             openedStarterScreen = false;
@@ -408,6 +430,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     @Override
     public void receiveOnBattleStart(AbstractRoom arg0) {// 计算一些局内数据
+        CardStats.onCombatStart(arg0); // 战斗统计：记录房间类型/敌人数/起始HP/回合基线
         combatReward.update();
         if (arg0 instanceof com.megacrit.cardcrawl.rooms.MonsterRoom &&
                 !(arg0 instanceof com.megacrit.cardcrawl.rooms.MonsterRoomElite) &&
@@ -583,6 +606,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         if (!packageLoaded) {
             initializePackage();
         }
+        CardStats.update(); // 战斗统计：回合计数/卡牌栈排水/终局导出检测
         if (sinBar != null) {
             sinBar.update();
         }

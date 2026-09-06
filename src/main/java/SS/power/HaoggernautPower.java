@@ -1,5 +1,6 @@
 package SS.power;
 
+import SS.Dice.AbstractDice;
 import SS.Dice.AttackHaoDice;
 import SS.helper.ModHelper;
 
@@ -42,7 +43,9 @@ public class HaoggernautPower extends AbstractPower {
     public void onGainedBlock(float blockAmount) {
         if (blockAmount > 0.0F) {
             flash();
-            addToBot(new ChannelAction(new AttackHaoDice(this.amount, AbstractDungeon.getRandomMonster())));
+            // 战斗统计：power 产骰 → source = 施加本 power 的牌（CardStats 记录的授予映射）
+            addToBot(new ChannelAction(AbstractDice.tagPowerSource(
+                    new AttackHaoDice(this.amount, AbstractDungeon.getRandomMonster()), this.ID)));
             --count;
             if (count <= 0)
                 addToBot(new RemoveSpecificPowerAction(owner, owner, this));

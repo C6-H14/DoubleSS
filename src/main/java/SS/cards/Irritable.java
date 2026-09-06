@@ -36,8 +36,8 @@ public class Irritable extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Wrath);
-        this.damage = this.baseDamage = 3;
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.damage = this.baseDamage = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
         if (needFiend()) {
             updateFiend();
         }
@@ -48,23 +48,24 @@ public class Irritable extends AbstractDoubleCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeDamage(1);
+            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (p.getPower("Double:FiendStance") != null) {
-            int amounts = 1;
-            for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-                addToBot(new ApplyPowerAction(mo, p, new VulnerablePower(mo, amounts, false), amounts, true,
-                        AbstractGameAction.AttackEffect.NONE));
-            }
-        }
         for (int i = 0; i < 3; ++i) {
             addToBot(new ChannelDiceAction(new ImmolateDice(this.damage, m)));
         }
-        addToBot(new DrawCardAction(this.magicNumber));
+        int amounts = 1;
+        for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
+            addToBot(new ApplyPowerAction(mo, p, new VulnerablePower(mo, amounts, false), amounts, true,
+                    AbstractGameAction.AttackEffect.NONE));
+        }
+        if (p.getPower("Double:FiendStance") != null) {
+            addToBot(new DrawCardAction(this.magicNumber));
+        }
         addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 7)));
     }
 

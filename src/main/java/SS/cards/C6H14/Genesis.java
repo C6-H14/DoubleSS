@@ -25,11 +25,8 @@ public class Genesis extends AbstractC6H14Card implements IEnvironmentCard {
 
     public Genesis() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
-                CARD_STRINGS.EXTENDED_DESCRIPTION);
+                CARD_STRINGS.EXTENDED_DESCRIPTION, false, false);
         this.selfRetain = true; // 环境牌通常具有留存效果
-        if (needManager()) {
-            updateManager();
-        }
         UpdateDescription();
     }
 

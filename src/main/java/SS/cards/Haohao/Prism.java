@@ -32,7 +32,7 @@ public class Prism extends AbstractHaoCard {
     public Prism() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 0;
+        this.damage = this.baseDamage = 1;
         if (needManager()) {
             updateManager();
         }
@@ -42,7 +42,7 @@ public class Prism extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(2);
+            upgradeDamage(2);
             UpdateDescription();
             initializeDescription();
         }

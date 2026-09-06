@@ -3,6 +3,7 @@ package SS.cards.Lost;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
@@ -59,7 +60,13 @@ public class SpectreEcho extends AbstractLostCard {
 
     private int calculateCardDamage() {
         int cnt = this.permanentDamage;
-        cnt = cnt + this.permanentMagicNumber * modcore.combatExhausts;
+        int temp = 0;
+        for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
+            if (c.isEthereal) {
+                ++temp;
+            }
+        }
+        cnt = cnt + this.permanentMagicNumber * temp;
         return cnt;
     }
 

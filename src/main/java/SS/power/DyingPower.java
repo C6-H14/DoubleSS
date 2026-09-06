@@ -22,6 +22,7 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private static final String NAME = powerStrings.NAME;
     private static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
+    private boolean isResurrencted = false;
 
     public DyingPower(AbstractCreature owner, int amount) {
         this.name = NAME;
@@ -116,12 +117,13 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
         }
 
         // 2. 正常保命：扣除 (amount - 1) 层 DyingPower
-        if (reduce(this.amount - 1)) {
+        if (!isResurrencted && reduce(this.amount - 1)) {
             // 成功因致命伤害失去 DyingPower 后，激活斗篷保护期（直到下回合开始）
             if (mantle != null) {
                 mantle.triggerProtection();
             }
             this.owner.decreaseMaxHealth(10);
+            this.isResurrencted = true;
             addToBot(new HealAction(this.owner, this.owner, this.owner.maxHealth));
             return false;
         }

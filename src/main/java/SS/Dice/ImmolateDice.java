@@ -15,8 +15,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import basemod.cardmods.EtherealMod;
-import basemod.helpers.CardModifierManager;
+import SS.stats.DiceAttribution;
 
 public class ImmolateDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("ImmolateDice");
@@ -67,9 +66,9 @@ public class ImmolateDice extends AbstractDice {
 
     public void myEvoke() {
         int temp = result, damage = this.evokeAmount;
-        // System.out.println(temp);
         AbstractDungeon.actionManager
-                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, true));
+                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, true,
+                        DiceAttribution.of(this)));
         AbstractCard c = new Burn();
         if (temp == 1) {
             c.upgrade();

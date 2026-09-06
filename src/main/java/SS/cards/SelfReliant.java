@@ -19,7 +19,7 @@ public class SelfReliant extends AbstractDoubleCard {
     private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public SelfReliant() {
@@ -28,9 +28,6 @@ public class SelfReliant extends AbstractDoubleCard {
         this.exhaust = true;
         this.selfRetain = true;
         this.magicNumber = this.baseMagicNumber = 2;
-        if (needFiend()) {
-            updateFiend();
-        }
         UpdateDescription();
     }
 
@@ -46,7 +43,13 @@ public class SelfReliant extends AbstractDoubleCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new SelfReliantAction(this.magicNumber));
+        if (needFiend()) {
+            addToBot(new SelfReliantAction(this.magicNumber));
+        }
+    }
+
+    public void triggerOnGlowCheck() {
+        triggerOnGlowCheck_Fiend();
     }
 
     @Override

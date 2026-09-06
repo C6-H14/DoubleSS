@@ -29,7 +29,7 @@ public class HaoStrike extends AbstractHaoCard {
     public HaoStrike() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 1;
+        this.damage = this.baseDamage = 3;
         this.magicNumber = this.baseMagicNumber = 1;
         this.tags.add(AbstractCard.CardTags.STRIKE);
         if (needManager()) {

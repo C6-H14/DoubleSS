@@ -10,6 +10,8 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.patches.GainBlockDiceSource;
+import SS.stats.DiceAttribution;
 
 public class DefendDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("Defend");
@@ -57,7 +59,9 @@ public class DefendDice extends AbstractDice {
             block++;
         }
         block = Math.max(0, block);
-        AbstractDungeon.actionManager.addToBottom(new GainBlockAction((AbstractPlayer) this.target, block));
+        GainBlockAction gain = new GainBlockAction((AbstractPlayer) this.target, block);
+        GainBlockDiceSource.diceRef.set(gain, DiceAttribution.of(this));
+        AbstractDungeon.actionManager.addToBottom(gain);
     }
 
     public AbstractDice makeCopy() {

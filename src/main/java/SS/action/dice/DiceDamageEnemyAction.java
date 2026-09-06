@@ -10,43 +10,42 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.path.DamageInfoEnum;
+import SS.patches.DamageAllEnemiesDiceSource;
+import SS.patches.DamageInfoDiceSource;
+import SS.stats.DiceAttribution;
 
 public class DiceDamageEnemyAction extends AbstractGameAction {
     private boolean HitAll;
     private AbstractMonster m;
+    /** 战斗统计：产生本 action 的骰子归属快照（结算时回读，可为 null = 无统计）。 */
+    private DiceAttribution diceAttribution;
 
     public DiceDamageEnemyAction(int amount, AbstractMonster m, boolean HitAll) {
+        this(amount, m, HitAll, null);
+    }
+
+    public DiceDamageEnemyAction(int amount, AbstractMonster m, boolean HitAll, DiceAttribution diceAttribution) {
         this.actionType = AbstractGameAction.ActionType.DAMAGE;
         this.HitAll = HitAll;
         this.source = (AbstractCreature) AbstractDungeon.player;
         this.amount = amount;
         this.m = m;
+        this.diceAttribution = diceAttribution;
     }
 
     public void update() {
         if (!this.HitAll) {
             AbstractMonster abstractMonster = m;
             DamageInfo info = new DamageInfo(this.source, this.amount, DamageInfoEnum.DICE);
+            if (this.diceAttribution != null) {
+                DamageInfoDiceSource.diceRef.set(info, this.diceAttribution);
+            }
             if (abstractMonster != null && !abstractMonster.isDeadOrEscaped() && !abstractMonster.halfDead) {
-                /*
-                 * if (abstractMonster.getPower("BlockReturnPower") != null) {
-                 * abstractMonster.getPower("BlockReturnPower").flash();
-                 * addToTop(new GainBlockAction(AbstractDungeon.player,
-                 * abstractMonster.getPower("BlockReturnPower").amount, Settings.FAST_MODE));
-                 * }
-                 */
                 addToTop(new DamageAction((AbstractCreature) abstractMonster, info,
                         GetEffect(this.amount), true));
             } else {
                 abstractMonster = AbstractDungeon.getRandomMonster();
                 if (abstractMonster != null) {
-                    /*
-                     * if (abstractMonster.getPower("BlockReturnPower") != null) {
-                     * abstractMonster.getPower("BlockReturnPower").flash();
-                     * addToTop(new GainBlockAction(AbstractDungeon.player,
-                     * abstractMonster.getPower("BlockReturnPower").amount, Settings.FAST_MODE));
-                     * }
-                     */
                     addToTop(new DamageAction((AbstractCreature) abstractMonster, info,
                             GetEffect(this.amount), true));
                 }
@@ -54,7 +53,6 @@ public class DiceDamageEnemyAction extends AbstractGameAction {
         } else {
             for (AbstractMonster m : (AbstractDungeon.getMonsters()).monsters) {
                 if (!m.isDeadOrEscaped() && !m.halfDead) {
-                    DamageInfo info = new DamageInfo(this.source, this.amount, DamageInfoEnum.DICE);
                     if (m.getPower("BlockReturnPower") != null) {
                         m.getPower("BlockReturnPower").flash();
                         addToTop(new GainBlockAction(AbstractDungeon.player,
@@ -62,8 +60,12 @@ public class DiceDamageEnemyAction extends AbstractGameAction {
                     }
                 }
             }
-            addToTop(new DamageAllEnemiesAction(AbstractDungeon.player, this.amount, DamageInfo.DamageType.THORNS,
-                    GetEffect(amount)));
+            DamageAllEnemiesAction aoe = new DamageAllEnemiesAction(AbstractDungeon.player, this.amount,
+                    DamageInfo.DamageType.THORNS, GetEffect(amount));
+            if (this.diceAttribution != null) {
+                DamageAllEnemiesDiceSource.diceRef.set(aoe, this.diceAttribution);
+            }
+            addToTop(aoe);
         }
         this.isDone = true;
     }

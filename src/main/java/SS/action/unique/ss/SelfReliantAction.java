@@ -16,7 +16,7 @@ import SS.cards.AbstractDoubleCard;
 import SS.path.AbstractCardEnum;
 
 public class SelfReliantAction extends AbstractGameAction {
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("ArmamentsAction");
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("Double:ChooseHandCardAction");
     public static final String[] TEXT = uiStrings.TEXT;
     private AbstractPlayer p;
 

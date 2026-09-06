@@ -31,6 +31,7 @@ public class Hoarding extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Greed);
+        this.tags.add(CardTags.HEALING);
         this.damage = this.baseDamage = 6;
         this.exhaust = true;
         if (needFiend()) {

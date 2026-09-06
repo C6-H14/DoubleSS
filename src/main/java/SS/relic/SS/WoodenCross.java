@@ -59,6 +59,7 @@ public class WoodenCross extends CustomRelic implements CustomSavable<int[]>, Cl
                 this.counter = 0;
                 this.amount++;
                 this.flash();
+                updateDescription();
             }
         }
     }

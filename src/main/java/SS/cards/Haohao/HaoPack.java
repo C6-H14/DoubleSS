@@ -5,13 +5,8 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.green.Prepared;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.relics.ToughBandages;
-import com.megacrit.cardcrawl.vfx.RelicAboveCreatureEffect;
-
 import SS.action.common.EchoACardAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -34,7 +29,6 @@ public class HaoPack extends AbstractHaoCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.cardsToPreview = new Prepared();
-        this.cardsToPreview.upgrade();
         if (needManager()) {
             updateManager();
         }
@@ -44,6 +38,7 @@ public class HaoPack extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
+            this.cardsToPreview.upgrade();
             UpdateDescription();
             initializeDescription();
         }
@@ -51,18 +46,8 @@ public class HaoPack extends AbstractHaoCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ApplyPowerAction(p, p, new HaoPackPower(p, 1)));
-        if (this.upgraded) {
-            if (!p.hasRelic("Tough Bandages")) {
-                final ToughBandages r = new ToughBandages();
-                AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float) (Settings.WIDTH / 2),
-                        (float) (Settings.HEIGHT / 2), r);
-                AbstractDungeon.effectList.add(new RelicAboveCreatureEffect(AbstractDungeon.player.hb.cX,
-                        AbstractDungeon.player.hb.cY, r));
-            }
-        }
         if (needManager()) {
-            AbstractCard c = new Prepared();
-            c.upgrade();
+            AbstractCard c = this.cardsToPreview.makeCopy();
             addToBot(new EchoACardAction(c));
         }
     }

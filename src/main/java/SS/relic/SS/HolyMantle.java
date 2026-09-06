@@ -23,7 +23,7 @@ public class HolyMantle extends CustomRelic implements ClickableRelic {
     private static final RelicStrings RELIC_STRINGS = CardCrawlGame.languagePack.getRelicStrings(ID);
     private static final String IMG_PATH = "img/relic/HolyMantle.png";
     // Boss 遗物级别
-    private static final AbstractRelic.RelicTier RELIC_TIER = AbstractRelic.RelicTier.BOSS;
+    private static final AbstractRelic.RelicTier RELIC_TIER = AbstractRelic.RelicTier.SPECIAL;
     private static final AbstractRelic.LandingSound LANDING_SOUND = AbstractRelic.LandingSound.MAGICAL;
     public static final String DESCRIPTION[] = RELIC_STRINGS.DESCRIPTIONS;
 

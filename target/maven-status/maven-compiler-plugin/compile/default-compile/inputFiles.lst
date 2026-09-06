@@ -1,5 +1,4 @@
 d:\StSmod\DoubleSS\src\main\java\SS\cards\NutrientCycle.java
-d:\StSmod\DoubleSS\src\main\java\SS\cards\Revenge.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\YinYang.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\DecomposeAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\KernelMapping.java
@@ -14,7 +13,6 @@ d:\StSmod\DoubleSS\src\main\java\SS\helper\SynergismGraph.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\OffenseAsDefensePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\HaoPackage\HaoPackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\Record.java
-d:\StSmod\DoubleSS\src\main\java\SS\cards\FiendFire.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\NightOps.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\dice\ChannelOneDiceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\effect\DicePassiveEffect.java
@@ -30,6 +28,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\RecordingTeam.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\FiendStance.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\ScrapeBy.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\BlessCard\AbstractBlessCard.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\FiendPact.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\AbstractPackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Shock\Tired.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\AbstractDoubleCard.java
@@ -46,6 +45,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\path\LibraryTypeEnum.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\TransportProtein.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\CharityPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\GainVirtueAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\Revenge.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\IronwaveDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\PeptideStrike.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\RedPackage\RedPackage_e.java
@@ -67,6 +67,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\action\common\DieAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\monster\ally\AbstractAlly.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\SpectreEcho.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Aggression.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\Diversity.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\EvokeAllPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\rewards\CommonCardReward.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Ferry.java
@@ -97,13 +98,13 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\Kaleidoscope.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ShootOff.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\MonsterIntentSimulator.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\HaoPackage\HaoPackage_c.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\ApplyPowerDiceSource.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\DiligenceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cardmodifiers\SaveLoadSubscriber.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\CardUtil.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\DelayDamagePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\Genesis.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\monster\EnterEvokeSoulEnvAction.java
-d:\StSmod\DoubleSS\src\main\java\SS\cards\FiendPact.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\Contempt.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\RedirectDamagePatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\Prism.java
@@ -117,7 +118,6 @@ d:\StSmod\DoubleSS\src\main\java\SS\power\HaoggernautPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\monster\EvokeSoulAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\c6h14\PaperPenanceAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage.java
-d:\StSmod\DoubleSS\src\main\java\SS\cards\Reroll.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\FeelNoShamePower.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\HumilityPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\PeptideDice.java
@@ -126,6 +126,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\packages\PurplePackage\PurplePackage_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\BleedingPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\FreedomOfSpeech.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\SpiritualCompanionship.java
+d:\StSmod\DoubleSS\src\main\java\SS\stats\CardStats.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\C6H14Package\C6H14Package_v.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\RewardPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Protein.java
@@ -157,6 +158,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\packages\GreenPackage\GreenPackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\GhostBomb.java
 d:\StSmod\DoubleSS\src\main\java\SS\characters\AbstractSSCharacter.java
 d:\StSmod\DoubleSS\src\main\java\SS\cardmodifiers\EchoTagModifier.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\Saprophytism.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\BossSwapGod.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Unbreakable.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\BluePackage\BluePackage_c.java
@@ -234,6 +236,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\relic\SS\MassSpring.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\EmptyDiceSlot.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\EchoACardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\TempRelicManager.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\GainBlockDiceSource.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\HaoPack.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\Temperance.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage.java
@@ -275,6 +278,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\BrainStorming.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\DefendDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\CenterGridCardSelectScreen.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\UpdateManagerCardDescriptionsAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\Reroll.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\KindnessAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\ss\RevengeAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\monster\ExitEvokeSoulEnvAction.java
@@ -336,6 +340,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\DaggerInSmile.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Manager_option.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\c6h14\KaleidoscopeAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\ActionSimulationPatches.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\DamageAllEnemiesDiceSource.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_v.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\PlaySpecificCardInDrawPile.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SinsPower.java
@@ -353,7 +358,6 @@ d:\StSmod\DoubleSS\src\main\java\SS\packages\C6H14Package\C6H14Package_e.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\DeafFormPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\margropeR.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\shock\OffenseAsDefenseAction.java
-d:\StSmod\DoubleSS\src\main\java\SS\cards\Saprophytism.java
 d:\StSmod\DoubleSS\src\main\java\SS\monster\AbstractCardMonster.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\TriggerPoisonAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Godhead.java
@@ -365,6 +369,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\Dice\DefendHaoDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\LostPackage\LostPackage_c.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Options\Hao_Green_option.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\MessageCaller.java
+d:\StSmod\DoubleSS\src\main\java\SS\stats\DiceAttribution.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DrawSameTypeCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\ImmolateDice.java
 d:\StSmod\DoubleSS\src\main\java\SS\patches\FallenPowerPatches.java
@@ -379,6 +384,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\Jealousy.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Haohao\DiverseLover.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\FallenPact.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Irritable.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\CombatStatsPatch.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\Localization.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\SermonPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Lost\Resurrection.java
@@ -391,6 +397,7 @@ d:\StSmod\DoubleSS\src\main\java\SS\vfx\ManagerStanceParticle.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\VoidStrollAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Decompose.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DiscardByTypeAction.java
+d:\StSmod\DoubleSS\src\main\java\SS\patches\DamageInfoDiceSource.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\C6H14\Martyrdom.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ObsessivePhantom.java
 d:\StSmod\DoubleSS\src\main\java\SS\Dice\AbstractDice.java
@@ -415,13 +422,13 @@ d:\StSmod\DoubleSS\src\main\java\SS\cards\SulfurBlack.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\ModifyPermanentDamageAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\VolcanoPower.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\common\DrawSpecificCardAction.java
-d:\StSmod\DoubleSS\src\main\java\SS\cards\Diversity.java
 d:\StSmod\DoubleSS\src\main\java\SS\modcore\modcore.java
 d:\StSmod\DoubleSS\src\main\java\SS\UI\Sinsbar.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\Stingy.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\EnvironmentManager.java
 d:\StSmod\DoubleSS\src\main\java\SS\packages\RedPackage\RedPackage.java
 d:\StSmod\DoubleSS\src\main\java\SS\helper\AllyTriggerHelper.java
+d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\FiendFire.java
 d:\StSmod\DoubleSS\src\main\java\SS\action\unique\lost\LifelinePlayCardAction.java
 d:\StSmod\DoubleSS\src\main\java\SS\power\ManagerStance.java
 d:\StSmod\DoubleSS\src\main\java\SS\cards\ZZZDEPRECATED\Chastity.java

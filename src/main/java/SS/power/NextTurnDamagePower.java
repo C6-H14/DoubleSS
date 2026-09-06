@@ -2,6 +2,8 @@ package SS.power;
 
 import SS.helper.ModHelper;
 import SS.path.DamageInfoEnum;
+import SS.patches.DamageAllEnemiesDiceSource;
+import SS.stats.DiceAttribution;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -22,6 +24,9 @@ public class NextTurnDamagePower extends AbstractPower {
     private static final String NAME = powerStrings.NAME;
     private static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
+    /** 战斗统计：产生本 power 的骰子归属快照（EternalAttackDice 构造时携带，可为 null）。 */
+    public DiceAttribution diceAttribution = null;
+
     public NextTurnDamagePower(AbstractCreature owner, int amount) {
         this.name = NAME;
         this.ID = POWER_ID;
@@ -39,8 +44,12 @@ public class NextTurnDamagePower extends AbstractPower {
 
     public void atStartOfTurn() {
         this.flash();
-        addToBot(new DamageAllEnemiesAction((AbstractPlayer) owner, this.amount, DamageInfo.DamageType.THORNS,
-                GetEffect(amount)));
+        DamageAllEnemiesAction aoe = new DamageAllEnemiesAction((AbstractPlayer) owner, this.amount,
+                DamageInfo.DamageType.THORNS, GetEffect(amount));
+        if (this.diceAttribution != null) {
+            DamageAllEnemiesDiceSource.diceRef.set(aoe, this.diceAttribution);
+        }
+        addToBot(aoe);
         addToBot(new RemoveSpecificPowerAction(owner, owner, this));
     }
 

@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.helper.ModHelper;
+import SS.patches.ApplyPowerDiceSource;
 import SS.power.BleedingPower;
 
 public class WitherDice extends AbstractDice {
@@ -46,8 +47,10 @@ public class WitherDice extends AbstractDice {
         if (temp >= 4) {
             amount++;
         }
-        AbstractDungeon.actionManager.addToBottom(
-                new ApplyPowerAction(this.target, this.target, new BleedingPower(this.target, amount), amount));
+        ApplyPowerAction ap = new ApplyPowerAction(this.target, this.target, new BleedingPower(this.target, amount),
+                amount);
+        ApplyPowerDiceSource.diceRef.set(ap, this);
+        AbstractDungeon.actionManager.addToBottom(ap);
     }
 
     public AbstractDice makeCopy() {

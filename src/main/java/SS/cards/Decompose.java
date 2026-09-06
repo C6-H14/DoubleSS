@@ -8,6 +8,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.Dice.WitherDice;
+import SS.action.dice.ChannelDiceAction;
 import SS.action.unique.ss.DecomposeAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -19,16 +21,22 @@ public class Decompose extends AbstractDoubleCard {
     private static final String IMG_PATH = "img/cards/Decompose.png";
     private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
+    private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
 
     public Decompose() {
-        super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        setDamage(4);
-        this.isEthereal = true;
+        super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
+                CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
+        this.tags.add(AbstractCardEnum.Fiend);
+        setDamage(6);
         setMagic(2);
+        if (needFiend()) {
+            updateFiend();
+        }
+        UpdateDescription();
     }
 
     public void upgrade() {
@@ -43,7 +51,10 @@ public class Decompose extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new DamageAction(m, new DamageInfo(p, this.damage, DamageInfo.DamageType.NORMAL)));
-        addToBot(new DecomposeAction(m, p, magicNumber));
+        addToTop(new ChannelDiceAction(new WitherDice(this.magicNumber, m)));
+        if (needFiend()) {
+            addToBot(new DecomposeAction(m, p, magicNumber));
+        }
     }
 
     public AbstractDoubleCard makeCopy() {

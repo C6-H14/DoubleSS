@@ -20,6 +20,7 @@ import SS.effect.DiceTriggeredEffect;
 
 import java.util.ArrayList;
 
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 
 public abstract class AbstractDice extends AbstractOrb {
@@ -30,6 +31,31 @@ public abstract class AbstractDice extends AbstractOrb {
     public int result = -1;
     public AbstractCreature target;
     public ArrayList<CardTags> tags = new ArrayList<>();
+
+    /**
+     * 战斗统计用：产生本骰子的来源牌。
+     * 充能瞬间标注（卡牌打出充能→栈顶牌；power 产骰→施加该 power 的牌，可能多张；
+     * 遗物产骰→空列表→统计时进"无归属"桶）。数值一经生成不再改变，归属按生成事件。
+     */
+    public ArrayList<AbstractCard> sources = new ArrayList<>();
+
+    /**
+     * 战斗统计用：power 产骰时把施加该 power 的牌挂到骰子 sources 上。
+     * 由 power 的触发点（onChannel/onGainedBlock/onApplyPower）调用，
+     * 此时卡牌栈里还没有该 power 事务的帧（power 是常驻状态），
+     * 只能走 CardStats 记录的 power→授予牌 映射；映射为空（环境/开局/遗物授予）
+     * 则 sources 保持空，结算时进"无归属"桶。
+     */
+    public static AbstractDice tagPowerSource(AbstractDice dice, String powerId) {
+        if (dice == null) {
+            return null;
+        }
+        java.util.ArrayList<AbstractCard> src = SS.stats.CardStats.powerSourcesFor(powerId);
+        if (src != null) {
+            dice.sources.addAll(src);
+        }
+        return dice;
+    }
 
     public AbstractDice() {
         this.c = Settings.CREAM_COLOR.cpy();

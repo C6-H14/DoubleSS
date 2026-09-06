@@ -30,7 +30,7 @@ public class HaoBludgeon extends AbstractHaoCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.damage = this.baseDamage = 1;
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 3;
         flag = false;
         if (needManager()) {
             updateManager();
@@ -41,7 +41,7 @@ public class HaoBludgeon extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(1);
+            upgradeDamage(2);
             UpdateDescription();
             initializeDescription();
         }

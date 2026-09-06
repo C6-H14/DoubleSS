@@ -12,7 +12,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.AttackHaoDice;
 import SS.action.common.TriggerPoisonAction;
 import SS.action.dice.ChannelDiceAction;
-import SS.action.unique.haohao.DrawHaoCardAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -32,7 +31,7 @@ public class HaoStab extends AbstractHaoCard {
     public HaoStab() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 2;
         this.damage = this.baseDamage = 1;
         if (needManager()) {
             updateManager();

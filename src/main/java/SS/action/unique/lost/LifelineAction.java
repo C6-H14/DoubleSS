@@ -1,11 +1,14 @@
 package SS.action.unique.lost;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import SS.action.common.ModifyPermanentDamageAction;
+import SS.power.DyingPower;
+
 import java.util.UUID;
 
 public class LifelineAction extends AbstractGameAction {
@@ -46,6 +49,10 @@ public class LifelineAction extends AbstractGameAction {
             addToTop(new LifelinePlayCardAction(1, this.manager));
         }
         addToBot(new ModifyPermanentDamageAction(this.uid, effect));
+        if (this.upgraded) {
+            --effect;
+        }
+        addToTop(new ReducePowerAction(p, p, new DyingPower(p, effect), effect));
         this.isDone = true;
     }
 }

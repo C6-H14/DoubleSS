@@ -13,8 +13,10 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.OrbStrings;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.patches.ApplyPowerDiceSource;
 import SS.power.DyingPower;
 import SS.power.NextTurnDamagePower;
+import SS.stats.DiceAttribution;
 
 public class EternalAttackDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("EternalAttackDice");
@@ -56,8 +58,12 @@ public class EternalAttackDice extends AbstractDice {
             System.out.println("[EternalAttackDice]Got It!");
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new DyingPower(p, 1)));
         }
-        AbstractDungeon.actionManager
-                .addToBottom(new ApplyPowerAction(p, p, new NextTurnDamagePower(p, this.evokeAmount)));
+        // 战斗统计：延迟伤害的归属快照（回合开始结算时挂到 DamageAllEnemiesAction 上）
+        NextTurnDamagePower ntp = new NextTurnDamagePower(p, this.evokeAmount);
+        ntp.diceAttribution = DiceAttribution.of(this);
+        ApplyPowerAction ap = new ApplyPowerAction(p, p, ntp);
+        ApplyPowerDiceSource.diceRef.set(ap, this);
+        AbstractDungeon.actionManager.addToBottom(ap);
     }
 
     public AbstractDice makeCopy() {

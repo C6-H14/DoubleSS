@@ -12,6 +12,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.patches.GainBlockDiceSource;
+import SS.stats.DiceAttribution;
 
 public class IronwaveDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("IronwaveDice");
@@ -51,9 +53,12 @@ public class IronwaveDice extends AbstractDice {
             ++damage;
         }
         damage = Math.max(0, damage);
+        DiceAttribution att = DiceAttribution.of(this);
         AbstractDungeon.actionManager
-                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false));
-        AbstractDungeon.actionManager.addToBottom(new GainBlockAction((AbstractPlayer) p, damage));
+                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false, att));
+        GainBlockAction gain = new GainBlockAction((AbstractPlayer) p, damage);
+        GainBlockDiceSource.diceRef.set(gain, att);
+        AbstractDungeon.actionManager.addToBottom(gain);
     }
 
     public AbstractDice makeCopy() {

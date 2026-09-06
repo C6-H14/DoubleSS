@@ -14,6 +14,8 @@ import com.megacrit.cardcrawl.powers.PoisonPower;
 import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.patches.ApplyPowerDiceSource;
+import SS.stats.DiceAttribution;
 
 public class AttackHaoDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("AttackHaoDice");
@@ -39,16 +41,15 @@ public class AttackHaoDice extends AbstractDice {
     }
 
     public void updateDescription() {
-        this.description = orbString.DESCRIPTION[0] + this.evokeAmount + orbString.DESCRIPTION[1] + this.evokeAmount
+        this.description = orbString.DESCRIPTION[0] + this.evokeAmount + orbString.DESCRIPTION[1] + 1
                 + orbString.DESCRIPTION[2];
     }
 
     public void myEvoke() {
-        int temp = result, damage = this.evokeAmount, poi = this.evokeAmount;
+        int temp = result, damage = this.evokeAmount, poi = 1;
         for (AbstractOrb o : AbstractDungeon.player.orbs) {
             if (o instanceof AttackHaoDice || o instanceof DefendHaoDice) {
                 ++damage;
-                ++poi;
             }
         }
         if (temp <= 2) {
@@ -66,10 +67,14 @@ public class AttackHaoDice extends AbstractDice {
         damage = Math.max(0, damage);
         poi = Math.max(0, poi);
         AbstractDungeon.actionManager
-                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false));
-        AbstractDungeon.actionManager
-                .addToBottom(new ApplyPowerAction((AbstractMonster) this.target, AbstractDungeon.player,
-                        new PoisonPower((AbstractMonster) this.target, AbstractDungeon.player, poi), poi));
+                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false,
+                        DiceAttribution.of(this)));
+        if (poi > 0) {
+            ApplyPowerAction ap = new ApplyPowerAction((AbstractMonster) this.target, AbstractDungeon.player,
+                    new PoisonPower((AbstractMonster) this.target, AbstractDungeon.player, poi), poi);
+            ApplyPowerDiceSource.diceRef.set(ap, this);
+            AbstractDungeon.actionManager.addToBottom(ap);
+        }
     }
 
     public AbstractDice makeCopy() {

@@ -77,10 +77,10 @@
         "DESCRIPTION": "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。",
         "UPGRADE_DESCRIPTION": " 激发所有 double:骰子  !M! 次，获得 !M! 点 double:罪孽  。",
         "EXTENDED_DESCRIPTION": [
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， [#cf3fbe]抽1张牌[] ， 消耗 。",
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， [#cf3fbe]抽1张牌[] 。"
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。",
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 。"
         ],
-        "FLAVOR":" #p恶魔之焰身份 ：抽1张牌。"
+        "FLAVOR":" #p恶魔之焰身份 ：额外激发1次。"
     },
     "Double:MultiFacial": {
         "NAME": "千面",
@@ -95,8 +95,8 @@
     "Double:DeafForm":
     {
         "NAME": "二龙形态",
-        "DESCRIPTION": "获得20点 double:罪孽 。你受到的伤害推迟到你的下一个回合结束阶段及下 !M! 个回合结束阶段分别结算一半伤害。",
-        "UPGRADE_DESCRIPTION": "获得10点 double:罪孽 。你受到的伤害推迟到你的下一个回合结束阶段及下 !M! 个回合结束阶段分别结算一半伤害。"
+        "DESCRIPTION": "失去2点最大生命。你受到的伤害推迟到你的下一个回合结束阶段及下 !M! 个回合结束阶段分别结算一半伤害。",
+        "UPGRADE_DESCRIPTION": "失去1点最大生命。你受到的伤害推迟到你的下一个回合结束阶段及下 !M! 个回合结束阶段分别结算一半伤害。"
     },
     "Double:RED_option":
     {
@@ -161,8 +161,8 @@
     },
     "Double:SelfReliant":{
         "NAME": "自食其力",
-        "DESCRIPTION": "选择一张手牌，将 !M! 张同色牌放入你的手牌， 消耗 。",
-        "UPGRADE_DESCRIPTION": "选择一张手牌，将 !M! 张同色牌放入你的手牌， 消耗 。"
+        "DESCRIPTION": " 保留 ，若你处于 [#cf3fbe]恶魔之焰[] 身份 ，选择一张手牌，将 !M! 张同色牌放入手牌， 消耗 。",
+        "UPGRADE_DESCRIPTION": " 保留 ，若你处于 [#cf3fbe]恶魔之焰[] 身份 ，选择一张手牌，将 !M! 张同色牌放入手牌， 消耗 。"
     },
     "Double:TaotieRite":{
         "NAME": "饕餮仪式",
@@ -206,13 +206,13 @@
     },
     "Double:Irritable":{
         "NAME": "暴躁",
-        "DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得7点  double:罪孽 。",
-        "UPGRADE_DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得7点  double:罪孽 。",
+        "DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ，获得7点  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ，获得7点  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]给予所有敌人1层易伤[] ，生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得7点  double:罪孽 。",
-            " [#cf3fbe]给予所有敌人1层易伤[] ，生成3个燔祭 double:骰子 ( !D! )，抽 !M! 张牌，获得7点  double:罪孽 。"
+            "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ， [#cf3fbe]抽[] !M! [#cf3fbe]张牌[] ，获得7点  double:罪孽 。",
+            "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ， [#cf3fbe]抽[] !M! [#cf3fbe]张牌[] ，获得7点  double:罪孽 。"
         ],
-        "FLAVOR":" #p恶魔之焰身份 ：给予所有敌人 #b1 层易伤。"
+        "FLAVOR":" #p恶魔之焰身份 ：抽1/2张牌。"
     },
     "Double:Wrath":{
         "NAME": "愤怒",
@@ -296,13 +296,13 @@
     },
     "Double:Aggression":{
         "NAME": "挑衅",
-        "DESCRIPTION": "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得5点 double:罪孽 ， 消耗 。",
-        "UPGRADE_DESCRIPTION": "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得5点 double:罪孽 ， 消耗  。",
+        "DESCRIPTION": "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得10点 double:罪孽 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得10点 double:罪孽 ， 消耗  。",
         "EXTENDED_DESCRIPTION": [
-            "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得3点 double:罪孽 ， 消耗 。",
-            "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得3点 double:罪孽 ， 消耗 。"
+            "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得7点 double:罪孽 ， 消耗 。",
+            "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得7点 double:罪孽 ， 消耗 。"
         ],
-        "FLAVOR":" #p恶魔之焰身份 ：获得罪孽减2。"
+        "FLAVOR":" #p恶魔之焰身份 ：获得罪孽减3。"
     },
     "Double:Contempt":{
         "NAME": "藐视",
@@ -357,9 +357,9 @@
     "Double:Hoarding":{
         "NAME": "囤积居奇",
         "DESCRIPTION": "造成 !D! 点伤害， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
-        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
+        "UPGRADE_DESCRIPTION": " 保留 ，造成 !D! 点伤害， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
         "EXTENDED_DESCRIPTION": [
-            " 保留 ，造成 !D! 点伤害， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
+            "造成 !D! 点伤害， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。",
             " 保留 ，造成 !D! 点伤害， 消耗 。 NL 斩杀时，战斗结束后额外获得一次卡牌奖励 。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：伤害翻倍  。"
@@ -371,18 +371,23 @@
     },
     "Double:Decompose":{
         "NAME": "分解",
-        "DESCRIPTION": " 虚无 ，造成 !D! 点伤害，消耗场上所有状态牌。若至少消耗了一张，生成1个枯萎 double:骰子 ( !M! )。",
-        "UPGRADE_DESCRIPTION": " 虚无 ，造成 !D! 点伤害，消耗场上所有状态牌。若至少消耗了一张，生成1个枯萎 double:骰子 ( !M! )。"
+        "DESCRIPTION": "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。",
+        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。",
+        "EXTENDED_DESCRIPTION": [
+            "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。 [#cf3fbe] 消耗场上所有状态牌。[] ",
+            "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。 [#cf3fbe] 消耗场上所有状态牌。[] "
+        ],
+        "FLAVOR":" #p恶魔之焰身份 ：消耗场上所有状态牌  。"
     },
     "Double:NutrientCycle":{
         "NAME": "物质循环",
-        "DESCRIPTION": "下一回合，获得X [E] ，随机打出弃牌堆和消耗堆中的X张非二硫键色牌，消耗。",
-        "UPGRADE_DESCRIPTION": "下一回合，获得X+1 [E] ，随机打出弃牌堆和消耗堆中的X+1张非二硫键色牌，消耗。"
+        "DESCRIPTION": "打出弃牌堆和消耗堆中的X张非二硫键色牌。下一回合，获得X [E] ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "打出弃牌堆和消耗堆中的X+1张非二硫键色牌，下一回合，获得X+1 [E] ， 消耗 。"
     },
     "Double:Diversity":{
         "NAME": "多样性",
-        "DESCRIPTION": "进入 double:群主身份 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !D! )。",
-        "UPGRADE_DESCRIPTION": "进入 double:群主身份 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !D! )。"
+        "DESCRIPTION": "进入 double:群主身份 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !M! )。",
+        "UPGRADE_DESCRIPTION": "进入 double:群主身份 ，场上每有一种不同颜色的牌，生成一个铁斩波 double:骰子 ( !M! )。"
     },
     "Double:Pansy":{
         "NAME": "三色堇",
@@ -512,21 +517,21 @@
     },
     "Double:BossSwap":{
         "NAME": "换四",
-        "DESCRIPTION": "本场战斗中移除一个随机初始遗物，每移除过一个初始遗物，给予所有敌人 !M! 层中毒。",
-        "UPGRADE_DESCRIPTION": "本场战斗中移除一个随机初始遗物，每移除过一个初始遗物，给予所有敌人 !M! 层中毒。",
+        "DESCRIPTION": "给予所有敌人 !M! 层中毒，本场战斗中移除一个随机初始遗物。",
+        "UPGRADE_DESCRIPTION": "给予所有敌人 !M! 层中毒，本场战斗中移除一个随机初始遗物。",
         "EXTENDED_DESCRIPTION": [
-            " *给予所有敌人 !M! *层中毒  。 NL 本场战斗中移除一个随机初始遗物，每移除过一个初始遗物，给予所有敌人 !M! 层中毒。",
-            " *给予所有敌人 !M! *层中毒  。 NL 本场战斗中移除一个随机初始遗物，每移除过一个初始遗物，给予所有敌人 !M! 层中毒。"
+            "给予所有敌人 !M! 层中毒，本场战斗中移除一个随机初始遗物。 NL *每移除过一个初始遗物，额外给予1层中毒。",
+            "给予所有敌人 !M! 层中毒，本场战斗中移除一个随机初始遗物。 NL *每移除过一个初始遗物，额外给予1层中毒。"
         ],
-        "FLAVOR":" #p群主身份 ：给予所有敌人2/3层中毒  。"
+        "FLAVOR":" #p群主身份 ：每移除过一个初始遗物，给予所有敌人1层中毒。"
     },
     "Double:GreatDisciple":{
         "NAME": "农神大弟子",
-        "DESCRIPTION": "随机消耗1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )。",
-        "UPGRADE_DESCRIPTION": "随机消耗1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )。",
+        "DESCRIPTION": "随机 弃置 1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )， 消耗 。",
+        "UPGRADE_DESCRIPTION": "随机 弃置 1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "随机消耗1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )， *进入 愤怒 。",
-            "随机消耗1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )， *进入 愤怒 。"
+            "随机 弃置 1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )， *进入 愤怒 ， 消耗 。",
+            "随机 弃置 1张耗能最低的手牌，对每个敌人都生成其耗能数个攻击颢骰( !D! )， *进入 愤怒 ， 消耗 。"
         ],
         "FLAVOR":" #y群主身份 ：进入愤怒  。"
     },
@@ -662,11 +667,11 @@
     },
     "Double:BossSwapGod":{
         "NAME": "换四领域大神",
-        "DESCRIPTION": "回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。",
-        "UPGRADE_DESCRIPTION": "回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。",
+        "DESCRIPTION": "回合开始时获得 !M! [E] ，每个初始遗物使你少获得 1 [E] 。",
+        "UPGRADE_DESCRIPTION": " 保留 ，回合开始时获得 !M! [E] ，每个初始遗物使你少获得 1 [E] 。",
         "EXTENDED_DESCRIPTION": [
-            "获得 *飞身踢 的回响。回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。",
-            "获得 *飞身踢+ 的回响。回合开始时获得 !M! [E] ，每个初始遗物或卡包初始遗物使你少获得 1 [E] 。"
+            "获得 *飞身踢 的回响。回合开始时获得 !M! [E] ，每个初始遗物使你少获得 1 [E] 。",
+            " 保留 ，获得 *飞身踢+ 的回响。回合开始时获得 !M! [E] ，每个初始遗物使你少获得 1 [E] 。"
         ],
         "FLAVOR":" #y群主身份 ：获得飞身踢(+)的回响。"
     },
@@ -712,13 +717,13 @@
     },
     "Double:HaoPack":{
         "NAME": "颢备",
-        "DESCRIPTION": "回合开始时，获得一张 *早有准备+ 的 double:回响 。",
-        "UPGRADE_DESCRIPTION": "若你没有 *结实绷带 ，获得之。回合开始时，获得一张 *早有准备+ 的 double:回响 。",
+        "DESCRIPTION": "回合开始时，获得一张 *早有准备 的 double:回响 。",
+        "UPGRADE_DESCRIPTION": "回合开始时，获得一张 *早有准备+ 的 double:回响 。",
         "EXTENDED_DESCRIPTION": [
-            "获得一张 *早有准备+ 的 double:回响 。回合开始时，获得一张 *早有准备+ 的 double:回响 。",
-            "若你没有 *结实绷带 ，获得之。获得一张 *早有准备+ 的 double:回响 。回合开始时，获得一张 早有准备+ 的 double:回响 。"
+            " *获得一张早有准备的 double:回响 。回合开始时，获得一张 *早有准备 的 double:回响 。",
+            " *获得一张早有准备+的 double:回响 。回合开始时，获得一张 早有准备+ 的 double:回响 。"
         ],
-        "FLAVOR":" #y群主身份 ：打出时获得一张早有准备+的回响。"
+        "FLAVOR":" #y群主身份 ：打出时获得一张早有准备(+)的回响。"
     },
     "Double:Lost_Black_option":
     {
@@ -858,11 +863,11 @@
     },
     "Double:Lifeline":{
         "NAME": "命脉",
-        "DESCRIPTION": "打出并 消耗 抽牌堆顶的 X 张牌， 消耗 。",
-        "UPGRADE_DESCRIPTION": "打出并 消耗 抽牌堆顶的 X+1 张牌， 消耗 。",
+        "DESCRIPTION": "失去X层 double:奄息 ，打出并 消耗 抽牌堆顶的 X 张牌， 消耗 。",
+        "UPGRADE_DESCRIPTION": "失去X层 double:奄息 ，打出并 消耗 抽牌堆顶的 X+1 张牌， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "打出并 消耗 抽牌堆顶的 X 张牌， 消耗 。 NL 非 虚无 牌额外打出 *1 次。",
-            "打出并 消耗 抽牌堆顶的 X+1 张牌， 消耗 。 NL 非 虚无 牌额外打出 *1 次。"
+            "失去X层 double:奄息 ，打出并 消耗 抽牌堆顶的 X 张牌， 消耗 。 NL 非 虚无 牌额外打出 *1 次。",
+            "失去X层 double:奄息 ，打出并 消耗 抽牌堆顶的 X+1 张牌， 消耗 。 NL 非 虚无 牌额外打出 *1 次。"
         ],
         "FLAVOR":" #y群主身份 ：非虚无牌额外打出1次。"
     },
@@ -888,11 +893,11 @@
     },
     "Double:SpectreEcho":{
         "NAME": "怨灵回响",
-        "DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 消耗堆中每有一张 虚无 牌，伤害加 !Double:PermanentMagicNumber! 。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 消耗堆中每有一张 虚无 牌，伤害加 !Double:PermanentMagicNumber! 。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。",
-            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 本场战斗中每消耗过1张牌，伤害加 !Double:PermanentMagicNumber! 。"
+            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 消耗堆中每有一张 虚无 牌，伤害加 !Double:PermanentMagicNumber! 。",
+            " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )。 NL 消耗堆中每有一张 虚无 牌，伤害加 !Double:PermanentMagicNumber! 。"
         ],
         "FLAVOR":" #y群主身份 ：额外生成1个骰子 。"
     },
@@ -1036,11 +1041,11 @@
     },
     "Double:FeelNoShame":{
         "NAME": "无惧猴戏",
-        "DESCRIPTION": "每当你对一名敌人造成负面状态时，获得 !M! 点格挡。",
-        "UPGRADE_DESCRIPTION": "每当你对一名敌人造成负面状态时，获得 !M! 点格挡。",
+        "DESCRIPTION": "每当你给予一名敌人负面状态时，获得 !M! 点格挡。",
+        "UPGRADE_DESCRIPTION": "每当你给予一名敌人负面状态时，获得 !M! 点格挡。",
         "EXTENDED_DESCRIPTION": [
-            "每当你对一名敌人造成负面状态时，对其造成1点伤害，你获得 !M! 点格挡。",
-            "每当你对一名敌人造成负面状态时，对其造成1点伤害，你获得 !M! 点格挡。"
+            "每当给予一名敌人负面状态时，对其造成1点伤害，你获得 !M! 点格挡。",
+            "每当给予一名敌人负面状态时，对其造成1点伤害，你获得 !M! 点格挡。"
         ],
         "FLAVOR":" #y群主身份 ：获得1层残虐。"
     },
