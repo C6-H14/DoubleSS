@@ -20,7 +20,7 @@ public class TaotieRite extends AbstractDoubleCard {
     private static final String[] EXTENDED_DESCRIPTION = CARD_STRINGS.EXTENDED_DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.RARE;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public TaotieRite() {

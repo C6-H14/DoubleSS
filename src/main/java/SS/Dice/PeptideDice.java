@@ -12,6 +12,7 @@ import SS.action.common.IncreasePeptideDamageAction;
 import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.stats.DiceAttribution;
 
 public class PeptideDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("PeptideDice");
@@ -48,7 +49,8 @@ public class PeptideDice extends AbstractDice {
             damage++;
         }
         AbstractDungeon.actionManager
-                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false));
+                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, false,
+                        DiceAttribution.of(this)));
         if (temp >= 3) {
             AbstractDungeon.actionManager.addToBottom(new IncreasePeptideDamageAction(1));
         }

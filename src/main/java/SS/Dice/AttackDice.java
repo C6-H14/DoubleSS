@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.action.dice.DiceDamageEnemyAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.stats.DiceAttribution;
 
 public class AttackDice extends AbstractDice {
     public static final String ORB_ID = ModHelper.makePath("Attack");
@@ -51,7 +52,8 @@ public class AttackDice extends AbstractDice {
         }
         damage = Math.max(0, damage);
         AbstractDungeon.actionManager
-                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, flag));
+                .addToBottom(new DiceDamageEnemyAction(damage, (AbstractMonster) this.target, flag,
+                        DiceAttribution.of(this)));
     }
 
     public AbstractDice makeCopy() {

@@ -1,8 +1,9 @@
-package SS.cards;
+package SS.cards.ZZZDEPRECATED;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.action.unique.ss.RevengeAction;
+import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.SinsPower;
@@ -15,6 +16,9 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import basemod.AutoAdd;
+
+@AutoAdd.Ignore
 
 public class Revenge extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Revenge");

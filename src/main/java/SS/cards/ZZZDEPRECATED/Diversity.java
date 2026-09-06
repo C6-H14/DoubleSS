@@ -1,4 +1,4 @@
-package SS.cards;
+package SS.cards.ZZZDEPRECATED;
 
 import java.util.HashMap;
 
@@ -10,9 +10,13 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.IronwaveDice;
 import SS.action.common.UpdateManagerStanceDescriptions;
 import SS.action.dice.ChannelDiceAction;
+import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
+import basemod.AutoAdd;
+
+@AutoAdd.Ignore
 
 public class Diversity extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Diversity");
@@ -31,13 +35,13 @@ public class Diversity extends AbstractDoubleCard {
 
     public Diversity() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.baseDamage = this.damage = 2;
+        setMagic(2);
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(1);
+            upgradeMagicNumber(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }

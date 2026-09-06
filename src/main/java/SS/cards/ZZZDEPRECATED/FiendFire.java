@@ -1,4 +1,4 @@
-package SS.cards;
+package SS.cards.ZZZDEPRECATED;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -9,9 +9,12 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.ss.DoubleFiendFireAction;
+import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import basemod.AutoAdd;
 
+@AutoAdd.Ignore
 public class FiendFire extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("FiendFire");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

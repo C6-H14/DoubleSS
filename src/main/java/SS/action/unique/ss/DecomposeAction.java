@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.Dice.AttackDice;
 import SS.Dice.WitherDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.cardmodifiers.ConjugateModifier;
@@ -54,9 +53,6 @@ public class DecomposeAction extends AbstractGameAction {
                 addToTop(new ExhaustSpecificCardAction(c, p.discardPile));
                 tag = true;
             }
-        }
-        if (tag) {
-            addToTop(new ChannelDiceAction(new WitherDice(this.amount, (AbstractMonster) this.target)));
         }
         this.isDone = true;
 

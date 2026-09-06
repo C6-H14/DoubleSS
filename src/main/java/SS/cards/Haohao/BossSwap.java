@@ -46,7 +46,7 @@ public class BossSwap extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
+            upgradeMagicNumber(2);
             if (this.cardsToPreview != null) {
                 this.cardsToPreview.upgrade();
             }
@@ -57,12 +57,9 @@ public class BossSwap extends AbstractHaoCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        // 1. 若 needManager() 则给予所有敌人 magicNumber 层 PoisonPower
-        if (needManager()) {
-            for (AbstractMonster mo : AbstractDungeon.getCurrRoom().monsters.monsters) {
-                if (!mo.isDeadOrEscaped()) {
-                    addToBot(new ApplyPowerAction(mo, p, new PoisonPower(mo, p, this.magicNumber), this.magicNumber));
-                }
+        for (AbstractMonster mo : AbstractDungeon.getCurrRoom().monsters.monsters) {
+            if (!mo.isDeadOrEscaped()) {
+                addToBot(new ApplyPowerAction(mo, p, new PoisonPower(mo, p, this.magicNumber), this.magicNumber));
             }
         }
 
@@ -96,8 +93,8 @@ public class BossSwap extends AbstractHaoCard {
             amount = Math.max(0, amount - 1);
         }
         // 5. 所有敌人获得 magicNumber * amount 层 PoisonPower
-        int totalPoison = this.magicNumber * (4 - amount);
-        if (totalPoison > 0) {
+        int totalPoison = (4 - amount);
+        if (totalPoison > 0 && needManager()) {
             for (AbstractMonster mo : AbstractDungeon.getCurrRoom().monsters.monsters) {
                 if (!mo.isDeadOrEscaped()) {
                     addToBot(new ApplyPowerAction(mo, p, new PoisonPower(mo, p, totalPoison), totalPoison));

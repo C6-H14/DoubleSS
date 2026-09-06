@@ -28,8 +28,8 @@ public class HaoLive extends AbstractHaoCard {
     public HaoLive() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.block = this.baseBlock = 3;
-        this.magicNumber = this.baseMagicNumber = 3;
+        this.block = this.baseBlock = 4;
+        this.magicNumber = this.baseMagicNumber = 2;
         if (needManager()) {
             updateManager();
         }
@@ -39,7 +39,7 @@ public class HaoLive extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBlock(3);
+            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }

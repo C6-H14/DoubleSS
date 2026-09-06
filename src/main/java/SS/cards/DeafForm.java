@@ -40,7 +40,7 @@ public class DeafForm extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.upgraded ? 10 : 20)));
+        p.decreaseMaxHealth(this.upgraded ? 1 : 2);
         addToBot(new ApplyPowerAction(p, p, new DeafFormPower(p, this.magicNumber),
                 this.magicNumber));
     }

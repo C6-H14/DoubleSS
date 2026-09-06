@@ -11,6 +11,8 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+
+import SS.action.monster.EvokeSoulAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -24,6 +26,7 @@ public class RGBPCup extends CustomRelic {
     private static final AbstractRelic.LandingSound LANDING_SOUND = AbstractRelic.LandingSound.MAGICAL;
     public static final String DESCRIPTION[] = RELIC_STRINGS.DESCRIPTIONS;
     private ArrayList<String> colorList = new ArrayList<>();
+    private boolean activated = false;
 
     public RGBPCup() {
         super(ID, new Texture(Gdx.files.internal(IMG_PATH)), RELIC_TIER, LANDING_SOUND);
@@ -45,14 +48,22 @@ public class RGBPCup extends CustomRelic {
         colorList.clear();
     }
 
+    public void atTurnStart() {
+        activated = true;
+    }
+
     public void onUseCard(AbstractCard targetCard, UseCardAction useCardAction) {
         if (!colorList.isEmpty() && colorList.contains(getID(targetCard))) {
+            activated = false;
             return;
         }
-        this.flash();
-        addToBot(new GainEnergyAction(1));
-        addToBot(new DrawCardAction(1));
-        colorList.add(getID(targetCard));
+        if (activated) {
+            this.flash();
+            addToBot(new GainEnergyAction(1));
+            addToBot(new DrawCardAction(1));
+            colorList.add(getID(targetCard));
+        }
+        activated = false;
     }
 
     public AbstractRelic makeCopy() {

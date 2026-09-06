@@ -37,7 +37,7 @@ public class ScrapeBy extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBlock(2);
+            upgradeBlock(1);
             UpdateDescription();
             initializeDescription();
         }

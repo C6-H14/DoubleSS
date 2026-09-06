@@ -12,10 +12,12 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import SS.helper.CardUtil;
 import SS.path.AbstractCardEnum;
@@ -324,6 +326,15 @@ public abstract class AbstractDoubleCard extends CustomCard {
         return false;
     }
 
+    public static boolean isInCombat() {
+        return CardCrawlGame.isInARun()
+                && AbstractDungeon.currMapNode != null
+                && AbstractDungeon.getCurrRoom() != null
+                && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT
+                && AbstractDungeon.player != null
+                && !AbstractDungeon.player.isDead;
+    }
+
     public void UpdateExhaustiveDescription() {
         if (this.purgeOnUse || this.exhaust)
             return;
@@ -347,7 +358,8 @@ public abstract class AbstractDoubleCard extends CustomCard {
     }
 
     public void UpdateDescription(int a, int b, int c, int d, int e, int f) {
-        if (!isFiend && !isManager) {
+        if (!isFiend && !isManager
+                || !isInCombat()) {
             if (this.upgraded)
                 this.rawDescription = this.CARD_STRINGS.UPGRADE_DESCRIPTION;
             else

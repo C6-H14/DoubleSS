@@ -13,6 +13,8 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 
+import SS.cards.RecordingTeam;
+import SS.cards.Strike;
 import SS.path.AbstractCardEnum;
 import SS.path.ThmodClassEnum;
 
@@ -83,6 +85,11 @@ public class MyCharacter extends AbstractSSCharacter {
         retVal.add("Double:RecordingTeam");
         retVal.add("Double:Seething");
         return retVal;
+    }
+
+    @Override
+    public AbstractCard getStartCardForEvent() {
+        return new RecordingTeam();
     }
 
     public ArrayList<String> getStartingRelics() {

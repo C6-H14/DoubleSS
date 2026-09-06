@@ -39,11 +39,12 @@ public class ShootOff extends AbstractDoubleCard {
     public ShootOff() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
-        this.damage = this.baseDamage = 10;
+        this.damage = this.baseDamage = 8;
         this.magicNumber = this.baseMagicNumber = 10;
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Lust);
+        this.exhaust = true;
         if (needFiend()) {
             updateFiend();
         }
@@ -53,7 +54,7 @@ public class ShootOff extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(2);
+            upgradeDamage(3);
             UpdateDescription();
             initializeDescription();
         }

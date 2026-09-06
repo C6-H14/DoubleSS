@@ -1,5 +1,6 @@
 package SS.power;
 
+import SS.Dice.AbstractDice;
 import SS.Dice.AttackDice;
 import SS.Dice.DefendDice;
 import SS.Dice.IronwaveDice;
@@ -38,7 +39,9 @@ public class UnderlyingLogicPower extends AbstractPower {
 
     public void onChannel(AbstractOrb orb) {
         if (orb instanceof AttackDice || orb instanceof DefendDice) {
-            addToTop(new ChannelAction(new IronwaveDice(this.amount, AbstractDungeon.getRandomMonster())));
+            // 战斗统计：power 产骰 → source = 施加本 power 的牌（CardStats 记录的授予映射）
+            addToTop(new ChannelAction(AbstractDice.tagPowerSource(
+                    new IronwaveDice(this.amount, AbstractDungeon.getRandomMonster()), this.ID)));
         }
     }
 

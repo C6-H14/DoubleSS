@@ -27,6 +27,7 @@ public class Haoggernaut extends AbstractHaoCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.magicNumber = this.baseMagicNumber = 1;
+        this.exhaust = true;
         if (needManager()) {
             updateManager();
         }

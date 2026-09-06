@@ -31,7 +31,7 @@ public class Seething extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Wrath);
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
         this.exhaust = true;
     }
 
@@ -50,6 +50,18 @@ public class Seething extends AbstractDoubleCard {
         if (needFiend()) {
             addToBot(new DrawCardAction(1));
         }
+    }
+
+    public void updateFiend() {
+        upgradeMagicNumber(1);
+        UpdateDescription();
+        initializeDescription();
+    }
+
+    public void exitFiend() {
+        upgradeMagicNumber(-1);
+        UpdateDescription();
+        initializeDescription();
     }
 
     public AbstractDoubleCard makeCopy() {

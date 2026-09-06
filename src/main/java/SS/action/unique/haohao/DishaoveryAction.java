@@ -3,6 +3,7 @@ package SS.action.unique.haohao;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardTags;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
@@ -68,7 +69,7 @@ public class DishaoveryAction
                 cardRarity = CardRarity.RARE;
             }
             AbstractCard tmp = CardLibrary.getAnyColorCard(cardRarity);
-            while (tmp.color != AbstractCard.CardColor.RED) {
+            while (tmp.color != AbstractCard.CardColor.RED || tmp.hasTag(CardTags.HEALING)) {
                 tmp = CardLibrary.getAnyColorCard(cardRarity);
             }
             for (AbstractCard c : derp) {

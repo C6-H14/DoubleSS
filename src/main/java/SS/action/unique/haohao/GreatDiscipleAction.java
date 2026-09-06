@@ -48,7 +48,7 @@ public class GreatDiscipleAction extends AbstractGameAction {
                 }
             }
 
-            this.p.hand.moveToExhaustPile(this.p.hand.getBottomCard());
+            this.p.hand.moveToDiscardPile(this.p.hand.getBottomCard());
             this.isDone = true;
         } else {
             ArrayList<AbstractCard> cardList = new ArrayList<>();
@@ -93,7 +93,7 @@ public class GreatDiscipleAction extends AbstractGameAction {
                         }
                     }
                 }
-                this.p.hand.moveToExhaustPile(c);
+                this.p.hand.moveToDiscardPile(c);
             }
             this.isDone = true;
         }

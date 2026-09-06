@@ -33,7 +33,7 @@ public class BossSwapGod extends AbstractHaoCard {
     public BossSwapGod() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.magicNumber = this.baseMagicNumber = 3;
+        this.magicNumber = this.baseMagicNumber = 2;
         this.cardsToPreview = new Dropkick();
         if (needManager()) {
             updateManager();
@@ -44,7 +44,7 @@ public class BossSwapGod extends AbstractHaoCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
+            this.retain = true;
             this.cardsToPreview.upgrade();
             UpdateDescription();
             initializeDescription();

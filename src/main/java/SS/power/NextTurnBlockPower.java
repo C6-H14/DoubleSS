@@ -2,6 +2,8 @@ package SS.power;
 
 import SS.helper.ModHelper;
 import SS.path.DamageInfoEnum;
+import SS.patches.GainBlockDiceSource;
+import SS.stats.DiceAttribution;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
@@ -20,6 +22,9 @@ public class NextTurnBlockPower extends AbstractPower {
     private static final String NAME = powerStrings.NAME;
     private static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
+    /** 战斗统计：产生本 power 的骰子归属快照（EternalDefendDice 构造时携带，可为 null）。 */
+    public DiceAttribution diceAttribution = null;
+
     public NextTurnBlockPower(AbstractCreature owner, int amount) {
         this.name = NAME;
         this.ID = POWER_ID;
@@ -37,7 +42,11 @@ public class NextTurnBlockPower extends AbstractPower {
 
     public void atStartOfTurn() {
         this.flash();
-        addToBot(new GainBlockAction(owner, this.amount));
+        GainBlockAction gain = new GainBlockAction(owner, this.amount);
+        if (this.diceAttribution != null) {
+            GainBlockDiceSource.diceRef.set(gain, this.diceAttribution);
+        }
+        addToBot(gain);
         addToBot(new RemoveSpecificPowerAction(owner, owner, this));
     }
 
