@@ -3,7 +3,6 @@ package SS.packages.HaoPackage;
 import java.util.ArrayList;
 
 import SS.helper.ModHelper;
-import SS.helper.SynergismGraph;
 import SS.packages.AbstractPackage;
 import SS.path.PackageEnumList.PackageEnum;
 
@@ -13,16 +12,19 @@ public class HaoPackage extends AbstractPackage {
 
     // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
     public static final String[] COMMON_CARDS = {
-        "Double:Dishaovery",
-        "Double:GreatDisciple",
-        "Double:HaoBludgeon",
-        "Double:HaoTap",
-        "Double:MaximizeHaoCard",
+            "Double:Dishaovery",
+            "Double:GreatDisciple",
+            "Double:HaoBludgeon",
+            "Double:HaoTap",
+            "Double:MaximizeHaoCard",
     };
 
     public HaoPackage() {
         super(ID, TYPE, PackageEnum.Hao, "Double:Hao_Green_option", "Double:GreenApple", "Double:GoldenApple");
-        addSyng(PackageEnum.Shock, SynergismGraph.SynTag.Teacher);
+        // (Shock, Hao) 方向协同卡由 ShockPackage 声明（TA）；本包暂无反向声明
+        addPairCard(PackageEnum.Lost, "Double:Kindred");
+        addPairCard(PackageEnum.Shock, "Double:SupervisedLearning");
+        addPairCard(PackageEnum.C6H14, "Double:LessIsMore");
     }
 
     public ArrayList<String> getCards() {

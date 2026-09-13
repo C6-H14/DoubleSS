@@ -1,6 +1,5 @@
 package SS.power;
 
-import SS.action.unique.c6h14.KaleidoscopeAction;
 import SS.helper.ModHelper;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;

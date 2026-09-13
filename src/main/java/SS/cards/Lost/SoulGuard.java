@@ -13,7 +13,6 @@ import SS.action.dice.ChannelDiceAction;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
-import SS.power.DyingPower;
 import SS.power.HolyShieldPower;
 
 public class SoulGuard extends AbstractLostCard {
@@ -21,7 +20,7 @@ public class SoulGuard extends AbstractLostCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/Lost/SoulGuard.png";
-    private static final int COST = 0;
+    private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.Lost_Black;
@@ -34,7 +33,7 @@ public class SoulGuard extends AbstractLostCard {
         this.tags.add(AbstractCardEnum.Permanent);
         this.isEthereal = true;
         this.permanentBlock = this.basePermanentBlock = 4;
-        this.permanentMagicNumber = this.basePermanentMagicNumber = 2;
+        this.permanentMagicNumber = this.basePermanentMagicNumber = 1;
         if (needManager()) {
             updateManager();
         }
@@ -44,7 +43,7 @@ public class SoulGuard extends AbstractLostCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradePermanentMagicNumber(-1);
+            upgradeBaseCost(0);
             UpdateDescription();
             initializeDescription();
         }
@@ -52,7 +51,7 @@ public class SoulGuard extends AbstractLostCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ApplyPowerAction(p, p, new HolyShieldPower(p)));
-        addToBot(new ReducePowerAction(p, p, new DyingPower(p, this.permanentMagicNumber), this.permanentMagicNumber));
+        addToBot(new ReducePowerAction(p, p, "Double:DyingPower", this.permanentMagicNumber));
         upgradePermanentMagicNumber(1);
         if (needManager()) {
             addToBot(new ChannelDiceAction(new EternalDefendDice(this.permanentBlock, p)));

@@ -12,21 +12,23 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import SS.monster.AbstractCardMonster;
+import SS.monster.ally.AbstractAlly; // 【引入友军基类】
+import SS.interfaces.IAllyDamageModifier; // 【引入指挥能力接口】
 import SS.helper.MonsterCardContext;
 
 public class CardCalculationPatches {
 
-    // 拦截 1: applyPowers (计算对自己/无目标时的数值，如手牌显示的伤害)
+    // =========================================================================
+    // 拦截 1: applyPowers (计算常规/无目标时的数值，以及 AOE multiDamage 数组)
+    // =========================================================================
     @SpirePatch(clz = AbstractCard.class, method = "applyPowers")
     public static class ApplyPowersPatch {
         @SpirePrefixPatch
         public static SpireReturn<Void> Prefix(AbstractCard __instance) {
-            // 如果上下文里没有怪物，说明是玩家在看牌，执行原版逻辑
             if (MonsterCardContext.activeMonster == null) {
                 return SpireReturn.Continue();
             }
 
-            // --- 进入怪物逻辑 ---
             AbstractCardMonster m = MonsterCardContext.activeMonster;
 
             // 1. 重置数值
@@ -37,21 +39,28 @@ public class CardCalculationPatches {
             __instance.magicNumber = __instance.baseMagicNumber;
             __instance.isMagicNumberModified = false;
 
-            // 2. 计算伤害 (模拟玩家的力量逻辑)
-            // 遍历怪物的 Power，寻找影响伤害的 Power (如 Strength)
+            // 2. 单体基础伤害计算 (友军自身的力量/活力等)
             if (m.powers != null) {
                 for (AbstractPower p : m.powers) {
-                    // atDamageGive 通常处理 力量(Strength)、活力(Vigor) 等
                     __instance.damage = (int) p.atDamageGive(__instance.damage, __instance.damageTypeForTurn);
                 }
-
-                // 处理“最终”修正 (如 钢笔尖) - 虽然怪物通常没有 Relic，但有些 Power 也在这一步
                 for (AbstractPower p : m.powers) {
                     __instance.damage = (int) p.atDamageFinalGive(__instance.damage, __instance.damageTypeForTurn);
                 }
             }
-            ArrayList<com.megacrit.cardcrawl.monsters.AbstractMonster> monsters = AbstractDungeon
-                    .getCurrRoom().monsters.monsters;
+
+            // 【新增】：玩家身上的全局加算指挥能力 (例如：你的友军伤害+3)
+            if (m instanceof AbstractAlly && AbstractDungeon.player != null) {
+                for (AbstractPower p : AbstractDungeon.player.powers) {
+                    if (p instanceof IAllyDamageModifier) {
+                        __instance.damage = (int) ((IAllyDamageModifier) p).onAllyModifyDamageGive(
+                                (AbstractAlly) m, null, (float) __instance.damage, __instance.damageTypeForTurn);
+                    }
+                }
+            }
+
+            // 3. 【AOE 伤害计算】依据场上怪物逐个计算
+            ArrayList<AbstractMonster> monsters = AbstractDungeon.getCurrRoom().monsters.monsters;
             float[] tmp = new float[monsters.size()];
             __instance.multiDamage = new int[monsters.size()];
 
@@ -59,21 +68,30 @@ public class CardCalculationPatches {
                 AbstractMonster mo = monsters.get(i);
                 tmp[i] = (float) __instance.baseDamage;
 
-                // A. 施法者(友军)的加成
+                // A. 施法者(友军自身)的加成
                 if (m.powers != null) {
                     for (AbstractPower p : m.powers) {
                         tmp[i] = p.atDamageGive(tmp[i], __instance.damageTypeForTurn);
                     }
                 }
 
-                // B. 受击者(敌人)的加成 (如易伤)
-                // 注意：这里要判断 mo 是否是 target。对于 AOE，所有活着的怪都是 target。
+                // 【新增】：AOE - 玩家身上的指挥能力 (加算阶段)
+                if (m instanceof AbstractAlly && AbstractDungeon.player != null) {
+                    for (AbstractPower p : AbstractDungeon.player.powers) {
+                        if (p instanceof IAllyDamageModifier) {
+                            tmp[i] = ((IAllyDamageModifier) p).onAllyModifyDamageGive(
+                                    (AbstractAlly) m, mo, tmp[i], __instance.damageTypeForTurn);
+                        }
+                    }
+                }
+
                 if (m.powers != null) {
                     for (AbstractPower p : m.powers) {
                         tmp[i] = p.atDamageFinalGive(tmp[i], __instance.damageTypeForTurn);
                     }
                 }
 
+                // B. 受击者(敌人)身上的加成 (易伤/无实体等)
                 if (mo != null) {
                     for (AbstractPower p : mo.powers) {
                         tmp[i] = p.atDamageReceive(tmp[i], __instance.damageTypeForTurn);
@@ -83,18 +101,28 @@ public class CardCalculationPatches {
                     }
                 }
 
+                // 【新增】：AOE - 玩家身上的指挥能力 (乘算阶段，双重弱化翻倍在此生效)
+                if (m instanceof AbstractAlly && AbstractDungeon.player != null) {
+                    for (AbstractPower p : AbstractDungeon.player.powers) {
+                        if (p instanceof IAllyDamageModifier) {
+                            tmp[i] = ((IAllyDamageModifier) p).onAllyModifyDamageFinal(
+                                    (AbstractAlly) m, mo, tmp[i], __instance.damageTypeForTurn);
+                        }
+                    }
+                }
+
                 // 取整存入
                 __instance.multiDamage[i] = (int) Math.floor(tmp[i]);
                 if (__instance.multiDamage[i] < 0)
                     __instance.multiDamage[i] = 0;
             }
+
             // 标记 AOE 伤害是否被修改
-            if (__instance.baseDamage != __instance.multiDamage[0]) {
+            if (__instance.multiDamage.length > 0 && __instance.baseDamage != __instance.multiDamage[0]) {
                 __instance.isDamageModified = true;
             }
 
-            // 3. 计算格挡 (模拟玩家的敏捷逻辑)
-            // 遍历怪物的 Power，寻找影响格挡的 Power (如 Dexterity)
+            // 4. 计算格挡
             float tmpBlock = (float) __instance.baseBlock;
             if (m.powers != null) {
                 for (AbstractPower p : m.powers) {
@@ -105,18 +133,19 @@ public class CardCalculationPatches {
             if (__instance.block < 0)
                 __instance.block = 0;
 
-            // 4. 设置修改标记
+            // 5. 设置修改标记
             if (__instance.damage != __instance.baseDamage)
                 __instance.isDamageModified = true;
             if (__instance.block != __instance.baseBlock)
                 __instance.isBlockModified = true;
 
-            // 阻止原版逻辑运行
             return SpireReturn.Return();
         }
     }
 
-    // 拦截 2: calculateCardDamage (计算对特定目标的数值，如指向敌人时)
+    // =========================================================================
+    // 拦截 2: calculateCardDamage (计算指向特定敌人时的最终伤害)
+    // =========================================================================
     @SpirePatch(clz = AbstractCard.class, method = "calculateCardDamage")
     public static class CalculateCardDamagePatch {
         @SpirePrefixPatch
@@ -125,37 +154,54 @@ public class CardCalculationPatches {
                 return SpireReturn.Continue();
             }
 
-            // --- 进入怪物逻辑 ---
             AbstractCardMonster source = MonsterCardContext.activeMonster;
-            AbstractCreature target = mo; // 这里的 mo 其实是友军锁定的目标
+            AbstractCreature target = mo;
 
             // 1. 先复用 applyPowers 的逻辑算出基础加成
             ApplyPowersPatch.Prefix(__instance);
-            // 注意：上面这一步已经把 source(友军) 的力量算进去了
-            // 下面只需要算 target(敌人) 的易伤等状态
+            float tmp = (float) __instance.damage;
 
-            // 2. 针对目标的修正 (易伤 Vulnerable 等)
+            // 【新增】：单体 - 玩家身上的指挥能力 (针对特定目标的加算)
+            if (source instanceof AbstractAlly && AbstractDungeon.player != null) {
+                for (AbstractPower p : AbstractDungeon.player.powers) {
+                    if (p instanceof IAllyDamageModifier) {
+                        tmp = ((IAllyDamageModifier) p).onAllyModifyDamageGive(
+                                (AbstractAlly) source, target, tmp, __instance.damageTypeForTurn);
+                    }
+                }
+            }
+
+            // 2. 针对目标敌人身上的修正 (如易伤 Vulnerable)
             if (target != null && target.powers != null) {
-                float tmp = (float) __instance.damage;
-
-                // atDamageReceive (易伤等)
                 for (AbstractPower p : target.powers) {
-                    if (p != null) { // 防空指针
+                    if (p != null) {
                         tmp = p.atDamageReceive(tmp, __instance.damageTypeForTurn);
                     }
                 }
 
-                // atDamageFinalReceive
                 for (AbstractPower p : target.powers) {
                     if (p != null) {
                         tmp = p.atDamageFinalReceive(tmp, __instance.damageTypeForTurn);
                     }
                 }
-
-                __instance.damage = (int) Math.floor(tmp);
-                if (__instance.damage < 0)
-                    __instance.damage = 0;
             }
+
+            // =============================================================
+            // 【核心新增】：单体 - 玩家身上的指挥能力 (乘算阶段，双重弱化翻倍在此生效)
+            // =============================================================
+            if (source instanceof AbstractAlly && AbstractDungeon.player != null) {
+                for (AbstractPower p : AbstractDungeon.player.powers) {
+                    if (p instanceof IAllyDamageModifier) {
+                        tmp = ((IAllyDamageModifier) p).onAllyModifyDamageFinal(
+                                (AbstractAlly) source, target, tmp, __instance.damageTypeForTurn);
+                    }
+                }
+            }
+
+            // 结算最终伤害
+            __instance.damage = (int) Math.floor(tmp);
+            if (__instance.damage < 0)
+                __instance.damage = 0;
 
             if (__instance.damage != __instance.baseDamage)
                 __instance.isDamageModified = true;

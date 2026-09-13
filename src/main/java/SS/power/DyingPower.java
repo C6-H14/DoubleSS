@@ -5,10 +5,15 @@ import SS.helper.ModHelper;
 import SS.interfaces.OnReduceDyingPowerSubscriber;
 import SS.relic.SS.HolyMantle;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.OnPlayerDeathPower;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -23,6 +28,9 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
     private static final String NAME = powerStrings.NAME;
     private static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     private boolean isResurrencted = false;
+
+    // 【方案B】呼吸警报动画计时器
+    private float pulseTimer = 0.0F;
 
     public DyingPower(AbstractCreature owner, int amount) {
         this.name = NAME;
@@ -43,9 +51,46 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
         this.description = DESCRIPTIONS[0];
     }
 
-    public void atStartOfTurn() {
+    @Override
+    public void updateParticles() {
+        super.updateParticles();
+
+        // 仅在只剩 1 层时累计动画时间
         if (this.amount == 1) {
-            this.flash();
+            this.pulseTimer += Gdx.graphics.getDeltaTime() * 5.0F; // 速度系数，5.0F 约为 1 秒呼吸 1 次
+        } else {
+            this.pulseTimer = 0.0F;
+        }
+    }
+
+    /**
+     * 【方案B核心】：自定义渲染图标，实现平滑红色心跳呼吸灯效果
+     */
+    @Override
+    public void renderIcons(SpriteBatch sb, float x, float y, Color c) {
+        if (this.amount == 1 && this.region48 != null) {
+            // 利用正弦波计算 0.0 ~ 1.0 的平滑波动值
+            float sinVal = (MathUtils.sin(this.pulseTimer) + 1.0F) / 2.0F;
+
+            // 1. 颜色呼吸变换：在 原色 和 纯血红色 之间平滑过渡
+            Color warningColor = c.cpy().lerp(new Color(1.0F, 0.15F, 0.15F, c.a), sinVal * 0.85F);
+            sb.setColor(warningColor);
+
+            // 2. 尺寸微弱缩放（心跳跳动感）：正常大小 ~ 1.15 倍大小
+            float scale = (1.0F + sinVal * 0.15F) * Settings.scale;
+
+            sb.draw(this.region48,
+                    x - (float) this.region48.packedWidth / 2.0F,
+                    y - (float) this.region48.packedHeight / 2.0F,
+                    (float) this.region48.packedWidth / 2.0F,
+                    (float) this.region48.packedHeight / 2.0F,
+                    (float) this.region48.packedWidth,
+                    (float) this.region48.packedHeight,
+                    scale, scale,
+                    0.0F);
+        } else {
+            // 大于 1 层时走正常渲染
+            super.renderIcons(sb, x, y, c);
         }
     }
 

@@ -66,7 +66,7 @@ public class Irritable extends AbstractDoubleCard {
         if (p.getPower("Double:FiendStance") != null) {
             addToBot(new DrawCardAction(this.magicNumber));
         }
-        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 7)));
+        addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 8)));
     }
 
     public void triggerOnGlowCheck() {

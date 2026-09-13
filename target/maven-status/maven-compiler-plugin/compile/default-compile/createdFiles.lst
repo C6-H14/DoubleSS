@@ -23,6 +23,7 @@ SS\relic\SS\GreenApple.class
 SS\patches\CharacterSelectPackPatch.class
 SS\action\monster\AllyPlaySpecificCardAction.class
 SS\relic\SS\CorePieces.class
+SS\cards\Haohao\SupervisedLearning.class
 SS\cards\Stingy.class
 SS\cards\C6H14\Sunbow.class
 SS\helper\EnvironmentManager.class
@@ -79,7 +80,7 @@ SS\helper\TempRelicManager.class
 SS\relic\SS\WoodenCross.class
 SS\path\DamageInfoEnum.class
 SS\action\common\ExhaustSpecificTypeAction.class
-SS\helper\SynergismGraph$Edge.class
+SS\cards\Shock\Intercept.class
 SS\patches\CompendiumPatches$HideSortButtonForOtherTabs.class
 SS\power\MiserlyPower.class
 SS\relic\SS\Pendulum.class
@@ -116,6 +117,7 @@ SS\characters\AbstractSSCharacter.class
 SS\cards\Lost\Unbreakable.class
 SS\power\PepsinPower.class
 SS\cards\Protein.class
+SS\power\EverflamePower.class
 SS\cards\TransportProtein.class
 SS\cards\Lost\BlankCard.class
 SS\characters\AbstractSSCharacter$1.class
@@ -142,6 +144,7 @@ SS\cards\SelfReliant.class
 SS\cards\test\TestEnvCard.class
 SS\action\common\RemoveConjugateModifierAction.class
 SS\power\NextTurnDamagePower.class
+SS\interfaces\IAllyDamageModifier.class
 SS\action\unique\GainVirtueAction.class
 SS\patches\CompendiumPatches$SortCorrectlyOnSwitch.class
 SS\cards\Haohao\HaoStab.class
@@ -183,6 +186,7 @@ SS\action\unique\c6h14\CommandAllSoulsAction.class
 SS\power\BurningEnvyPower.class
 SS\action\common\DiscoveryByRarityAction.class
 SS\power\ResonancePower.class
+SS\cards\Lost\Sacrifice.class
 SS\action\dice\EvokeDiceAction.class
 SS\patches\TriggerAtStartOfTurnPatch.class
 SS\patches\CompendiumPatches$AddSortButton.class
@@ -193,6 +197,7 @@ SS\cards\Haohao\AbstractHaoCard.class
 SS\action\unique\lost\StratifiedStormAction.class
 SS\cards\ZZZDEPRECATED\FiendPact.class
 SS\cards\C6H14\SoulStorage.class
+SS\cards\Haohao\LessIsMore.class
 SS\cards\BlessCard\AbstractBlessCard.class
 SS\packages\LostPackage\LostPackage_v.class
 SS\stats\DiceAttribution.class
@@ -228,6 +233,8 @@ SS\cards\Haohao\margropeR.class
 SS\patches\CombatStatsPatch$OnCombatWin.class
 SS\patches\DiceDamageTypePatch$updateFlightPowerPatch.class
 SS\cards\Lost\SoulGuard.class
+SS\cards\C6H14\BlazingStrike.class
+SS\cards\Shock\Leverage.class
 SS\patches\DiceDamageTypePatch$updateVigorPowerPatch.class
 SS\vfx\ManagerStanceParticle.class
 SS\action\unique\lost\VoidStrollAction.class
@@ -267,6 +274,7 @@ SS\cards\C6H14\Martyrdom.class
 SS\patches\DiceDamageTypePatch.class
 SS\monster\AbstractCardMonster$2.class
 SS\monster\ally\SoulAlly$1.class
+SS\action\monster\GainAllyEnergyAction.class
 SS\patches\CardCalculationPatches$ApplyPowersPatch.class
 SS\rewards\RewardManager.class
 SS\action\common\DiscardByTypeAction.class
@@ -275,7 +283,9 @@ SS\cards\ZZZDEPRECATED\Pansy.class
 SS\action\common\IncreaseCostAction.class
 SS\cards\Haohao\DiverseLover.class
 SS\cards\Shock\GreatWave.class
+SS\power\InterceptPower.class
 SS\cards\C6H14\Genesis.class
+SS\cards\Lost\Unravel.class
 SS\patches\AllyHookPatch$EndTurnPatch.class
 SS\packages\PurplePackage\PurplePackage_v.class
 SS\patches\CharacterSelectPackPatch$RenderOptions.class
@@ -341,6 +351,7 @@ SS\power\TrinityShieldPower.class
 SS\cards\Shock\Resonance.class
 SS\helper\PermanentBlockVariable.class
 SS\action\unique\ss\NutrientCycleAction.class
+SS\cards\Haohao\Kindred.class
 SS\cards\RecordingTeam.class
 SS\cards\C6H14\KernelMapping.class
 SS\action\common\DrawSpecificCardAction.class
@@ -386,6 +397,7 @@ SS\patches\AllyHookPatch$StartTurnPatch.class
 SS\power\HaoggernautPower.class
 SS\path\PackageEnumList$PackageEnum.class
 SS\action\dice\RemoveDiceAction.class
+SS\cards\C6H14\Conduct.class
 SS\Dice\EmptyDiceSlot.class
 SS\patches\ActionSimulationPatches$InterceptTopPatch.class
 SS\action\unique\haohao\GreatDiscipleAction.class
@@ -439,6 +451,7 @@ SS\cards\HedonismShackles.class
 SS\Dice\IronwaveDice.class
 SS\path\ThmodClassEnum.class
 SS\relic\SS\Egg.class
+SS\cards\Lost\Respite.class
 SS\patches\AddHaoRewardPatch.class
 SS\patches\AllyHookPatch.class
 SS\power\ContemptPower.class
@@ -448,10 +461,10 @@ SS\cards\Lost\Altar.class
 SS\relic\SS\HolyMantle.class
 SS\patches\DiceDamageTypePatch$updateSlowPowerPatch.class
 SS\cards\Haohao\MaximizeHaoCard.class
+SS\cards\C6H14\Everflame.class
 SS\cards\DaggerInSmile.class
 SS\power\KaleidoscopePower.class
 SS\cards\Seething.class
-SS\helper\SynergismGraph.class
 SS\packages\C6H14Package\C6H14Package.class
 SS\action\unique\c6h14\PaperPenanceAction.class
 SS\action\dice\ChannelOneDiceAction.class
@@ -487,6 +500,7 @@ SS\cards\Haohao\Haoflex.class
 SS\monster\ally\AllyPositionHelper.class
 SS\relic\SS\HolyReward.class
 SS\cards\C6H14\ExactSequence.class
+SS\cards\Shock\Redirect.class
 SS\cards\C6H14\Hymn.class
 SS\power\UnderlyingLogicPower.class
 SS\patches\PatchFromIssac.class
@@ -513,7 +527,6 @@ SS\power\DecomposePower.class
 SS\cards\Lost\HungrySoul.class
 SS\patches\DiceDamageTypePatch$updateDoubleDamagePowerPatch.class
 SS\action\unique\lost\AltarActon.class
-SS\helper\SynergismGraph$SynTag.class
 SS\action\common\EchoACardAction.class
 SS\patches\AllyHookPatch$EnvRenderPatch.class
 SS\action\monster\AllyTurnPlannerAction.class

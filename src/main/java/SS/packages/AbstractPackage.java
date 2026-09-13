@@ -13,9 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import SS.cards.AbstractDoubleCard;
-import SS.helper.SynergismGraph;
 import SS.modcore.modcore;
-import javafx.util.Pair;
 
 public abstract class AbstractPackage {
     public static final Logger logger = LogManager.getLogger(AbstractPackage.class);
@@ -29,7 +27,12 @@ public abstract class AbstractPackage {
     public PackageType TYPE;
     public String ID;
     public PackageEnum PackageColor;
-    public ArrayList<Pair<PackageEnum, SynergismGraph.SynTag>> syng = new ArrayList<>();
+    // 卡包协同卡声明：key=有序对的第二个元素（主卡包色），value=卡ID。方向敏感：
+    // 仅当「本卡包色在前、key 色在后」这一方向被枚举到时对应卡进本局卡池
+    // （选哪两个包与顺序无关——两方向都会被枚举，但只有声明过的那方向产出卡）。
+    // 例：ShockPackage 里 addPairCard(PackageEnum.Hao, "Double:TA")
+    // 表示 Shock 与 Hao 同选时（枚举到 (Shock, Hao)）解锁 Double:TA。
+    public HashMap<PackageEnum, String> pairCards = new HashMap<>();
 
     public AbstractPackage(String id, PackageType type, PackageEnum col, String optioncard, String startRelic) {
         this.ID = id;
@@ -72,8 +75,9 @@ public abstract class AbstractPackage {
 
     public abstract AbstractPackage makeCopy();
 
-    public void addSyng(PackageEnum c, SynergismGraph.SynTag t) {
-        syng.add(new Pair<PackageEnum, SynergismGraph.SynTag>(c, t));
+    /** 声明「本卡包色与 second 色同选」时解锁的卡（见 pairCards 字段注释）。 */
+    public void addPairCard(PackageEnum second, String cardId) {
+        pairCards.put(second, cardId);
     }
 
     public void initializePack() {

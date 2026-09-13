@@ -27,7 +27,8 @@ public class Altar extends AbstractLostCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.isEthereal = true;
-        this.permanentBlock = this.basePermanentBlock = 4;
+        this.tags.add(AbstractCardEnum.Permanent);
+        this.permanentBlock = this.basePermanentBlock = 6;
         if (needManager()) {
             updateManager();
         }
