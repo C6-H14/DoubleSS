@@ -152,6 +152,8 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
             }
             allowedCards.addAll(p.CardLists);
         }
+        // 卡包协同卡（有序对枚举解锁，见 modcore.buildPairCards）
+        allowedCards.addAll(modcore.pairCardPool);
         for (AbstractCard card : CardLibrary.getAllCards()) {
             // 自己的颜色（基类用 this.getCardColor()，SS 即 SS_Yellow，变种用各自颜色）：
             // 只放入 Default 卡包的牌，避免同色卡包牌重复

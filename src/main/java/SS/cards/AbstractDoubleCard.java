@@ -289,8 +289,8 @@ public abstract class AbstractDoubleCard extends CustomCard {
     }
 
     public void triggerOnGlowCheck() {
-        if (hasSyn()) {
-            triggerOnSyn();
+        if (hasPairGlow()) {
+            triggerOnPairGlow();
         } else {
             if (this.isFiend) {
                 triggerOnGlowCheck_Fiend();
@@ -315,14 +315,14 @@ public abstract class AbstractDoubleCard extends CustomCard {
         }
     }
 
-    public void triggerOnSyn() {
+    public void triggerOnPairGlow() {
         this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
-        if (hasSyn()) {
+        if (hasPairGlow()) {
             this.glowColor = new Color(1.0F, 0.0F, 0.0F, 1.0F);
         }
     }
 
-    public boolean hasSyn() {
+    public boolean hasPairGlow() {
         return false;
     }
 

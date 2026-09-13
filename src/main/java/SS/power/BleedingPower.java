@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 
 public class BleedingPower extends AbstractPower {
@@ -49,8 +48,7 @@ public class BleedingPower extends AbstractPower {
     public int onAttacked(final DamageInfo info, final int damageAmount) {
         if (damageAmount <= 0)
             return 0;
-        if ((info.type == DamageType.NORMAL || info.type == DamageType.THORNS || info.type == DamageInfoEnum.DELAY)
-                && !hurt) {
+        if (!hurt) {
             hurt = true;
             this.flashWithoutSound();
             addToTop(new ApplyPowerAction(this.owner, this.owner, new BleedingPower(this.owner, 1)));
@@ -65,6 +63,11 @@ public class BleedingPower extends AbstractPower {
                 !this.owner.hasPower(OpenInjuryPower.POWER_ID)) {
             addToBot(new ReducePowerAction(this.owner, this.owner, POWER_ID, this.amount / 2));
         }
+    }
+
+    @Override
+    public void atEndOfRound() {
+        this.hurt = false;
     }
 
     public void updateDescription() {

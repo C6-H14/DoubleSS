@@ -12,15 +12,18 @@ public class C6H14Package extends AbstractPackage {
 
     // 三个子卡包(_v/_c/_e)共同的前 5 张牌，修改共同牌只需改这里
     public static final String[] COMMON_CARDS = {
-        "Double:VirtualChoir",
-        "Double:PaperPenance",
-        "Double:Guidance",
-        "Double:Kaleidoscope",
-        "Double:BrainStorming",
+            "Double:VirtualChoir",
+            "Double:PaperPenance",
+            "Double:Guidance",
+            "Double:Kaleidoscope",
+            "Double:BrainStorming",
     };
 
     public C6H14Package() {
         super(ID, TYPE, PackageEnum.C6H14, "Double:C6H14_Cyan_option", "Double:JarOfWisps", "Double:BookOfVirtue");
+        addPairCard(PackageEnum.Hao, "Double:BlazingStrike");
+        addPairCard(PackageEnum.Lost, "Double:Everflame");
+        addPairCard(PackageEnum.Shock, "Double:Conduct");
     }
 
     public ArrayList<String> getCards() {

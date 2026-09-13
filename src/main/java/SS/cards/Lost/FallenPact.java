@@ -28,7 +28,7 @@ public class FallenPact extends AbstractLostCard {
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.tags.add(AbstractCardEnum.Permanent);
         this.exhaust = true;
-        this.permanentMagicNumber = this.basePermanentMagicNumber = 2;
+        this.permanentMagicNumber = this.basePermanentMagicNumber = 1;
         if (needManager()) {
             updateManager();
         }

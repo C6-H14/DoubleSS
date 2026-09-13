@@ -29,7 +29,7 @@ public class CounterBlow extends AbstractLostCard {
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.tags.add(AbstractCardEnum.Permanent);
         this.isEthereal = true;
-        this.permanentDamage = this.basePermanentDamage = 4;
+        this.permanentDamage = this.basePermanentDamage = 7;
         this.permanentMagicNumber = this.basePermanentMagicNumber = 10;
         if (needManager()) {
             updateManager();
@@ -53,7 +53,6 @@ public class CounterBlow extends AbstractLostCard {
         }
         d -= p.maxHealth / this.permanentMagicNumber;
         d = Math.max(0, d);
-        addToBot(new ChannelDiceAction(new EternalAttackDice(d, p)));
         addToBot(new ChannelDiceAction(new EternalAttackDice(d, p)));
         addToBot(new ChannelDiceAction(new EternalAttackDice(d, p)));
     }

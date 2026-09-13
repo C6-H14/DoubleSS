@@ -18,7 +18,6 @@ import basemod.interfaces.PostInitializeSubscriber;
 import basemod.interfaces.PostUpdateSubscriber;
 import basemod.interfaces.RenderSubscriber;
 import basemod.interfaces.StartGameSubscriber;
-import javafx.util.Pair;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -63,7 +62,6 @@ import SS.characters.MyCharacter;
 import SS.helper.PermanentBlockVariable;
 import SS.helper.PermanentDamageVariable;
 import SS.helper.PermanentMagicNumberVariable;
-import SS.helper.SynergismGraph;
 import SS.helper.TempRelicManager;
 import SS.packages.AbstractPackage;
 import SS.packages.NullPackage;
@@ -248,19 +246,6 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         }
     }
 
-    // 以下为协同效应管理
-    public static SynergismGraph synGraph = new SynergismGraph();
-
-    private static void initializeSynergismGraph() {
-        for (AbstractPackage p : mainPackageList) {// 加入点和协同tag
-            synGraph.vert.add(p.PackageColor.toString());
-            for (Pair<PackageEnum, SynergismGraph.SynTag> t : p.syng) {
-                // syng为当前卡包和第一关键字卡包的关系为第二关键字，比如后者是前者的学生，就用student
-                synGraph.add(p.PackageColor.toString(), t.getKey().toString(), t.getValue());
-            }
-        }
-    }
-
     // 以下为卡包相关
     public static ArrayList<AbstractPackage> packageList = new ArrayList<AbstractPackage>();
     public static ArrayList<AbstractPackage> mainPackageList = new ArrayList<AbstractPackage>();
@@ -271,6 +256,9 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     public static ArrayList<PackageEnum> validColors = new ArrayList<>();
     public static ArrayList<AbstractPackage> validPackage = new ArrayList<>();;
+    // 本局解锁的卡包协同卡（有序对枚举结果，见 buildPairCards）。
+    // 实例列表：getCardPool 直接 addAll 进池，LoadData 靠引用相等过滤旧牌。
+    public static ArrayList<AbstractCard> pairCardPool = new ArrayList<>();
     public static HashMap<PackageEnum, AbstractPackage> colorToPackage = new HashMap<>();
     public static ArrayList<AbstractPackage> colorChoices = new ArrayList<>();
     public static ArrayList<String> allowedColors = new ArrayList<String>();
@@ -454,6 +442,42 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         }
     }
 
+    /**
+     * 枚举本局已选卡包的有序对 (A,B)（A≠B，跳过 Default/空槽），查 A 卡包对 B 的协同卡声明，
+     * 命中的卡加入 pairCardPool（本局卡池）。方向敏感：只查 (A→B) 方向，(B,A) 要出卡
+     * 得由 B 的卡包另行声明（如 Shock 声明 (Shock,Hao)→TA：两个色都入选时，枚举到
+     * (Shock,Hao) 出 TA，(Hao,Shock) 无声明不出卡）。
+     * 须在 finalizePackageSelection→LoadData 之前调用（此时 validColors 已含 Default，
+     * 也会被枚举但被跳过，无副作用）。
+     */
+    private static void buildPairCards() {
+        pairCardPool.clear();
+        for (PackageEnum a : validColors) {
+            if (a == PackageEnum.Default) {
+                continue;
+            }
+            AbstractPackage packA = getPackageByColor(a.toString());
+            if (packA == null) {
+                continue;
+            }
+            for (PackageEnum b : validColors) {
+                if (b == PackageEnum.Default || b == a) {
+                    continue;
+                }
+                String cardId = packA.pairCards.get(b);
+                if (cardId == null) {
+                    continue;
+                }
+                AbstractCard c = CardLibrary.getCard(cardId);
+                if (c == null) {
+                    System.out.println("[DoubleSS] 协同卡缺失: " + a + "," + b + " -> " + cardId);
+                    continue;
+                }
+                pairCardPool.add(c.makeStatEquivalentCopy());
+            }
+        }
+    }
+
     private static void LoadData() {
         ArrayList<AbstractCard> allowedCards = new ArrayList<>();
         for (AbstractPackage p : validPackage) {
@@ -462,6 +486,8 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             }
             allowedCards.addAll(p.CardLists);
         }
+        // 协同卡（引用相等，须与 getCardPool 注入的是同一批实例）
+        allowedCards.addAll(pairCardPool);
         for (AbstractCard card : CardLibrary.getAllCards()) {
             if (card.color == AbstractDungeon.player.getCardColor()) {
                 allowedCards.add(card.makeStatEquivalentCopy());
@@ -482,6 +508,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         if (AbstractDungeon.player instanceof AbstractSSCharacter) {
             validColors.clear();
             validPackage.clear();
+            pairCardPool.clear(); // 上一局的协同卡实例作废，选完包后 buildPairCards 重建
             choosingCharacters = 0;
             colorChoices.clear();
             for (AbstractCard.CardColor r : AbstractCard.CardColor.values()) {
@@ -536,6 +563,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         if (!validColors.contains(PackageEnum.Default)) {
             validColors.add(PackageEnum.Default);
         }
+        buildPairCards(); // 须在 LoadData 之前：LoadData 靠引用相等把 pairCardPool 留进卡池
         LoadData();
         for (AbstractPackage p : validPackage) {
             if (p.ID.equals("Double:NullPackage")) {
@@ -577,7 +605,6 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     public void receivePostInitialize() {
         initializePackage();
-        initializeSynergismGraph();
         sinBar = new Sinsbar();
         BaseMod.registerCustomReward(
                 RewardEnum.HaoCardReward,
@@ -637,7 +664,14 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 addClassChoice();
             }
         }
-        if (validColors.isEmpty() && this.choosingCharacters == -1) {
+        // 卡包配置回读：卡包系统是二硫键系专属，原版职业（如 Watcher）永不进入。
+        // 根因（原版角色越玩越卡）：原条件 validColors.isEmpty() 对非二硫键角色恒为真
+        // （TriggerAtGameStart 对非 SS 空转、validColors 永不被填、choosingCharacters 恒 -1），
+        // 导致本块每帧重跑——每帧 new SpireConfig 读盘 + validPackage 只 add 不 clear 无限增长
+        // +（新增的）每帧 initializeCardPools 全量重建卡池 → 帧开销/内存随进程存活时间单调上升，
+        // 重启才好、随后再涨。补上 SS 门槛即根因修复（原版角色本就不该跑卡包回读）。
+        if (AbstractDungeon.player instanceof AbstractSSCharacter
+                && validColors.isEmpty() && this.choosingCharacters == -1) {
             // 尝试读取保存数据
             try {
                 validColors.clear();
@@ -669,6 +703,15 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
                 for (int i = 1; i <= PACK_SLOTS; ++i) {
                     String s = config.getString("validPackage" + i);
                     validPackage.add(getPackageByID(s));
+                }
+                // 回读完成后重建协同卡并刷卡池：同进程 SL 幂等（静态表未变），
+                // 跨进程 SL（重启游戏读档）时卡池此前只按基础色建过，这里补上卡包牌+协同卡。
+                // 注意：此块在主菜单也会触发（新进程 validColors 空 + choosingCharacters 初始 -1；
+                // 同进程回主菜单时 player 残留但 dungeon 已 null）→ 必须判空，
+                // 否则 LoadData 里 initializeCardPools 会在无 dungeon 时 NPE。
+                if (CardCrawlGame.dungeon != null && AbstractDungeon.player != null) {
+                    buildPairCards();
+                    LoadData();
                 }
 
             } catch (IOException var2) {

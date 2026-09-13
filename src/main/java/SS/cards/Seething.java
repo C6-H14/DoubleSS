@@ -33,6 +33,10 @@ public class Seething extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Wrath);
         this.magicNumber = this.baseMagicNumber = 1;
         this.exhaust = true;
+        if (needFiend()) {
+            updateFiend();
+        }
+        UpdateDescription();
     }
 
     public void upgrade() {

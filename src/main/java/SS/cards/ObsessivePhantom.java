@@ -30,7 +30,7 @@ public class ObsessivePhantom extends AbstractDoubleCard {
     public ObsessivePhantom() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
-        this.block = this.baseBlock = 5;
+        this.block = this.baseBlock = 8;
         this.magicNumber = this.baseMagicNumber = 2;
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);

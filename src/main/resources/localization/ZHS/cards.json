@@ -95,8 +95,8 @@
     "Double:DeafForm":
     {
         "NAME": "二龙形态",
-        "DESCRIPTION": "失去2点最大生命。你受到的伤害推迟到你的下一个回合结束阶段及下 !M! 个回合结束阶段分别结算一半伤害。",
-        "UPGRADE_DESCRIPTION": "失去1点最大生命。你受到的伤害推迟到你的下一个回合结束阶段及下 !M! 个回合结束阶段分别结算一半伤害。"
+        "DESCRIPTION": "失去2点最大生命。你受到的伤害折半推迟到你的下个回合结束阶段及下 !M! 个回合结束阶段。",
+        "UPGRADE_DESCRIPTION": "失去1点最大生命。你受到的伤害折半推迟到你的下个回合结束阶段及下 !M! 个回合结束阶段。"
     },
     "Double:RED_option":
     {
@@ -161,8 +161,13 @@
     },
     "Double:SelfReliant":{
         "NAME": "自食其力",
-        "DESCRIPTION": " 保留 ，若你处于 [#cf3fbe]恶魔之焰[] 身份 ，选择一张手牌，将 !M! 张同色牌放入手牌， 消耗 。",
-        "UPGRADE_DESCRIPTION": " 保留 ，若你处于 [#cf3fbe]恶魔之焰[] 身份 ，选择一张手牌，将 !M! 张同色牌放入手牌， 消耗 。"
+        "DESCRIPTION": " 保留 ，选择一张手牌，将场上的 !M! 张同色牌放入手牌， 消耗 。",
+        "UPGRADE_DESCRIPTION": " 保留 ，选择一张手牌，将场上的 !M! 张同色牌放入手牌， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            " 保留 ，选择一张手牌，将场上的 !M! 张同色牌放入手牌， 消耗 。",
+            " 保留 ，选择一张手牌，将场上的 !M! 张同色牌放入手牌， 消耗 。"
+        ],
+        "FLAVOR":" #p恶魔之焰身份 ：获得牌数加1。"
     },
     "Double:TaotieRite":{
         "NAME": "饕餮仪式",
@@ -206,11 +211,11 @@
     },
     "Double:Irritable":{
         "NAME": "暴躁",
-        "DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ，获得7点  double:罪孽 。",
-        "UPGRADE_DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ，获得7点  double:罪孽 。",
+        "DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ，获得8点  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ，获得8点  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ， [#cf3fbe]抽[] !M! [#cf3fbe]张牌[] ，获得7点  double:罪孽 。",
-            "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ， [#cf3fbe]抽[] !M! [#cf3fbe]张牌[] ，获得7点  double:罪孽 。"
+            "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ， [#cf3fbe]抽[] !M! [#cf3fbe]张牌[] ，获得8点  double:罪孽 。",
+            "生成3个燔祭 double:骰子 ( !D! )，给予所有敌人1层 易伤 ， [#cf3fbe]抽[] !M! [#cf3fbe]张牌[] ，获得8点  double:罪孽 。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：抽1/2张牌。"
     },
@@ -336,11 +341,11 @@
     },
     "Double:Miserly":{
         "NAME": "视财如命",
-        "DESCRIPTION": "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命 ，优先选择手牌。",
-        "UPGRADE_DESCRIPTION": "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命 ，优先选择手牌。",
+        "DESCRIPTION": "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命 。",
+        "UPGRADE_DESCRIPTION": "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命 。",
         "EXTENDED_DESCRIPTION": [
-            "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命+ ，优先选择手牌。",
-            "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命+ ，优先选择手牌。"
+            "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命+ 。",
+            "获得 !M! 金币。 NL 抽牌阶段结束后，将场上的1张牌变为 *视财如命+ 。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：改为变成视财如命+  。"
     },
@@ -725,6 +730,36 @@
         ],
         "FLAVOR":" #y群主身份 ：打出时获得一张早有准备(+)的回响。"
     },
+    "Double:Kindred":{
+        "NAME": "同气",
+        "DESCRIPTION": "选择一张颢牌，消耗场上所有同名牌，每张使所有 double:持恒 牌数值增加 !M! ，消耗。",
+        "UPGRADE_DESCRIPTION": "选择一张颢牌，消耗场上所有同名牌，每张使所有 double:持恒 牌数值增加 !M! ，消耗。",
+        "EXTENDED_DESCRIPTION": [
+            " 保留 ，选择一张颢牌，消耗场上所有同名牌，每张使所有 double:持恒 牌数值增加 !M! ，消耗。",
+            " 保留 ，选择一张颢牌，消耗场上所有同名牌，每张使所有 double:持恒 牌数值增加 !M! ，消耗。"
+        ],
+        "FLAVOR":" #y群主身份 ：保留。"
+    },
+    "Double:SupervisedLearning":{
+        "NAME": "监督学习",
+        "DESCRIPTION": "消耗一个颢骰，获得一张随机震荡波卡包的牌， 消耗。",
+        "UPGRADE_DESCRIPTION": "消耗一个颢骰，获得一张随机震荡波卡包的牌， 消耗。",
+        "EXTENDED_DESCRIPTION": [
+            "消耗一个颢骰，获得一张随机震荡波卡包的牌，这张牌在本回合为0费， 消耗。",
+            "消耗一个颢骰，获得一张随机震荡波卡包的牌，这张牌在本回合为0费， 消耗。"
+        ],
+        "FLAVOR":" #y群主身份 ：这张牌在本回合为0费。"
+    },
+    "Double:LessIsMore":{
+        "NAME": "大道至简",
+        "DESCRIPTION": "失去一个初始遗物，每失去一个初始遗物，魂火获得 [E] 。",
+        "UPGRADE_DESCRIPTION": "失去一个初始遗物，每失去一个初始遗物，魂火获得 [E] 。",
+        "EXTENDED_DESCRIPTION": [
+            "失去一个初始遗物，每失去一个初始遗物，魂火获得 [E] 。",
+            "失去一个初始遗物，每失去一个初始遗物，魂火获得 [E] 。"
+        ],
+        "FLAVOR":" #y群主身份 ：染色。"
+    },
     "Double:Lost_Black_option":
     {
         "NAME": "里罗牌",
@@ -763,11 +798,11 @@
     },
     "Double:CounterBlow":{
         "NAME": "反戈一击",
-        "DESCRIPTION": " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1。",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1。",
         "EXTENDED_DESCRIPTION": [
-            "虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1， *每拥有1层 double:奄息 *伤害加1 。",
-            "虚无 ， double:持恒 ，生成3个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1， *每拥有1层 double:奄息 *伤害加1 。"
+            "虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1， *每拥有1层 double:奄息 *伤害加1 。",
+            "虚无 ， double:持恒 ，生成2个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，你每拥有 !Double:PermanentMagicNumber! 点最大生命值伤害减1， *每拥有1层 double:奄息 *伤害加1 。"
         ],
         "FLAVOR":" #y群主身份 ：每拥有1层奄息伤害加1。"
     },
@@ -793,11 +828,11 @@
     },
     "Double:Altar":{
         "NAME": "祭坛",
-        "DESCRIPTION": " 虚无 ，选择 消耗 至多2张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。",
-        "UPGRADE_DESCRIPTION": " 虚无 ，选择 消耗 至多2张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。",
+        "DESCRIPTION": " 虚无 ， double:持恒 ，选择 消耗 至多2张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。",
+        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，选择 消耗 至多2张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ，选择 消耗 至多3张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。",
-            " 虚无 ，选择 消耗 至多3张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。"
+            " 虚无 ， double:持恒 ，选择 消耗 至多3张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。",
+            " 虚无 ， double:持恒 ，选择 消耗 至多3张牌，每消耗1张牌获得 !Double:PermanentBlock! 点格挡并获得1层 double:奄息 。"
         ],
         "FLAVOR":" #y群主身份 ：可选择消耗的牌数加1。"
     },
@@ -882,7 +917,7 @@
         "FLAVOR":" #y群主身份 ：首次抽到此牌时，获得 [E] 。"
     },
     "Double:Unbreakable":{
-        "NAME": "不灭意志",
+        "NAME": "不屈",
         "DESCRIPTION": "每当你失去 double:奄息 时，抽1张牌。",
         "UPGRADE_DESCRIPTION": " 固有 ，每当你失去 double:奄息 时，抽1张牌。",
         "EXTENDED_DESCRIPTION": [
@@ -940,6 +975,36 @@
             " double:持恒 ，生成 !Double:PermanentMagicNumber! 个永恒攻击 double:骰子 ( !Double:PermanentDamage! )，失去 double:奄息 至一层并生成等同失去层数个 double:骰子 。获得2层 double:奄息 。"
         ],
         "FLAVOR":" #y群主身份 ：获得1/2层奄息。"
+    },
+    "Double:Sacrifice":{
+        "NAME": "牺牲",
+        "DESCRIPTION": "失去1层 double:奄息 ，随机获得场上 !M! 张颢牌的 double:回响 。",
+        "UPGRADE_DESCRIPTION": "失去1层 double:奄息 ，随机获得场上 !M! 张颢牌的 double:回响 。",
+        "EXTENDED_DESCRIPTION": [
+            "失去1层 double:奄息 ，随机获得场上 !M! 张颢牌的 double:回响 。",
+            "失去1层 double:奄息 ，随机获得场上 !M! 张颢牌的 double:回响 。"
+        ],
+        "FLAVOR":" #y群主身份 ：获得数量加1。"
+    },
+    "Double:Unravel":{
+        "NAME": "抽丝剥茧",
+        "DESCRIPTION": "将场上的一张震荡波牌放入手牌中，本回合此牌费用为0，获得虚无，消耗。",
+        "UPGRADE_DESCRIPTION": "将场上的一张震荡波牌放入手牌中，本回合此牌费用为0，获得虚无，消耗。",
+        "EXTENDED_DESCRIPTION": [
+            "将场上的一张震荡波牌放入手牌中，此牌费用变为0，获得虚无，消耗。",
+            "将场上的一张震荡波牌放入手牌中，此牌费用变为0，获得虚无，消耗。"
+        ],
+        "FLAVOR":" #y群主身份 ：该牌费用变为0。"
+    },
+    "Double:Respite":{
+        "NAME": "换气",
+        "DESCRIPTION": " double:持恒 ，失去1层 double:奄息 ，生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )， double:唤魂 !Double:PermanentMagicNumber! 。",
+        "UPGRADE_DESCRIPTION": " double:持恒 ，失去1层 double:奄息 ，生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )， double:唤魂 !Double:PermanentMagicNumber! 。",
+        "EXTENDED_DESCRIPTION": [
+            " double:持恒 ，失去1层 double:奄息 ，生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )， double:唤魂 !Double:PermanentMagicNumber! 。",
+            " double:持恒 ，失去1层 double:奄息 ，生成1个永恒攻击 double:骰子 ( !Double:PermanentDamage! )， double:唤魂 !Double:PermanentMagicNumber! 。"
+        ],
+        "FLAVOR":" #y群主身份 ：染色。"
     },
     "Double:BlessStrike":
     {
@@ -1009,13 +1074,23 @@
         ],
         "FLAVOR":" #y群主身份 ：不再获得无法格挡。"
     },
+    "Double:Leverage":{
+        "NAME": "巧劲",
+        "DESCRIPTION": "生成1个攻击骰子( !D! )，目标所有负面效果层数加 !M! ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击骰子( !D! )，目标所有负面效果层数加 !M! ， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "生成1个攻击骰子( !D! )，目标所有负面效果层数加 !M! ， 消耗 。 NL *获得一张本牌的 double:回响 。",
+            "生成1个攻击骰子( !D! )，目标所有负面效果层数加 !M! ， 消耗 。 NL *获得一张本牌的 double:回响 。"
+        ],
+        "FLAVOR":" #y群主身份 ：给予1层震荡。"
+    },
     "Double:TA":{
         "NAME": "为人师表",
-        "DESCRIPTION": "造成 !D! 点伤害。 NL double:协同 (卡组，颢颢)：斩杀时，升级一张卡组中颢颢的卡牌。",
-        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL double:协同 (卡组，颢颢)：斩杀时，升级一张卡组中颢颢的卡牌。",
+        "DESCRIPTION": "造成 !D! 点伤害。 NL 斩杀时，升级一张卡组中的颢牌。",
+        "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL 斩杀时，升级一张卡组中的颢牌。",
         "EXTENDED_DESCRIPTION": [
-            "造成 !D! 点伤害。 NL double:协同 (卡组，学生)：斩杀时，升级一张卡组中颢颢的卡牌。",
-            "造成 !D! 点伤害。 NL double:协同 (卡组，学生)：斩杀时，升级一张卡组中颢颢的卡牌。"
+            "造成 !D! 点伤害。 NL 斩杀时，升级一张卡组中的颢牌。",
+            "造成 !D! 点伤害。 NL 斩杀时，升级一张卡组中的颢牌。"
         ],
         "FLAVOR":" #y群主身份 ：协同条件升级为(卡组，学生)。"
     },
@@ -1070,7 +1145,7 @@
         "FLAVOR":" #y群主身份 ：场上每有一名存活的敌人，你获得1点美德。"
     },
     "Double:Nightfall":{
-        "NAME": " 降临",
+        "NAME": "夜幕降临",
         "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 double:震荡 ，获得等同于你未失去的状态种类数的 [E] 。",
         "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，失去1层 double:震荡 ，获得等同于你未失去的状态种类数的 [E] 。",
         "EXTENDED_DESCRIPTION": [
@@ -1154,6 +1229,26 @@
             "选择普通，罕见，稀有中的一种稀有度，发现一张对应稀有度的牌，可选牌数加1， 消耗 。"
         ],
         "FLAVOR":" #y群主身份 ：发现牌数加1。"
+    },
+    "Double:Redirect":{
+        "NAME": "接化发",
+        "DESCRIPTION": "移除你与所有敌人的所有 double:震荡 ，获得等量的 double:奄息 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "移除你与所有敌人的所有 double:震荡 ，获得等量的 double:奄息 ， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "移除你的所有 double:震荡 ，获得等量的 double:奄息 。 NL 所有敌人每有1层 double:震荡 获得1层 double:奄息 ， 消耗 。",
+            "移除你的所有 double:震荡 ，获得等量的 double:奄息 。 NL 所有敌人每有1层 double:震荡 获得1层 double:奄息 ， 消耗 。"
+        ],
+        "FLAVOR":" #y群主身份 ：不移除敌人的震荡，但同样计数1。"
+    },
+    "Double:Intercept":{
+        "NAME": "截击",
+        "DESCRIPTION": "魂火对拥有震荡的敌人造成双倍伤害。",
+        "UPGRADE_DESCRIPTION": "魂火对拥有震荡的敌人造成双倍伤害。",
+        "EXTENDED_DESCRIPTION": [
+            "魂火对拥有震荡的敌人造成双倍伤害。 NL *所有魂火获得 !M! *点 力量 。",
+            "魂火对拥有震荡的敌人造成双倍伤害。 NL *所有魂火获得 !M! *点 力量 。"
+        ],
+        "FLAVOR":" #y群主身份 ：所有魂火获得1点力量。"
     },
     "Double:CommonCardOption":{
         "NAME": "普通",
@@ -1429,5 +1524,35 @@
             "#y退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。"
         ],
         "FLAVOR":"#y进入 ：释放魂火铭刻的牌，召唤魂火直至一共有3个魂火； NL 魂火染色后不再变色，意图卡牌改为圣约； NL 打出染色牌时，随机白色魂火染色，然后所有魂火执行对应意图。#y退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。"
+    },
+    "Double:BlazingStrike":{
+        "NAME": "燃焰打击",
+        "DESCRIPTION": "生成1个攻击骰子( !D! )， double:铭刻 一张场上随机颢牌的复制。",
+        "UPGRADE_DESCRIPTION": "生成1个攻击骰子( !D! )， double:铭刻 一张场上随机颢牌的复制。",
+        "EXTENDED_DESCRIPTION": [
+            "生成1个攻击骰子( !D! )， double:铭刻 一张场上随机颢牌的复制。",
+            "生成1个攻击骰子( !D! )， double:铭刻 一张场上随机颢牌的复制。"
+        ],
+        "FLAVOR":" #y群主身份 ：染色 。"
+    },
+    "Double:Everflame":{
+        "NAME": "长明",
+        "DESCRIPTION": "回合结束时，若魂火存活，场上所有 持恒 牌数值增加 !M! 。",
+        "UPGRADE_DESCRIPTION": "回合结束时，若魂火存活，场上所有 持恒 牌数值增加 !M! 。",
+        "EXTENDED_DESCRIPTION": [
+            " double:唤魂 1。 NL 回合结束时，若魂火存活，场上所有 持恒 牌数值增加 !M! 。",
+            " double:唤魂 1。 NL 回合结束时，若魂火存活，场上所有 持恒 牌数值增加 !M! 。"
+        ],
+        "FLAVOR":" #y群主身份 ：打出时，唤魂1。"
+    },
+    "Double:Conduct":{
+        "NAME": "传导",
+        "DESCRIPTION": "魂火每拥有1点魂火值，给予随机敌人1层随机负面效果（易伤、虚弱或中毒）次， 消耗 。",
+        "UPGRADE_DESCRIPTION": " 保留 ，魂火每拥有1点魂火值，给予随机敌人1层随机负面效果（易伤、虚弱或中毒）一次， 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "魂火每拥有1点魂火值，给予随机敌人1层随机负面效果（易伤、虚弱或中毒）一次， *给予所有敌人1层 double:震荡 ， 消耗 。",
+            " 保留 ，魂火每拥有1点魂火值，给予随机敌人1层随机负面效果（易伤、虚弱或中毒）一次， *给予所有敌人1层 double:震荡 ， 消耗 。"
+        ],
+        "FLAVOR":" #y群主身份 ：额外给予所有敌人1层震荡。"
     }
 }

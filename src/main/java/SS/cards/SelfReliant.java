@@ -24,10 +24,14 @@ public class SelfReliant extends AbstractDoubleCard {
 
     public SelfReliant() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
-                CARD_STRINGS.EXTENDED_DESCRIPTION, false, false);
+                CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
+        this.tags.add(AbstractCardEnum.Fiend);
         this.exhaust = true;
         this.selfRetain = true;
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
+        if (needFiend()) {
+            updateFiend();
+        }
         UpdateDescription();
     }
 
@@ -43,13 +47,23 @@ public class SelfReliant extends AbstractDoubleCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (needFiend()) {
-            addToBot(new SelfReliantAction(this.magicNumber));
-        }
+        addToBot(new SelfReliantAction(this.magicNumber));
     }
 
     public void triggerOnGlowCheck() {
         triggerOnGlowCheck_Fiend();
+    }
+
+    public void updateFiend() {
+        upgradeMagicNumber(1);
+        UpdateDescription();
+        initializeDescription();
+    }
+
+    public void exitFiend() {
+        upgradeMagicNumber(-1);
+        UpdateDescription();
+        initializeDescription();
     }
 
     @Override

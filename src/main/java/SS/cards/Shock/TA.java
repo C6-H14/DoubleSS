@@ -20,8 +20,6 @@ import SS.action.common.DamageFatalAction;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.Haohao.AbstractHaoCard;
 import SS.helper.ModHelper;
-import SS.helper.SynergismGraph.SynTag;
-import SS.modcore.modcore;
 import SS.path.PackageEnumList.PackageEnum;
 
 public class TA extends AbstractShockCard {
@@ -38,7 +36,7 @@ public class TA extends AbstractShockCard {
     public TA() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 16;
+        this.damage = this.baseDamage = 12;
         if (needManager()) {
             updateManager();
         }
@@ -48,7 +46,7 @@ public class TA extends AbstractShockCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(6);
+            upgradeDamage(4);
             UpdateDescription();
             initializeDescription();
         }
@@ -67,11 +65,13 @@ public class TA extends AbstractShockCard {
                 }
                 if (cnt == 0)
                     return;
+                // 原 synGraph.hasSyn(Shock, X, Student) 的图里只有 (Shock,Hao) 一条边
+                // → 等价于「可升级的 Hao 系卡包牌」
                 ArrayList<AbstractCard> possibleCards = new ArrayList<>();
                 for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
                     if (card instanceof AbstractDoubleCard) {
-                        if (card.canUpgrade() && modcore.synGraph.hasSyn(PackageEnum.Shock,
-                                ((AbstractDoubleCard) card).packagetype, SynTag.Student)) {
+                        if (card.canUpgrade()
+                                && ((AbstractDoubleCard) card).packagetype == PackageEnum.Hao) {
                             possibleCards.add(card);
                         }
                     }
@@ -121,9 +121,16 @@ public class TA extends AbstractShockCard {
     }
 
     @Override
-    public boolean hasSyn() {
+    public boolean hasPairGlow() {
         if (needManager()) {
-            return modcore.synGraph.hasAnySynInDeck(PackageEnum.Shock, SynTag.Student, AbstractDungeon.player);
+            // 原 hasAnySynInDeck(Shock, Student)：图里只有 (Shock,Hao) 一条边
+            // → 等价于「牌组里有 Hao 系卡包牌」
+            for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
+                if (card instanceof AbstractDoubleCard
+                        && ((AbstractDoubleCard) card).packagetype == PackageEnum.Hao) {
+                    return true;
+                }
+            }
         }
         for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
             if (card instanceof AbstractHaoCard) {
