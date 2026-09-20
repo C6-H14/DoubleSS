@@ -1,0 +1,100 @@
+{
+  "reference_frame": 15,
+  "reference_guard": [
+    635.06,
+    277.002
+  ],
+  "reference_tip": [
+    928.601,
+    22.303
+  ],
+  "standard_guard_to_tip_length_px": 388.636,
+  "padding_px": {
+    "top": 400,
+    "left": 400,
+    "right": 400
+  },
+  "targets": {
+    "16": {
+      "guard": [
+        673.61,
+        148.121
+      ],
+      "visible_tip_at_crop": [
+        775.042,
+        -6.531
+      ],
+      "visible_length_px": 184.948,
+      "completed_tip": [
+        886.752,
+        -176.854
+      ],
+      "completed_length_px": 388.636
+    },
+    "17": {
+      "guard": [
+        628.943,
+        46.004
+      ],
+      "visible_tip_at_crop": [
+        634.242,
+        -1.207
+      ],
+      "visible_length_px": 47.508,
+      "completed_tip": [
+        672.288,
+        -340.207
+      ],
+      "completed_length_px": 388.636
+    },
+    "18": {
+      "guard": [
+        530.678,
+        11.718
+      ],
+      "visible_tip_at_crop": [
+        471.432,
+        5.036
+      ],
+      "visible_length_px": 59.622,
+      "completed_tip": [
+        144.491,
+        -31.837
+      ],
+      "completed_length_px": 388.636
+    },
+    "20": {
+      "effect": "continuous quadratic sword-wave drawn over both crop joins"
+    },
+    "29": {
+      "guard": [
+        468.0,
+        47.3
+      ],
+      "visible_tip_at_crop": [
+        514.6,
+        6.2
+      ],
+      "completed_tip": [
+        759.469,
+        -209.768
+      ],
+      "completed_length_px": 388.636
+    },
+    "31": {
+      "guard": [
+        287.3,
+        299.3
+      ],
+      "visible_tip_at_crop": [
+        -2.0,
+        240.7
+      ],
+      "completed_tip": [
+        -93.6,
+        222.146
+      ],
+      "completed_length_px": 388.636
+    }
+  }
+}

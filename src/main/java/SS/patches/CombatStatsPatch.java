@@ -51,18 +51,34 @@ public class CombatStatsPatch {
 
     @SpirePatch(clz = AbstractPlayer.class, method = "useCard")
     public static class OnPlay {
+        private static int energyBefore;
+
         @SpirePrefixPatch
         public static void Prefix(AbstractPlayer __instance, AbstractCard c, AbstractMonster m, int energyOnUse) {
-            CardStats.onPlay(c);
+            energyBefore = __instance.energy.energy;
+            CardStats.onPlay(c, m);
+        }
+
+        @SpirePostfixPatch
+        public static void Postfix(AbstractPlayer __instance, AbstractCard c, AbstractMonster m, int energyOnUse) {
+            // useCard:1425 this.energy.use(costForTurn) 在同步段，前后差 = 本张牌实际付出
+            CardStats.onPlayEnd(energyBefore - __instance.energy.energy);
         }
     }
 
     @SpirePatch(clz = AbstractMonster.class, method = "damage")
     public static class OnMonsterDamage {
+        private static int hpBefore;
+
+        @SpirePrefixPatch
+        public static void Prefix(AbstractMonster __instance) {
+            hpBefore = __instance.currentHealth;
+        }
+
         @SpirePostfixPatch
         public static void Postfix(AbstractMonster __instance, DamageInfo info) {
             if (info != null && info.owner == AbstractDungeon.player) {
-                CardStats.onMonsterDamage(info, __instance);
+                CardStats.onMonsterDamage(info, __instance, hpBefore);
             }
         }
     }
@@ -91,6 +107,9 @@ public class CombatStatsPatch {
         public static void Postfix(AbstractCreature __instance, int blockAmount) {
             if (__instance == AbstractDungeon.player) {
                 CardStats.onPlayerBlock(blockAmount);
+            } else if (__instance instanceof SS.monster.ally.SoulAlly) {
+                // 魂火跟班给自己加格挡：按唤魂牌贡献权重均分（用户定口径）
+                CardStats.onSoulBlock(blockAmount);
             }
         }
     }
@@ -169,6 +188,35 @@ public class CombatStatsPatch {
         @SpirePostfixPatch
         public static void Postfix(GainBlockAction __init) {
             CardStats.setBlockDice(null);
+        }
+    }
+
+    // ==================== v2：能量 / 抽牌 / 回合结束 ====================
+
+    /** 能量增加唯一收口：GainEnergyAction.update 只调它；SS 角色未覆写 gainEnergy。 */
+    @SpirePatch(clz = AbstractPlayer.class, method = "gainEnergy")
+    public static class OnGainEnergy {
+        @SpirePostfixPatch
+        public static void Postfix(AbstractPlayer __instance, int e) {
+            CardStats.onGainEnergy(e);
+        }
+    }
+
+    /** 抽牌收口：draw() 与 draw(int) 是重载对，paramtypez={int.class} 锁定 int 版本（无参版委托 draw(1)；patch 无参版会双计数）。 */
+    @SpirePatch(clz = AbstractPlayer.class, method = "draw", paramtypez = { int.class })
+    public static class OnDraw {
+        @SpirePostfixPatch
+        public static void Postfix(AbstractPlayer __instance, int numCards) {
+            CardStats.onDraw(numCards);
+        }
+    }
+
+    /** 回合结束：钩 AbstractRoom.endTurn()（:405 唯一签名无重载）而非 EndTurnAction.update()（后者执行时手牌已被 DiscardAtEndOfTurnAction 清空）。唯一调用点 :259 由 player.isEndingTurn 守卫；MonsterRoom/Elite/Boss 无覆写（已核实）。 */
+    @SpirePatch(clz = AbstractRoom.class, method = "endTurn")
+    public static class OnRoomEndTurn {
+        @SpirePrefixPatch
+        public static void Prefix(AbstractRoom __instance) {
+            CardStats.onRoomEndTurn();
         }
     }
 }

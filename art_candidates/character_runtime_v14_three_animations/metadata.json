@@ -1,0 +1,17 @@
+{
+  "attack_heavy": {
+    "frames": 35,
+    "fps": 40.0,
+    "duration": 0.875
+  },
+  "cast_debuff": {
+    "frames": 43,
+    "fps": 45.45454545454545,
+    "duration": 0.9460000000000001
+  },
+  "cast_buff": {
+    "frames": 67,
+    "fps": 50.0,
+    "duration": 1.34
+  }
+}

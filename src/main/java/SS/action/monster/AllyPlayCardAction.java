@@ -121,11 +121,21 @@ public class AllyPlayCardAction extends AbstractGameAction {
             }
 
             // 【核心】真实打出卡牌
+            // 战斗统计：魂火的伤害/格挡按「唤魂牌贡献的魂火值」加权均分。
+            // 钩点选在这里而非 MonsterCardContext——后者同时被意图模拟与每帧手牌
+            // UI 刷新使用，挂那里会把模拟伤害也算进来。
+            // 只标记事务开始（记录队列水位），清除交给 CardStats.update() 每帧检查：
+            // 不能用 try/finally 包住 use()，因为 use() 只是入队 action，
+            // 伤害结算在几帧后，那时窗口早已关闭。仅统计用途，不改战斗行为。
+            if (owner instanceof SS.monster.ally.SoulAlly) {
+                SS.stats.CardStats.beginSoulDamage();
+            }
             MonsterCardContext.run(owner, () -> {
                 if (target instanceof AbstractMonster) {
                     card.calculateCardDamage((AbstractMonster) target);
                 }
-                card.use(AbstractDungeon.player, (target instanceof AbstractMonster) ? (AbstractMonster) target : null);
+                card.use(AbstractDungeon.player,
+                        (target instanceof AbstractMonster) ? (AbstractMonster) target : null);
             });
 
             // 标记已使用

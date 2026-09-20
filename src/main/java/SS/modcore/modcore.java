@@ -54,6 +54,8 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardSave;
 
 import SS.UI.Sinsbar;
+import SS.animation.CharacterAnimationController;
+import SS.animation.CharacterAnimationRequest;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.BlessCard.BlessStrike;
 import SS.cards.Haohao.AbstractHaoCard;
@@ -360,6 +362,9 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     }
 
     public void receiveStartGame() {
+        // New run and SL both rebuild dungeon/player state. Drop any stale
+        // TrackEntry queue before cards can request another animation.
+        CharacterAnimationController.resetToIdle();
         initializeBlessMap();
         // 战斗统计：读取开关。BaseMod 的 StartGame 事件有两个触发点（ActChangeHooks）：
         // 4 参 dungeon 构造器（仅真新开局：levelId=="Exordium" && floorNum==0）与
@@ -418,6 +423,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
 
     @Override
     public void receiveOnBattleStart(AbstractRoom arg0) {// 计算一些局内数据
+        CharacterAnimationController.resetToIdle();
         CardStats.onCombatStart(arg0); // 战斗统计：记录房间类型/敌人数/起始HP/回合基线
         combatReward.update();
         if (arg0 instanceof com.megacrit.cardcrawl.rooms.MonsterRoom &&
@@ -436,6 +442,29 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     }
 
     public void receiveCardUsed(final AbstractCard card) {
+        if (card != null && !card.isInAutoplay && !card.dontTriggerOnUseCard
+                && AbstractDungeon.player instanceof AbstractSSCharacter) {
+            boolean attackCard = card.type == AbstractCard.CardType.ATTACK;
+            boolean playDefaultAttack = attackCard;
+            if (card instanceof AbstractDoubleCard) {
+                AbstractDoubleCard doubleCard = (AbstractDoubleCard) card;
+                playDefaultAttack = attackCard && doubleCard.shouldPlayDefaultCharacterAnimation();
+                java.util.List<String> customSequence = doubleCard.getDefaultCharacterAnimationSequence();
+                if (customSequence != null && !customSequence.isEmpty()) {
+                    if (doubleCard.shouldPlayDefaultCharacterAnimation()) {
+                        CharacterAnimationController.playSequence(customSequence,
+                                CharacterAnimationRequest.Policy.IGNORE_IF_BUSY,
+                                attackCard ? CharacterAnimationController.ATTACK_SWORD
+                                        : CharacterAnimationController.IDLE);
+                    }
+                    playDefaultAttack = false;
+                }
+            }
+            if (playDefaultAttack) {
+                CharacterAnimationController.play(CharacterAnimationController.ATTACK_SWORD,
+                        CharacterAnimationRequest.Policy.IGNORE_IF_BUSY);
+            }
+        }
         if (card instanceof AbstractHaoCard) {
             ++this.Hao_chance;
             this.Hao_chance = Math.min(this.Hao_chance, 5);

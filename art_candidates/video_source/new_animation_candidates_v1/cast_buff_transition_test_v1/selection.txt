@@ -1,0 +1,7 @@
+variant=cast_buff_transition_test_v1
+base=../cast_buff
+inserted_at=57
+old_frames_57_to_69_shifted_to=58_to_70
+frame_count=70
+fps=50
+duration=1.400s

@@ -1,0 +1,6 @@
+scale=0.64853101
+reference_right_foot_anchor=(365.4646727351539, 680.6892067620286)
+source_right_foot_anchor=(706.4124475179057, 1005.4788836749815)
+paste=(-93, 29)
+output_size=(1024, 768)
+output_alpha_bbox=(276, 52, 497, 709)

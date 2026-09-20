@@ -1,0 +1,1595 @@
+character.png
+size: 2009,1913
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_heavy_007
+  rotate: false
+  xy: 6, 6
+  size: 368, 393
+  orig: 700, 700
+  offset: 94, 133
+  index: -1
+attack_heavy_008
+  rotate: false
+  xy: 910, 6
+  size: 254, 393
+  orig: 700, 700
+  offset: 208, 133
+  index: -1
+attack_heavy_009
+  rotate: false
+  xy: 380, 6
+  size: 259, 393
+  orig: 700, 700
+  offset: 203, 133
+  index: -1
+attack_heavy_010
+  rotate: false
+  xy: 645, 6
+  size: 259, 393
+  orig: 700, 700
+  offset: 203, 133
+  index: -1
+attack_heavy_015
+  rotate: false
+  xy: 1330, 6
+  size: 275, 388
+  orig: 700, 700
+  offset: 183, 133
+  index: -1
+attack_heavy_017
+  rotate: false
+  xy: 545, 405
+  size: 354, 378
+  orig: 700, 700
+  offset: 267, 148
+  index: -1
+attack_heavy_024
+  rotate: false
+  xy: 1617, 799
+  size: 345, 365
+  orig: 700, 700
+  offset: 286, 130
+  index: -1
+attack_sword_09
+  rotate: false
+  xy: 6, 405
+  size: 216, 388
+  orig: 700, 700
+  offset: 227, 138
+  index: -1
+attack_sword_10
+  rotate: false
+  xy: 1611, 6
+  size: 217, 388
+  orig: 700, 700
+  offset: 226, 138
+  index: -1
+attack_sword_11
+  rotate: false
+  xy: 905, 405
+  size: 307, 372
+  orig: 700, 700
+  offset: 225, 137
+  index: -1
+attack_sword_12
+  rotate: false
+  xy: 1382, 405
+  size: 308, 370
+  orig: 700, 700
+  offset: 225, 137
+  index: -1
+attack_sword_13
+  rotate: false
+  xy: 1696, 405
+  size: 307, 370
+  orig: 700, 700
+  offset: 225, 137
+  index: -1
+attack_sword_14
+  rotate: false
+  xy: 6, 799
+  size: 307, 370
+  orig: 700, 700
+  offset: 225, 137
+  index: -1
+attack_sword_15
+  rotate: false
+  xy: 319, 799
+  size: 303, 370
+  orig: 700, 700
+  offset: 225, 137
+  index: -1
+attack_sword_16
+  rotate: false
+  xy: 628, 799
+  size: 300, 369
+  orig: 700, 700
+  offset: 226, 137
+  index: -1
+cast_buff_017
+  rotate: false
+  xy: 1664, 1546
+  size: 138, 360
+  orig: 700, 700
+  offset: 222, 136
+  index: -1
+cast_buff_019
+  rotate: false
+  xy: 656, 1175
+  size: 125, 363
+  orig: 700, 700
+  offset: 206, 136
+  index: -1
+cast_buff_020
+  rotate: false
+  xy: 524, 1175
+  size: 126, 363
+  orig: 700, 700
+  offset: 206, 136
+  index: -1
+cast_buff_021
+  rotate: false
+  xy: 1187, 1175
+  size: 133, 362
+  orig: 700, 700
+  offset: 202, 136
+  index: -1
+cast_buff_022
+  rotate: false
+  xy: 939, 1546
+  size: 138, 361
+  orig: 700, 700
+  offset: 199, 136
+  index: -1
+cast_buff_023
+  rotate: false
+  xy: 370, 1175
+  size: 148, 363
+  orig: 700, 700
+  offset: 194, 136
+  index: -1
+cast_buff_024
+  rotate: false
+  xy: 228, 405
+  size: 149, 388
+  orig: 700, 700
+  offset: 194, 136
+  index: -1
+cast_buff_025
+  rotate: false
+  xy: 1170, 6
+  size: 154, 389
+  orig: 700, 700
+  offset: 193, 137
+  index: -1
+cast_buff_026
+  rotate: false
+  xy: 383, 405
+  size: 156, 381
+  orig: 700, 700
+  offset: 193, 137
+  index: -1
+cast_buff_027
+  rotate: false
+  xy: 1218, 405
+  size: 158, 372
+  orig: 700, 700
+  offset: 193, 137
+  index: -1
+cast_buff_028
+  rotate: false
+  xy: 934, 799
+  size: 160, 369
+  orig: 700, 700
+  offset: 194, 137
+  index: -1
+cast_buff_029
+  rotate: false
+  xy: 1272, 799
+  size: 164, 368
+  orig: 700, 700
+  offset: 196, 137
+  index: -1
+cast_buff_030
+  rotate: false
+  xy: 1100, 799
+  size: 166, 368
+  orig: 700, 700
+  offset: 198, 137
+  index: -1
+cast_buff_031
+  rotate: false
+  xy: 1442, 799
+  size: 169, 367
+  orig: 700, 700
+  offset: 204, 137
+  index: -1
+cast_buff_032
+  rotate: false
+  xy: 6, 1175
+  size: 176, 365
+  orig: 700, 700
+  offset: 207, 137
+  index: -1
+cast_buff_033
+  rotate: false
+  xy: 188, 1175
+  size: 176, 365
+  orig: 700, 700
+  offset: 207, 137
+  index: -1
+cast_buff_034
+  rotate: false
+  xy: 754, 1546
+  size: 179, 361
+  orig: 700, 700
+  offset: 207, 137
+  index: -1
+cast_buff_035
+  rotate: false
+  xy: 1482, 1546
+  size: 176, 360
+  orig: 700, 700
+  offset: 206, 137
+  index: -1
+cast_debuff_025
+  rotate: false
+  xy: 1083, 1546
+  size: 393, 360
+  orig: 700, 700
+  offset: 238, 135
+  index: -1
+cast_debuff_026
+  rotate: false
+  xy: 1326, 1175
+  size: 394, 361
+  orig: 700, 700
+  offset: 237, 135
+  index: -1
+cast_debuff_027
+  rotate: false
+  xy: 787, 1175
+  size: 394, 362
+  orig: 700, 700
+  offset: 237, 135
+  index: -1
+cast_debuff_028
+  rotate: false
+  xy: 6, 1546
+  size: 371, 361
+  orig: 700, 700
+  offset: 237, 135
+  index: -1
+cast_debuff_029
+  rotate: false
+  xy: 383, 1546
+  size: 365, 361
+  orig: 700, 700
+  offset: 237, 135
+  index: -1
+
+character2.png
+size: 2028,1784
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_heavy_011
+  rotate: false
+  xy: 1254, 6
+  size: 266, 355
+  orig: 700, 700
+  offset: 207, 133
+  index: -1
+attack_heavy_013
+  rotate: false
+  xy: 1766, 6
+  size: 256, 354
+  orig: 700, 700
+  offset: 217, 132
+  index: -1
+attack_heavy_014
+  rotate: false
+  xy: 1179, 729
+  size: 242, 346
+  orig: 700, 700
+  offset: 218, 133
+  index: -1
+attack_heavy_018
+  rotate: false
+  xy: 246, 729
+  size: 341, 351
+  orig: 700, 700
+  offset: 266, 154
+  index: -1
+attack_heavy_019
+  rotate: false
+  xy: 1659, 369
+  size: 331, 352
+  orig: 700, 700
+  offset: 266, 155
+  index: -1
+attack_heavy_020
+  rotate: false
+  xy: 1321, 369
+  size: 332, 352
+  orig: 700, 700
+  offset: 267, 157
+  index: -1
+attack_heavy_021
+  rotate: false
+  xy: 982, 369
+  size: 333, 352
+  orig: 700, 700
+  offset: 268, 157
+  index: -1
+attack_heavy_022
+  rotate: false
+  xy: 874, 1087
+  size: 340, 342
+  orig: 700, 700
+  offset: 278, 163
+  index: -1
+attack_heavy_023
+  rotate: false
+  xy: 1220, 1087
+  size: 340, 342
+  orig: 700, 700
+  offset: 278, 163
+  index: -1
+cast_attack_1_01
+  rotate: false
+  xy: 656, 1436
+  size: 210, 341
+  orig: 700, 700
+  offset: 235, 135
+  index: -1
+cast_attack_1_02
+  rotate: false
+  xy: 1088, 1436
+  size: 206, 341
+  orig: 700, 700
+  offset: 235, 135
+  index: -1
+cast_attack_1_03
+  rotate: false
+  xy: 1300, 1436
+  size: 184, 341
+  orig: 700, 700
+  offset: 216, 134
+  index: -1
+cast_attack_1_29
+  rotate: false
+  xy: 1566, 1087
+  size: 277, 342
+  orig: 700, 700
+  offset: 156, 134
+  index: -1
+cast_attack_1_30
+  rotate: false
+  xy: 6, 1436
+  size: 276, 342
+  orig: 700, 700
+  offset: 156, 134
+  index: -1
+cast_attack_1_31
+  rotate: false
+  xy: 1427, 729
+  size: 233, 345
+  orig: 700, 700
+  offset: 225, 130
+  index: -1
+cast_attack_1_32
+  rotate: false
+  xy: 1666, 729
+  size: 233, 345
+  orig: 700, 700
+  offset: 225, 130
+  index: -1
+cast_attack_1_37
+  rotate: false
+  xy: 872, 1436
+  size: 210, 341
+  orig: 700, 700
+  offset: 235, 135
+  index: -1
+cast_buff_015
+  rotate: false
+  xy: 288, 1436
+  size: 178, 342
+  orig: 700, 700
+  offset: 235, 136
+  index: -1
+cast_buff_016
+  rotate: false
+  xy: 472, 1436
+  size: 178, 342
+  orig: 700, 700
+  offset: 235, 136
+  index: -1
+cast_buff_018
+  rotate: false
+  xy: 1134, 6
+  size: 114, 356
+  orig: 700, 700
+  offset: 218, 136
+  index: -1
+cast_buff_036
+  rotate: false
+  xy: 6, 369
+  size: 172, 354
+  orig: 700, 700
+  offset: 206, 137
+  index: -1
+cast_buff_037
+  rotate: false
+  xy: 593, 729
+  size: 185, 350
+  orig: 700, 700
+  offset: 205, 136
+  index: -1
+cast_buff_038
+  rotate: false
+  xy: 664, 1087
+  size: 204, 343
+  orig: 700, 700
+  offset: 204, 136
+  index: -1
+cast_debuff_011
+  rotate: false
+  xy: 1490, 1436
+  size: 241, 339
+  orig: 700, 700
+  offset: 231, 135
+  index: -1
+cast_debuff_012
+  rotate: false
+  xy: 6, 729
+  size: 234, 352
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_debuff_013
+  rotate: false
+  xy: 1526, 6
+  size: 234, 355
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_debuff_014
+  rotate: false
+  xy: 405, 6
+  size: 234, 357
+  orig: 700, 700
+  offset: 235, 135
+  index: -1
+cast_debuff_015
+  rotate: false
+  xy: 645, 6
+  size: 234, 357
+  orig: 700, 700
+  offset: 235, 135
+  index: -1
+cast_debuff_016
+  rotate: false
+  xy: 885, 6
+  size: 243, 356
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_debuff_017
+  rotate: false
+  xy: 398, 1087
+  size: 260, 343
+  orig: 700, 700
+  offset: 237, 134
+  index: -1
+cast_debuff_020
+  rotate: false
+  xy: 6, 1087
+  size: 386, 343
+  orig: 700, 700
+  offset: 238, 134
+  index: -1
+cast_debuff_021
+  rotate: false
+  xy: 784, 729
+  size: 389, 346
+  orig: 700, 700
+  offset: 238, 134
+  index: -1
+cast_debuff_022
+  rotate: false
+  xy: 184, 369
+  size: 393, 353
+  orig: 700, 700
+  offset: 238, 134
+  index: -1
+cast_debuff_023
+  rotate: false
+  xy: 583, 369
+  size: 393, 353
+  orig: 700, 700
+  offset: 238, 134
+  index: -1
+cast_debuff_024
+  rotate: false
+  xy: 6, 6
+  size: 393, 357
+  orig: 700, 700
+  offset: 238, 135
+  index: -1
+
+character3.png
+size: 2044,2047
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_heavy_006
+  rotate: false
+  xy: 6, 1717
+  size: 413, 324
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+attack_heavy_012
+  rotate: false
+  xy: 945, 6
+  size: 272, 338
+  orig: 700, 700
+  offset: 209, 133
+  index: -1
+attack_heavy_016
+  rotate: false
+  xy: 1015, 1717
+  size: 354, 323
+  orig: 700, 700
+  offset: 269, 203
+  index: -1
+attack_heavy_029
+  rotate: false
+  xy: 425, 1717
+  size: 302, 324
+  orig: 700, 700
+  offset: 288, 134
+  index: -1
+attack_heavy_033
+  rotate: false
+  xy: 1543, 693
+  size: 253, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+attack_heavy_034
+  rotate: false
+  xy: 781, 1035
+  size: 251, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_attack_1_04
+  rotate: false
+  xy: 736, 350
+  size: 217, 337
+  orig: 700, 700
+  offset: 180, 134
+  index: -1
+cast_attack_1_17
+  rotate: false
+  xy: 959, 350
+  size: 543, 336
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_18
+  rotate: false
+  xy: 1477, 6
+  size: 546, 337
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_19
+  rotate: false
+  xy: 6, 6
+  size: 548, 338
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_27
+  rotate: false
+  xy: 607, 693
+  size: 387, 335
+  orig: 700, 700
+  offset: 55, 134
+  index: -1
+cast_attack_1_28
+  rotate: false
+  xy: 560, 6
+  size: 379, 338
+  orig: 700, 700
+  offset: 65, 134
+  index: -1
+cast_attack_1_35
+  rotate: false
+  xy: 1038, 1035
+  size: 250, 335
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_attack_1_36
+  rotate: false
+  xy: 1294, 1035
+  size: 250, 335
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_buff_013
+  rotate: false
+  xy: 1000, 693
+  size: 274, 335
+  orig: 700, 700
+  offset: 243, 136
+  index: -1
+cast_buff_039
+  rotate: false
+  xy: 508, 350
+  size: 222, 337
+  orig: 700, 700
+  offset: 203, 136
+  index: -1
+cast_buff_040
+  rotate: false
+  xy: 269, 350
+  size: 233, 337
+  orig: 700, 700
+  offset: 202, 136
+  index: -1
+cast_buff_041
+  rotate: false
+  xy: 6, 350
+  size: 257, 337
+  orig: 700, 700
+  offset: 201, 136
+  index: -1
+cast_buff_042
+  rotate: false
+  xy: 6, 693
+  size: 296, 336
+  orig: 700, 700
+  offset: 202, 136
+  index: -1
+cast_buff_043
+  rotate: false
+  xy: 1508, 350
+  size: 301, 336
+  orig: 700, 700
+  offset: 205, 136
+  index: -1
+cast_buff_045
+  rotate: false
+  xy: 308, 693
+  size: 293, 336
+  orig: 700, 700
+  offset: 205, 136
+  index: -1
+cast_buff_052
+  rotate: false
+  xy: 1375, 1717
+  size: 265, 323
+  orig: 700, 700
+  offset: 238, 153
+  index: -1
+cast_buff_053
+  rotate: false
+  xy: 1646, 1717
+  size: 268, 319
+  orig: 700, 700
+  offset: 238, 158
+  index: -1
+cast_buff_055
+  rotate: false
+  xy: 733, 1717
+  size: 276, 324
+  orig: 700, 700
+  offset: 238, 153
+  index: -1
+cast_debuff_008
+  rotate: false
+  xy: 1794, 1376
+  size: 244, 335
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_debuff_010
+  rotate: false
+  xy: 1223, 6
+  size: 248, 338
+  orig: 700, 700
+  offset: 225, 135
+  index: -1
+cast_debuff_030
+  rotate: false
+  xy: 1280, 693
+  size: 257, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_031
+  rotate: false
+  xy: 6, 1035
+  size: 253, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_032
+  rotate: false
+  xy: 265, 1035
+  size: 252, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_033
+  rotate: false
+  xy: 523, 1035
+  size: 252, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_034
+  rotate: false
+  xy: 1550, 1035
+  size: 250, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_035
+  rotate: false
+  xy: 6, 1376
+  size: 250, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_036
+  rotate: false
+  xy: 262, 1376
+  size: 250, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_037
+  rotate: false
+  xy: 774, 1376
+  size: 249, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_038
+  rotate: false
+  xy: 1029, 1376
+  size: 249, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_039
+  rotate: false
+  xy: 518, 1376
+  size: 250, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_040
+  rotate: false
+  xy: 1284, 1376
+  size: 249, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_041
+  rotate: false
+  xy: 1539, 1376
+  size: 249, 335
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+
+character4.png
+size: 2046,2043
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_heavy_001
+  rotate: false
+  xy: 262, 1366
+  size: 247, 333
+  orig: 700, 700
+  offset: 237, 137
+  index: -1
+attack_heavy_002
+  rotate: false
+  xy: 989, 687
+  size: 230, 334
+  orig: 700, 700
+  offset: 235, 136
+  index: -1
+attack_heavy_003
+  rotate: false
+  xy: 255, 6
+  size: 232, 335
+  orig: 700, 700
+  offset: 233, 135
+  index: -1
+attack_heavy_004
+  rotate: false
+  xy: 978, 1027
+  size: 295, 333
+  orig: 700, 700
+  offset: 169, 134
+  index: -1
+attack_heavy_005
+  rotate: false
+  xy: 1560, 1366
+  size: 399, 332
+  orig: 700, 700
+  offset: 65, 134
+  index: -1
+attack_heavy_031
+  rotate: false
+  xy: 1564, 1027
+  size: 273, 333
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+attack_heavy_032
+  rotate: false
+  xy: 276, 347
+  size: 258, 334
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+attack_heavy_035
+  rotate: false
+  xy: 796, 347
+  size: 249, 334
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+attack_sword_06
+  rotate: false
+  xy: 403, 1705
+  size: 371, 332
+  orig: 700, 700
+  offset: 73, 138
+  index: -1
+attack_sword_07
+  rotate: false
+  xy: 493, 6
+  size: 224, 335
+  orig: 700, 700
+  offset: 220, 138
+  index: -1
+attack_sword_08
+  rotate: false
+  xy: 1225, 687
+  size: 215, 334
+  orig: 700, 700
+  offset: 228, 138
+  index: -1
+attack_sword_17
+  rotate: false
+  xy: 723, 6
+  size: 224, 335
+  orig: 700, 700
+  offset: 229, 138
+  index: -1
+cast_attack_1_05
+  rotate: false
+  xy: 6, 347
+  size: 264, 334
+  orig: 700, 700
+  offset: 125, 134
+  index: -1
+cast_attack_1_06
+  rotate: false
+  xy: 1093, 1705
+  size: 292, 332
+  orig: 700, 700
+  offset: 95, 134
+  index: -1
+cast_attack_1_15
+  rotate: false
+  xy: 1020, 1366
+  size: 534, 332
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_16
+  rotate: false
+  xy: 1179, 6
+  size: 539, 334
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_26
+  rotate: false
+  xy: 6, 1705
+  size: 391, 332
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_33
+  rotate: false
+  xy: 507, 687
+  size: 235, 334
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_attack_1_34
+  rotate: false
+  xy: 748, 687
+  size: 235, 334
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_buff_008
+  rotate: false
+  xy: 780, 1705
+  size: 307, 332
+  orig: 700, 700
+  offset: 251, 136
+  index: -1
+cast_buff_009
+  rotate: false
+  xy: 1279, 1027
+  size: 279, 333
+  orig: 700, 700
+  offset: 250, 136
+  index: -1
+cast_buff_010
+  rotate: false
+  xy: 340, 1027
+  size: 325, 333
+  orig: 700, 700
+  offset: 247, 136
+  index: -1
+cast_buff_011
+  rotate: false
+  xy: 6, 1027
+  size: 328, 333
+  orig: 700, 700
+  offset: 246, 136
+  index: -1
+cast_buff_012
+  rotate: false
+  xy: 1724, 6
+  size: 316, 334
+  orig: 700, 700
+  offset: 245, 136
+  index: -1
+cast_buff_014
+  rotate: false
+  xy: 260, 687
+  size: 241, 334
+  orig: 700, 700
+  offset: 243, 136
+  index: -1
+cast_buff_050
+  rotate: false
+  xy: 1391, 1705
+  size: 279, 332
+  orig: 700, 700
+  offset: 230, 138
+  index: -1
+cast_buff_051
+  rotate: false
+  xy: 1676, 1705
+  size: 260, 332
+  orig: 700, 700
+  offset: 241, 136
+  index: -1
+cast_buff_059
+  rotate: false
+  xy: 540, 347
+  size: 250, 334
+  orig: 700, 700
+  offset: 243, 141
+  index: -1
+cast_buff_060
+  rotate: false
+  xy: 953, 6
+  size: 220, 335
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_debuff_001
+  rotate: false
+  xy: 768, 1366
+  size: 246, 333
+  orig: 700, 700
+  offset: 238, 137
+  index: -1
+cast_debuff_002
+  rotate: false
+  xy: 1306, 347
+  size: 248, 334
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_003
+  rotate: false
+  xy: 1051, 347
+  size: 249, 334
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_004
+  rotate: false
+  xy: 6, 1366
+  size: 250, 333
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_007
+  rotate: false
+  xy: 515, 1366
+  size: 247, 333
+  orig: 700, 700
+  offset: 237, 135
+  index: -1
+cast_debuff_009
+  rotate: false
+  xy: 6, 6
+  size: 243, 335
+  orig: 700, 700
+  offset: 236, 135
+  index: -1
+cast_debuff_018
+  rotate: false
+  xy: 671, 1027
+  size: 301, 333
+  orig: 700, 700
+  offset: 238, 134
+  index: -1
+cast_debuff_019
+  rotate: false
+  xy: 1446, 687
+  size: 361, 333
+  orig: 700, 700
+  offset: 238, 134
+  index: -1
+cast_debuff_042
+  rotate: false
+  xy: 1560, 347
+  size: 248, 334
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_043
+  rotate: false
+  xy: 6, 687
+  size: 248, 334
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+
+character5.png
+size: 2021,2028
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_sword_04
+  rotate: false
+  xy: 1322, 1355
+  size: 295, 330
+  orig: 700, 700
+  offset: 151, 139
+  index: -1
+attack_sword_05
+  rotate: false
+  xy: 1623, 1355
+  size: 295, 330
+  orig: 700, 700
+  offset: 151, 139
+  index: -1
+attack_sword_20
+  rotate: false
+  xy: 811, 681
+  size: 376, 331
+  orig: 700, 700
+  offset: 229, 138
+  index: -1
+attack_sword_21
+  rotate: false
+  xy: 516, 6
+  size: 402, 331
+  orig: 700, 700
+  offset: 229, 138
+  index: -1
+attack_sword_22
+  rotate: false
+  xy: 924, 6
+  size: 398, 331
+  orig: 700, 700
+  offset: 233, 138
+  index: -1
+attack_sword_23
+  rotate: false
+  xy: 1328, 6
+  size: 397, 331
+  orig: 700, 700
+  offset: 234, 138
+  index: -1
+attack_sword_24
+  rotate: false
+  xy: 6, 344
+  size: 397, 331
+  orig: 700, 700
+  offset: 234, 138
+  index: -1
+attack_sword_25
+  rotate: false
+  xy: 409, 344
+  size: 397, 331
+  orig: 700, 700
+  offset: 234, 138
+  index: -1
+attack_sword_26
+  rotate: false
+  xy: 812, 344
+  size: 397, 331
+  orig: 700, 700
+  offset: 234, 138
+  index: -1
+attack_sword_27
+  rotate: false
+  xy: 1215, 344
+  size: 397, 331
+  orig: 700, 700
+  offset: 234, 138
+  index: -1
+attack_sword_28
+  rotate: false
+  xy: 1618, 344
+  size: 397, 331
+  orig: 700, 700
+  offset: 234, 138
+  index: -1
+attack_sword_29
+  rotate: false
+  xy: 6, 681
+  size: 397, 331
+  orig: 700, 700
+  offset: 234, 138
+  index: -1
+attack_sword_30
+  rotate: false
+  xy: 409, 681
+  size: 396, 331
+  orig: 700, 700
+  offset: 235, 138
+  index: -1
+cast_attack_1_07
+  rotate: false
+  xy: 648, 1355
+  size: 360, 330
+  orig: 700, 700
+  offset: 61, 134
+  index: -1
+cast_attack_1_22
+  rotate: false
+  xy: 1336, 1692
+  size: 562, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_23
+  rotate: false
+  xy: 761, 1692
+  size: 569, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_25
+  rotate: false
+  xy: 253, 1355
+  size: 389, 330
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_buff_001
+  rotate: false
+  xy: 1324, 1018
+  size: 242, 331
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_buff_002
+  rotate: false
+  xy: 818, 1018
+  size: 249, 331
+  orig: 700, 700
+  offset: 241, 138
+  index: -1
+cast_buff_003
+  rotate: false
+  xy: 554, 1018
+  size: 258, 331
+  orig: 700, 700
+  offset: 245, 137
+  index: -1
+cast_buff_004
+  rotate: false
+  xy: 283, 1018
+  size: 265, 331
+  orig: 700, 700
+  offset: 251, 137
+  index: -1
+cast_buff_005
+  rotate: false
+  xy: 6, 1018
+  size: 271, 331
+  orig: 700, 700
+  offset: 253, 137
+  index: -1
+cast_buff_006
+  rotate: false
+  xy: 1485, 681
+  size: 282, 331
+  orig: 700, 700
+  offset: 252, 137
+  index: -1
+cast_buff_007
+  rotate: false
+  xy: 1193, 681
+  size: 286, 331
+  orig: 700, 700
+  offset: 252, 137
+  index: -1
+cast_buff_044
+  rotate: false
+  xy: 1014, 1355
+  size: 302, 330
+  orig: 700, 700
+  offset: 200, 143
+  index: -1
+cast_buff_049
+  rotate: false
+  xy: 6, 1692
+  size: 263, 330
+  orig: 700, 700
+  offset: 229, 140
+  index: -1
+cast_buff_058
+  rotate: false
+  xy: 1073, 1018
+  size: 245, 331
+  orig: 700, 700
+  offset: 232, 144
+  index: -1
+cast_buff_061
+  rotate: false
+  xy: 525, 1692
+  size: 230, 330
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_buff_065
+  rotate: false
+  xy: 275, 1692
+  size: 244, 330
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_buff_066
+  rotate: false
+  xy: 6, 1355
+  size: 241, 331
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_buff_067
+  rotate: false
+  xy: 1572, 1018
+  size: 242, 331
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_debuff_005
+  rotate: false
+  xy: 6, 6
+  size: 250, 332
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+cast_debuff_006
+  rotate: false
+  xy: 262, 6
+  size: 248, 332
+  orig: 700, 700
+  offset: 237, 136
+  index: -1
+
+character6.png
+size: 2017,2014
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_heavy_025
+  rotate: false
+  xy: 6, 1011
+  size: 331, 329
+  orig: 700, 700
+  offset: 300, 130
+  index: -1
+attack_heavy_030
+  rotate: false
+  xy: 343, 1011
+  size: 304, 329
+  orig: 700, 700
+  offset: 254, 135
+  index: -1
+attack_sword_01
+  rotate: false
+  xy: 1019, 1680
+  size: 245, 327
+  orig: 700, 700
+  offset: 239, 140
+  index: -1
+attack_sword_02
+  rotate: false
+  xy: 6, 1346
+  size: 250, 328
+  orig: 700, 700
+  offset: 234, 139
+  index: -1
+attack_sword_03
+  rotate: false
+  xy: 503, 1680
+  size: 213, 328
+  orig: 700, 700
+  offset: 234, 139
+  index: -1
+attack_sword_18
+  rotate: false
+  xy: 909, 1011
+  size: 303, 328
+  orig: 700, 700
+  offset: 209, 138
+  index: -1
+attack_sword_19
+  rotate: false
+  xy: 1218, 1011
+  size: 290, 328
+  orig: 700, 700
+  offset: 222, 138
+  index: -1
+attack_sword_31
+  rotate: false
+  xy: 1181, 676
+  size: 363, 329
+  orig: 700, 700
+  offset: 239, 139
+  index: -1
+attack_sword_32
+  rotate: false
+  xy: 1550, 676
+  size: 363, 329
+  orig: 700, 700
+  offset: 239, 139
+  index: -1
+attack_sword_33
+  rotate: false
+  xy: 1517, 1346
+  size: 244, 328
+  orig: 700, 700
+  offset: 240, 139
+  index: -1
+attack_sword_34
+  rotate: false
+  xy: 262, 1346
+  size: 245, 328
+  orig: 700, 700
+  offset: 240, 139
+  index: -1
+attack_sword_35
+  rotate: false
+  xy: 513, 1346
+  size: 245, 328
+  orig: 700, 700
+  offset: 240, 139
+  index: -1
+attack_sword_36
+  rotate: false
+  xy: 764, 1346
+  size: 245, 328
+  orig: 700, 700
+  offset: 240, 139
+  index: -1
+attack_sword_37
+  rotate: false
+  xy: 1015, 1346
+  size: 245, 328
+  orig: 700, 700
+  offset: 240, 139
+  index: -1
+attack_sword_38
+  rotate: false
+  xy: 1266, 1346
+  size: 245, 328
+  orig: 700, 700
+  offset: 240, 139
+  index: -1
+attack_sword_39
+  rotate: false
+  xy: 1270, 1680
+  size: 245, 327
+  orig: 700, 700
+  offset: 240, 140
+  index: -1
+attack_sword_40
+  rotate: false
+  xy: 1521, 1680
+  size: 245, 327
+  orig: 700, 700
+  offset: 239, 140
+  index: -1
+cast_attack_1_08
+  rotate: false
+  xy: 793, 676
+  size: 382, 329
+  orig: 700, 700
+  offset: 51, 134
+  index: -1
+cast_attack_1_09
+  rotate: false
+  xy: 400, 676
+  size: 387, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_10
+  rotate: false
+  xy: 1534, 341
+  size: 471, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_11
+  rotate: false
+  xy: 1042, 341
+  size: 486, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_12
+  rotate: false
+  xy: 527, 341
+  size: 509, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_13
+  rotate: false
+  xy: 6, 341
+  size: 515, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_14
+  rotate: false
+  xy: 1110, 6
+  size: 526, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_20
+  rotate: false
+  xy: 561, 6
+  size: 543, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_21
+  rotate: false
+  xy: 6, 6
+  size: 549, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_attack_1_24
+  rotate: false
+  xy: 6, 676
+  size: 388, 329
+  orig: 700, 700
+  offset: 49, 134
+  index: -1
+cast_buff_047
+  rotate: false
+  xy: 722, 1680
+  size: 291, 327
+  orig: 700, 700
+  offset: 222, 143
+  index: -1
+cast_buff_048
+  rotate: false
+  xy: 1514, 1011
+  size: 285, 328
+  orig: 700, 700
+  offset: 225, 142
+  index: -1
+cast_buff_057
+  rotate: false
+  xy: 653, 1011
+  size: 250, 329
+  orig: 700, 700
+  offset: 233, 147
+  index: -1
+cast_buff_062
+  rotate: false
+  xy: 256, 1680
+  size: 241, 328
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_buff_063
+  rotate: false
+  xy: 1767, 1346
+  size: 244, 328
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+cast_buff_064
+  rotate: false
+  xy: 6, 1680
+  size: 244, 328
+  orig: 700, 700
+  offset: 240, 138
+  index: -1
+
+character7.png
+size: 1849,338
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_heavy_026
+  rotate: false
+  xy: 1178, 6
+  size: 331, 313
+  orig: 700, 700
+  offset: 300, 130
+  index: -1
+attack_heavy_027
+  rotate: false
+  xy: 1515, 6
+  size: 328, 311
+  orig: 700, 700
+  offset: 303, 130
+  index: -1
+attack_heavy_028
+  rotate: false
+  xy: 850, 6
+  size: 322, 314
+  orig: 700, 700
+  offset: 306, 131
+  index: -1
+cast_buff_046
+  rotate: false
+  xy: 6, 6
+  size: 288, 326
+  orig: 700, 700
+  offset: 220, 145
+  index: -1
+cast_buff_054
+  rotate: false
+  xy: 581, 6
+  size: 263, 326
+  orig: 700, 700
+  offset: 237, 150
+  index: -1
+cast_buff_056
+  rotate: false
+  xy: 300, 6
+  size: 275, 326
+  orig: 700, 700
+  offset: 237, 150
+  index: -1

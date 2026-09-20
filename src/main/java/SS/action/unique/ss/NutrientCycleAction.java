@@ -65,7 +65,7 @@ public class NutrientCycleAction extends AbstractGameAction {
 
         if (!validCards.isEmpty()) {
             Collections.shuffle(validCards, new Random(AbstractDungeon.cardRandomRng.randomLong()));
-            int countToPlay = Math.min(this.amount, validCards.size());
+            int countToPlay = Math.min(effect, validCards.size());
 
             for (int i = 0; i < countToPlay; i++) {
                 AbstractCard card = validCards.get(i);

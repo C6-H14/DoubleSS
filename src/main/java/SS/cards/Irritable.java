@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 
 import SS.Dice.ImmolateDice;
+import SS.animation.CharacterAnimationController;
 import SS.action.dice.ChannelDiceAction;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -75,5 +76,10 @@ public class Irritable extends AbstractDoubleCard {
 
     public AbstractDoubleCard makeCopy() {
         return new Irritable();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 }

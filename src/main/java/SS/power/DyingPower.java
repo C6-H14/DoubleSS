@@ -4,6 +4,7 @@ import SS.action.common.DieAction;
 import SS.helper.ModHelper;
 import SS.interfaces.OnReduceDyingPowerSubscriber;
 import SS.relic.SS.HolyMantle;
+import SS.stats.CardStats;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -158,6 +159,7 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
             mantle.flash();
             this.owner.decreaseMaxHealth(10);
             addToBot(new HealAction(this.owner, this.owner, this.owner.maxHealth));
+            CardStats.onDyingSaved();
             return false;
         }
 
@@ -170,6 +172,7 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
             this.owner.decreaseMaxHealth(10);
             this.isResurrencted = true;
             addToBot(new HealAction(this.owner, this.owner, this.owner.maxHealth));
+            CardStats.onDyingSaved();
             return false;
         }
 
@@ -178,6 +181,14 @@ public class DyingPower extends AbstractPower implements OnPlayerDeathPower {
 
     public void onRemove() {
         addToBot(new DieAction());
+    }
+
+    public void stackPower(final int stackAmount) {
+        this.fontScale = 8.0f;
+        this.amount += stackAmount;
+        if (this.amount > 10) {
+            this.amount = 10;
+        }
     }
 
     public void atEndOfTurn(boolean isPlayer) {

@@ -1,0 +1,9 @@
+action=attack_heavy
+source=D:\StSmod\DoubleSS\art_candidates\video_source\jimeng-2026-09-18-6465-固定机位、固定画幅、固定人物比例。首帧和尾帧使用同一张参考图。  角色全程保持右....mp4
+source_fps=24.149378
+selected_count=35
+preview_timing=25
+preview_duration=0.875s
+nominal_fps=40.000
+source_indices=0,2,4,6,8,10,12,14,16,18,22,25,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96
+notes=Long overhead hold compressed; candidate frames 11, 13, and 15 removed as requested.

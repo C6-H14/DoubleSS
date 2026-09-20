@@ -55,7 +55,7 @@ public class WoodenCross extends CustomRelic implements CustomSavable<int[]>, Cl
                 && !(AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite
                         || AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss)) {
             this.counter++;
-            if (this.counter >= 6) {
+            if (this.counter >= 5) {
                 this.counter = 0;
                 this.amount++;
                 this.flash();

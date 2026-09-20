@@ -1,0 +1,118 @@
+
+DoubleSS_attack_sword_webclean_import.png
+size: 1588,1174
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_sword_01
+  rotate: false
+  xy: 1346, 5
+  size: 220, 326
+  orig: 700, 660
+  offset: 252, 120
+  index: -1
+attack_sword_02
+  rotate: false
+  xy: 1376, 850
+  size: 207, 322
+  orig: 700, 660
+  offset: 249, 120
+  index: -1
+attack_sword_03
+  rotate: false
+  xy: 329, 259
+  size: 353, 322
+  orig: 700, 660
+  offset: 102, 118
+  index: -1
+attack_sword_04
+  rotate: false
+  xy: 2, 370
+  size: 306, 474
+  orig: 700, 660
+  offset: 177, 120
+  index: -1
+attack_sword_05
+  rotate: true
+  xy: 310, 583
+  size: 256, 507
+  orig: 700, 660
+  offset: 238, 119
+  index: -1
+attack_sword_06
+  rotate: true
+  xy: 684, 261
+  size: 248, 359
+  orig: 700, 660
+  offset: 239, 120
+  index: -1
+attack_sword_07
+  rotate: true
+  xy: 329, 8
+  size: 249, 356
+  orig: 700, 660
+  offset: 239, 120
+  index: -1
+attack_sword_08
+  rotate: true
+  xy: 1200, 616
+  size: 221, 386
+  orig: 700, 660
+  offset: 237, 120
+  index: -1
+attack_sword_09
+  rotate: true
+  xy: 1200, 333
+  size: 281, 378
+  orig: 700, 660
+  offset: 179, 120
+  index: -1
+attack_sword_10
+  rotate: false
+  xy: 2, 846
+  size: 486, 326
+  orig: 700, 660
+  offset: 142, 120
+  index: -1
+attack_sword_11
+  rotate: false
+  xy: 819, 511
+  size: 379, 326
+  orig: 700, 660
+  offset: 249, 120
+  index: -1
+attack_sword_12
+  rotate: false
+  xy: 490, 841
+  size: 444, 331
+  orig: 700, 660
+  offset: 252, 119
+  index: -1
+attack_sword_13
+  rotate: false
+  xy: 936, 839
+  size: 438, 333
+  orig: 700, 660
+  offset: 253, 119
+  index: -1
+attack_sword_14
+  rotate: true
+  xy: 2, 2
+  size: 366, 325
+  orig: 700, 660
+  offset: 251, 120
+  index: -1
+attack_sword_15
+  rotate: true
+  xy: 1018, 26
+  size: 233, 326
+  orig: 700, 660
+  offset: 253, 120
+  index: -1
+attack_sword_16
+  rotate: true
+  xy: 687, 23
+  size: 236, 329
+  orig: 700, 660
+  offset: 254, 118
+  index: -1

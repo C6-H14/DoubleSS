@@ -1,0 +1,9 @@
+variant=cast_buff_transition_test_v6
+source=cast_buff_transition_test_v4
+frame_count=67
+fps=50
+duration=1.340s
+replaced_47_to_50=clean generated in-betweens at 20/40/60/80 percent between 46 and 51
+replaced_57_to_59=clean generated in-betweens at 25/50/75 percent between 56 and 60
+normalization=uniform affine alignment to interpolated character height, shoe baseline, and shoe center
+rejected=V5 optical-flow frames due to double-sword ghosting

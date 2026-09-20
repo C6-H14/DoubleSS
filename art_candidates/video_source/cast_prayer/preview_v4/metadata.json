@@ -1,0 +1,200 @@
+{
+  "fps": 60,
+  "frames": 29,
+  "duration_seconds": 0.48333333333333334,
+  "removed_source_frames": [
+    10,
+    12,
+    14,
+    16,
+    18,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    35,
+    37,
+    39,
+    41,
+    43
+  ],
+  "alignment_reference_source_frame": 27,
+  "manifest": [
+    {
+      "frame": 1,
+      "source_frame": 1,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 2,
+      "source_frame": 2,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 3,
+      "source_frame": 3,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 4,
+      "source_frame": 4,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 5,
+      "source_frame": 5,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 6,
+      "source_frame": 6,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 7,
+      "source_frame": 7,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 8,
+      "source_frame": 8,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 9,
+      "source_frame": 9,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 10,
+      "source_frame": 11,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 11,
+      "source_frame": 13,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 12,
+      "source_frame": 15,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 13,
+      "source_frame": 17,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 14,
+      "source_frame": 19,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 15,
+      "source_frame": 20,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 16,
+      "source_frame": 21,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 17,
+      "source_frame": 22,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 18,
+      "source_frame": 23,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 19,
+      "source_frame": 24,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 20,
+      "source_frame": 25,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 21,
+      "source_frame": 26,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 22,
+      "source_frame": 27,
+      "dx": 0,
+      "dy": 0
+    },
+    {
+      "frame": 23,
+      "source_frame": 34,
+      "dx": 3,
+      "dy": -10
+    },
+    {
+      "frame": 24,
+      "source_frame": 36,
+      "dx": 4,
+      "dy": -21
+    },
+    {
+      "frame": 25,
+      "source_frame": 38,
+      "dx": 6,
+      "dy": -42
+    },
+    {
+      "frame": 26,
+      "source_frame": 40,
+      "dx": 10,
+      "dy": -61
+    },
+    {
+      "frame": 27,
+      "source_frame": 42,
+      "dx": 17,
+      "dy": -68
+    },
+    {
+      "frame": 28,
+      "source_frame": 44,
+      "dx": 22,
+      "dy": -69
+    },
+    {
+      "frame": 29,
+      "source_frame": 45,
+      "dx": 27,
+      "dy": -47
+    }
+  ]
+}

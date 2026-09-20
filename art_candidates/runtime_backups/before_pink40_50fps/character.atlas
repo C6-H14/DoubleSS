@@ -1,0 +1,221 @@
+character.png
+size: 2047,1808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_sword_01
+  rotate: false
+  xy: 791, 816
+  size: 245, 327
+  orig: 700, 700
+  offset: 239, 140
+  index: -1
+attack_sword_02
+  rotate: false
+  xy: 844, 1480
+  size: 207, 322
+  orig: 700, 700
+  offset: 255, 141
+  index: -1
+attack_sword_03
+  rotate: false
+  xy: 1042, 816
+  size: 346, 326
+  orig: 700, 700
+  offset: 112, 140
+  index: -1
+attack_sword_04
+  rotate: false
+  xy: 464, 1150
+  size: 451, 324
+  orig: 700, 700
+  offset: 4, 140
+  index: -1
+attack_sword_05
+  rotate: false
+  xy: 6, 1150
+  size: 452, 324
+  orig: 700, 700
+  offset: 4, 140
+  index: -1
+attack_sword_06
+  rotate: false
+  xy: 6, 6
+  size: 284, 445
+  orig: 700, 700
+  offset: 171, 140
+  index: -1
+attack_sword_07
+  rotate: false
+  xy: 296, 6
+  size: 220, 439
+  orig: 700, 700
+  offset: 230, 142
+  index: -1
+attack_sword_08
+  rotate: false
+  xy: 809, 6
+  size: 225, 387
+  orig: 700, 700
+  offset: 229, 141
+  index: -1
+attack_sword_09
+  rotate: false
+  xy: 1686, 6
+  size: 258, 357
+  orig: 700, 700
+  offset: 228, 143
+  index: -1
+attack_sword_10
+  rotate: false
+  xy: 6, 457
+  size: 260, 353
+  orig: 700, 700
+  offset: 228, 143
+  index: -1
+attack_sword_11
+  rotate: false
+  xy: 1040, 6
+  size: 313, 381
+  orig: 700, 700
+  offset: 145, 140
+  index: -1
+attack_sword_12
+  rotate: false
+  xy: 522, 6
+  size: 281, 387
+  orig: 700, 700
+  offset: 179, 140
+  index: -1
+attack_sword_13
+  rotate: false
+  xy: 1359, 6
+  size: 321, 372
+  orig: 700, 700
+  offset: 242, 139
+  index: -1
+attack_sword_14
+  rotate: false
+  xy: 434, 1480
+  size: 404, 322
+  orig: 700, 700
+  offset: 239, 140
+  index: -1
+attack_sword_15
+  rotate: false
+  xy: 6, 1480
+  size: 422, 322
+  orig: 700, 700
+  offset: 236, 139
+  index: -1
+attack_sword_16
+  rotate: false
+  xy: 921, 1150
+  size: 404, 324
+  orig: 700, 700
+  offset: 239, 139
+  index: -1
+attack_sword_17
+  rotate: false
+  xy: 1331, 1150
+  size: 406, 323
+  orig: 700, 700
+  offset: 237, 140
+  index: -1
+attack_sword_18
+  rotate: false
+  xy: 1057, 1480
+  size: 410, 320
+  orig: 700, 700
+  offset: 236, 141
+  index: -1
+attack_sword_19
+  rotate: false
+  xy: 1473, 1480
+  size: 410, 320
+  orig: 700, 700
+  offset: 236, 141
+  index: -1
+attack_sword_21
+  rotate: false
+  xy: 6, 816
+  size: 390, 328
+  orig: 700, 700
+  offset: 237, 140
+  index: -1
+attack_sword_22
+  rotate: false
+  xy: 402, 816
+  size: 383, 328
+  orig: 700, 700
+  offset: 240, 141
+  index: -1
+attack_sword_23
+  rotate: false
+  xy: 1167, 457
+  size: 388, 329
+  orig: 700, 700
+  offset: 238, 140
+  index: -1
+attack_sword_24
+  rotate: false
+  xy: 548, 457
+  size: 343, 330
+  orig: 700, 700
+  offset: 241, 141
+  index: -1
+attack_sword_26
+  rotate: false
+  xy: 1743, 1150
+  size: 298, 323
+  orig: 700, 700
+  offset: 243, 141
+  index: -1
+attack_sword_27
+  rotate: false
+  xy: 1394, 816
+  size: 274, 326
+  orig: 700, 700
+  offset: 243, 141
+  index: -1
+attack_sword_28
+  rotate: false
+  xy: 1561, 457
+  size: 263, 329
+  orig: 700, 700
+  offset: 233, 140
+  index: -1
+attack_sword_29
+  rotate: false
+  xy: 272, 457
+  size: 270, 331
+  orig: 700, 700
+  offset: 234, 142
+  index: -1
+attack_sword_30
+  rotate: false
+  xy: 897, 457
+  size: 264, 330
+  orig: 700, 700
+  offset: 241, 141
+  index: -1
+
+character2.png
+size: 740,332
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_sword_20
+  rotate: false
+  xy: 6, 6
+  size: 410, 320
+  orig: 700, 700
+  offset: 236, 141
+  index: -1
+attack_sword_25
+  rotate: false
+  xy: 422, 6
+  size: 312, 313
+  orig: 700, 700
+  offset: 243, 141
+  index: -1

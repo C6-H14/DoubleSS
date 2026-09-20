@@ -1,0 +1,6 @@
+variant=cast_buff_transition_test_v5
+frame_count=67
+fps=50
+duration=1.340s
+replaced_47_to_50=bidirectional optical flow between frames 46 and 51 at 20/40/60/80 percent
+replaced_57_to_59=bidirectional optical flow between frames 56 and 60 at 25/50/75 percent

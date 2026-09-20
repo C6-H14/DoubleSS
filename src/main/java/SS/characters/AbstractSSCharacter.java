@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import basemod.abstracts.CustomPlayer;
+import com.esotericsoftware.spine.Animation;
+import com.esotericsoftware.spine.AnimationState;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.defect.AnimateOrbAction;
@@ -22,6 +24,8 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 
 import SS.Dice.EmptyDiceSlot;
+import SS.animation.CharacterAnimationController;
+import SS.animation.CharacterAnimationRequest;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.MultiFacial;
 import SS.modcore.modcore;
@@ -41,6 +45,8 @@ import SS.path.PackageEnumList.PackageEnum;
  * 而不是某个具体角色，这样新变种自动继承整套机制，无需再改这些门槛。
  */
 public abstract class AbstractSSCharacter extends CustomPlayer {
+    private boolean characterAnimationLoaded;
+
     /**
      * 转发给 CustomPlayer 的构造器（orbTextures/orbVfx/layerSpeed 那套带充能球动画的签名），
      * 子类 super(...) 一行不用改即可挂到基类。
@@ -48,6 +54,81 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
     protected AbstractSSCharacter(String name, AbstractPlayer.PlayerClass playerClass,
             String[] orbTextures, String orbVfxUrl, float[] layerSpeed, String cutscene, String relicList) {
         super(name, playerClass, orbTextures, orbVfxUrl, layerSpeed, cutscene, relicList);
+    }
+
+    protected final void initializeCharacterAnimation(String atlas, String skeletonJson, float scale) {
+        try {
+            loadAnimation(atlas, skeletonJson, scale);
+            characterAnimationLoaded = this.state != null && this.state.getData() != null;
+            if (characterAnimationLoaded) {
+                this.state.setAnimation(0, CharacterAnimationController.IDLE, true);
+            }
+        } catch (RuntimeException error) {
+            characterAnimationLoaded = false;
+            System.err.println("[DoubleSS] Failed to load character animation; using static fallback: " + error);
+        }
+    }
+
+    public final boolean playCharacterAnimation(CharacterAnimationRequest request) {
+        if (!characterAnimationLoaded || request == null || request.animations.isEmpty()) {
+            return false;
+        }
+
+        ArrayList<String> available = new ArrayList<>();
+        for (String animationName : request.animations) {
+            Animation animation = this.state.getData().getSkeletonData().findAnimation(animationName);
+            if (animation != null) {
+                available.add(animationName);
+            } else {
+                System.err.println("[DoubleSS] Missing character animation; skipping: " + animationName);
+            }
+        }
+        if (available.isEmpty()) {
+            String fallback = request.fallbackAnimation;
+            if (fallback != null && this.state.getData().getSkeletonData().findAnimation(fallback) != null) {
+                available.add(fallback);
+            } else {
+                return resetCharacterAnimation();
+            }
+        }
+
+        AnimationState.TrackEntry current = this.state.getCurrent(0);
+        boolean busy = current != null && current.getAnimation() != null
+                && !CharacterAnimationController.IDLE.equals(current.getAnimation().getName())
+                && !current.isComplete();
+        if (request.policy == CharacterAnimationRequest.Policy.IGNORE_IF_BUSY && busy) {
+            return false;
+        }
+        if (request.policy != CharacterAnimationRequest.Policy.FORCE_RESTART && available.size() == 1
+                && current != null && current.getAnimation() != null
+                && available.get(0).equals(current.getAnimation().getName()) && !current.isComplete()) {
+            return false;
+        }
+
+        this.state.setAnimation(0, available.get(0), false);
+        for (int i = 1; i < available.size(); ++i) {
+            this.state.addAnimation(0, available.get(i), false, 0.0F);
+        }
+        this.state.addAnimation(0, CharacterAnimationController.IDLE, true, 0.0F);
+        return true;
+    }
+
+    /** Clears stale queued TrackEntry objects after loading/changing rooms. */
+    public final boolean resetCharacterAnimation() {
+        if (!characterAnimationLoaded || this.state == null) {
+            return false;
+        }
+        Animation idle = this.state.getData().getSkeletonData().findAnimation(CharacterAnimationController.IDLE);
+        if (idle == null) {
+            return false;
+        }
+        this.state.clearTracks();
+        this.state.setAnimation(0, CharacterAnimationController.IDLE, true);
+        return true;
+    }
+
+    public final boolean hasCharacterAnimation() {
+        return characterAnimationLoaded;
     }
 
     public int getAscensionMaxHPLoss() {

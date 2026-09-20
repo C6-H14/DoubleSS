@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -92,6 +93,12 @@ public class CardStats {
         public UUID uuid;
         public String cardID;
         public String name;
+        /**
+         * 卡包归属（v2 模块 2）。建实例时用活牌一次性算好并缓存——导出时按 ID
+         * 回查 masterDeck 会因「牌已离开卡组/战斗内临时生成」而查不到，导致
+         * 七宗罪整包被静默并入本体。缓存值在实例生命周期内不再变。
+         */
+        public String packageTag;
         /** 本局内是否曾经升级过（用于 升级/未升级 分组统计）。 */
         public boolean upgradedEver;
         public int[] plays = new int[ACTS];
@@ -109,6 +116,23 @@ public class CardStats {
         public long[] dexterityContrib = new long[ACTS];
         /** 同 ID 实例序号（导出时区分重名实例）。 */
         public int copyIndex;
+
+        // ---- v2 资源产销 ----
+        /** 每幕实际付出能量（useCard 前后 energy 差）。 */
+        public long[] energySpent = new long[ACTS];
+        /** 每幕归属到本卡的能量增加（gainEnergy 栈顶/本回合最后打出牌归属）。 */
+        public long[] energyGained = new long[ACTS];
+        /** 每幕归属到本卡的抽牌数。 */
+        public long[] drawn = new long[ACTS];
+        /** 打出时累计的滞留回合数（整局；EndTurn 计数口径）。 */
+        public long handDwellSum = 0;
+        /** 回合结束未打出次数（整局；retain/selfRetain 不计）。 */
+        public long handDiscarded = 0;
+        /** 临时态：当前在手滞留回合数（回合末 +1，抽入/打出清零；不入快照）。 */
+        public int currentDwell = 0;
+        /** 条件牌：打出尝试次数 / 条件满足次数（注册表外的牌恒 0）。 */
+        public int conditionTotal = 0;
+        public int conditionMet = 0;
 
         public CardInstance() {
         }
@@ -138,6 +162,35 @@ public class CardStats {
         public final Set<UUID> deckAtStart = new HashSet<>();
         public boolean finalized = false;
 
+        // ---- v2 战斗节奏 / DoubleSS 机制 ----
+        /** 第 1/2 回合实际 HP 扣减（启动税分子）。 */
+        public long dmgT1 = 0, dmgT2 = 0;
+        /** 本场总获得格挡（溢空格挡率分母）。 */
+        public long blockGained = 0;
+        /** 回合末清空格挡累计（溢空格挡率分子；room.endTurn Prefix 快照 currentBlock）。 */
+        public long blockCleared = 0;
+        /** 本场溢出伤害（伤害超出怪物剩余 HP 的部分）。 */
+        public long overkill = 0;
+        /** 本场玩家总伤害（含骰子；Overkill 率分母）。 */
+        public long damageDealt = 0;
+        /** 敌方眩晕跳过行动回合数（意图无伤害值，防御价值代理，不做 HP 折算）。 */
+        public int stunTurns = 0;
+        /** 本场切换身份次数。 */
+        public int stanceSwitches = 0;
+        /** 恶魔之焰/群主身份回合数（回合采样）+ 身份回合内打出计数。 */
+        public int fiendTurns = 0, managerTurns = 0;
+        public int fiendSinPlays = 0, fiendPlays = 0, managerHaoPlays = 0, managerPlays = 0;
+        /** 奄息 <=2 层的玩家回合数（无 DyingPower = 不危险）。 */
+        public int lowDyingTurns = 0;
+        /** 本场罪孽峰值 / 美德峰值。 */
+        public int sinPeak = 0, virtuePeak = 0;
+        /** 本场最大生命值变动。 */
+        public int maxHpStart = 0, maxHpEnd = 0;
+        /** 本场免死次数。 */
+        public int dyingSaves = 0;
+        /** 当前处于眩晕意图的怪物（意图边沿检测，防重复计数）。 */
+        public final Set<AbstractMonster> stunned = new HashSet<>();
+
         /** 结束时的实际回合数。 */
         public int rounds() {
             return Math.max(1, maxTurn - turnBaseline + 1);
@@ -163,9 +216,19 @@ public class CardStats {
         public final Map<String, Long> granters = new HashMap<>();
         public boolean isDebuff;
 
+        /** 显示名（onPowerApplied 建条目时取 power.name；快照恢复缺失时保持 powerId）。 */
+        public String name = null;
+        /** 每幕授予层数（stacksApplied 保留为总和）。 */
+        public int[] stacksAppliedAct = new int[ACTS];
+        /** 每幕激活回合数（新玩家回合采样：buff 查玩家 / debuff 查任一存活怪物）。 */
+        public int[] coverageTurns = new int[ACTS];
+        /** 持有期间玩家每次命中少打的力量值累加（Shackled 负力量等效）。 */
+        public long hitValueSum = 0;
+
         public PowerLedger(String powerId, boolean isDebuff) {
             this.powerId = powerId;
             this.isDebuff = isDebuff;
+            this.name = powerId;
         }
     }
 
@@ -205,6 +268,17 @@ public class CardStats {
     private static long unattributedDexterity = 0;
     private static int untrackedDamageEvents = 0;
     private static int forcedPops = 0;
+
+    // ---- v2 DoubleSS 机制 / 资源产销 诊断 ----
+    private static long karmaPlus50Hits = 0;   // 整局 50 罪孽触发次数
+    private static long karmaMinus50Hits = 0;  // 整局 50 美德触发次数
+    private static long dyingSaveTotal = 0;    // 整局免死总次数
+    private static int stanceSwitchTotal = 0;  // 整局切换身份总次数
+    private static final ArrayList<String> dyingSaveRooms = new ArrayList<>();
+    private static long unattributedEnergyGain = 0; // 诊断桶：无归属能量增加
+    private static long unattributedDraws = 0;      // 诊断桶：无归属抽牌
+    /** 本回合最后打出的牌（gainEnergy/draw 无栈顶时的归属兜底；回合末清空）。 */
+    private static AbstractCard lastPlayedCard = null;
 
     // 卡牌栈帧
     private static class Frame {
@@ -345,6 +419,14 @@ public class CardStats {
         ledgers.clear();
         diceStats.clear();
         channeledDice.clear();
+        karmaPlus50Hits = 0;
+        karmaMinus50Hits = 0;
+        dyingSaveTotal = 0;
+        stanceSwitchTotal = 0;
+        dyingSaveRooms.clear();
+        unattributedEnergyGain = 0;
+        unattributedDraws = 0;
+        lastPlayedCard = null;
     }
 
     /** 当前幕（0 起始，越界保护）。 */
@@ -372,6 +454,7 @@ public class CardStats {
                 return;
             }
             JsonObject root = new JsonObject();
+            root.addProperty("v", 2);
 
             JsonObject inst = new JsonObject();
             for (CardInstance ci : instances.values()) {
@@ -381,6 +464,16 @@ public class CardStats {
                 o.addProperty("name", ci.name);
                 o.addProperty("up", ci.upgradedEver);
                 o.addProperty("ci", ci.copyIndex);
+                o.add("eSpent", longArr(ci.energySpent));
+                o.add("eGained", longArr(ci.energyGained));
+                o.add("drawn", longArr(ci.drawn));
+                o.addProperty("dwell", ci.handDwellSum);
+                o.addProperty("discarded", ci.handDiscarded);
+                o.addProperty("condTotal", ci.conditionTotal);
+                o.addProperty("condMet", ci.conditionMet);
+                if (ci.packageTag != null) {
+                    o.addProperty("pkg", ci.packageTag);
+                }
                 o.add("plays", intArr(ci.plays));
                 o.add("pSingle", intArr(ci.playsSingle));
                 o.add("pMulti", intArr(ci.playsMulti));
@@ -408,6 +501,26 @@ public class CardStats {
                 o.addProperty("base", c.turnBaseline);
                 o.addProperty("max", c.maxTurn);
                 o.addProperty("fin", c.finalized);
+                o.addProperty("dmgT1", c.dmgT1);
+                o.addProperty("dmgT2", c.dmgT2);
+                o.addProperty("blkG", c.blockGained);
+                o.addProperty("blkC", c.blockCleared);
+                o.addProperty("ok", c.overkill);
+                o.addProperty("dealt", c.damageDealt);
+                o.addProperty("stun", c.stunTurns);
+                o.addProperty("stSw", c.stanceSwitches);
+                o.addProperty("fTurns", c.fiendTurns);
+                o.addProperty("mTurns", c.managerTurns);
+                o.addProperty("fSin", c.fiendSinPlays);
+                o.addProperty("fP", c.fiendPlays);
+                o.addProperty("mHao", c.managerHaoPlays);
+                o.addProperty("mP", c.managerPlays);
+                o.addProperty("lowDy", c.lowDyingTurns);
+                o.addProperty("sinPk", c.sinPeak);
+                o.addProperty("virPk", c.virtuePeak);
+                o.addProperty("mh0", c.maxHpStart);
+                o.addProperty("mh1", c.maxHpEnd);
+                o.addProperty("dySv", c.dyingSaves);
                 JsonObject pb = new JsonObject();
                 for (Map.Entry<UUID, Integer> e : c.playsByCard.entrySet()) {
                     pb.addProperty(e.getKey().toString(), e.getValue());
@@ -427,6 +540,12 @@ public class CardStats {
                 JsonObject o = new JsonObject();
                 o.addProperty("id", L.powerId);
                 o.addProperty("debuff", L.isDebuff);
+                if (L.name != null) {
+                    o.addProperty("name", L.name);
+                }
+                o.add("stkAct", intArr(L.stacksAppliedAct));
+                o.add("covTurns", intArr(L.coverageTurns));
+                o.addProperty("hitVal", L.hitValueSum);
                 o.addProperty("stacks", L.stacksApplied);
                 o.addProperty("dmg", L.damageDuring);
                 o.addProperty("blk", L.blockDuring);
@@ -480,6 +599,20 @@ public class CardStats {
                 dexG.addProperty(e.getKey().toString(), e.getValue());
             }
             root.add("dexG", dexG);
+
+            JsonObject v2 = new JsonObject();
+            v2.addProperty("kPlus", karmaPlus50Hits);
+            v2.addProperty("kMinus", karmaMinus50Hits);
+            v2.addProperty("dyTotal", dyingSaveTotal);
+            v2.addProperty("stTotal", stanceSwitchTotal);
+            JsonArray dyRooms = new JsonArray();
+            for (String s : dyingSaveRooms) {
+                dyRooms.add(s);
+            }
+            v2.add("dyRooms", dyRooms);
+            v2.addProperty("uEGain", unattributedEnergyGain);
+            v2.addProperty("uDraw", unattributedDraws);
+            root.add("v2", v2);
 
             try (BufferedWriter w = new BufferedWriter(
                     new OutputStreamWriter(new FileOutputStream(new File(dir, SNAPSHOT_NAME)), StandardCharsets.UTF_8))) {
@@ -537,6 +670,18 @@ public class CardStats {
                     ci.dexterityGrant = longArr(o.getAsJsonArray("dexG"));
                     ci.strengthContrib = longArr(o.getAsJsonArray("strC"));
                     ci.dexterityContrib = longArr(o.getAsJsonArray("dexC"));
+                    if (o.has("eSpent")) {
+                        ci.energySpent = longArr(o.getAsJsonArray("eSpent"));
+                        ci.energyGained = longArr(o.getAsJsonArray("eGained"));
+                        ci.drawn = longArr(o.getAsJsonArray("drawn"));
+                        ci.handDwellSum = o.get("dwell").getAsLong();
+                        ci.handDiscarded = o.get("discarded").getAsLong();
+                        ci.conditionTotal = o.get("condTotal").getAsInt();
+                        ci.conditionMet = o.get("condMet").getAsInt();
+                        if (o.has("pkg")) {
+                            ci.packageTag = o.get("pkg").getAsString();
+                        }
+                    }
                     instances.put(ci.uuid, ci);
                 }
             }
@@ -555,6 +700,28 @@ public class CardStats {
                     c.turnBaseline = o.get("base").getAsInt();
                     c.maxTurn = o.get("max").getAsInt();
                     c.finalized = o.get("fin").getAsBoolean();
+                    if (o.has("dmgT1")) {
+                        c.dmgT1 = o.get("dmgT1").getAsLong();
+                        c.dmgT2 = o.get("dmgT2").getAsLong();
+                        c.blockGained = o.get("blkG").getAsLong();
+                        c.blockCleared = o.get("blkC").getAsLong();
+                        c.overkill = o.get("ok").getAsLong();
+                        c.damageDealt = o.get("dealt").getAsLong();
+                        c.stunTurns = o.get("stun").getAsInt();
+                        c.stanceSwitches = o.get("stSw").getAsInt();
+                        c.fiendTurns = o.get("fTurns").getAsInt();
+                        c.managerTurns = o.get("mTurns").getAsInt();
+                        c.fiendSinPlays = o.get("fSin").getAsInt();
+                        c.fiendPlays = o.get("fP").getAsInt();
+                        c.managerHaoPlays = o.get("mHao").getAsInt();
+                        c.managerPlays = o.get("mP").getAsInt();
+                        c.lowDyingTurns = o.get("lowDy").getAsInt();
+                        c.sinPeak = o.get("sinPk").getAsInt();
+                        c.virtuePeak = o.get("virPk").getAsInt();
+                        c.maxHpStart = o.get("mh0").getAsInt();
+                        c.maxHpEnd = o.get("mh1").getAsInt();
+                        c.dyingSaves = o.get("dySv").getAsInt();
+                    }
                     JsonObject pb = o.getAsJsonObject("pb");
                     if (pb != null) {
                         for (Map.Entry<String, JsonElement> e : pb.entrySet()) {
@@ -582,6 +749,12 @@ public class CardStats {
                     L.damageTakenDuring = o.get("dmgT").getAsLong();
                     L.damageDealtToTarget = o.get("dealt").getAsLong();
                     L.blockSaved = o.get("saved").getAsLong();
+                    if (o.has("stkAct")) {
+                        L.name = o.has("name") ? o.get("name").getAsString() : L.powerId;
+                        L.stacksAppliedAct = intArr(o.getAsJsonArray("stkAct"));
+                        L.coverageTurns = intArr(o.getAsJsonArray("covTurns"));
+                        L.hitValueSum = o.get("hitVal").getAsLong();
+                    }
                     JsonObject gr = o.getAsJsonObject("gr");
                     if (gr != null) {
                         for (Map.Entry<String, JsonElement> e : gr.entrySet()) {
@@ -631,6 +804,22 @@ public class CardStats {
                 for (Map.Entry<String, JsonElement> e : dexG.entrySet()) {
                     dexterityGranters.put(UUID.fromString(e.getKey()), e.getValue().getAsInt());
                 }
+            }
+
+            JsonObject v2 = root.getAsJsonObject("v2");
+            if (v2 != null) {
+                karmaPlus50Hits = v2.get("kPlus").getAsLong();
+                karmaMinus50Hits = v2.get("kMinus").getAsLong();
+                dyingSaveTotal = v2.get("dyTotal").getAsLong();
+                stanceSwitchTotal = v2.get("stTotal").getAsInt();
+                JsonArray dyRooms = v2.getAsJsonArray("dyRooms");
+                if (dyRooms != null) {
+                    for (JsonElement de : dyRooms) {
+                        dyingSaveRooms.add(de.getAsString());
+                    }
+                }
+                unattributedEnergyGain = v2.get("uEGain").getAsLong();
+                unattributedDraws = v2.get("uDraw").getAsLong();
             }
 
             remapInstancesToDeck();
@@ -761,12 +950,15 @@ public class CardStats {
         powerGranters.clear();
         strengthGranters.clear();
         dexterityGranters.clear();
+        clearSoulWeights(); // 魂火不跨战斗存活，贡献权重随战斗重置
+        soulWatermark = -1; // 魂火事务窗口一并复位
         Combat c = new Combat();
         // 本版本 actNum 是 1 起始（dungeonTransitionSetup 开局 ++actNum），索引用 actNum-1
         c.act = Math.min(Math.max(AbstractDungeon.actNum - 1, 0), ACTS - 1);
         c.roomType = room instanceof MonsterRoomBoss ? 2 : room instanceof MonsterRoomElite ? 1 : 0;
         c.enemyCount = (room.monsters != null && room.monsters.monsters != null) ? room.monsters.monsters.size() : 0;
         c.hpStart = AbstractDungeon.player.currentHealth;
+        c.maxHpStart = AbstractDungeon.player.maxHealth;
         c.turnBaseline = GameActionManager.turn;
         c.maxTurn = c.turnBaseline;
         if (AbstractDungeon.player.masterDeck != null) {
@@ -792,13 +984,14 @@ public class CardStats {
             return;
         }
         c.hpEnd = hpEnd;
+        c.maxHpEnd = AbstractDungeon.player.maxHealth; // endBattle 体内先调 player.onVictory（罪孽结算 maxHp 变动）再返回，Postfix 时已生效
         c.finalized = true;
     }
 
     // ==================== 事件入口（由 patch 调用） ====================
 
-    /** 出牌（AbstractPlayer.useCard Prefix，入栈 + 计数）。 */
-    public static void onPlay(AbstractCard c) {
+    /** 出牌（AbstractPlayer.useCard Prefix，入栈 + 计数）。m = useCard 的目标（条件牌判定用，可为 null）。 */
+    public static void onPlay(AbstractCard c, AbstractMonster m) {
         if (!enabled || currentCombat == null) {
             return;
         }
@@ -827,10 +1020,115 @@ public class CardStats {
         }
         // 水位在 useCard 方法体执行前捕获：该牌的全部 action 都压在其后
         stack.push(new Frame(c, AbstractDungeon.actionManager.actions.size(), str, dex));
+        // v2：滞留结算（打出即清零）+ 本回合最后打出牌 + 身份对位计数
+        ins.handDwellSum += ins.currentDwell;
+        ins.currentDwell = 0;
+        // v2：条件牌触发率（注册表外的牌不计数；判定用 useCard 的目标 m，与牌 use() 门槛同刻）
+        CardConditionRegistry.Condition cond = CardConditionRegistry.lookup(c.cardID);
+        if (cond != null) {
+            ins.conditionTotal++;
+            if (cond.met(c, m)) {
+                ins.conditionMet++;
+            }
+        }
+        lastPlayedCard = c;
+        AbstractPlayer pl = AbstractDungeon.player;
+        if (pl.hasPower("Double:FiendStance")) {
+            currentCombat.fiendPlays++;
+            if (c.hasTag(AbstractCardEnum.Sins)) {
+                currentCombat.fiendSinPlays++;
+            }
+        } else if (pl.hasPower("Double:ManagerStance")) {
+            currentCombat.managerPlays++;
+            // 与卡包审计节同源：都走 cardPackageOf（Sins tag 优先，再查 cardParentMap）。
+            // 原来这里硬编码 equals("Double:HaoPackage")、审计节用 contains——两节口径必须一致，
+            // 否则同一张卡会在审计节算「Hao」、在群友卡占比里不算。cardPackageOf 用 contains 系列匹配，
+            // 对 HaoPackage / HaoPackage_v / _c / _e 都成立。
+            boolean hao = "Hao".equals(cardPackageOf(c.cardID, c));
+            if (c.hasTag(AbstractCardEnum.Manager) || hao) {
+                currentCombat.managerHaoPlays++;
+            }
+        }
+    }
+
+    /** 打出结束（useCard Postfix）：energyDelta = 打出前-打出后（本张牌实际付出；-1 特殊费用/0费=0）。 */
+    public static void onPlayEnd(int energyDelta) {
+        if (!enabled || energyDelta <= 0 || currentCombat == null) {
+            return;
+        }
+        Frame top = stack.peek();
+        if (top != null) {
+            getOrCreate(top.card).energySpent[currentCombat.act] += energyDelta;
+        }
+    }
+
+    /** 能量增加（gainEnergy Postfix，全路径唯一收口；GainEnergyAction.update 只调它，SS 角色未覆写）。归属：栈顶 → 本回合最后打出牌 → 无归属桶。 */
+    public static void onGainEnergy(int e) {
+        if (!enabled || e <= 0) {
+            return;
+        }
+        AbstractCard target = stackTopCard();
+        if (target == null) {
+            target = lastPlayedCard;
+        }
+        if (target == null || currentCombat == null) {
+            unattributedEnergyGain += e;
+            return;
+        }
+        getOrCreate(target).energyGained[currentCombat.act] += e;
+    }
+
+    /** 抽牌（draw(int) Postfix，全路径收口：无参 draw() :1713 委托 draw(1)、逐张抽、开局首抽 draw(n) 都汇入 int 版本）。手牌末尾 numCards 张即本次抽入，重置其滞留计数。 */
+    public static void onDraw(int numCards) {
+        if (!enabled || numCards <= 0) {
+            return;
+        }
+        AbstractCard target = stackTopCard();
+        if (target == null) {
+            target = lastPlayedCard;
+        }
+        if (target != null && currentCombat != null) {
+            getOrCreate(target).drawn[currentCombat.act] += numCards;
+        } else {
+            unattributedDraws += numCards;
+        }
+        List<AbstractCard> hand = AbstractDungeon.player.hand.group;
+        int from = Math.max(0, hand.size() - numCards);
+        for (int i = from; i < hand.size(); i++) {
+            CardInstance ins = instances.get(hand.get(i).uuid);
+            if (ins != null) {
+                ins.currentDwell = 0;
+            }
+        }
+    }
+
+    /**
+     * 回合结束（AbstractRoom.endTurn Prefix——唯一入口 :259，isEndingTurn 守卫每玩家回合一次）。
+     * 必须钩这里而非 EndTurnAction.update()：room.endTurn() 先排队 DiscardAtEndOfTurnAction
+     * （FIFO 先执行、手牌在那里清空），EndTurnAction 被排在队尾，执行时手牌已空。
+     * ① 在手牌 currentDwell++；retain/selfRetain 走 limbo 不真弃，不记 handDiscarded，其余记 1。
+     * ② 溢空格挡：currentBlock 快照（下回合开始 loseBlock 清零；Barricade/Blur/Calipers 使分子略偏高，已知近似）。
+     */
+    public static void onRoomEndTurn() {
+        if (!enabled) {
+            return;
+        }
+        AbstractPlayer p = AbstractDungeon.player;
+        for (AbstractCard c : p.hand.group) {
+            CardInstance ins = getOrCreate(c);
+            ins.currentDwell++;
+            if (!c.retain && !c.selfRetain) {
+                ins.handDiscarded++;
+            }
+        }
+        if (currentCombat != null) {
+            currentCombat.blockCleared += p.currentBlock;
+        }
+        lastPlayedCard = null; // 新回合的 gainEnergy/draw 不再归属旧回合的牌
     }
 
     /** 玩家对怪物造成伤害（AbstractMonster.damage Postfix，info.owner==player）。 */
-    public static void onMonsterDamage(DamageInfo info, AbstractMonster target) {
+    public static void onMonsterDamage(DamageInfo info, AbstractMonster target, int hpBefore) {
         if (!enabled) {
             return;
         }
@@ -843,6 +1141,9 @@ public class CardStats {
         if (amount <= 0) {
             return;
         }
+        // v2：本场总伤害（含骰子，先于归属分支累计）+ 溢出伤害（超出怪物伤害前剩余 HP）
+        currentCombat.damageDealt += amount;
+        currentCombat.overkill += Math.max(0, amount - hpBefore);
 
         // 1) 骰子伤害：SpireField（单目标）或 AOE 静态上下文（HitAll / NextTurnDamagePower 延迟 AOE）
         DiceAttribution att = DamageInfoDiceSource.diceRef.get(info);
@@ -851,6 +1152,14 @@ public class CardStats {
         }
         if (att != null) {
             attributeDice(att, amount, true, act);
+            return;
+        }
+
+        // 1.5) 魂火跟班伤害：按各唤魂牌的魂火值贡献权重均分（用户定口径）。
+        //      置于骰子之后、卡牌栈之前——魂火打出的攻击骰已由上面骰子分支消化，
+        //      其余（魂火直接打的卡）走这里。栈顶此时是魂火自己的牌，不是玩家的牌。
+        if (inSoulDamage()) {
+            attributeSoul(amount, true, act);
             return;
         }
 
@@ -870,6 +1179,14 @@ public class CardStats {
                 long contrib = Math.min(top.strengthAtPlay, amount);
                 if (contrib > 0) {
                     splitContribution(strengthGranters, contrib, act, true, top.card);
+                }
+            }
+            // v2：玩家持有 Shackled（负力量）时每次命中少打的力量值
+            AbstractPower sh = AbstractDungeon.player.getPower("Shackled");
+            if (sh != null && sh.amount < 0) {
+                PowerLedger L = ledgers.get("Shackled");
+                if (L != null) {
+                    L.hitValueSum += Math.min(-sh.amount, amount);
                 }
             }
             // buff 台账：该 buff 生效期间玩家造成伤害 + 怪物防御性 buff 的格挡作用
@@ -892,6 +1209,28 @@ public class CardStats {
             return;
         }
         currentCombat.damageTaken += loss;
+        // v2：启动税分桶（turnNo = 绝对回合 - 基线，T1=1）
+        int turnNo = GameActionManager.turn - currentCombat.turnBaseline;
+        if (turnNo == 1) {
+            currentCombat.dmgT1 += loss;
+        } else if (turnNo == 2) {
+            currentCombat.dmgT2 += loss;
+        }
+        // v2：减伤等效（精确折算，替代 ledgerBlockSaved 的 atDamageGive 误判）
+        if (info != null && info.owner != null && info.owner != AbstractDungeon.player
+                && info.owner.hasPower("Weakened")) {
+            PowerLedger L = ledgers.get("Weakened");
+            if (L != null) {
+                L.blockSaved += loss / 3; // loss = base*0.75 → 少打 base-loss = loss/3
+            }
+        }
+        if (info != null && info.owner != null && info.owner != AbstractDungeon.player
+                && AbstractDungeon.player.hasPower("IntangiblePlayer") && info.output > loss) {
+            PowerLedger L = ledgers.get("IntangiblePlayer");
+            if (L != null) {
+                L.blockSaved += info.output - loss; // 无形把伤害压到 1：差额为免伤
+            }
+        }
         // debuff 台账：该 debuff 生效期间玩家受到伤害（仅敌人来源）
         if (info != null && info.owner != null && info.owner != AbstractDungeon.player) {
             AbstractCreature p = AbstractDungeon.player;
@@ -912,11 +1251,19 @@ public class CardStats {
             return;
         }
         int act = currentCombat.act;
+        currentCombat.blockGained += amount;
 
         // 1) 骰子格挡：GainBlockAction 上的静态上下文
         DiceAttribution att = blockDice;
         if (att != null) {
             attributeDice(att, amount, false, act);
+            return;
+        }
+
+        // 1.5) 魂火打出的牌若给玩家加格挡（blkAct → GainBlockAction(player)），
+        //      归到唤魂牌头上（用户口径：魂火的伤害与格挡都按魂火值加权均分）。
+        if (inSoulDamage()) {
+            attributeSoul(amount, false, act);
             return;
         }
 
@@ -1074,15 +1421,20 @@ public class CardStats {
         // 3) 台账：玩家自身 buff/debuff（期间伤害/格挡）+ 怪物身上的 debuff
         //    （对带此 debuff 目标造成的伤害，如流血/易伤）
         boolean monsterDebuff = !playerOwned && power.type == AbstractPower.PowerType.DEBUFF;
+        int ledgerAct = currentCombat != null ? currentCombat.act : 0;
         if (playerOwned || monsterDebuff) {
             boolean debuff = power.type == AbstractPower.PowerType.DEBUFF;
             PowerLedger L = ledgers.get(power.ID);
             if (L == null) {
                 L = new PowerLedger(power.ID, debuff);
+                if (power.name != null && !power.name.isEmpty()) {
+                    L.name = power.name;
+                }
                 ledgers.put(power.ID, L);
             }
             if (power.amount > 0) {
                 L.stacksApplied += power.amount;
+                L.stacksAppliedAct[ledgerAct] += power.amount;
                 if (grantCardList != null) {
                     for (AbstractCard top : grantCardList) {
                         L.granters.merge(top.cardID, (long) power.amount / grantCardList.size(), Long::sum);
@@ -1107,6 +1459,74 @@ public class CardStats {
         return (list != null && !list.isEmpty()) ? list : null;
     }
 
+    // ==================== v2 事件入口 ====================
+
+    /**
+     * 罪孽变动（SinsPower.stackPower/reducePower 内联）。delta = 变动后-变动前（已含 +-50 钳制）。
+     * 峰值：每场罪孽/美德峰值；+-50 边界：进入边界态才计（前后值比对天然去重，lock 后不再变动）。
+     */
+    public static void onKarmaChange(int delta) {
+        if (!enabled) {
+            return;
+        }
+        AbstractPower p = AbstractDungeon.player != null
+                ? AbstractDungeon.player.getPower("Double:SinsPower") : null;
+        if (p == null) {
+            return;
+        }
+        int now = p.amount;
+        int prev = now - delta;
+        if (now == 50 && prev != 50) {
+            karmaPlus50Hits++;
+        }
+        if (now == -50 && prev != -50) {
+            karmaMinus50Hits++;
+        }
+        if (currentCombat != null) {
+            if (now > currentCombat.sinPeak) {
+                currentCombat.sinPeak = now;
+            }
+            if (-now > currentCombat.virtuePeak) {
+                currentCombat.virtuePeak = -now;
+            }
+        }
+    }
+
+    /** 罪孽首次授予（SinsPower.onInitialApplication 内联；ApplyPowerAction 在 powers.add 之后调用它）。 */
+    public static void onKarmaApply(int amount) {
+        onKarmaChange(amount);
+    }
+
+    /** 身份切换（两个 Update*StanceDescriptions action 早退守卫之后内联；早退天然去重）。 */
+    public static void onStanceSwitch(String stance) {
+        if (!enabled) {
+            return;
+        }
+        stanceSwitchTotal++;
+        if (currentCombat != null) {
+            currentCombat.stanceSwitches++;
+        }
+    }
+
+    /** 奄息免死（DyingPower.onPlayerDeath 两条成功路径内联）。 */
+    public static void onDyingSaved() {
+        if (!enabled) {
+            return;
+        }
+        dyingSaveTotal++;
+        if (currentCombat != null) {
+            currentCombat.dyingSaves++;
+        }
+        String room = "A" + AbstractDungeon.actNum + "-F" + AbstractDungeon.floorNum;
+        AbstractRoom r = AbstractDungeon.getCurrRoom();
+        if (r instanceof MonsterRoomBoss) {
+            room += "-BOSS";
+        } else if (r instanceof MonsterRoomElite) {
+            room += "-精英";
+        }
+        dyingSaveRooms.add(room);
+    }
+
     /** 骰子 AOE 伤害结算上下文（DamageAllEnemiesAction.update 前后钩）。 */
     public static void setAoeDice(DiceAttribution d) {
         aoeDice = d;
@@ -1123,14 +1543,45 @@ public class CardStats {
         if (!enabled) {
             return;
         }
+        // Quick Restart / save-load briefly leaves the dungeon without a current
+        // map node. AbstractDungeon.getCurrRoom() dereferences that node, so no
+        // per-combat statistic may query the room during this transition.
+        if (AbstractDungeon.currMapNode == null) {
+            return;
+        }
         GameActionManager am = AbstractDungeon.actionManager;
         if (am == null) {
             return;
         }
-        // 回合计数：turn 跨战斗累积，取本场最大值
+        // 回合计数 + v2 新回合采样（turn 跨战斗累积，maxTurn 初值=基线，第一次超越恰为 T1）
         if (currentCombat != null && GameActionManager.turn > currentCombat.maxTurn) {
             currentCombat.maxTurn = GameActionManager.turn;
+            sampleNewTurn(currentCombat, GameActionManager.turn - currentCombat.turnBaseline);
         }
+        // v2 眩晕边沿检测：怪物意图转为 STUN 时计 1（该回合跳过行动）；转回其他意图时移出集合，
+        // 允许再次眩晕再计。已核实四例眩晕怪（Lagavulin/BronzeAutomaton/Byrd/ShelledParasite）
+        // 的 STUN 意图回合都真实执行了 STUNNED 文本+RollMoveAction，意图被新意图替换 → 每跳过一回合恰好计一次。
+        if (currentCombat != null) {
+            AbstractRoom cr = AbstractDungeon.getCurrRoom();
+            if (cr != null && !cr.isBattleOver && cr.monsters != null && cr.monsters.monsters != null) {
+                com.megacrit.cardcrawl.monsters.MonsterGroup g = cr.monsters;
+                for (AbstractMonster m : g.monsters) {
+                    if (m.isDeadOrEscaped()) {
+                        currentCombat.stunned.remove(m);
+                        continue;
+                    }
+                    boolean st = m.intent == com.megacrit.cardcrawl.monsters.AbstractMonster.Intent.STUN;
+                    if (st && !currentCombat.stunned.contains(m)) {
+                        currentCombat.stunned.add(m);
+                        currentCombat.stunTurns++;
+                    } else if (!st) {
+                        currentCombat.stunned.remove(m);
+                    }
+                }
+            }
+        }
+        // 魂火事务窗口：队列回落到水位即结束（与下面的玩家卡牌栈同构）
+        tickSoulWindow();
         // 卡牌栈排水：队列长度回落到水位 = 该牌事务全部结束
         if (!stack.isEmpty()) {
             while (!stack.isEmpty() && stack.peek().watermark >= am.actions.size()) {
@@ -1150,12 +1601,194 @@ public class CardStats {
         exportIfTerminal();
     }
 
+    /**
+     * 新玩家回合采样（每回合一次）：Power 激活覆盖 / 奄息危险 / 身份回合。
+     * 在回合开始时采样——此时玩家回合内将生效的 buff 已就位（applyStartOfTurnPowers 已执行）。
+     */
+    private static void sampleNewTurn(Combat c, int turnNo) {
+        if (turnNo < 1) {
+            return;
+        }
+        AbstractPlayer p = AbstractDungeon.player;
+        if (p == null) {
+            return;
+        }
+        // 身份回合
+        if (p.hasPower("Double:FiendStance")) {
+            c.fiendTurns++;
+        } else if (p.hasPower("Double:ManagerStance")) {
+            c.managerTurns++;
+        }
+        // 奄息危险（<=2 层）
+        AbstractPower dy = p.getPower("Double:DyingPower");
+        if (dy != null && dy.amount <= 2) {
+            c.lowDyingTurns++;
+        }
+        // Power 激活覆盖（buff 查玩家 / debuff 查任一存活怪物）
+        for (PowerLedger L : ledgers.values()) {
+            boolean active;
+            if (L.isDebuff) {
+                active = false;
+                com.megacrit.cardcrawl.monsters.MonsterGroup g =
+                        AbstractDungeon.getCurrRoom() != null ? AbstractDungeon.getCurrRoom().monsters : null;
+                if (g != null && g.monsters != null) {
+                    for (AbstractMonster m : g.monsters) {
+                        if (!m.isDeadOrEscaped() && m.hasPower(L.powerId)) {
+                            active = true;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                active = p.hasPower(L.powerId);
+            }
+            if (active) {
+                L.coverageTurns[c.act]++;
+            }
+        }
+    }
+
     // ==================== 归属工具 ====================
 
     /** 栈顶牌（无牌时为 null）。 */
     public static AbstractCard stackTopCard() {
         Frame top = stack.peek();
         return top == null ? null : top.card;
+    }
+
+    /**
+     * 激发归属覆盖牌（默认 null = 不覆盖，走骰子自身的 sources）。
+     *
+     * 用于「额外激发场上已有骰子」的牌（Seething/Blitzkrieg）：这些骰子的 sources
+     * 指向当初产它们的牌，但本次激发的伤害是因激发牌而生的，应记在激发牌头上。
+     * 由 EvokeAllDiceAction 在激发前设置、激发后清除（try/finally），
+     * DiceAttribution.of 读取。只影响统计归属，不改游戏逻辑。
+     */
+    private static AbstractCard evokeAttribution = null;
+
+    /** 供 DiceAttribution.of 读取本次激发的归属牌。 */
+    public static AbstractCard currentEvoker() {
+        return enabled ? evokeAttribution : null;
+    }
+
+    /** 设置/清除激发归属牌（null = 清除）。 */
+    public static void setEvokeAttribution(AbstractCard c) {
+        evokeAttribution = c;
+    }
+
+    /**
+     * 魂火跟班（SoulAlly）的贡献权重台账：贡献牌 → 该牌累计提供的魂火值。
+     *
+     * 用户定口径：唤魂 X 的牌，打出时若场上无魂火则召唤 1 只（记为贡献 1 点魂火值），
+     * 否则给每只魂火 +X 点魂火值（记为贡献 X 点）。魂火后续造成的伤害/格挡，
+     * 按各牌的累计贡献权重**加权均分**。
+     *
+     * 权重在 EvokeSoulAction 里累加（那是唯一的唤魂入口）；结算在
+     * attributeSoul() 里按权重分。只统计伤害与格挡（用户选定范围）。
+     */
+    private static final Map<AbstractCard, Integer> soulWeights = new java.util.LinkedHashMap<>();
+
+    /** 记一次唤魂贡献（X 点魂火值）。由 EvokeSoulAction 调用。 */
+    public static void onSoulContribute(AbstractCard card, int amount) {
+        if (!enabled || card == null || amount <= 0) {
+            return;
+        }
+        soulWeights.merge(card, amount, Integer::sum);
+    }
+
+    /**
+     * 魂火产出的伤害/格挡结算：按 soulWeights 加权均分给各贡献牌。
+     * 无贡献记录（魂火来自遗物/环境）→ 进无归属桶。
+     */
+    private static void attributeSoul(int amount, boolean isDamage, int act) {
+        int totalW = 0;
+        for (int w : soulWeights.values()) {
+            totalW += w;
+        }
+        if (totalW <= 0) {
+            if (isDamage) {
+                unattributedSoulDamage += amount;
+            } else {
+                unattributedSoulBlock += amount;
+            }
+            return;
+        }
+        int idx = 0, assigned = 0, total = soulWeights.size();
+        for (Map.Entry<AbstractCard, Integer> e : soulWeights.entrySet()) {
+            idx++;
+            // 最后一笔收尾，避免整数除法的余数丢失
+            long share = (idx == total) ? (amount - assigned)
+                    : (long) amount * e.getValue() / totalW;
+            assigned += share;
+            if (share <= 0) {
+                continue;
+            }
+            CardInstance ins = getOrCreate(e.getKey());
+            if (isDamage) {
+                ins.dmg[act] += share;
+                if (currentCombat.enemyCount > 1) {
+                    ins.dmgMulti[act] += share;
+                } else {
+                    ins.dmgSingle[act] += share;
+                }
+            } else {
+                ins.block[act] += share;
+            }
+        }
+    }
+
+    /** 清空魂火权重台账（战斗开始时调用——魂火不跨战斗存活）。 */
+    private static void clearSoulWeights() {
+        soulWeights.clear();
+    }
+
+    /**
+     * 魂火牌事务的队列水位（-1 = 无进行中的魂火牌事务）。
+     *
+     * 不能用「begin/end 包住 card.use()」的布尔窗口：AllyPlayCardAction 里的
+     * card.use() 只负责**入队** action（如 dmgAct → addToBot(DamageAction)），
+     * 伤害真正结算在几帧之后，那时 use() 早已返回、窗口已关 → 归不到魂火头上。
+     * 故改用与玩家卡牌栈同构的水位机制：记下入队前的队列长度，等队列回落到
+     * 该长度即事务结束，由 update() 每帧检查后清除。
+     */
+    private static int soulWatermark = -1;
+
+    /** 标记魂火牌事务开始（AllyPlayCardAction 在 card.use() 前调用）。 */
+    public static void beginSoulDamage() {
+        if (!enabled) {
+            return;
+        }
+        GameActionManager am = AbstractDungeon.actionManager;
+        soulWatermark = (am == null) ? 0 : am.actions.size();
+    }
+
+    /** 本轮伤害是否算在魂火头上（事务进行中且非模拟）。 */
+    public static boolean inSoulDamage() {
+        return enabled && soulWatermark >= 0;
+    }
+
+    /** 每帧检查：队列回落到水位 → 魂火事务结束。 */
+    private static void tickSoulWindow() {
+        if (soulWatermark < 0) {
+            return;
+        }
+        GameActionManager am = AbstractDungeon.actionManager;
+        if (am == null || am.actions.size() <= soulWatermark) {
+            soulWatermark = -1;
+        }
+    }
+
+    /** 诊断桶：无归属的魂火伤害/格挡（魂火来源无贡献记录时）。 */
+    private static long unattributedSoulDamage = 0;
+    private static long unattributedSoulBlock = 0;
+
+    /** 魂火跟班获得格挡（AbstractCreature.addBlock Postfix，__instance 是 SoulAlly）。 */
+    public static void onSoulBlock(int amount) {
+        if (!enabled || amount <= 0 || currentCombat == null) {
+            return;
+        }
+        currentCombat.blockGained += amount;
+        attributeSoul(amount, false, currentCombat.act);
     }
 
     private static CardInstance getOrCreate(AbstractCard c) {
@@ -1170,6 +1803,8 @@ public class CardStats {
                 }
             }
             ins.copyIndex = n;
+            // v2 模块 2：此刻手里有活牌，当场定包并缓存（导出时按 ID 回查会失败）
+            ins.packageTag = cardPackageOf(c.cardID, c);
             instances.put(c.uuid, ins);
         }
         return ins;
@@ -1209,7 +1844,6 @@ public class CardStats {
                 continue;
             }
             CardInstance ins = getOrCreate(c);
-            String label = displayName(ins, act);
             if (isDamage) {
                 st.dmg += share;
                 ins.dmg[act] += share;
@@ -1222,7 +1856,8 @@ public class CardStats {
                 st.block += share;
                 ins.block[act] += share;
             }
-            st.sourceShare.merge(label, share, Long::sum);
+            // 来源构成按牌名聚合（同 ID 多张合并为一行，与卡牌统计节口径一致）
+            st.sourceShare.merge(ins.name, share, Long::sum);
         }
     }
 
@@ -1332,10 +1967,14 @@ public class CardStats {
     }
 
     /**
-     * 防御性 buff 的格挡作用估算：怪物身上的减伤 debuff（如虚弱 atDamageGive ×0.75、
-     * 缓速等）让本次命中少打了多少。用 atDamageGive(1, type) 探测每个 buff 的乘法
+     * 防御性 buff 的格挡作用估算：怪物身上的减伤 debuff（如虚弱 ×0.75、缓速等）
+     * 让本次命中少打了多少。用 atDamageReceive(1, NORMAL) 探测每个 buff 的乘法
      * 修正（虚弱 0.75 → 倍率 m=0.75），从结算值反推：未减伤伤害 ≈ output/m，
      * 该 buff 挡掉的 ≈ output*(1/m − 1)。纯乘法关系，精确到本次命中。
+     *
+     * <p>v2 修正：原用 atDamageGive 探测「目标造成的伤害修正」——怪物身上的 Weakened
+     * 会以 0.75 被误判成替玩家挡伤；改 atDamageReceive（目标受到的伤害修正）语义才正确。
+     * 本版本怪物防御 debuff 几乎不覆写它，该桶接近 0 属修正而非回归。
      */
     private static void ledgerBlockSaved(int amount, AbstractMonster target) {
         // 先算所有修正 buff 的综合倍率与净修正
@@ -1346,7 +1985,7 @@ public class CardStats {
             if (pw.ID == null) {
                 continue;
             }
-            float probe = pw.atDamageGive(1f, DamageInfo.DamageType.NORMAL);
+            float probe = pw.atDamageReceive(1f, DamageInfo.DamageType.NORMAL);
             if (probe != 1f) {
                 modifiers.add(pw);
                 if (probe > 0) {
@@ -1373,7 +2012,7 @@ public class CardStats {
             if (L == null) {
                 continue;
             }
-            float probe = pw.atDamageGive(1f, DamageInfo.DamageType.NORMAL);
+            float probe = pw.atDamageReceive(1f, DamageInfo.DamageType.NORMAL);
             float saved;
             if (probe > 0 && probe < 1f) {
                 saved = base * (1f - probe); // 乘法减伤：base × (1 − 0.75)
@@ -1426,7 +2065,7 @@ public class CardStats {
         sb.append("- **到达**: 第").append(AbstractDungeon.actNum).append("幕 第").append(AbstractDungeon.floorNum).append("层\n");
         sb.append("- **统计开关**: ").append(enabled ? "开" : "关").append("\n\n");
 
-        // ---- 战斗统计（按幕） ----
+        // ---- 战斗统计（按幕；每场明细 + 类型聚合 + 节奏指标）----
         String[] roomNames = { "小怪", "精英", "BOSS" };
         for (int act = 0; act < ACTS; act++) {
             List<Combat> actCombats = new ArrayList<>();
@@ -1456,41 +2095,49 @@ public class CardStats {
                     continue;
                 }
                 double net = 0, taken = 0, turns = 0;
+                long blkG = 0, blkC = 0, ok = 0, dealt = 0;
                 for (Combat c : rc) {
                     net += c.netHpLoss();
                     taken += c.damageTaken;
                     turns += c.rounds();
+                    blkG += c.blockGained;
+                    blkC += c.blockCleared;
+                    ok += c.overkill;
+                    dealt += c.damageDealt;
                 }
                 sb.append("- **").append(roomNames[rt]).append("**: 场数 ").append(rc.size())
                         .append("  平均净HP损失 ").append(fmt(net / rc.size()))
                         .append("  平均受伤 ").append(fmt(taken / rc.size()))
                         .append("  平均回合 ").append(fmt(turns / rc.size())).append('\n');
+                // v2 节奏聚合：启动税均值 / 战损stddev / 最大单场 / 溢空格挡率 / Overkill率
+                double startup = 0;
+                for (Combat c : rc) {
+                    startup += (c.damageTaken <= 0) ? 0
+                            : 100.0 * (c.dmgT1 + c.dmgT2) / c.damageTaken;
+                }
+                sb.append("  - 启动税T1-T2承伤占比 均值 ").append(fmt(startup / rc.size()))
+                        .append("%  战损stddev ").append(fmt(stddev(rc)))
+                        .append("  最大单场 ").append(maxNetLoss(rc))
+                        .append("  溢空格挡率 ").append(pct(blkC, blkG))
+                        .append("  Overkill率 ").append(pct(ok, dealt)).append('\n');
+            }
+            // v2 每场明细行
+            sb.append("**每场明细**（启动期=启动税T1-T2承伤占比）\n\n");
+            int idx = 0;
+            for (Combat c : actCombats) {
+                idx++;
+                sb.append("- 场").append(idx).append(" ").append(roomNames[c.roomType])
+                        .append(" 回合").append(c.rounds())
+                        .append(" 净损").append(c.netHpLoss())
+                        .append(" 受伤").append(c.damageTaken)
+                        .append(" 启动期").append(pct(c.dmgT1 + c.dmgT2, c.damageTaken))
+                        .append(" 溢空格挡").append(pct(c.blockCleared, c.blockGained))
+                        .append(" Overkill").append(c.overkill)
+                        .append(" 眩晕回合").append(c.stunTurns)
+                        .append(" 切换身份").append(c.stanceSwitches)
+                        .append(" 免死").append(c.dyingSaves).append('\n');
             }
             sb.append('\n');
-        }
-
-        // ---- 卡牌统计（按幕、按实例） ----
-        for (int actRaw = 0; actRaw < ACTS; actRaw++) {
-            final int act = actRaw;
-            List<CardInstance> rows = new ArrayList<>();
-            for (CardInstance ins : instances.values()) {
-                if (activeInAct(ins, act)) {
-                    rows.add(ins);
-                }
-            }
-            if (rows.isEmpty()) {
-                continue;
-            }
-            rows.sort(Comparator.comparingLong((CardInstance i) -> i.dmg[act]).reversed()
-                    .thenComparing(Comparator.comparingInt((CardInstance i) -> i.plays[act]).reversed()));
-            sb.append("## 卡牌统计-第").append(act + 1).append("幕-按实例\n\n");
-            for (CardInstance ins : rows) {
-                appendCardBlock(sb, ins, act);
-            }
-            sb.append("> 注: 均伤=总伤害/打出次数, 伤害为结算后、扣格挡前的\"打出值\"; 群怪=开战时敌人>=2的战斗;\n");
-            sb.append("> 每轮打出=对幕内每场战斗 打出次数/回合数 求平均; 升级=本局内曾升级过;\n");
-            sb.append("> 力量授予=本牌直接施加的力量层数; 力量贡献=命中中力量加成按授予比例分摊到本牌的点数;\n");
-            sb.append("> 敏捷同理。骰子伤害/格挡按 sources 均分到来源牌并计入本行。持恒牌不吃力敏(豁免)。\n\n");
         }
 
         // ---- 卡牌汇总（按 卡ID × 升级/未升级，每幕） ----
@@ -1506,7 +2153,7 @@ public class CardStats {
             if (groups.isEmpty()) {
                 continue;
             }
-            sb.append("## 卡牌汇总-第").append(act + 1).append("幕-按卡ID分组\n\n");
+            sb.append("## 卡牌统计-第").append(act + 1).append("幕\n\n");
             List<Map.Entry<String, List<CardInstance>>> entries = new ArrayList<>(groups.entrySet());
             entries.sort((a, b) -> Long.compare(
                     b.getValue().stream().mapToLong(i -> i.dmg[act]).sum(),
@@ -1523,9 +2170,9 @@ public class CardStats {
                     sumDexC += ins.dexterityContrib[act];
                     ppr += playsPerRound(ins, act);
                 }
-                String baseId = e.getKey().split("#")[0];
                 boolean up = e.getKey().endsWith("#up");
-                sb.append("### **").append(baseId).append(up ? "(升级)" : "(未升级)").append("**\n\n");
+                String shownName = list.get(0).name;
+                sb.append("### **").append(shownName).append(up ? "(升级)" : "(未升级)").append("**\n\n");
                 sb.append("- **张数**: ").append(list.size())
                         .append("  **总打出**: ").append(sumPlays)
                         .append("  **均伤/次**: ").append(ave(sumDmg, sumPlays))
@@ -1533,6 +2180,7 @@ public class CardStats {
                         .append("  **平均每轮打出**: ").append(fmt(ppr / list.size())).append('\n');
                 sb.append("- **力量贡献**: ").append(sumStrC)
                         .append("  **敏捷贡献**: ").append(sumDexC).append("\n\n");
+                appendCardGroupStats(sb, list, act);
             }
         }
 
@@ -1546,7 +2194,7 @@ public class CardStats {
                 }
             }
             if (!groups.isEmpty()) {
-                sb.append("## 卡牌汇总-全局-按卡ID分组\n\n");
+                sb.append("## 卡牌汇总-全局\n\n");
                 List<Map.Entry<String, List<CardInstance>>> entries = new ArrayList<>(groups.entrySet());
                 entries.sort((a, b) -> Long.compare(
                         b.getValue().stream().mapToLong(i -> totalDmg(i)).sum(),
@@ -1565,9 +2213,9 @@ public class CardStats {
                         sumDexG += total(ins.dexterityGrant);
                         ppr += playsPerRoundAll(ins);
                     }
-                    String baseId = e.getKey().split("#")[0];
                     boolean up = e.getKey().endsWith("#up");
-                    sb.append("### **").append(baseId).append(up ? "(升级)" : "(未升级)").append("**\n\n");
+                    String shownName = list.get(0).name;
+                    sb.append("### **").append(shownName).append(up ? "(升级)" : "(未升级)").append("**\n\n");
                     sb.append("- **张数**: ").append(list.size())
                             .append("  **总打出**: ").append(sumPlays)
                             .append("  **均伤/次**: ").append(ave(sumDmg, sumPlays))
@@ -1575,8 +2223,82 @@ public class CardStats {
                             .append("  **平均每轮打出**: ").append(fmt(ppr / list.size())).append('\n');
                     sb.append("- **力量**: 授予 ").append(sumStrG).append("  贡献 ").append(sumStrC)
                             .append("  **敏捷**: 授予 ").append(sumDexG).append("  贡献 ").append(sumDexC).append("\n\n");
+                    appendCardGroupStats(sb, list, null);
                 }
             }
+        }
+
+        // ---- 卡包综合审计（v2 模块 2）----
+        {
+            String[] pkgs = { "七宗罪", "Hao", "Lost", "Shock", "C6H14", "本体" };
+            // 牌库 = 本局拥有过的牌，按 cardID 去重（整局口径）。
+            // 不用末场 deckAtStart：那样后期拿到/已删掉的牌会整个看不见（用户实测反馈）。
+            Map<String, Integer> deckByPkg = new HashMap<>();
+            int deckTotal = 0;
+            java.util.HashSet<String> seenDeckIds = new java.util.HashSet<>();
+            for (CardInstance ci : instances.values()) {
+                if (seenDeckIds.add(ci.cardID)) {
+                    deckByPkg.merge(packageOf(ci), 1, Integer::sum);
+                    deckTotal++;
+                }
+            }
+            Map<String, long[]> agg = new HashMap<>(); // [dmg, block, plays, energyNet, drawn]
+            for (CardInstance ci : instances.values()) {
+                long[] a = agg.computeIfAbsent(packageOf(ci),
+                        k -> new long[5]);
+                a[0] += totalDmg(ci);
+                a[1] += totalBlock(ci);
+                a[2] += totalPlays(ci);
+                a[3] += total(ci.energyGained) - total(ci.energySpent);
+                a[4] += total(ci.drawn);
+            }
+            Map<String, Long> diceByPkg = new HashMap<>();
+            for (DiceStat d : diceStats.values()) {
+                diceByPkg.merge(dicePackageOf(d.orbId), d.dmg, Long::sum);
+            }
+            long allCardDmg = 0, allCardBlock = 0, allDiceDmg = 0;
+            for (long[] a : agg.values()) {
+                allCardDmg += a[0];
+                allCardBlock += a[1];
+            }
+            for (Long v : diceByPkg.values()) {
+                allDiceDmg += v;
+            }
+            long totalDmgAll = allCardDmg + allDiceDmg;
+            // 整局口径：a[2] 已是整局总打出（见上方 agg 循环），此处只需整局总打出做分母。
+            long allPlaysTotal = 0;
+            for (long[] a : agg.values()) {
+                allPlaysTotal += a[2];
+            }
+            final double avgPlaysPerCard = deckTotal <= 0 ? 0 : (double) allPlaysTotal / deckTotal;
+            sb.append("## 卡包综合审计（全局）\n\n");
+            sb.append("> 全表为**整局**口径：牌库 = 本局拥有过的牌（去重），打出 = 整局打出次数。\n");
+            sb.append("> 稀释件 = 该包每张牌平均打出次数 < 全场每张牌均值×0.5（两列同量纲）。\n\n");
+            for (String pkg : pkgs) {
+                long[] a = agg.getOrDefault(pkg, new long[5]);
+                long dDmg = diceByPkg.getOrDefault(pkg, 0L);
+                int deckN = deckByPkg.getOrDefault(pkg, 0);
+                double deckShare = deckTotal <= 0 ? 0 : 100.0 * deckN / deckTotal;
+                double playShare = allPlaysTotal <= 0 ? 0 : 100.0 * a[2] / allPlaysTotal;
+                StringBuilder line = new StringBuilder("- **").append(pkg).append("**: ");
+                line.append("伤害占比 ").append(pct(a[0] + dDmg, totalDmgAll))
+                        .append("（卡 ").append(a[0]).append(" + 骰 ").append(dDmg).append("）")
+                        .append("  格挡占比 ").append(pct(a[1], allCardBlock))
+                        .append("  净能量 ").append(a[3])
+                        .append("  净过牌 ").append(a[2] <= 0 ? "-" : fmt((double) a[4] / a[2] - 1))
+                        .append("  牌库 ").append(deckN).append("张(").append(fmt(deckShare)).append("%)")
+                        .append("  打出 ").append(a[2]).append("次(").append(fmt(playShare)).append("%)");
+                // 稀释件：该包「每张牌平均打出次数」比「全场每张牌平均打出次数」。
+                // 两个量纲必须都是「每张牌的次数」——直接比两个占比会因包大小不同而失真
+                // （包内张数越多、上限越高，小结包会被系统性漏标）。
+                double playsPerDeckCard = deckN <= 0 ? 0 : (double) a[2] / deckN;
+                double ratio = avgPlaysPerCard <= 0 ? 1 : playsPerDeckCard / avgPlaysPerCard;
+                if (deckN > 0 && ratio < 0.5) {
+                    line.append("  ⚠卡组稀释件");
+                }
+                sb.append(line).append('\n');
+            }
+            sb.append("- **机制交互**: 骰伤害占全场 ").append(pct(allDiceDmg, totalDmgAll)).append('\n');
         }
 
         // ---- 骰子统计（按幕） ----
@@ -1627,20 +2349,55 @@ public class CardStats {
             }
         }
 
-        // ---- BUFF/DEBUFF 台账 ----
+        // ---- Power深度账本（v2：分幕场均层数 / 覆盖率 / 等效价值）----
         if (!ledgers.isEmpty()) {
             List<PowerLedger> list = new ArrayList<>(ledgers.values());
             list.sort((a, b) -> Long.compare(
                     b.damageDuring + b.damageTakenDuring + b.damageDealtToTarget + b.blockSaved,
                     a.damageDuring + a.damageTakenDuring + a.damageDealtToTarget + a.blockSaved));
-            sb.append("## BUFF/DEBUFF台账\n\n");
+            // 全局力量贡献汇总（Strength 行等效用）
+            long strengthContribTotal = 0;
+            for (CardInstance i : instances.values()) {
+                strengthContribTotal += total(i.strengthContrib);
+            }
+            // 每幕玩家回合总数（覆盖率分母）
+            int[] actTurns = new int[ACTS];
+            for (Combat c : combats) {
+                actTurns[c.act] += c.rounds();
+            }
+            // 每幕战斗场数（场均层数分母）
+            int[] actBattles = new int[ACTS];
+            for (Combat c : combats) {
+                actBattles[c.act]++;
+            }
+            sb.append("## Power深度账本\n\n");
             for (PowerLedger L : list) {
                 if (L.stacksApplied <= 0 && L.damageDuring <= 0 && L.blockDuring <= 0
-                        && L.damageTakenDuring <= 0 && L.damageDealtToTarget <= 0 && L.blockSaved <= 0) {
+                        && L.damageTakenDuring <= 0 && L.damageDealtToTarget <= 0 && L.blockSaved <= 0
+                        && L.hitValueSum <= 0) {
                     continue;
                 }
-                sb.append("### **").append(L.powerId).append("**").append(L.isDebuff ? "（debuff）" : "").append("\n\n");
-                sb.append("- **授予层数**: ").append(L.stacksApplied).append('\n');
+                sb.append("### **").append(L.name != null ? L.name : L.powerId)
+                        .append("** ").append(L.isDebuff ? "（debuff）" : "（buff）").append("\n\n");
+                // 分幕场均层数
+                StringBuilder actLine = new StringBuilder("- **分幕场均层数**: ");
+                for (int a = 0; a < ACTS; a++) {
+                    if (a > 0) {
+                        actLine.append("  ");
+                    }
+                    actLine.append(actBattles[a] <= 0 ? "-" : fmt((double) L.stacksAppliedAct[a] / actBattles[a]));
+                }
+                sb.append(actLine).append("（总授予 ").append(L.stacksApplied).append(" 层）\n");
+                // 激活回合覆盖率
+                StringBuilder covLine = new StringBuilder("- **激活回合覆盖率**: ");
+                for (int a = 0; a < ACTS; a++) {
+                    if (a > 0) {
+                        covLine.append("  ");
+                    }
+                    covLine.append(actTurns[a] <= 0 ? "-" : fmt(100.0 * L.coverageTurns[a] / actTurns[a])).append("%");
+                }
+                sb.append(covLine).append("\n");
+                // 期间统计（保留 v1 行）
                 List<Map.Entry<String, Long>> gr = new ArrayList<>(L.granters.entrySet());
                 gr.sort((a, b) -> Long.compare(b.getValue(), a.getValue()));
                 if (!gr.isEmpty()) {
@@ -1669,11 +2426,70 @@ public class CardStats {
                     sb.append("- **对带此debuff目标造成伤害**: ").append(L.damageDealtToTarget).append('\n');
                 }
                 if (L.blockSaved > 0) {
-                    sb.append("- **格挡作用(约)**: ").append(L.blockSaved).append("（该 debuff 挂在敌人身上时,替玩家挡掉的伤害）\n");
+                    sb.append("- **减战损等效(约)**: ").append(L.blockSaved).append('\n');
+                }
+                if (L.hitValueSum > 0) {
+                    sb.append("- **命中少打(负力量等效)**: ").append(L.hitValueSum).append('\n');
+                }
+                // 等效价值（通用公式 + 招牌）
+                String equiv = powerEquivLine(L, strengthContribTotal);
+                if (equiv != null) {
+                    sb.append("- **等效价值**: ").append(equiv).append('\n');
                 }
                 sb.append('\n');
             }
         }
+
+        // ---- DoubleSS机制收支（v2 模块 5）----
+        sb.append("## DoubleSS机制收支（全局）\n\n");
+        sb.append("**因果账本（罪孽/美德）**\n\n");
+        for (Combat c : combats) {
+            if (c.sinPeak > 0 || c.virtuePeak > 0 || c.maxHpStart != c.maxHpEnd) {
+                sb.append("- 第").append(c.act + 1).append("幕-").append(roomNames[c.roomType]).append(": 罪孽峰值 ")
+                        .append(c.sinPeak).append("  美德峰值 ").append(c.virtuePeak)
+                        .append("  最大HP变动 ").append(c.maxHpEnd - c.maxHpStart).append('\n');
+            }
+        }
+        int maxHpStart0 = combats.isEmpty() ? 0 : combats.get(0).maxHpStart;
+        int maxHpEndLast = 0;
+        for (Combat c : combats) {
+            if (c.maxHpEnd > 0) {
+                maxHpEndLast = c.maxHpEnd;
+            }
+        }
+        sb.append("- **整局**: 50罪孽触发 ×").append(karmaPlus50Hits)
+                .append("  50美德触发 ×").append(karmaMinus50Hits)
+                .append("  净最大HP变动 ").append(maxHpEndLast - maxHpStart0).append('\n');
+        sb.append("\n**奄息依赖度**\n\n");
+        sb.append("- **整局免死**: ").append(dyingSaveTotal).append(" 次");
+        if (!dyingSaveRooms.isEmpty()) {
+            sb.append("（关卡: ").append(String.join(", ", dyingSaveRooms)).append("）");
+        }
+        sb.append('\n');
+        for (Combat c : combats) {
+            if (c.lowDyingTurns > 0 || c.dyingSaves > 0) {
+                sb.append("- 第").append(c.act + 1).append("幕-").append(roomNames[c.roomType]).append(": 奄息<=2层回合 ")
+                        .append(c.lowDyingTurns).append("  免死 ").append(c.dyingSaves).append('\n');
+            }
+        }
+        sb.append("\n**身份对位契合度**\n\n");
+        sb.append("- **平均切换身份次数/场**: ")
+                .append(combats.isEmpty() ? "-" : fmt((double) stanceSwitchTotal / combats.size())).append('\n');
+        for (Combat c : combats) {
+            if (c.fiendPlays > 0 || c.managerPlays > 0) {
+                sb.append("- 第").append(c.act + 1).append("幕-").append(roomNames[c.roomType]).append(": ");
+                if (c.fiendPlays > 0) {
+                    sb.append("恶魔之焰契合 ").append(pct(c.fiendSinPlays, c.fiendPlays))
+                            .append("（七宗罪 ").append(c.fiendSinPlays).append("/").append(c.fiendPlays).append("）");
+                }
+                if (c.managerPlays > 0) {
+                    sb.append("  群主契合 ").append(pct(c.managerHaoPlays, c.managerPlays))
+                            .append("（群友卡 ").append(c.managerHaoPlays).append("/").append(c.managerPlays).append("）");
+                }
+                sb.append('\n');
+            }
+        }
+        sb.append('\n');
 
         // ---- 诊断 ----
         sb.append("## 诊断\n\n");
@@ -1684,28 +2500,215 @@ public class CardStats {
         sb.append("- 未分摊敏捷贡献(持恒豁免或无授予记录): ").append(unattributedDexterity).append('\n');
         sb.append("- 未跟踪伤害事件(战斗外): ").append(untrackedDamageEvents).append('\n');
         sb.append("- 卡牌栈强制弹出(异常, 正常应为0): ").append(forcedPops).append('\n');
+        sb.append("- 无归属能量增加(无栈顶且本回合未出牌): ").append(unattributedEnergyGain).append('\n');
+        sb.append("- 无归属抽牌(开局首抽/无栈顶): ").append(unattributedDraws).append('\n');
+        sb.append("- 无归属魂火伤害(无唤魂贡献记录): ").append(unattributedSoulDamage).append('\n');
+        sb.append("- 无归属魂火格挡(无唤魂贡献记录): ").append(unattributedSoulBlock).append('\n');
 
         writeToFile(sb.toString());
         clearSnapshotFile(); // 本局已导出，快照作废（防止后续 SL 再恢复已导出的数据）
     }
 
-    /** 单牌信息块（按实例统计节用）。 */
-    private static void appendCardBlock(StringBuilder sb, CardInstance ins, int act) {
-        sb.append("### **").append(displayName(ins, act)).append("**\n\n");
-        sb.append("- **升级**: ").append(ins.upgradedEver ? "是" : "否").append('\n');
-        sb.append("- **打出**: ").append(ins.plays[act])
-                .append("（单敌 ").append(ins.playsSingle[act])
-                .append(" / 群怪 ").append(ins.playsMulti[act]).append("）\n");
-        sb.append("- **总伤害**: ").append(ins.dmg[act])
-                .append("  **均伤/次**: ").append(ave(ins.dmg[act], ins.plays[act]))
-                .append("（单敌 ").append(ave(ins.dmgSingle[act], ins.playsSingle[act]))
-                .append(" / 群怪 ").append(ave(ins.dmgMulti[act], ins.playsMulti[act])).append("）\n");
-        sb.append("- **总格挡**: ").append(ins.block[act])
-                .append("  **均格挡/次**: ").append(ave(ins.block[act], ins.plays[act])).append('\n');
-        sb.append("- **每轮打出**: ").append(fmt(playsPerRound(ins, act))).append('\n');
-        sb.append("- **力量**: 授予 ").append(ins.strengthGrant[act]).append("  贡献 ").append(ins.strengthContrib[act])
-                .append("  **敏捷**: 授予 ").append(ins.dexterityGrant[act]).append("  贡献 ").append(ins.dexterityContrib[act])
-                .append("\n\n");
+    /** v2 单卡资源收支/手牌表现/条件触发率行。act=null 表示全局（滞留/弃置/条件仅全局显示）。 */
+    private static void appendCardGroupStats(StringBuilder sb, List<CardInstance> list, Integer act) {
+        long spent = 0, gained = 0, drawn = 0;
+        long dwellSum = 0, discarded = 0;
+        int condTotal = 0, condMet = 0;
+        long plays = 0;
+        for (CardInstance i : list) {
+            plays += (act == null) ? totalPlays(i) : i.plays[act];
+            spent += (act == null) ? total(i.energySpent) : i.energySpent[act];
+            gained += (act == null) ? total(i.energyGained) : i.energyGained[act];
+            drawn += (act == null) ? total(i.drawn) : i.drawn[act];
+            dwellSum += i.handDwellSum;
+            discarded += i.handDiscarded;
+            condTotal += i.conditionTotal;
+            condMet += i.conditionMet;
+        }
+        // 资源收支
+        sb.append("- **资源收支**: 净能量 ").append(gained - spent)
+                .append("（付 ").append(spent).append(" / 得 ").append(gained).append("）");
+        sb.append("  净过牌 ").append(plays <= 0 ? "-" : fmt((double) drawn / plays - 1))
+                .append("（抽 ").append(drawn).append(" / 打出 ").append(plays).append("）\n");
+        // 手牌表现（整局口径）
+        sb.append("- **手牌表现**: 平均滞留 ").append(plays <= 0 ? "-" : fmt((double) dwellSum / plays))
+                .append(" 回合  打出率 ").append((plays + discarded) <= 0 ? "-" : fmt(100.0 * plays / (plays + discarded))).append("%\n");
+        // 条件触发率（仅注册表内的牌）
+        if (condTotal > 0) {
+            CardConditionRegistry.Condition cond = CardConditionRegistry.lookup(list.get(0).cardID);
+            sb.append("- **条件触发率**: ").append(condMet).append("/").append(condTotal)
+                    .append("（").append(cond != null ? cond.label() : "?").append("）\n");
+        }
+    }
+
+    /** 百分比（分母 0 → "-"）。 */
+    private static String pct(long num, long den) {
+        return den <= 0 ? "-" : fmt(100.0 * num / den) + "%";
+    }
+
+    /** 包 ID → 短名。 */
+    private static String packageNameOf(String packageId) {
+        if (packageId == null) {
+            return null;
+        }
+        if (packageId.contains("HaoPackage")) {
+            return "Hao";
+        }
+        if (packageId.contains("LostPackage")) {
+            return "Lost";
+        }
+        if (packageId.contains("ShockPackage")) {
+            return "Shock";
+        }
+        if (packageId.contains("C6H14Package")) {
+            return "C6H14";
+        }
+        return "本体";
+    }
+
+    /**
+     * cardID → 卡包短名，收容**不进 cardParentMap** 的两类牌（惰性构建）。
+     *
+     * cardParentMap 只在 AbstractPackage.initializePack() 里写入，而该方法只遍历
+     * getCards()。因此以下两类牌永远缺席，只查 cardParentMap 会把它们全归成「本体」：
+     * - 协同卡：addPairCard 声明，走 modcore.buildPairCards() → pairCardPool；
+     * - 起手牌：getStarterCard() 返回值，不在任何 getCards() 列表里。
+     * 归一包多声明同一张卡时取先声明者（当前无此情况）。
+     */
+    private static Map<String, String> extraCardPkg = null;
+
+    private static String extraPackageOf(String cardID) {
+        if (cardID == null) {
+            return null;
+        }
+        if (extraCardPkg == null) {
+            extraCardPkg = new HashMap<>();
+            SS.modcore.modcore.ensurePackages(); // 保险：确保 mainPackageList 已填充
+            for (SS.packages.AbstractPackage p : SS.modcore.modcore.mainPackageList) {
+                if (p == null) {
+                    continue;
+                }
+                String shortName = packageNameOf(p.ID);
+                if (p.pairCards != null) {
+                    for (String cid : p.pairCards.values()) {
+                        if (cid != null) {
+                            extraCardPkg.putIfAbsent(cid, shortName);
+                        }
+                    }
+                }
+                String starter = p.getStarterCard();
+                if (starter != null) {
+                    extraCardPkg.putIfAbsent(starter, shortName);
+                }
+            }
+        }
+        return extraCardPkg.get(cardID);
+    }
+
+    /**
+     * 取实例的包归属。缓存为空时（SL 读档恢复的旧实例走不到 getOrCreate）现算一次并回填。
+     * 回填用 liveCardOf——查不到活牌就只剩 cardParentMap 一条路，七宗罪卡会落到「本体」，
+     * 属读档路径的已知近似（v1 快照本就没有 packageTag）。
+     */
+    private static String packageOf(CardInstance ci) {
+        if (ci.packageTag == null) {
+            ci.packageTag = cardPackageOf(ci.cardID, liveCardOf(ci.cardID));
+        }
+        return ci.packageTag;
+    }
+
+    /**
+     * 牌归包，优先级：Sins tag → 七宗罪；cardParentMap → 对应包；协同卡表 → 声明它的包；其余 → 本体。
+     * sample = 该 ID 的一张活牌（读 tag，可 null）。
+     */
+    private static String cardPackageOf(String cardID, AbstractCard sample) {
+        if (sample != null && sample.hasTag(AbstractCardEnum.Sins)) {
+            return "七宗罪";
+        }
+        String pkg = SS.modcore.modcore.cardParentMap.get(cardID);
+        if (pkg != null) {
+            return packageNameOf(pkg);
+        }
+        // 协同卡 / 起手牌：不在 cardParentMap 里，走补全反查表（按声明它的卡包归包）
+        String extra = extraPackageOf(cardID);
+        return extra != null ? extra : "本体";
+    }
+
+    /** 骰子归包：Hao 骰 → Hao，其余 → 本体。 */
+    private static String dicePackageOf(String orbId) {
+        if (orbId != null && (orbId.equals("Double:AttackHaoDice") || orbId.equals("Double:DefendHaoDice"))) {
+            return "Hao";
+        }
+        return "本体";
+    }
+
+    /** 取该 cardID 的一张活牌（读 tag 用；masterDeck 规模小，线性查找可接受）。 */
+    private static AbstractCard liveCardOf(String cardID) {
+        if (AbstractDungeon.player == null || AbstractDungeon.player.masterDeck == null) {
+            return null;
+        }
+        for (AbstractCard mc : AbstractDungeon.player.masterDeck.group) {
+            if (mc.cardID.equals(cardID)) {
+                return mc;
+            }
+        }
+        return null;
+    }
+
+    /** 战损标准差（总体 stddev，n=1 时为 0）。 */
+    private static double stddev(List<Combat> cs) {
+        if (cs.size() <= 1) {
+            return 0;
+        }
+        double mean = 0;
+        for (Combat c : cs) {
+            mean += c.netHpLoss();
+        }
+        mean /= cs.size();
+        double sq = 0;
+        for (Combat c : cs) {
+            double d = c.netHpLoss() - mean;
+            sq += d * d;
+        }
+        return Math.sqrt(sq / cs.size());
+    }
+
+    private static int maxNetLoss(List<Combat> cs) {
+        int m = 0;
+        for (Combat c : cs) {
+            m = Math.max(m, c.netHpLoss());
+        }
+        return m;
+    }
+
+    /** Power 等效价值（按 power ID 选公式；返回 null = 无等效行）。 */
+    private static String powerEquivLine(PowerLedger L, long strengthContribTotal) {
+        switch (L.powerId) {
+            case "Vulnerable":
+                return L.damageDealtToTarget <= 0 ? null
+                        : "增伤贡献 ≈ " + (L.damageDealtToTarget / 3) + "（1.5x 中 1/3）";
+            case "Strength":
+                return strengthContribTotal <= 0 ? null
+                        : "增伤贡献 ≈ " + strengthContribTotal + "（按授予比例分摊到各卡）";
+            case "Weakened":
+                return L.blockSaved <= 0 ? null
+                        : "减战损等效 ≈ " + L.blockSaved + "（25% 少受伤害）";
+            case "Shackled":
+                return L.hitValueSum <= 0 ? null
+                        : "输出减少等效 ≈ " + L.hitValueSum + "（负力量少打）";
+            case "IntangiblePlayer":
+                return L.blockSaved <= 0 ? null
+                        : "减战损等效 ≈ " + L.blockSaved + "（伤害压到 1）";
+            case "Energized": {
+                long turns = 0;
+                for (int t : L.coverageTurns) {
+                    turns += t;
+                }
+                return turns <= 0 ? null : "供能等效 ≈ " + turns + " 能量（激活回合×1）";
+            }
+            default:
+                return null;
+        }
     }
 
     private static boolean activeInAct(CardInstance ins, int act) {
@@ -1775,17 +2778,6 @@ public class CardStats {
             n++;
         }
         return n == 0 ? 0 : sum / n;
-    }
-
-    private static String displayName(CardInstance ins, int act) {
-        int copies = 0;
-        for (CardInstance other : instances.values()) {
-            if (other.cardID.equals(ins.cardID)
-                    && (other.plays[act] > 0 || other.dmg[act] > 0 || other.block[act] > 0)) {
-                copies++;
-            }
-        }
-        return copies > 1 ? ins.name + "#" + (ins.copyIndex + 1) : ins.name;
     }
 
     private static String ave(long total, long count) {

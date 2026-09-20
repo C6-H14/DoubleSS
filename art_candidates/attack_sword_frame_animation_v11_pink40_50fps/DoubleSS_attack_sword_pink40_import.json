@@ -1,0 +1,506 @@
+{
+  "skeleton": {
+    "hash": "",
+    "spine": "3.8.75",
+    "x": -175.0,
+    "y": -70.0,
+    "width": 700,
+    "height": 700,
+    "images": "D:/StSmod/DoubleSS/art_candidates/attack_sword_frame_animation_v11_pink40_50fps/images/"
+  },
+  "bones": [
+    {
+      "name": "root"
+    }
+  ],
+  "slots": [
+    {
+      "name": "character_frame",
+      "bone": "root",
+      "attachment": "attack_sword_01"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "character_frame": {
+          "attack_sword_01": {
+            "path": "attack_sword_01",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_02": {
+            "path": "attack_sword_02",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_03": {
+            "path": "attack_sword_03",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_04": {
+            "path": "attack_sword_04",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_05": {
+            "path": "attack_sword_05",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_06": {
+            "path": "attack_sword_06",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_07": {
+            "path": "attack_sword_07",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_08": {
+            "path": "attack_sword_08",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_09": {
+            "path": "attack_sword_09",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_10": {
+            "path": "attack_sword_10",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_11": {
+            "path": "attack_sword_11",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_12": {
+            "path": "attack_sword_12",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_13": {
+            "path": "attack_sword_13",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_14": {
+            "path": "attack_sword_14",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_15": {
+            "path": "attack_sword_15",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_16": {
+            "path": "attack_sword_16",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_17": {
+            "path": "attack_sword_17",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_18": {
+            "path": "attack_sword_18",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_19": {
+            "path": "attack_sword_19",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_20": {
+            "path": "attack_sword_20",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_21": {
+            "path": "attack_sword_21",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_22": {
+            "path": "attack_sword_22",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_23": {
+            "path": "attack_sword_23",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_24": {
+            "path": "attack_sword_24",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_25": {
+            "path": "attack_sword_25",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_26": {
+            "path": "attack_sword_26",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_27": {
+            "path": "attack_sword_27",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_28": {
+            "path": "attack_sword_28",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_29": {
+            "path": "attack_sword_29",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_30": {
+            "path": "attack_sword_30",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_31": {
+            "path": "attack_sword_31",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_32": {
+            "path": "attack_sword_32",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_33": {
+            "path": "attack_sword_33",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_34": {
+            "path": "attack_sword_34",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_35": {
+            "path": "attack_sword_35",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_36": {
+            "path": "attack_sword_36",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_37": {
+            "path": "attack_sword_37",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_38": {
+            "path": "attack_sword_38",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_39": {
+            "path": "attack_sword_39",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          },
+          "attack_sword_40": {
+            "path": "attack_sword_40",
+            "x": 0,
+            "y": 210.0,
+            "width": 700,
+            "height": 700
+          }
+        }
+      }
+    }
+  ],
+  "events": {
+    "attack_hit": {},
+    "attack_end": {}
+  },
+  "animations": {
+    "idle": {
+      "slots": {
+        "character_frame": {
+          "attachment": [
+            {
+              "name": "attack_sword_01"
+            }
+          ]
+        }
+      }
+    },
+    "attack_sword": {
+      "slots": {
+        "character_frame": {
+          "attachment": [
+            {
+              "name": "attack_sword_01"
+            },
+            {
+              "name": "attack_sword_02",
+              "time": 0.02
+            },
+            {
+              "name": "attack_sword_03",
+              "time": 0.04
+            },
+            {
+              "name": "attack_sword_04",
+              "time": 0.06
+            },
+            {
+              "name": "attack_sword_05",
+              "time": 0.08
+            },
+            {
+              "name": "attack_sword_06",
+              "time": 0.1
+            },
+            {
+              "name": "attack_sword_07",
+              "time": 0.12
+            },
+            {
+              "name": "attack_sword_08",
+              "time": 0.14
+            },
+            {
+              "name": "attack_sword_09",
+              "time": 0.16
+            },
+            {
+              "name": "attack_sword_10",
+              "time": 0.18
+            },
+            {
+              "name": "attack_sword_11",
+              "time": 0.2
+            },
+            {
+              "name": "attack_sword_12",
+              "time": 0.22
+            },
+            {
+              "name": "attack_sword_13",
+              "time": 0.24
+            },
+            {
+              "name": "attack_sword_14",
+              "time": 0.26
+            },
+            {
+              "name": "attack_sword_15",
+              "time": 0.28
+            },
+            {
+              "name": "attack_sword_16",
+              "time": 0.3
+            },
+            {
+              "name": "attack_sword_17",
+              "time": 0.32
+            },
+            {
+              "name": "attack_sword_18",
+              "time": 0.34
+            },
+            {
+              "name": "attack_sword_19",
+              "time": 0.36
+            },
+            {
+              "name": "attack_sword_20",
+              "time": 0.38
+            },
+            {
+              "name": "attack_sword_21",
+              "time": 0.4
+            },
+            {
+              "name": "attack_sword_22",
+              "time": 0.42
+            },
+            {
+              "name": "attack_sword_23",
+              "time": 0.44
+            },
+            {
+              "name": "attack_sword_24",
+              "time": 0.46
+            },
+            {
+              "name": "attack_sword_25",
+              "time": 0.48
+            },
+            {
+              "name": "attack_sword_26",
+              "time": 0.5
+            },
+            {
+              "name": "attack_sword_27",
+              "time": 0.52
+            },
+            {
+              "name": "attack_sword_28",
+              "time": 0.54
+            },
+            {
+              "name": "attack_sword_29",
+              "time": 0.56
+            },
+            {
+              "name": "attack_sword_30",
+              "time": 0.58
+            },
+            {
+              "name": "attack_sword_31",
+              "time": 0.6
+            },
+            {
+              "name": "attack_sword_32",
+              "time": 0.62
+            },
+            {
+              "name": "attack_sword_33",
+              "time": 0.64
+            },
+            {
+              "name": "attack_sword_34",
+              "time": 0.66
+            },
+            {
+              "name": "attack_sword_35",
+              "time": 0.68
+            },
+            {
+              "name": "attack_sword_36",
+              "time": 0.7
+            },
+            {
+              "name": "attack_sword_37",
+              "time": 0.72
+            },
+            {
+              "name": "attack_sword_38",
+              "time": 0.74
+            },
+            {
+              "name": "attack_sword_39",
+              "time": 0.76
+            },
+            {
+              "name": "attack_sword_40",
+              "time": 0.78
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "time": 0.38,
+          "name": "attack_hit"
+        },
+        {
+          "time": 0.8,
+          "name": "attack_end"
+        }
+      ]
+    }
+  }
+}

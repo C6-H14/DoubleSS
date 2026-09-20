@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 
 import SS.Dice.EmptyDiceSlot;
 import SS.action.common.UpdateManagerStanceDescriptions;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -59,5 +60,10 @@ public class FreedomOfSpeech extends AbstractDoubleCard {
 
     public AbstractDoubleCard makeCopy() {
         return new FreedomOfSpeech();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 }

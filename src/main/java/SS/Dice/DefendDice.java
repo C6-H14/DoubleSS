@@ -32,7 +32,6 @@ public class DefendDice extends AbstractDice {
         this.myColor = CardHelper.getColor(249, 0, 0);
         this.target = p;
         this.faces = 6;
-        this.result = getDiceResult();
         this.tags.add(AbstractCardEnum.DefensiveDice);
         updateDescription();
     }

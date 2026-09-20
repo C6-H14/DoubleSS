@@ -80,7 +80,7 @@
             "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。",
             "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 。"
         ],
-        "FLAVOR":" #p恶魔之焰身份 ：额外激发1次。"
+        "FLAVOR":" #p恶魔之焰身份 ：额外激发1次，罪孽值加1。"
     },
     "Double:MultiFacial": {
         "NAME": "千面",
@@ -181,11 +181,11 @@
     },
     "Double:HedonismShackles":{
         "NAME": "欢愉枷锁",
-        "DESCRIPTION": "所有敌人失去1点临时力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗 。",
-        "UPGRADE_DESCRIPTION": "所有敌人失去1点力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗 。",
+        "DESCRIPTION": "所有敌人失去2点临时力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗 。",
+        "UPGRADE_DESCRIPTION": "所有敌人失去2点力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            " [#cf3fbe]保留[] ，所有敌人失去1点临时力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗 。",
-            " [#cf3fbe]保留[] ，所有敌人失去1点力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗  。"
+            " [#cf3fbe]保留[] ，所有敌人失去2点临时力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗 。",
+            " [#cf3fbe]保留[] ，所有敌人失去2点力量， double:绑定 !M! 张手牌，获得2点 double:罪孽 ， NL 消耗  。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：获得保留。"
     },
@@ -788,11 +788,11 @@
     },
     "Double:SoulGuard":{
         "NAME": "魂佑",
-        "DESCRIPTION": " 虚无 ， double:持恒 ，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ，本场战斗中本牌失去 double:奄息 数加1。",
-        "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ，本场战斗中本牌失去 double:奄息 数加1。",
+        "DESCRIPTION": " double:持恒 ，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ，本场战斗中本牌失去 double:奄息 数加1。",
+        "UPGRADE_DESCRIPTION": " double:持恒 ，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ，本场战斗中本牌失去 double:奄息 数加1。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， double:持恒 ，消耗，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ， *生成1个永恒防御 double:骰子 ( !Double:PermanentBlock! ) ，本场战斗中本牌失去 double:奄息 数加1。",
-            " 虚无 ， double:持恒 ，消耗，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ， *生成1个永恒防御 double:骰子 ( !Double:PermanentBlock! ) ，本场战斗中本牌失去 double:奄息 数加1。"
+            " double:持恒 ，消耗，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ， *生成1个永恒防御 double:骰子 ( !Double:PermanentBlock! ) ，本场战斗中本牌失去 double:奄息 数加1。",
+            " double:持恒 ，消耗，失去 !Double:PermanentMagicNumber! 层 double:奄息 ， 获得 double:圣盾 ， *生成1个永恒防御 double:骰子 ( !Double:PermanentBlock! ) ，本场战斗中本牌失去 double:奄息 数加1。"
         ],
         "FLAVOR":" #y群主身份 ：获得圣盾。"
     },
@@ -1395,10 +1395,10 @@
         "DESCRIPTION": "魂火值不再减少，回合结束时，唤魂 !M! 。",
         "UPGRADE_DESCRIPTION": " 固有 ，魂火值不再减少，回合结束时，唤魂 !M! 。",
         "EXTENDED_DESCRIPTION": [
-            "所有魂火获得 3 点力量。 NL 魂火值不再减少，回合结束时，唤魂 !M! 。",
-            " 固有 ，所有魂火获得 3 点力量。 NL 魂火值不再减少，回合结束时，唤魂 !M! 。"
+            " *所有魂火获得3点力量 。 NL 魂火值不再减少，回合结束时，唤魂 !M! 。",
+            " 固有 ， *所有魂火获得3点力量 。 NL 魂火值不再减少，回合结束时，唤魂 !M! 。"
         ],
-        "FLAVOR":" #y群主身份 ：获得 [E] 。"
+        "FLAVOR":" #y群主身份 ：所有魂火获得3点力量 。"
     },
     "Double:Trisagion":{
         "NAME": "三圣颂",
@@ -1503,8 +1503,8 @@
     "Double:Genesis":
     {
         "NAME": "创世记",
-        "DESCRIPTION": " double:环境 ，进入创世记环境。",
-        "UPGRADE_DESCRIPTION": " double:环境 ，进入创世记环境。",
+        "DESCRIPTION": " double:环境 ，进入创世记环境：魂火数变为3个，不再打出铭刻牌。",
+        "UPGRADE_DESCRIPTION": " double:环境 ，进入创世记环境：魂火数变为3个，不再打出铭刻牌。",
         "EXTENDED_DESCRIPTION": [
             "这是第一行扩展描述。",
             "这是第二行扩展描述。",

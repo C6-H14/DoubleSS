@@ -1,0 +1,7 @@
+{
+  "source": "D:\\StSmod\\DoubleSS\\art_candidates\\video_source\\cast_v1\\preview_v3_37f_50fps\\frames",
+  "frames": 37,
+  "fps": 50,
+  "duration_seconds": 0.74,
+  "edge_rgb_cleanup": "all 0<alpha<248 RGB replaced by nearest alpha>=248 RGB"
+}

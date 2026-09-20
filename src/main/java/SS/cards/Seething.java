@@ -51,9 +51,6 @@ public class Seething extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new EvokeAllDiceAction(this.magicNumber));
         addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.magicNumber)));
-        if (needFiend()) {
-            addToBot(new DrawCardAction(1));
-        }
     }
 
     public void updateFiend() {

@@ -29,6 +29,7 @@ public class UpdateManagerStanceDescriptions extends AbstractGameAction {
             flag = true;
         }
 
+        SS.stats.CardStats.onStanceSwitch("Manager");
         this.isDone = true;
     }
 }

@@ -1,0 +1,13 @@
+{
+  "cast_prayer": {
+    "frames": 41,
+    "fps": 60.0,
+    "duration": 1.2,
+    "canvas": 1024,
+    "scale": 0.5,
+    "paste": [
+      285,
+      310
+    ]
+  }
+}

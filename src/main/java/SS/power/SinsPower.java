@@ -3,6 +3,7 @@ package SS.power;
 import SS.helper.ModHelper;
 import SS.relic.SS.DemonReward;
 import SS.relic.SS.HolyReward;
+import SS.stats.CardStats;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
@@ -47,27 +48,32 @@ public class SinsPower extends AbstractPower implements InvisiblePower {
     public void stackPower(int stackAmount) {
         if (this.lock)
             return;
+        int prev = this.amount;
         this.amount += stackAmount;
         this.amount = Math.min(this.amount, max_sin);
         this.amount = Math.max(this.amount, min_sin);
         if (this.amount == max_sin || this.amount == min_sin) {
             this.lock = true;
         }
+        CardStats.onKarmaChange(this.amount - prev);
     }
 
     public void reducePower(int stackAmount) {
         if (this.lock)
             return;
+        int prev = this.amount;
         this.amount -= stackAmount;
         this.amount = Math.min(this.amount, max_sin);
         this.amount = Math.max(this.amount, min_sin);
         if (this.amount == max_sin || this.amount == min_sin) {
             this.lock = true;
         }
+        CardStats.onKarmaChange(this.amount - prev);
     }
 
     public void onInitialApplication() {
         // AbstractDungeon.player.decreaseMaxHealth(this.amount / 10);
+        CardStats.onKarmaApply(this.amount);
     }
 
     public void onVictory() {

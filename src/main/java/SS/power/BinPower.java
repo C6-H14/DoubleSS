@@ -4,6 +4,7 @@ import SS.Dice.AbstractDice;
 import SS.helper.ModHelper;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
@@ -56,6 +57,7 @@ public class BinPower extends AbstractPower {
             else if (amount == 7)
                 amount = 111;
             ((AbstractDice) orb).updateEvokeAmount(amount);
+            addToBot(new ReducePowerAction(owner, owner, this, 1));
         }
     }
 

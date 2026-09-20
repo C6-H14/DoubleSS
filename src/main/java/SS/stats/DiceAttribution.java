@@ -32,7 +32,21 @@ public class DiceAttribution {
 
     /** 从活骰子构造快照（拷贝 sources，防后续改动）。 */
     public static DiceAttribution of(AbstractDice dice) {
-        return new DiceAttribution(dice.ID, dice.name,
-                dice.sources != null ? new ArrayList<>(dice.sources) : new ArrayList<>());
+        // 激发归属覆盖：Seething/Blitzkrieg 这类「额外激发场上已有骰子」的牌，
+        // 激发时把当前牌设为覆盖牌——被激发的骰子 sources 指向的是当初**产**它的牌，
+        // 但这一遍伤害是因本次激发而生的，应记在激发牌头上（用户已定口径）。
+        // 覆盖只作用于本次 onEvoke 调用期间，见 CardStats.evokeAttribution。
+        return new DiceAttribution(dice.ID, dice.name, evokers(dice));
+    }
+
+    /** 取 sources：有激发覆盖牌时用覆盖牌（单元素），否则拷贝骰子自身的 sources。 */
+    private static ArrayList<AbstractCard> evokers(AbstractDice dice) {
+        AbstractCard evoker = CardStats.currentEvoker();
+        if (evoker != null) {
+            ArrayList<AbstractCard> one = new ArrayList<>();
+            one.add(evoker);
+            return one;
+        }
+        return dice.sources != null ? new ArrayList<>(dice.sources) : new ArrayList<>();
     }
 }

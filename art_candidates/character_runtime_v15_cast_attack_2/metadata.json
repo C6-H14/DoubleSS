@@ -1,0 +1,13 @@
+{
+  "cast_attack_2": {
+    "frames": 35,
+    "fps": 30.0,
+    "duration": 1.1666666666666667,
+    "canvas": 1024,
+    "scale": 0.5,
+    "paste": [
+      39,
+      135
+    ]
+  }
+}

@@ -30,7 +30,7 @@ public class GreatWave extends AbstractShockCard {
     public GreatWave() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 8;
+        this.damage = this.baseDamage = 6;
         if (needManager()) {
             updateManager();
         }

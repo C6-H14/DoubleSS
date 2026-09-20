@@ -54,6 +54,12 @@ public class EvokeSoulAction extends AbstractGameAction {
             addToBot(new SpawnAllyAction(new SoulAlly(0)));
         }
 
+        // 4. 战斗统计：记本次唤魂贡献（召唤 1 只 = 1 点魂火值；否则 = amount 点）。
+        //    魂火后续的伤害/格挡按各唤魂牌的累计贡献加权均分（用户定口径）。
+        //    栈顶即打出本牌的卡（EvokeSoulAction 在 card.use() 内入队）。
+        SS.stats.CardStats.onSoulContribute(SS.stats.CardStats.stackTopCard(),
+                hasSoulFire ? this.amount : 1);
+
         this.isDone = true;
     }
 }

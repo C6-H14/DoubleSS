@@ -1,0 +1,9 @@
+action=cast_debuff
+source=D:\StSmod\DoubleSS\art_candidates\video_source\jimeng-2026-09-18-9565-固定机位、固定画幅、固定人物大小。首帧和尾帧使用同一张参考图。  全程保持右向侧....mp4
+source_fps=24.149378
+selected_count=43
+preview_timing=22
+preview_duration=0.946s
+nominal_fps=45.455
+source_indices=0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,33,49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79,81,83,85,87,89,91,93,95,96
+notes=Match cut: source f33 egg at blast center -> source f49 established purple smoke; f34-f48 omitted.

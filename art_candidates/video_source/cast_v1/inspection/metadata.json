@@ -1,0 +1,30 @@
+{
+  "source": "D:\\StSmod\\DoubleSS\\art_candidates\\video_source\\jimeng-2026-09-18-5591-固定机位，固定画幅，固定人物脚底位置和身体比例。角色必须严格保持首帧中的外貌、六....mp4",
+  "width": 1112,
+  "height": 834,
+  "fps": 24.149377593360995,
+  "frame_count": 97,
+  "duration_seconds": 4.016666666666667,
+  "sample_indices_zero_based": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    51,
+    56,
+    61,
+    66,
+    71,
+    76,
+    81,
+    86,
+    91,
+    96
+  ]
+}

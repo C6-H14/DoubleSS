@@ -1,0 +1,23 @@
+video_1
+path=D:\StSmod\DoubleSS\art_candidates\video_source\jimeng-2026-09-18-6465-固定机位、固定画幅、固定人物比例。首帧和尾帧使用同一张参考图。  角色全程保持右....mp4
+size=1112x834
+fps=24.149378
+frames=97
+duration=4.016667
+contact=D:\StSmod\DoubleSS\art_candidates\video_source\new_animation_review\video_1_contact.jpg
+
+video_2
+path=D:\StSmod\DoubleSS\art_candidates\video_source\jimeng-2026-09-18-9565-固定机位、固定画幅、固定人物大小。首帧和尾帧使用同一张参考图。  全程保持右向侧....mp4
+size=1112x834
+fps=24.149378
+frames=97
+duration=4.016667
+contact=D:\StSmod\DoubleSS\art_candidates\video_source\new_animation_review\video_2_contact.jpg
+
+video_3
+path=D:\StSmod\DoubleSS\art_candidates\video_source\jimeng-2026-09-18-6157-固定镜头，人物大小和右脚位置不变，全程面向右侧。右脚踩地固定，左脚向后收拢并与右....mp4
+size=1120x832
+fps=24.143426
+frames=101
+duration=4.183333
+contact=D:\StSmod\DoubleSS\art_candidates\video_source\new_animation_review\video_3_contact.jpg

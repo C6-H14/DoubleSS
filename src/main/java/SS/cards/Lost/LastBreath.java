@@ -19,7 +19,7 @@ public class LastBreath extends AbstractLostCard {
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/Lost/LastBreath.png";
-    private static final int COST = 0;
+    private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.Lost_Black;
@@ -31,7 +31,7 @@ public class LastBreath extends AbstractLostCard {
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.tags.add(AbstractCardEnum.Permanent);
         this.isEthereal = true;
-        this.permanentDamage = this.basePermanentDamage = 6;
+        this.permanentDamage = this.basePermanentDamage = 7;
         this.exhaust = true;
         if (needManager()) {
             updateManager();

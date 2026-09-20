@@ -28,6 +28,7 @@ public class UpdateFiendStanceDescriptions extends AbstractGameAction {
             flag = true;
         }
 
+        SS.stats.CardStats.onStanceSwitch("Fiend");
         this.isDone = true;
     }
 }

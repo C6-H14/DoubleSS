@@ -1,5 +1,8 @@
 package SS.cards;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveField;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -30,6 +33,27 @@ public abstract class AbstractDoubleCard extends CustomCard {
     protected String[] EXTENDED_DESCRIPTION = { "", "", "", "", "", "" };
     protected boolean isFiend = false, isManager = false;
     public PackageEnum packagetype;
+
+    /** Override with false when a card manages all of its character actions manually. */
+    public boolean shouldPlayDefaultCharacterAnimation() {
+        return true;
+    }
+
+    /** Override to replace the normal sword swing with another named animation. */
+    public String getDefaultCharacterAnimation() {
+        return null;
+    }
+
+    /**
+     * Override when one card use should queue several character animations.
+     * Repeated names are allowed, for example cast -> attack_sword -> attack_sword.
+     */
+    public List<String> getDefaultCharacterAnimationSequence() {
+        String animation = getDefaultCharacterAnimation();
+        return animation == null || animation.isEmpty()
+                ? Collections.<String>emptyList()
+                : Collections.singletonList(animation);
+    }
 
     public AbstractDoubleCard findFather() {
         if (this.fatherCard == null)

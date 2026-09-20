@@ -31,7 +31,6 @@ public class SoulGuard extends AbstractLostCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.tags.add(AbstractCardEnum.Permanent);
-        this.isEthereal = true;
         this.permanentBlock = this.basePermanentBlock = 4;
         this.permanentMagicNumber = this.basePermanentMagicNumber = 1;
         if (needManager()) {

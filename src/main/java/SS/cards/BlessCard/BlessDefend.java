@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.powers.MetallicizePower;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
@@ -57,5 +58,10 @@ public class BlessDefend extends AbstractBlessCard {
 
     public AbstractDoubleCard makeCopy() {
         return new BlessDefend();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 }

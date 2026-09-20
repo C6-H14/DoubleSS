@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.GainStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import SS.action.common.ConjugateCardInHandAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.SinsPower;
@@ -53,13 +54,13 @@ public class HedonismShackles extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
-            addToBot(new ApplyPowerAction(mo, p, new StrengthPower(mo, -1), -1, true,
+            addToBot(new ApplyPowerAction(mo, p, new StrengthPower(mo, -2), -2, true,
                     AbstractGameAction.AttackEffect.NONE));
         }
         if (!this.upgraded) {
             for (AbstractMonster mo : (AbstractDungeon.getCurrRoom()).monsters.monsters) {
                 if (!mo.hasPower("Artifact")) {
-                    addToBot(new ApplyPowerAction(mo, p, new GainStrengthPower(mo, 1), 1, true,
+                    addToBot(new ApplyPowerAction(mo, p, new GainStrengthPower(mo, 2), 2, true,
                             AbstractGameAction.AttackEffect.NONE));
                 }
             }
@@ -86,5 +87,10 @@ public class HedonismShackles extends AbstractDoubleCard {
         this.selfRetain = false;
         UpdateDescription();
         initializeDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_DEBUFF;
     }
 }
