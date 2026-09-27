@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -59,6 +60,11 @@ public class SlowCook extends AbstractShockCard {
                 }
             }
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -89,6 +90,11 @@ public class Earthquake extends AbstractShockCard {
             c.setCostForTurn(COST - calculateCost());
         }
         return c;
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_SPECIAL;
     }
 
     public AbstractDoubleCard makeCopy() {

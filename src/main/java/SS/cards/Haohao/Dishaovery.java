@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.haohao.DishaoveryAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -48,6 +49,11 @@ public class Dishaovery extends AbstractHaoCard {
             flag = true;
         }
         addToBot(new DishaoveryAction(flag));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

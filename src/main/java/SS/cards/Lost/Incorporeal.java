@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.IntangiblePlayerPower;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -56,6 +57,11 @@ public class Incorporeal extends AbstractLostCard {
         if (needManager()) {
             addToBot(new HealAction(p, p, 5));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

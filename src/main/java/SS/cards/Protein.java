@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -39,6 +40,11 @@ public class Protein extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new MakeTempCardInHandAction(new PeptideStrike(), this.magicNumber));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

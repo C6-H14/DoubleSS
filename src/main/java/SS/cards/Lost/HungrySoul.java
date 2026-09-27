@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.EternalAttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -54,6 +55,11 @@ public class HungrySoul extends AbstractLostCard {
             addToBot(new ChannelDiceAction(new EternalAttackDice(this.permanentDamage, p)));
         }
         addToBot(new GainEnergyAction(2));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

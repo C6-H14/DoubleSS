@@ -8,9 +8,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.EnergizedPower;
 import com.megacrit.cardcrawl.powers.NightmarePower;
 import com.megacrit.cardcrawl.powers.PoisonPower;
+
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -59,6 +60,11 @@ public class DeathNotifier extends AbstractHaoCard {
             }
         }
         addToBot(new ApplyPowerAction(p, p, new NightmarePower(p, upgraded ? 4 : 3, this.cardsToPreview)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_DEBUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

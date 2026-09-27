@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.MindblastEffect;
 
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.SinsPower;
@@ -81,6 +82,11 @@ public class ShootOff extends AbstractDoubleCard {
 
     public AbstractDoubleCard makeCopy() {
         return new ShootOff();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 
     public void triggerOnGlowCheck() {

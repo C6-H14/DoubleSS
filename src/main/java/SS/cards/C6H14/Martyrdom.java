@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.monster.EvokeSoulAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.monster.ally.AllyManager;
@@ -67,6 +68,11 @@ public class Martyrdom extends AbstractC6H14Card {
         if (needManager()) {
             addToBot(new EvokeSoulAction(1));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

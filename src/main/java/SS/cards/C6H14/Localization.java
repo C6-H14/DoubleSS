@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.c6h14.LocalizationAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -45,6 +46,11 @@ public class Localization extends AbstractC6H14Card {
         if (needManager()) {
             addToBot(new GainEnergyAction(1));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

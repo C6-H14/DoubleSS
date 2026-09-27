@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.c6h14.EraserAction;
+import SS.animation.CharacterAnimationController;
 import SS.cardmodifiers.PaintingModifier;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -69,6 +70,11 @@ public class Eraser extends AbstractC6H14Card {
                 addVirtue(-5);
             }
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

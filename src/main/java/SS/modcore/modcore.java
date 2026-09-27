@@ -68,13 +68,9 @@ import SS.helper.TempRelicManager;
 import SS.packages.AbstractPackage;
 import SS.packages.NullPackage;
 import SS.packages.AbstractPackage.PackageType;
-import SS.packages.BluePackage.BluePackage;
 import SS.packages.C6H14Package.C6H14Package;
-import SS.packages.GreenPackage.GreenPackage;
 import SS.packages.HaoPackage.HaoPackage;
 import SS.packages.LostPackage.LostPackage;
-import SS.packages.PurplePackage.PurplePackage;
-import SS.packages.RedPackage.RedPackage;
 import SS.packages.RedPackage.RedPackage_v;
 import SS.packages.ShockPackage.ShockPackage;
 import SS.patches.CharacterSelectPackPatch;
@@ -95,6 +91,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Random;
 
@@ -273,10 +270,6 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         packageList.clear();
         packageColorMap.clear();
 
-        mainPackageList.add(new RedPackage());
-        mainPackageList.add(new GreenPackage());
-        mainPackageList.add(new BluePackage());
-        mainPackageList.add(new PurplePackage());
         mainPackageList.add(new HaoPackage());
         mainPackageList.add(new LostPackage());
         mainPackageList.add(new ShockPackage());
@@ -310,6 +303,12 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         public static AbstractCard.CardTags Separateble;
     }
 
+    /** 每轮展示的槽位数（数值/运转/上限）。 */
+    private static final int CHOICE_SLOTS = 3;
+    /** 槽位 i 对应的子卡包类型，索引即后缀顺序，见 ui.json "Double:OptionCardSuffix"。 */
+    private static final PackageType[] SLOT_TYPES = { PackageType.VALUE, PackageType.CONSISTENCY,
+            PackageType.CEILING };
+
     public static void addClassChoice() {
         Collections.shuffle(colorChoices, new Random(AbstractDungeon.cardRng.randomLong()));
         CardGroup charChoices = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
@@ -321,25 +320,55 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
         } catch (Exception e) {
             suffixes = null;
         }
-        // 每轮固定展示 3 个选择（3 个随机颜色的 数值/运转/上限）；轮数由 needPackage 决定
-        for (int i = 0; i < 3; ++i) {
+        // 本轮配色：正常情况下取 3 个互不相同的颜色。
+        ArrayList<AbstractPackage> picks = pickColorsForRound();
+        for (int i = 0; i < picks.size() && i < CHOICE_SLOTS; ++i) {
+            AbstractPackage pick = picks.get(i);
             // 每轮用副本改标题，不污染共享的 OptionCard 实例（否则下轮会变成"牌:数值:运转"）
-            AbstractDoubleCard shown = ((AbstractDoubleCard) colorChoices.get(i).OptionCard).makeCopy();
+            AbstractDoubleCard shown = ((AbstractDoubleCard) pick.OptionCard).makeCopy();
             if (suffixes != null && suffixes.length > i) {
                 shown.name = shown.name + ":" + suffixes[i];
             }
+            // 子包引用直接挂在选项卡上：第三轮可能两个槽位同色，
+            // 用颜色回查 colorToPackage 会被后写入的槽位覆盖，故以实例为准。
+            AbstractPackage sub = pick.SubPackages.get(SLOT_TYPES[i]);
+            shown.choiceSubPackage = sub;
             charChoices.addToTop(shown);
-            PackageEnum packageenum = ((AbstractDoubleCard) colorChoices.get(i).OptionCard).packagetype;
-            if (i == 0) {
-                colorToPackage.put(packageenum, colorChoices.get(i).SubPackages.get(PackageType.VALUE));
-            } else if (i == 1) {
-                colorToPackage.put(packageenum, colorChoices.get(i).SubPackages.get(PackageType.CONSISTENCY));
-            } else {
-                colorToPackage.put(packageenum, colorChoices.get(i).SubPackages.get(PackageType.CEILING));
-            }
+            colorToPackage.put(((AbstractDoubleCard) pick.OptionCard).packagetype, sub);
         }
         AbstractDungeon.gridSelectScreen.open(charChoices, 1, false,
                 (CardCrawlGame.languagePack.getUIString("Double:AtGameStart")).TEXT[1]);
+    }
+
+    /**
+     * 为本轮选配色：优先取 3 个互不相同、且尚未被选过的颜色。
+     * 保护机制：剩余未选颜色不足 3 个时放宽「颜色互不相同」——仍从剩余颜色中取，
+     * 欠缺的槽位由剩余颜色重复填充（4 个主卡包时第三轮只剩 2 色，即 A/B/A 或 A/B/B）。
+     * 返回值长度即本轮实际可展示的槽位数，调用方不得假设恒为 3。
+     */
+    private static ArrayList<AbstractPackage> pickColorsForRound() {
+        ArrayList<AbstractPackage> remaining = new ArrayList<>();
+        for (AbstractPackage p : colorChoices) {
+            if (!validColors.contains(p.PackageColor)) {
+                remaining.add(p);
+            }
+        }
+        ArrayList<AbstractPackage> picks = new ArrayList<>();
+        if (remaining.size() >= CHOICE_SLOTS) {
+            for (int i = 0; i < CHOICE_SLOTS; ++i) {
+                picks.add(remaining.get(i));
+            }
+            return picks;
+        }
+        // 保护路径：先每个剩余颜色占一个槽，再从剩余颜色里随机补满。
+        picks.addAll(remaining);
+        if (remaining.isEmpty()) {
+            return picks;
+        }
+        while (picks.size() < CHOICE_SLOTS) {
+            picks.add(remaining.get(new Random(AbstractDungeon.cardRng.randomLong()).nextInt(remaining.size())));
+        }
+        return picks;
     }
 
     public static AbstractCard getSpecificClassCard(AbstractCard.CardColor color) {
@@ -481,7 +510,10 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
      */
     private static void buildPairCards() {
         pairCardPool.clear();
-        for (PackageEnum a : validColors) {
+        // 去重：第三轮保护机制允许同一颜色被选中两次（选项卡同色占两槽），
+        // 若不去重，外层/内层会重复枚举同一有序对，协同卡被重复加入卡池。
+        ArrayList<PackageEnum> colors = new ArrayList<>(new LinkedHashSet<>(validColors));
+        for (PackageEnum a : colors) {
             if (a == PackageEnum.Default) {
                 continue;
             }
@@ -489,7 +521,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             if (packA == null) {
                 continue;
             }
-            for (PackageEnum b : validColors) {
+            for (PackageEnum b : colors) {
                 if (b == PackageEnum.Default || b == a) {
                     continue;
                 }
@@ -684,7 +716,11 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
             }
 
             validColors.add(c.packagetype);
-            validPackage.add(colorToPackage.get(c.packagetype));
+            // 优先用选项卡自带的子包引用（同色多槽时唯一可靠）；
+            // 旧路径/预置槽位无该字段，回落到按颜色查表。
+            AbstractPackage chosen = c.choiceSubPackage != null ? c.choiceSubPackage
+                    : colorToPackage.get(c.packagetype);
+            validPackage.add(chosen);
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
             if (choosingCharacters == needPackage - 1) {// 选完了
                 finalizePackageSelection();

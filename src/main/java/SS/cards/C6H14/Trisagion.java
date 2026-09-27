@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.ImmolateDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.monster.ally.AllyManager;
@@ -65,6 +66,13 @@ public class Trisagion extends AbstractC6H14Card {
         if (needManager()) {
             addVirtue(10);
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        if (getVirtue() < this.magicNumber)
+            return CharacterAnimationController.IDLE;
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 
     public AbstractDoubleCard makeCopy() {

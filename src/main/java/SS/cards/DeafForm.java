@@ -8,10 +8,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.DeafFormPower;
-import SS.power.SinsPower;
 
 public class DeafForm extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("DeafForm");
@@ -43,6 +43,11 @@ public class DeafForm extends AbstractDoubleCard {
         p.decreaseMaxHealth(this.upgraded ? 1 : 2);
         addToBot(new ApplyPowerAction(p, p, new DeafFormPower(p, this.magicNumber),
                 this.magicNumber));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_SPECIAL;
     }
 
     public AbstractDoubleCard makeCopy() {

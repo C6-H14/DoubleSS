@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackHaoDice;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -67,6 +68,11 @@ public class HaoBludgeon extends AbstractHaoCard {
             addToBot(new GainEnergyAction(3));
         }
         flag = true;
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 
     public AbstractDoubleCard makeCopy() {

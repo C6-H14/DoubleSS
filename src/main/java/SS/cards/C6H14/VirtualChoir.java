@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.action.unique.GainVirtueAction;
+import SS.animation.CharacterAnimationController;
 import SS.cardmodifiers.PaintingModifier;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -50,6 +51,11 @@ public class VirtualChoir extends AbstractC6H14Card {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new ChannelDiceAction(new AttackDice(damage, m)));
         addToBot(new GainVirtueAction(p, (needManager() ? 2 : 0) + magicNumber));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

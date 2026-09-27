@@ -32,8 +32,8 @@ public class MyCharacter extends AbstractSSCharacter {
     private static final String MY_CHARACTER_SHOULDER_1 = "img/char/shoulder.png";
     private static final String MY_CHARACTER_SHOULDER_2 = "img/char/shoulder2.png";
     private static final String CORPSE_IMAGE = "img/char/Corpse.png";
-    private static final String CHARACTER_ATLAS = "img/char/spine/character.atlas";
-    private static final String CHARACTER_SKELETON = "img/char/spine/character.json";
+    /** Published build uses the front character; inner assets remain isolated for later work. */
+    private static final CharacterVisualForm ACTIVE_VISUAL_FORM = CharacterVisualForm.FRONT;
     private static final String[] ORB_TEXTURES = new String[] { "img/UI/orb/layer5.png", "img/UI/orb/layer4.png",
             "img/UI/orb/layer3.png", "img/UI/orb/layer2.png", "img/UI/orb/layer1.png", "img/UI/orb/layer6.png",
             "img/UI/orb/layer5d.png", "img/UI/orb/layer4d.png", "img/UI/orb/layer3d.png", "img/UI/orb/layer2d.png",
@@ -76,7 +76,7 @@ public class MyCharacter extends AbstractSSCharacter {
         // AbstractCreature.loadAnimation applies Settings.renderScale / scale.
         // The runtime textures are 2x the old resolution, so doubling this
         // divisor (0.5 -> 1.0) preserves the old in-game size and extra detail.
-        initializeCharacterAnimation(CHARACTER_ATLAS, CHARACTER_SKELETON, 1.0F);
+        initializeCharacterAnimation(ACTIVE_VISUAL_FORM, 1.0F);
     }
 
     public ArrayList<String> getStartingDeck() {

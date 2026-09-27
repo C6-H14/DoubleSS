@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.monster.EvokeSoulAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.Indulgence;
 import SS.helper.ModHelper;
@@ -63,6 +64,11 @@ public class SpiritualCompanionship extends AbstractC6H14Card {
         this.selfRetain = false;
         UpdateDescription();
         initializeDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

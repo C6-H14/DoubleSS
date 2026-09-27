@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.lost.FallenPactAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -58,6 +59,11 @@ public class FallenPact extends AbstractLostCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new FallenPactAction(this.permanentMagicNumber));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

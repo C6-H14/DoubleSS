@@ -41,12 +41,6 @@ public class Strike extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         int setDamage = this.damage;
-        /*
-         * if (AbstractDungeon.player.getPower("Strength")!=null)
-         * {
-         * setDamage+=AbstractDungeon.player.getPower("Strength").amount;
-         * }
-         */
         addToBot(new ChannelDiceAction(new AttackDice(setDamage, m)));
     }
 

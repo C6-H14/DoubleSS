@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.IntangiblePlayerPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -75,6 +76,11 @@ public class Lurker extends AbstractDoubleCard {
 
     public void triggerOnGlowCheck() {
         triggerOnGlowCheck_Fiend();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

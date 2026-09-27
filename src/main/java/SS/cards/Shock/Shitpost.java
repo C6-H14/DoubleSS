@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.powers.PoisonPower;
 
 import SS.Dice.AttackHaoDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -59,6 +60,11 @@ public class Shitpost extends AbstractShockCard {
             addToBot(new GainGoldAction(this.magicNumber));
             addToBot(new HealAction(p, p, this.upgraded ? 3 : 2));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_DEBUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

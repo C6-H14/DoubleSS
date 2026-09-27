@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.power.FallenPower;
@@ -59,6 +60,11 @@ public class Fallen extends AbstractShockCard {
             addToBot(new ApplyPowerAction(p, p, new WeakPower(p, 1, false),
                     1, true));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.animation.CharacterAnimationController;
 import SS.cardmodifiers.FindFather;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -89,6 +90,11 @@ public class Mainstay extends AbstractDoubleCard {
             }
         });
         addToBot(new MakeTempCardInHandAction(this.cardsToPreview, 1));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

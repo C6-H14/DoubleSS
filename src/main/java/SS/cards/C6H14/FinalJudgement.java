@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.GiantTextEffect;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -67,6 +68,11 @@ public class FinalJudgement extends AbstractC6H14Card {
     public void exitManager() {
         super.exitManager();
         upgradeMagicNumber(-1);
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

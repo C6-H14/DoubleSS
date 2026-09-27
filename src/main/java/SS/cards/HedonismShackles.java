@@ -73,10 +73,6 @@ public class HedonismShackles extends AbstractDoubleCard {
         return new HedonismShackles();
     }
 
-    public void triggerOnGlowCheck() {
-        triggerOnGlowCheck_Fiend();
-    }
-
     public void updateFiend() {
         this.selfRetain = true;
         UpdateDescription();

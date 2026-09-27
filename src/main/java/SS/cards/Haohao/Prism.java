@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackHaoDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -74,6 +75,11 @@ public class Prism extends AbstractHaoCard {
         for (int i = 0; i < amount; ++i) {
             addToBot(new ChannelDiceAction(new AttackHaoDice(d, m)));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 
     public AbstractDoubleCard makeCopy() {

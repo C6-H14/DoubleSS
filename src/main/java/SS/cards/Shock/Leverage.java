@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.powers.WeakPower;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -61,6 +62,11 @@ public class Leverage extends AbstractShockCard {
                 }
             }
         });
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_2;
     }
 
     public AbstractDoubleCard makeCopy() {

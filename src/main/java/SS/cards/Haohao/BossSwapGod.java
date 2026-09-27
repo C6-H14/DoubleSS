@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
 
 import SS.action.common.EchoACardAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
@@ -72,6 +73,11 @@ public class BossSwapGod extends AbstractHaoCard {
         if (amount > 0) {
             addToBot(new ApplyPowerAction(p, p, new BerserkPower(p, amount)));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

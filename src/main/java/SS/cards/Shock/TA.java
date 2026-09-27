@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
 import SS.action.common.DamageFatalAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.Haohao.AbstractHaoCard;
 import SS.helper.ModHelper;
@@ -138,6 +139,11 @@ public class TA extends AbstractShockCard {
             }
         }
         return false;
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 
     public AbstractDoubleCard makeCopy() {

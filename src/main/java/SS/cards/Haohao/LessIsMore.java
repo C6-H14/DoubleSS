@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
 
 import SS.action.monster.GainAllyEnergyAction;
 import SS.action.unique.haohao.TempRemoveRelicAction;
+import SS.animation.CharacterAnimationController;
 import SS.cardmodifiers.PaintingModifier;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -98,6 +99,11 @@ public class LessIsMore extends AbstractHaoCard {
         CardModifierManager.removeModifiersById(this, "Double:PaintingModifier", false);
         UpdateDescription();
         initializeDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

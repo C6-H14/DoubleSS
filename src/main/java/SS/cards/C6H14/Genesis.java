@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.monster.EnterEvokeSoulEnvAction;
 import SS.action.monster.ExitEvokeSoulEnvAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.interfaces.IEnvironmentCard;
@@ -45,6 +46,11 @@ public class Genesis extends AbstractC6H14Card implements IEnvironmentCard {
 
     public AbstractDoubleCard makeCopy() {
         return new Genesis();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_SPECIAL;
     }
 
     @Override

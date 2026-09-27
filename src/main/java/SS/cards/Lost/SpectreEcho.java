@@ -9,9 +9,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.EternalAttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
-import SS.modcore.modcore;
 import SS.path.AbstractCardEnum;
 
 public class SpectreEcho extends AbstractLostCard {
@@ -68,6 +68,11 @@ public class SpectreEcho extends AbstractLostCard {
         }
         cnt = cnt + this.permanentMagicNumber * temp;
         return cnt;
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 
     public AbstractDoubleCard makeCopy() {

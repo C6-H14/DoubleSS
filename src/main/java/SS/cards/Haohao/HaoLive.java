@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.DefendHaoDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -53,6 +54,11 @@ public class HaoLive extends AbstractHaoCard {
         } else {
             addToBot(new DiscardAction(p, p, 1, true));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

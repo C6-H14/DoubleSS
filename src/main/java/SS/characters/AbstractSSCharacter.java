@@ -65,8 +65,32 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
             }
         } catch (RuntimeException error) {
             characterAnimationLoaded = false;
-            System.err.println("[DoubleSS] Failed to load character animation; using static fallback: " + error);
+            // loadAnimation assigns atlas before it parses the skeleton. If a
+            // later texture/JSON load fails, leaving that partial atlas in
+            // place makes AbstractPlayer call state.update() with state ==
+            // null on the first rendered combat frame.
+            if (this.atlas != null) {
+                try {
+                    this.atlas.dispose();
+                } catch (RuntimeException ignored) {
+                    // Best-effort cleanup; the important part is nulling it.
+                }
+            }
+            this.atlas = null;
+            this.state = null;
+            this.stateData = null;
+            this.skeleton = null;
+            System.err.println("[DoubleSS] Failed to load character animation; using static fallback:");
+            error.printStackTrace();
         }
+    }
+
+    /** Loads one explicitly selected visual form. */
+    protected final void initializeCharacterAnimation(CharacterVisualForm form, float scale) {
+        if (form == null) {
+            throw new IllegalArgumentException("Character visual form must not be null");
+        }
+        initializeCharacterAnimation(form.atlasPath, form.skeletonPath, scale);
     }
 
     public final boolean playCharacterAnimation(CharacterAnimationRequest request) {

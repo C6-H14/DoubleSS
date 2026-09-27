@@ -33,6 +33,13 @@ public abstract class AbstractDoubleCard extends CustomCard {
     protected String[] EXTENDED_DESCRIPTION = { "", "", "", "", "", "" };
     protected boolean isFiend = false, isManager = false;
     public PackageEnum packagetype;
+    /**
+     * 开局选卡包时，本选项卡（OptionCard 的副本）对应哪个子卡包。
+     * 只在 addClassChoice 里对副本赋值，选包结束即失效，不参与存盘。
+     * 存在的理由：第三轮保护机制允许同一颜色占两个槽位，此时
+     * 「颜色 → 子包」的映射会被后者覆盖，必须靠选项卡实例本身来区分。
+     */
+    public SS.packages.AbstractPackage choiceSubPackage;
 
     /** Override with false when a card manages all of its character actions manually. */
     public boolean shouldPlayDefaultCharacterAnimation() {

@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.DefendDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
@@ -83,6 +84,11 @@ public class Orbit extends AbstractC6H14Card {
                 c.applyPowers();
             }
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

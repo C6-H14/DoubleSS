@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.action.unique.ss.SelfReliantAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -64,6 +65,11 @@ public class SelfReliant extends AbstractDoubleCard {
         upgradeMagicNumber(-1);
         UpdateDescription();
         initializeDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST;
     }
 
     @Override

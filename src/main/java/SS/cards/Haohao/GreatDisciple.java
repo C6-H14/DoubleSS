@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.haohao.GreatDiscipleAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -50,6 +51,11 @@ public class GreatDisciple extends AbstractHaoCard {
         if (needManager()) {
             addToBot((AbstractGameAction) new ChangeStanceAction("Wrath"));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.common.EchoACardAction;
+import SS.animation.CharacterAnimationController;
 import SS.cardmodifiers.EchoTagModifier; // 请根据你的实际路径确认 EchoTagModifier 的引用
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -81,6 +82,11 @@ public class WhichPick extends AbstractHaoCard {
                 addToBot(new EchoACardAction(chosenCard, this.magicNumber));
             }
         });
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     @Override

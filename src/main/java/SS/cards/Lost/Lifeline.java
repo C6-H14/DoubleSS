@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.lost.LifelineAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -43,6 +44,11 @@ public class Lifeline extends AbstractLostCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new LifelineAction(this.freeToPlayOnce, this.energyOnUse, this.upgraded, needManager()));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.lost.StratifiedStormAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -46,6 +47,11 @@ public class StratifiedStorm extends AbstractLostCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new StratifiedStormAction(p, this.freeToPlayOnce, this.energyOnUse, this.basePermanentDamage,
                 this.uuid, needManager()));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_SWORD;
     }
 
     public AbstractDoubleCard makeCopy() {

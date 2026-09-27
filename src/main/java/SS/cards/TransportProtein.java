@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.vfx.combat.ThirdEyeEffect;
 
 import SS.action.common.ChangeStanceAction;
 import SS.action.common.DrawSameTypeCardAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -49,6 +50,11 @@ public class TransportProtein extends AbstractDoubleCard {
         addToBot((AbstractGameAction) new ScryAction(this.magicNumber));
         addToBot(new DrawSameTypeCardAction());
         addToBot(new ChangeStanceAction());
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

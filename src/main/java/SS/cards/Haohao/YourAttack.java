@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.powers.WeakPower;
 import SS.Dice.AttackHaoDice;
 import SS.action.common.DiscardByTypeAction;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -56,6 +57,11 @@ public class YourAttack extends AbstractHaoCard {
             addToBot(new ApplyPowerAction(m, p, new WeakPower(m, this.magicNumber, false), this.magicNumber));
         }
         addToBot(new DiscardByTypeAction(p, CardType.ATTACK));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_SWORD;
     }
 
     public AbstractDoubleCard makeCopy() {

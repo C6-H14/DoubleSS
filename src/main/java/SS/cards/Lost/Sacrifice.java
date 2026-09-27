@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.common.EchoACardAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.Haohao.AbstractHaoCard;
 import SS.helper.ModHelper;
@@ -100,6 +101,11 @@ public class Sacrifice extends AbstractLostCard {
         upgradeMagicNumber(-1);
         UpdateDescription();
         initializeDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST;
     }
 
     public AbstractDoubleCard makeCopy() {

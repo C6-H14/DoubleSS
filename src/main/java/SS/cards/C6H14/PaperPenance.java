@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.DefendDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.action.monster.EvokeSoulAction;
-import SS.action.unique.c6h14.PaperPenanceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -54,6 +54,11 @@ public class PaperPenance extends AbstractC6H14Card {
                 addToBot(new EvokeSoulAction(2));
             });
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cardmodifiers.PaintingModifier;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
@@ -71,5 +72,10 @@ public class Hymn extends AbstractC6H14Card implements OnPaintingSubscriber {
     @Override
     public void triggerOnPainting(AbstractCard c) {
         addToBot(new ModifyDamageAction(this.uuid, this.magicNumber));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 }

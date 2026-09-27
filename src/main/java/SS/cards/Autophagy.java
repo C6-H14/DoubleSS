@@ -10,6 +10,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.BleedingPower;
@@ -44,6 +46,11 @@ public class Autophagy extends AbstractDoubleCard {
         addToBot(new GainEnergyAction(this.magicNumber));
         addToBot(new ApplyPowerAction(p, p, new BleedingPower(p, 3)));
         addToBot(new DamageAction(p, new DamageInfo(p, 3, DamageType.NORMAL)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

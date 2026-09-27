@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.powers.watcher.BlockReturnPower;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -57,6 +58,11 @@ public class CripplingShockwave extends AbstractShockCard {
                         1, true));
             }
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_DEBUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

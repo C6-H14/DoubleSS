@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.SinsPower;
@@ -63,6 +64,11 @@ public class Stingy extends AbstractDoubleCard {
             addToBot(new DrawCardAction(1));
         }
         addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 1)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_SWORD;
     }
 
     public AbstractDoubleCard makeCopy() {

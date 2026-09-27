@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.AttackHaoDice;
 import SS.action.common.TriggerPoisonAction;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -55,6 +56,11 @@ public class HaoStab extends AbstractHaoCard {
         if (needManager()) {
             addToBot(new TriggerPoisonAction(m, p));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_2;
     }
 
     public AbstractDoubleCard makeCopy() {

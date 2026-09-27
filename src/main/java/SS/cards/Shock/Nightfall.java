@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -62,6 +63,11 @@ public class Nightfall extends AbstractShockCard {
             }
         }
         addToBot(new GainEnergyAction(amount));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_SWORD;
     }
 
     public AbstractDoubleCard makeCopy() {

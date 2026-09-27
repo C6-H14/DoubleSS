@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.watcher.EndTurnDeathPower;
 
 import SS.action.unique.ss.TrumpCardAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -70,6 +71,11 @@ public class TrumpCard extends AbstractDoubleCard {
 
     public AbstractDoubleCard makeCopy() {
         return new TrumpCard();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_SPECIAL;
     }
 
     public void triggerOnGlowCheck() {

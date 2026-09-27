@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.NoBlockPower;
 
-import SS.action.unique.shock.OffenseAsDefenseAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.power.OffenseAsDefensePower;
@@ -48,6 +48,11 @@ public class OffenseAsDefense extends AbstractShockCard {
         if (!needManager()) {
             addToBot(new ApplyPowerAction(p, p, new NoBlockPower(p, 1, false)));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

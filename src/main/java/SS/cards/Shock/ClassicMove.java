@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.Options.CommonCardOption;
 import SS.cards.Options.RareCardOption;
@@ -52,6 +53,11 @@ public class ClassicMove extends AbstractShockCard {
         stanceChoices.add(new UncommonCardOption());
         stanceChoices.add(new RareCardOption());
         addToBot((AbstractGameAction) new ChooseOneAction(stanceChoices));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

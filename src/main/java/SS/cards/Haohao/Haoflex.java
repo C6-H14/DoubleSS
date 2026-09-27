@@ -15,6 +15,7 @@ import SS.Dice.AttackHaoDice;
 import SS.Dice.DefendHaoDice;
 import SS.Dice.EmptyDiceSlot;
 import SS.action.dice.RemoveDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -81,6 +82,11 @@ public class Haoflex extends AbstractHaoCard {
             addToBot(new RemoveDiceAction(s, 1));
         }
         addToBot(new DrawCardAction(this.magicNumber));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

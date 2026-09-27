@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.c6h14.KaleidoscopeAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.power.KaleidoscopePower;
@@ -50,5 +51,10 @@ public class Kaleidoscope extends AbstractC6H14Card {
 
     public AbstractDoubleCard makeCopy() {
         return new Kaleidoscope();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 }

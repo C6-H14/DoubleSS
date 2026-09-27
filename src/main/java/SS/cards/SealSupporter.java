@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import SS.action.common.ExhaustSpecificTypeAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import basemod.abstracts.CustomSavable;
@@ -145,6 +146,11 @@ public class SealSupporter extends AbstractDoubleCard implements CustomSavable<B
             addToBot(new ExhaustAllNonAttackAction());
             addToBot(new ApplyPowerAction(p, p, new DexterityPower(p, amount)));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

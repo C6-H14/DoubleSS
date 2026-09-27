@@ -10,6 +10,7 @@ import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.action.monster.EvokeSoulAction;
 import SS.action.unique.c6h14.CommandAllSoulsAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -56,4 +57,10 @@ public class Guidance extends AbstractC6H14Card {
     public AbstractDoubleCard makeCopy() {
         return new Guidance();
     }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.COMMAND_ALLY;
+    }
+
 }

@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.path.AbstractCardEnum;
 
@@ -67,6 +68,11 @@ public abstract class AbstractBlessCard extends AbstractDoubleCard {
         } else if (this.hasTag(AbstractCardEnum.Manager)) {
             triggerOnGlowCheck_Manager();
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public static String blessCardFrom, blessCardUpgrade;

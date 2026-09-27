@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.GainVirtueAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 
 public class Indulgence extends AbstractDoubleCard {
@@ -39,6 +40,11 @@ public class Indulgence extends AbstractDoubleCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new GainVirtueAction(p, this.magicNumber));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

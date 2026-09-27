@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.AggressionPower;
@@ -57,6 +58,11 @@ public class Aggression extends AbstractDoubleCard {
         addToBot(new ApplyPowerAction(m, p, new AggressionPower(m, M), M));
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
         addToBot(new ApplyPowerAction(p, p, new SinsPower(p, needFiend() ? 7 : 10)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_2;
     }
 
     public void triggerOnGlowCheck() {

@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -70,6 +71,11 @@ public class UnstableShockwave extends AbstractShockCard {
                     addToBot(new ApplyPowerAction(mo, p, new VulnerablePower(mo, this.magicNumber - amount, false)));
             }
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_DEBUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

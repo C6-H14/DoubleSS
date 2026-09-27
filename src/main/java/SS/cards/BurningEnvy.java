@@ -9,6 +9,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DrawPower;
+
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.BurningEnvyPower;
@@ -57,8 +59,9 @@ public class BurningEnvy extends AbstractDoubleCard {
         addToBot(new ApplyPowerAction(p, p, new BurningEnvyPower(p, 1)));
     }
 
-    public void triggerOnGlowCheck() {
-        triggerOnGlowCheck_Fiend();
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 
     public AbstractDoubleCard makeCopy() {

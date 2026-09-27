@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.PeptideDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 
 public class PeptideStrike extends AbstractDoubleCard {
@@ -50,6 +51,11 @@ public class PeptideStrike extends AbstractDoubleCard {
         int setDamage = this.damage;
         addToBot(new DamageAction(m, new DamageInfo(p, this.damage, DamageInfo.DamageType.NORMAL)));
         addToBot(new ChannelDiceAction(new PeptideDice(setDamage, m)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_SWORD;
     }
 
     public AbstractDoubleCard makeCopy() {

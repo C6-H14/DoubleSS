@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import SS.Dice.AttackDice;
 import SS.Dice.EmptyDiceSlot;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -55,6 +56,11 @@ public class Luxuriance extends AbstractDoubleCard {
         hsmap.clear();
         addToBot(new DrawCardAction(amount));
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

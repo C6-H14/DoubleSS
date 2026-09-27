@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
 
 import SS.action.unique.haohao.TempRemoveRelicAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.modcore.modcore;
@@ -101,6 +102,11 @@ public class BossSwap extends AbstractHaoCard {
                 }
             }
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     @Override

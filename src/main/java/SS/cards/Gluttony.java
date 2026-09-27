@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.PeptideDice;
 import SS.action.unique.ss.GluttonyAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.SinsPower;
@@ -59,6 +60,11 @@ public class Gluttony extends AbstractDoubleCard {
 
     public void triggerOnGlowCheck() {
         triggerOnGlowCheck_Fiend();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {

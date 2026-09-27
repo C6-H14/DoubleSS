@@ -2,6 +2,15 @@
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Maven/build output and packaged releases
+/target/
+
+# Generated animation candidates, extracted frames, previews, and caches
+/art_candidates/
+**/__pycache__/
+*.pyc
+*.class
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml

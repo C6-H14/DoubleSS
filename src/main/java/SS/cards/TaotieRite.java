@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.action.unique.ss.TaotieRiteAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -56,6 +57,11 @@ public class TaotieRite extends AbstractDoubleCard {
 
     public AbstractDoubleCard makeCopy() {
         return new TaotieRite();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_SPECIAL;
     }
 
     public void triggerOnGlowCheck() {

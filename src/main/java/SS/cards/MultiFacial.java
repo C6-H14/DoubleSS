@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import SS.animation.CharacterAnimationController;
 import SS.cards.Options.Fiend_option;
 import SS.cards.Options.Manager_option;
 import SS.helper.ModHelper;
@@ -49,6 +50,11 @@ public class MultiFacial extends AbstractDoubleCard {
             addToBot(new DrawCardAction(1));
         }
         addToBot(new ChooseOneAction(stanceChoices));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST;
     }
 
     public AbstractDoubleCard makeCopy() {

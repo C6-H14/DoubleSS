@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.SinsPower;
@@ -54,6 +55,11 @@ public class RecordingTeam extends AbstractDoubleCard {
         }
         addToBot(new MakeTempCardInHandAction(this.cardsToPreview, this.magicNumber));
         addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_SWORD;
     }
 
     public AbstractDoubleCard makeCopy() {

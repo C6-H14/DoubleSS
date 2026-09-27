@@ -11,13 +11,18 @@ import SS.characters.AbstractSSCharacter;
 public final class CharacterAnimationController {
     public static final String IDLE = "idle";
     public static final String ATTACK_SWORD = "attack_sword";
-    public static final String CAST = "cast";
     public static final String CAST_ATTACK_1 = "cast_attack_1";
+    public static final String CAST = CAST_ATTACK_1;
     public static final String CAST_ATTACK_2 = "cast_attack_2";
     public static final String ATTACK_HEAVY = "attack_heavy";
     public static final String CAST_DEBUFF = "cast_debuff";
     public static final String CAST_BUFF = "cast_buff";
     public static final String CAST_PRAYER = "cast_prayer";
+    public static final String COMMAND_ALLY = "command_ally";
+    public static final String CAST_SPECIAL = "cast_special";
+    public static final String HURT = "hurt";
+    /** Inner-character fire-charged thrust. Not mapped to front-character cards. */
+    public static final String ATTACK_MAGIC = "attack_magic";
 
     private CharacterAnimationController() {
     }

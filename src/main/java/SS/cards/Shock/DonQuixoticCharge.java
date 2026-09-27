@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.powers.VulnerablePower;
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.action.unique.GainVirtueAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -65,6 +66,11 @@ public class DonQuixoticCharge extends AbstractShockCard {
             }
             addToBot(new GainVirtueAction(p, amount));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.ATTACK_HEAVY;
     }
 
     public AbstractDoubleCard makeCopy() {

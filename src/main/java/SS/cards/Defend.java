@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.DefendDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -41,6 +42,11 @@ public class Defend extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         int setBlock = this.block;
         addToBot(new ChannelDiceAction(new DefendDice(setBlock, p)));
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST;
     }
 
     public AbstractDoubleCard makeCopy() {

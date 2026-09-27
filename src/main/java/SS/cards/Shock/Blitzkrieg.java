@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.ImmolateDice;
 import SS.action.dice.ChannelDiceAction;
 import SS.action.dice.EvokeAllDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
@@ -61,6 +62,11 @@ public class Blitzkrieg extends AbstractShockCard {
             this.isDamageModified = true;
         this.baseDamage = tmp;
         UpdateDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_2;
     }
 
     public AbstractDoubleCard makeCopy() {

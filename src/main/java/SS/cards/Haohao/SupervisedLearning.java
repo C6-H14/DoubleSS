@@ -18,8 +18,8 @@ import SS.Dice.AttackHaoDice;
 import SS.Dice.DefendHaoDice;
 import SS.Dice.EmptyDiceSlot;
 import SS.action.dice.RemoveDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
-import SS.cards.Lost.AbstractLostCard;
 import SS.cards.Shock.AbstractShockCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -119,6 +119,11 @@ public class SupervisedLearning extends AbstractHaoCard {
         this.selfRetain = false;
         UpdateDescription();
         initializeDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_PRAYER;
     }
 
     public AbstractDoubleCard makeCopy() {

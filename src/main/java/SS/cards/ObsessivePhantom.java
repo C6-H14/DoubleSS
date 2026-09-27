@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import SS.Dice.DefendDice;
 import SS.action.common.ConjugateCardinDrawPileAction;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 import SS.power.SinsPower;
@@ -60,10 +61,6 @@ public class ObsessivePhantom extends AbstractDoubleCard {
         return new ObsessivePhantom();
     }
 
-    public void triggerOnGlowCheck() {
-        triggerOnGlowCheck_Fiend();
-    }
-
     public void updateFiend() {
         upgradeMagicNumber(1);
         UpdateDescription();
@@ -74,5 +71,10 @@ public class ObsessivePhantom extends AbstractDoubleCard {
         upgradeMagicNumber(-1);
         UpdateDescription();
         initializeDescription();
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_BUFF;
     }
 }

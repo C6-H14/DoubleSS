@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.EternalDefendDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
@@ -55,6 +56,11 @@ public class SoulGuard extends AbstractLostCard {
         if (needManager()) {
             addToBot(new ChannelDiceAction(new EternalDefendDice(this.permanentBlock, p)));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST;
     }
 
     public AbstractDoubleCard makeCopy() {

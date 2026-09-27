@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import SS.Dice.DefendDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -48,6 +49,11 @@ public class Spore extends AbstractDoubleCard {
         for (int i = 0; i < amount; ++i) {
             addToBot(new ChannelDiceAction(new DefendDice(this.block, p)));
         }
+    }
+
+    @Override
+    public String getDefaultCharacterAnimation() {
+        return CharacterAnimationController.CAST_ATTACK_1;
     }
 
     public AbstractDoubleCard makeCopy() {
