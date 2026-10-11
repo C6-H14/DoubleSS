@@ -2,10 +2,21 @@ package SS.characters;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import basemod.abstracts.CustomPlayer;
+import basemod.ReflectionHacks;
 import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.AnimationState;
+import com.esotericsoftware.spine.Event;
+import com.esotericsoftware.spine.Skeleton;
+import com.esotericsoftware.spine.SkeletonData;
+import com.esotericsoftware.spine.AnimationStateData;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.LifecycleListener;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.defect.AnimateOrbAction;
@@ -14,6 +25,7 @@ import com.megacrit.cardcrawl.actions.defect.EvokeOrbAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -25,6 +37,7 @@ import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 
 import SS.Dice.EmptyDiceSlot;
 import SS.animation.CharacterAnimationController;
+import SS.animation.CharacterAnimationDiagnostics;
 import SS.animation.CharacterAnimationRequest;
 import SS.cards.AbstractDoubleCard;
 import SS.cards.MultiFacial;
@@ -46,6 +59,40 @@ import SS.path.PackageEnumList.PackageEnum;
  */
 public abstract class AbstractSSCharacter extends CustomPlayer {
     private boolean characterAnimationLoaded;
+    private boolean characterDeathAnimationStarted;
+    private boolean usesSharedAnimationAtlas;
+    // Resource ownership belongs to this cache, not to any player instance.
+    // Loading and disposal run on the game's GL thread.
+    private static final Map<String, CachedAnimation> ANIMATION_CACHE = new HashMap<>();
+    private static boolean cacheLifecycleRegistered;
+
+    private static final class CachedAnimation {
+        final TextureAtlas atlas;
+        final SkeletonData skeletonData;
+
+        CachedAnimation(TextureAtlas atlas, SkeletonData skeletonData) {
+            this.atlas = atlas;
+            this.skeletonData = skeletonData;
+        }
+    }
+
+    private static void registerCacheLifecycle() {
+        if (cacheLifecycleRegistered) {
+            return;
+        }
+        Gdx.app.addLifecycleListener(new LifecycleListener() {
+            @Override public void pause() { }
+            @Override public void resume() { }
+            @Override public void dispose() {
+                for (CachedAnimation resource : ANIMATION_CACHE.values()) {
+                    resource.atlas.dispose();
+                }
+                ANIMATION_CACHE.clear();
+                cacheLifecycleRegistered = false;
+            }
+        });
+        cacheLifecycleRegistered = true;
+    }
 
     /**
      * 转发给 CustomPlayer 的构造器（orbTextures/orbVfx/layerSpeed 那套带充能球动画的签名），
@@ -57,11 +104,80 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
     }
 
     protected final void initializeCharacterAnimation(String atlas, String skeletonJson, float scale) {
+        characterDeathAnimationStarted = false;
+        final long started = System.nanoTime();
+        final String cacheKey = getClass().getName() + "|" + atlas + "|" + skeletonJson
+                + "|" + Float.floatToIntBits(scale) + "|" + Float.floatToIntBits(Settings.renderScale);
+        boolean cacheHit = false;
+        CharacterAnimationDiagnostics.log("load atlas=" + atlas + " skeleton=" + skeletonJson
+                + " scale=" + scale + " codeSource="
+                + CharacterAnimationDiagnostics.codeSource(getClass())
+                + " logPath=" + CharacterAnimationDiagnostics.logPath());
         try {
-            loadAnimation(atlas, skeletonJson, scale);
+            registerCacheLifecycle();
+            CachedAnimation cached = ANIMATION_CACHE.get(cacheKey);
+            cacheHit = cached != null;
+            if (cacheHit) {
+                this.atlas = cached.atlas;
+                usesSharedAnimationAtlas = true;
+                // Never share mutable pose, listeners, queues, or mix settings.
+                this.skeleton = new Skeleton(cached.skeletonData);
+                this.skeleton.setColor(Color.WHITE);
+                this.stateData = new AnimationStateData(cached.skeletonData);
+                this.state = new AnimationState(this.stateData);
+            } else {
+                usesSharedAnimationAtlas = false;
+                // Retain the original loader (including other mods' patches)
+                // for the first load. Publish only after idle validation.
+                loadAnimation(atlas, skeletonJson, scale);
+            }
             characterAnimationLoaded = this.state != null && this.state.getData() != null;
             if (characterAnimationLoaded) {
-                this.state.setAnimation(0, CharacterAnimationController.IDLE, true);
+                this.state.addListener(new AnimationState.AnimationStateListener() {
+                    @Override
+                    public void start(int trackIndex) {
+                        AnimationState.TrackEntry entry = state.getCurrent(trackIndex);
+                        String name = entry == null || entry.getAnimation() == null
+                                ? "none" : entry.getAnimation().getName();
+                        if (!CharacterAnimationController.IDLE.equals(name)) {
+                            CharacterAnimationDiagnostics.log("spine-start track=" + trackIndex
+                                    + " animation=" + name + " stack="
+                                    + CharacterAnimationDiagnostics.stack(16));
+                        }
+                    }
+
+                    @Override
+                    public void event(int trackIndex, Event event) {
+                        CharacterAnimationDiagnostics.log("spine-event track=" + trackIndex
+                                + " event=" + event.getData().getName());
+                    }
+
+                    @Override
+                    public void complete(int trackIndex, int loopCount) {
+                        // Start events are sufficient; avoid per-loop idle spam.
+                    }
+
+                    @Override
+                    public void end(int trackIndex) {
+                    }
+                });
+                Animation idle = this.state.getData().getSkeletonData()
+                        .findAnimation(CharacterAnimationController.IDLE);
+                if (idle == null) {
+                    throw new IllegalStateException("Character runtime is missing idle animation");
+                }
+                this.state.setAnimation(0, idle, true);
+                if (!cacheHit) {
+                    ANIMATION_CACHE.put(cacheKey, new CachedAnimation(this.atlas,
+                            this.state.getData().getSkeletonData()));
+                    usesSharedAnimationAtlas = true;
+                }
+                CharacterAnimationDiagnostics.log("load-result=ok cast_s="
+                        + (this.state.getData().getSkeletonData().findAnimation("cast_s") != null)
+                        + " cast_special="
+                        + (this.state.getData().getSkeletonData().findAnimation("cast_special") != null)
+                        + " cache=" + (cacheHit ? "hit" : "miss")
+                        + " elapsedMs=" + (System.nanoTime() - started) / 1000000L);
             }
         } catch (RuntimeException error) {
             characterAnimationLoaded = false;
@@ -69,7 +185,7 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
             // later texture/JSON load fails, leaving that partial atlas in
             // place makes AbstractPlayer call state.update() with state ==
             // null on the first rendered combat frame.
-            if (this.atlas != null) {
+            if (this.atlas != null && !usesSharedAnimationAtlas) {
                 try {
                     this.atlas.dispose();
                 } catch (RuntimeException ignored) {
@@ -80,9 +196,26 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
             this.state = null;
             this.stateData = null;
             this.skeleton = null;
+            usesSharedAnimationAtlas = false;
             System.err.println("[DoubleSS] Failed to load character animation; using static fallback:");
+            CharacterAnimationDiagnostics.log("load-result=failed error=" + error);
             error.printStackTrace();
         }
+    }
+
+    @Override
+    public void dispose() {
+        // AbstractPlayer.dispose normally destroys its atlas. Detach the
+        // cache-owned atlas before delegating; keep normal static-image cleanup.
+        if (usesSharedAnimationAtlas) {
+            this.atlas = null;
+            usesSharedAnimationAtlas = false;
+        }
+        characterAnimationLoaded = false;
+        super.dispose();
+        this.state = null;
+        this.stateData = null;
+        this.skeleton = null;
     }
 
     /** Loads one explicitly selected visual form. */
@@ -94,7 +227,12 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
     }
 
     public final boolean playCharacterAnimation(CharacterAnimationRequest request) {
+        if (characterDeathAnimationStarted) {
+            return false;
+        }
         if (!characterAnimationLoaded || request == null || request.animations.isEmpty()) {
+            CharacterAnimationDiagnostics.log("result=rejected loaded=" + characterAnimationLoaded
+                    + " request=" + (request == null ? "null" : request.animations));
             return false;
         }
 
@@ -105,13 +243,16 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
                 available.add(animationName);
             } else {
                 System.err.println("[DoubleSS] Missing character animation; skipping: " + animationName);
+                CharacterAnimationDiagnostics.log("missing-animation=" + animationName);
             }
         }
         if (available.isEmpty()) {
             String fallback = request.fallbackAnimation;
             if (fallback != null && this.state.getData().getSkeletonData().findAnimation(fallback) != null) {
                 available.add(fallback);
+                CharacterAnimationDiagnostics.log("fallback-used=" + fallback);
             } else {
+                CharacterAnimationDiagnostics.log("result=reset-idle no-available-animation");
                 return resetCharacterAnimation();
             }
         }
@@ -121,24 +262,63 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
                 && !CharacterAnimationController.IDLE.equals(current.getAnimation().getName())
                 && !current.isComplete();
         if (request.policy == CharacterAnimationRequest.Policy.IGNORE_IF_BUSY && busy) {
+            CharacterAnimationDiagnostics.log("result=ignored-busy current="
+                    + current.getAnimation().getName() + " requested=" + request.animations);
             return false;
         }
         if (request.policy != CharacterAnimationRequest.Policy.FORCE_RESTART && available.size() == 1
                 && current != null && current.getAnimation() != null
                 && available.get(0).equals(current.getAnimation().getName()) && !current.isComplete()) {
+            CharacterAnimationDiagnostics.log("result=ignored-already-playing current="
+                    + current.getAnimation().getName());
             return false;
         }
 
-        this.state.setAnimation(0, available.get(0), false);
+        CharacterAnimationDiagnostics.log("result=playing selected=" + available
+                + " previous=" + (current == null || current.getAnimation() == null
+                        ? "none" : current.getAnimation().getName())
+                + " caller=" + CharacterAnimationDiagnostics.caller());
+        // Pass the exact Animation object. The loadout mod intercepts the
+        // String overload with substring matching, so "cast_s" otherwise
+        // resolves to the earlier "cast_special" animation.
+        Animation first = this.state.getData().getSkeletonData().findAnimation(available.get(0));
+        this.state.setAnimation(0, first, false);
         for (int i = 1; i < available.size(); ++i) {
-            this.state.addAnimation(0, available.get(i), false, 0.0F);
+            Animation next = this.state.getData().getSkeletonData().findAnimation(available.get(i));
+            this.state.addAnimation(0, next, false, 0.0F);
         }
-        this.state.addAnimation(0, CharacterAnimationController.IDLE, true, 0.0F);
+        Animation idle = this.state.getData().getSkeletonData()
+                .findAnimation(CharacterAnimationController.IDLE);
+        this.state.addAnimation(0, idle, true, 0.0F);
         return true;
+    }
+
+    /** Death is one-shot and holds its final pose instead of queuing idle. */
+    @Override
+    public void playDeathAnimation() {
+        if (characterDeathAnimationStarted) {
+            return;
+        }
+        Animation death = characterAnimationLoaded && this.state != null
+                ? this.state.getData().getSkeletonData().findAnimation("death") : null;
+        characterDeathAnimationStarted = true;
+        if (death == null) {
+            CharacterAnimationDiagnostics.log("death-result=static-fallback missing-animation=death");
+            super.playDeathAnimation();
+            return;
+        }
+        // renderCorpse=true bypasses Spine and draws the static corpse texture.
+        ReflectionHacks.setPrivate(this, AbstractPlayer.class, "renderCorpse", false);
+        this.state.clearTracks();
+        this.state.setAnimation(0, death, false);
+        CharacterAnimationDiagnostics.log("death-result=playing animation=death loop=false");
     }
 
     /** Clears stale queued TrackEntry objects after loading/changing rooms. */
     public final boolean resetCharacterAnimation() {
+        if (characterDeathAnimationStarted) {
+            return false;
+        }
         if (!characterAnimationLoaded || this.state == null) {
             return false;
         }
@@ -147,7 +327,7 @@ public abstract class AbstractSSCharacter extends CustomPlayer {
             return false;
         }
         this.state.clearTracks();
-        this.state.setAnimation(0, CharacterAnimationController.IDLE, true);
+        this.state.setAnimation(0, idle, true);
         return true;
     }
 

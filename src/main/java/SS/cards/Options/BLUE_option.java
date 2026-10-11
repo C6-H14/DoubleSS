@@ -19,7 +19,7 @@ public class BLUE_option extends AbstractDoubleCard {
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.STATUS;
     private static final AbstractCard.CardColor COLOR = AbstractCard.CardColor.BLUE;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.SPECIAL;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.NONE;
 
     public BLUE_option() {

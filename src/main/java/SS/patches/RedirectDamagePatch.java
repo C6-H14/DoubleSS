@@ -70,6 +70,8 @@ public class RedirectDamagePatch {
             AbstractAlly tank = solidTanks.get(0);
             // 友军承受"剩余的全部伤害"
             tank.damage(new DamageInfo(info.owner, damageAmount[0], info.type));
+            // 战斗统计：这是替玩家挡下的伤害（等效格挡），归到唤魂牌头上
+            SS.stats.CardStats.onSoulAbsorb(damageAmount[0]);
 
             // 将要对玩家造成的伤害清零，保住玩家的命
             damageAmount[0] = 0;
@@ -89,12 +91,18 @@ public class RedirectDamagePatch {
                 if (damageAmount[0] <= effectiveHealth) {
                     // 情况 A：友军能扛住剩余的所有伤害
                     tank.damage(new DamageInfo(info.owner, damageAmount[0], info.type));
+                    // 战斗统计：替玩家挡下的部分（等效格挡）
+                    SS.stats.CardStats.onSoulAbsorb(damageAmount[0]);
                     damageAmount[0] = 0; // 玩家安全
                 } else {
-                    // 情况 B：伤害溢出，友军死亡
+                    // 情况 B：伤害溢出：友军扛下 effectiveHealth，余下继续传导给玩家。
+                    // 只有被扛下的那部分算敌方伤害，且不超过转入前的剩余伤害。
+                    int absorbed = Math.min(effectiveHealth, damageAmount[0]);
+                    int toPlayer = damageAmount[0] - absorbed;
                     tank.damage(new DamageInfo(info.owner, damageAmount[0], info.type));
+                    SS.stats.CardStats.onSoulAbsorb(absorbed);
                     // 扣除这名友军吸收的量，剩下的伤害继续交给循环处理
-                    damageAmount[0] -= effectiveHealth;
+                    damageAmount[0] = toPlayer;
                 }
             }
         }

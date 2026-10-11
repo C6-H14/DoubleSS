@@ -15,8 +15,8 @@ import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
-public class Decompose extends AbstractDoubleCard {
-    public static final String ID = ModHelper.makePath("Decompose");
+public class DecomposeStrike extends AbstractDoubleCard {
+    public static final String ID = ModHelper.makePath("DecomposeStrike");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/Decompose.png";
@@ -28,10 +28,11 @@ public class Decompose extends AbstractDoubleCard {
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
 
-    public Decompose() {
+    public DecomposeStrike() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION, true, false);
         this.tags.add(AbstractCardEnum.Fiend);
+        this.tags.add(CardTags.STRIKE);
         setDamage(6);
         setMagic(2);
         if (needFiend()) {
@@ -64,6 +65,6 @@ public class Decompose extends AbstractDoubleCard {
     }
 
     public AbstractDoubleCard makeCopy() {
-        return new Decompose();
+        return new DecomposeStrike();
     }
 }

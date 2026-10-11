@@ -28,7 +28,7 @@ public class Nightfall extends AbstractShockCard {
     public Nightfall() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        this.damage = this.baseDamage = 12;
+        this.damage = this.baseDamage = 8;
         if (needManager()) {
             updateManager();
         }
@@ -38,7 +38,7 @@ public class Nightfall extends AbstractShockCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(4);
+            upgradeDamage(3);
             UpdateDescription();
             initializeDescription();
         }

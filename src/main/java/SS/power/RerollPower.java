@@ -25,6 +25,9 @@ public class RerollPower extends AbstractPower {
         this.owner = (AbstractCreature) owner;
         this.type = AbstractPower.PowerType.BUFF;
         this.isTurnBased = false;
+        // AbstractPower.renderAmount 只在 amount>0、或 amount<0 且 canGoNegative 时才画层数。
+        // 本 Power 是靠负数表达的减益，不打开这个开关就永远不显示数字。
+        this.canGoNegative = true;
 
         this.amount = amount;
 
@@ -37,7 +40,10 @@ public class RerollPower extends AbstractPower {
 
     @Override
     public void stackPower(final int stackAmount) {
-        this.fontScale = 8.0f;
+        // 用 -2 而非 8：8 是原版用来把两位数缩小的字号，
+        // 而 renderFontRightTopAligned 会再乘一次 Settings.scale，
+        // 单开一个能力时 8 会把数字缩到几乎看不见。
+        this.fontScale = -2.0f;
         this.amount += stackAmount;
         if (this.amount == 0) {
             this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this));
@@ -52,7 +58,7 @@ public class RerollPower extends AbstractPower {
 
     @Override
     public void reducePower(final int reduceAmount) {
-        this.fontScale = 8.0f;
+        this.fontScale = -2.0f;
         this.amount -= reduceAmount;
         if (this.amount == 0) {
             this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this));
@@ -66,8 +72,10 @@ public class RerollPower extends AbstractPower {
     }
 
     public void updateDescription() {
+        // DESCRIPTIONS[0] 用于负数（减益），DESCRIPTIONS[1] 用于正数（增益）。
+        // 文案里没有 #b / #y 之类的占位符，直接拼绝对值即可。
         if (this.amount > 0) {
-            this.description = DESCRIPTIONS[0] + this.amount;
+            this.description = DESCRIPTIONS[1] + this.amount;
             this.type = PowerType.BUFF;
         } else {
             final int tmp = -this.amount;

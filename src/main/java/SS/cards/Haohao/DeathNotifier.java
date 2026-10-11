@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.NightmarePower;
 import com.megacrit.cardcrawl.powers.PoisonPower;
 
 import SS.animation.CharacterAnimationController;
@@ -32,7 +31,8 @@ public class DeathNotifier extends AbstractHaoCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         this.magicNumber = this.baseMagicNumber = 4;
-        this.cardsToPreview = new Catalyst();
+        // 预览与实际获得的是同一张牌（回响版催化剂），用同一个构造入口避免再次跑偏
+        this.cardsToPreview = SS.action.common.EchoACardAction.buildEcho(new Catalyst(), false);
         this.exhaust = true;
         if (needManager()) {
             updateManager();
@@ -59,7 +59,10 @@ public class DeathNotifier extends AbstractHaoCard {
                 }
             }
         }
-        addToBot(new ApplyPowerAction(p, p, new NightmarePower(p, upgraded ? 4 : 3, this.cardsToPreview)));
+        // 【回响版催化剂】原版 NightmarePower 塞的是普通 Catalyst（MakeTempCardInHandAction），
+        // 这里改用 CatalystEchoPower，在回合开始时通过 EchoACardAction 生成【催化剂的回响】
+        // （虚无 + 消耗 + Echo 标签），与《震荡的回响》《怨灵回响》同一套机制。
+        addToBot(new ApplyPowerAction(p, p, new SS.power.CatalystEchoPower(p, upgraded ? 4 : 3)));
     }
 
     @Override

@@ -8,6 +8,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
+import SS.animation.CharacterAnimationController;
+import SS.animation.CharacterAnimationDiagnostics;
+import SS.animation.CharacterAnimationRequest;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
 
@@ -40,8 +43,19 @@ public class Strike extends AbstractDoubleCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        CharacterAnimationDiagnostics.log("Strike.use id=" + this.cardID
+                + " codeSource=" + CharacterAnimationDiagnostics.codeSource(getClass()));
+        if (!CharacterAnimationController.play(CharacterAnimationController.ATTACK_SWORD,
+                CharacterAnimationRequest.Policy.FORCE_RESTART)) {
+            System.err.println("[DoubleSS] Strike front-character attack preview could not start.");
+        }
         int setDamage = this.damage;
         addToBot(new ChannelDiceAction(new AttackDice(setDamage, m)));
+    }
+
+    @Override
+    public boolean shouldPlayDefaultCharacterAnimation() {
+        return false;
     }
 
     public AbstractDoubleCard makeCopy() {

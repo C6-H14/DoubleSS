@@ -23,13 +23,25 @@ public final class CharacterAnimationController {
     public static final String HURT = "hurt";
     /** Inner-character fire-charged thrust. Not mapped to front-character cards. */
     public static final String ATTACK_MAGIC = "attack_magic";
+    /** Temporary inner-character S-fire cast preview. */
+    public static final String CAST_S = "cast_s";
+    /** Inner-character three spirit epees ultimate. */
+    public static final String ATTACK_ULTIMATE = "attack_ultimate";
 
     private CharacterAnimationController() {
     }
 
     public static boolean play(CharacterAnimationRequest request) {
+        CharacterAnimationDiagnostics.log("request animations="
+                + (request == null ? "null" : request.animations)
+                + " policy=" + (request == null ? "null" : request.policy)
+                + " fallback=" + (request == null ? "null" : request.fallbackAnimation)
+                + " caller=" + CharacterAnimationDiagnostics.caller()
+                + " player=" + (AbstractDungeon.player == null ? "null"
+                        : AbstractDungeon.player.getClass().getName()));
         if (request == null || AbstractDungeon.player == null
                 || !(AbstractDungeon.player instanceof AbstractSSCharacter)) {
+            CharacterAnimationDiagnostics.log("result=rejected-before-player-runtime");
             return false;
         }
         return ((AbstractSSCharacter) AbstractDungeon.player).playCharacterAnimation(request);

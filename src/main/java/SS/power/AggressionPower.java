@@ -34,13 +34,13 @@ public class AggressionPower extends AbstractPower {
 
     public float atDamageReceive(float damage, DamageInfo.DamageType type) {
         if (type == DamageType.NORMAL || type == DamageType.THORNS) {
-            return damage + damage * this.amount * 0.5F;
+            return damage + damage * this.amount * 0.01F;
         }
         return damage;
     }
 
     public void updateDescription() {
-        this.description = DESCRIPTIONS[0] + (this.amount * 50) + DESCRIPTIONS[1];
+        this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[1];
     }
 
 }

@@ -20,20 +20,22 @@ public class ConjugateCardinDrawPileAction extends AbstractGameAction {
     public static final String[] TEXT = uiStrings.TEXT;
     private AbstractPlayer p;
     public static int numCombined;
+    public int numConbineInHand = 0;
     private static final float DURATION = Settings.ACTION_DUR_XFAST;
     ConjugateModifier newConjugate = new ConjugateModifier();
 
-    public ConjugateCardinDrawPileAction(AbstractCreature target, AbstractCreature source, int amount) {
+    public ConjugateCardinDrawPileAction(AbstractCreature target, AbstractCreature source, int amount, int handAmount) {
         this.p = (AbstractPlayer) target;
         setValues(target, source, amount);
         this.amount = amount;
+        this.numConbineInHand = handAmount;
         this.duration = DURATION;
     }
 
     public void update() {
         if (this.duration == DURATION) {
             if (AbstractDungeon.getMonsters().areMonstersBasicallyDead() || this.p.drawPile.size() <= 1
-                    || this.amount <= 1) {
+                    || this.amount + this.numConbineInHand <= 1) {
                 this.isDone = true;
 
                 return;
@@ -74,6 +76,7 @@ public class ConjugateCardinDrawPileAction extends AbstractGameAction {
                     continue;
                 FindFather.ConjugateCard(d, headCard);
             }
+            addToTop(new ConjugateCardInHandAndDrawPileAction(target, source, headCard, numConbineInHand));
         }
         this.isDone = true;
 

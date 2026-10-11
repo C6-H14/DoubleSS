@@ -32,7 +32,7 @@ public class MyCharacter extends AbstractSSCharacter {
     private static final String MY_CHARACTER_SHOULDER_1 = "img/char/shoulder.png";
     private static final String MY_CHARACTER_SHOULDER_2 = "img/char/shoulder2.png";
     private static final String CORPSE_IMAGE = "img/char/Corpse.png";
-    /** Published build uses the front character; inner assets remain isolated for later work. */
+    /** Temporary preview build; front-character atlas remains untouched. */
     private static final CharacterVisualForm ACTIVE_VISUAL_FORM = CharacterVisualForm.FRONT;
     private static final String[] ORB_TEXTURES = new String[] { "img/UI/orb/layer5.png", "img/UI/orb/layer4.png",
             "img/UI/orb/layer3.png", "img/UI/orb/layer2.png", "img/UI/orb/layer1.png", "img/UI/orb/layer6.png",

@@ -72,6 +72,26 @@ public abstract class AbstractC6H14Card extends AbstractDoubleCard {
             this.tags.add(AbstractCardEnum.Manager);
     }
 
+    /**
+     * 进入/退出群主身份时刷新描述文本。
+     *
+     * <p>基类 {@code AbstractDoubleCard.updateManager()} 只调用 {@code UpdateDescription()}，
+     * 不改 {@code isManager}。所以如果卡牌构造时不在群主身份下（{@code isManager == false}），
+     * 之后获得群主身份也永远走不进 {@code !isFiend && isManager} 那条分支，
+     * 牌面一直停留在 DESCRIPTION 上。这里补上状态位的同步。
+     */
+    @Override
+    public void updateManager() {
+        this.isManager = true;
+        super.updateManager();
+    }
+
+    @Override
+    public void exitManager() {
+        this.isManager = false;
+        super.exitManager();
+    }
+
     void paint() {
         selfPower(new PaintingPower(getP(), 1));
     }

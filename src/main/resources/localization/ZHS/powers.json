@@ -82,7 +82,7 @@
     ]
   },
   "Double:AggressionPower": {
-    "NAME": "嘲讽",
+    "NAME": "挑衅",
     "DESCRIPTIONS": [
       "受到的伤害增加 #b",
       "% 。"
@@ -131,6 +131,7 @@
   "Double:RerollPower": {
     "NAME": "重掷",
     "DESCRIPTIONS": [
+      "你的骰子点数减少",
       "你的骰子点数增加"
     ]
   },
@@ -390,6 +391,13 @@
     "DESCRIPTIONS": [
       "回合开始时，若魂火存活，所有持恒牌数值增加 #b",
       " 。"
+    ]
+  },
+  "Double:CatalystEchoPower": {
+    "NAME": "催化回响",
+    "DESCRIPTIONS": [
+      "下回合开始时，将 ",
+      " 张 #y催化剂 的 #y回响 加入你的手牌。"
     ]
   }
 }

@@ -47,6 +47,43 @@ public class ClassicMove extends AbstractShockCard {
         }
     }
 
+    /**
+     * 强化后描述要写明"费用变为 0"。
+     *
+     * <p>cards.json 里 UPGRADE_DESCRIPTION 与基础描述逐字相同，玩家看不出强化差在哪。
+     * 这里在运行时统一拼后缀，避免改本地化文件（改 json 要同步所有语言）。
+     *
+     * <p>升级费用这件事与"是否处于群主身份"无关，所以两种分支（基础文本 /
+     * EXTENDED_DESCRIPTION）都要加。super 只负责把 rawDescription 设成对应分支的文本。
+     */
+    @Override
+    public void UpdateDescription() {
+        super.UpdateDescription();
+        if (this.upgraded && this.rawDescription != null
+                && !this.rawDescription.contains("费用变为0")) {
+            this.rawDescription = this.rawDescription + " 费用变为0 。";
+        }
+    }
+
+    /**
+     * 进入/退出群主身份时同步状态位。
+     *
+     * <p>基类 {@code updateManager()} 只刷新描述、不改 {@code isManager}，
+     * 构造时不在群主身份下的卡牌（{@code isManager == false}）之后永远进不了
+     * {@code !isFiend && isManager} 分支，牌面会一直停在 DESCRIPTION 上。
+     */
+    @Override
+    public void updateManager() {
+        this.isManager = true;
+        super.updateManager();
+    }
+
+    @Override
+    public void exitManager() {
+        this.isManager = false;
+        super.exitManager();
+    }
+
     public void use(AbstractPlayer p, AbstractMonster m) {
         ArrayList<AbstractCard> stanceChoices = new ArrayList<>();
         stanceChoices.add(new CommonCardOption());

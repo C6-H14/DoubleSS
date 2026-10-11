@@ -5,8 +5,8 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndAddToHandEffect;
 
@@ -14,13 +14,20 @@ public class KernelMappingAction extends AbstractGameAction {
     private static final UIStrings uiStrings;
     public static final String[] TEXT;
     private boolean isInitialized = false;
-    private boolean upgraded; // 是否升级（决定是随机还是选择）
+    /**
+     * 是否处于【群主身份】（决定是随机转化还是让玩家指定）。
+     *
+     * <p>注意：这与卡牌是否强化【无关】。KernelMapping 的强化只加能量（magicNumber），
+     * 转化方式只由群主身份决定 —— 调用方 {@code KernelMapping.use()} 传的是
+     * {@code needManager()}。之前这个字段叫 upgraded，极易被误读成强化状态。
+     */
+    private boolean manager;
     private ArrayList<AbstractCard> tempInvalidCards = new ArrayList<>(); // 暂存不合规卡牌
 
-    public KernelMappingAction(boolean upgraded) {
+    public KernelMappingAction(boolean manager) {
         this.actionType = ActionType.CARD_MANIPULATION;
         this.duration = Settings.ACTION_DUR_FAST;
-        this.upgraded = upgraded;
+        this.manager = manager;
     }
 
     @Override
@@ -52,8 +59,8 @@ public class KernelMappingAction extends AbstractGameAction {
                 return;
             }
 
-            if (upgraded) {
-                // 【升级效果】：让玩家选择
+            if (manager) {
+                // 【群主身份】：让玩家选择
                 // 暂时将不合规的卡牌从玩家手牌中抽离，这样选牌界面就只能看到合规的牌了！
                 AbstractDungeon.player.hand.group.removeAll(tempInvalidCards);
 
@@ -64,7 +71,7 @@ public class KernelMappingAction extends AbstractGameAction {
                 this.tickDuration();
                 return;
             } else {
-                // 【未升级效果】：随机选择 1 张转化
+                // 【非群主】：随机选择 1 张转化
                 AbstractCard oldCard = validCards.get(AbstractDungeon.cardRandomRng.random(validCards.size() - 1));
 
                 // 执行转化
@@ -78,7 +85,7 @@ public class KernelMappingAction extends AbstractGameAction {
         // =================================================================
         // 阶段 2：选择完毕，追加转化并还原手牌 (后续帧执行)
         // =================================================================
-        if (upgraded && !AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) {
+        if (manager && !AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) {
             for (AbstractCard oldCard : AbstractDungeon.handCardSelectScreen.selectedCards.group) {
                 // 执行转化并放入手牌
                 transformCardInHand(oldCard);
@@ -105,15 +112,18 @@ public class KernelMappingAction extends AbstractGameAction {
     private void transformCardInHand(AbstractCard oldCard) {
         int targetCost = oldCard.cost + 1;
 
-        // 1. 尝试检索 目标费用+1 的卡池
+        // 1. 检索 目标费用+1 的卡池（费用 3 的牌池存在，正常不会落空）
         AbstractCard newCard = getRandomCardOfCost(targetCost);
 
-        // 2. 【保底 1】如果没有这个费用的牌，寻找相同费用的牌
+        // 2. 【保底】同费用重抽。
+        //    刻意【不】退化成"复制原卡本身"：那会让玩家看到一张和自己刚打出的牌
+        //    一模一样的牌，观感上等同于"什么都没发生"，与"变化为费用加1的随机牌"严重不符。
+        //    同费用重抽至少保证换成的是另一张牌。真出现全费用无牌可抽才会走到复制。
         if (newCard == null) {
             newCard = getRandomCardOfCost(oldCard.cost);
         }
 
-        // 3. 【保底 2】如果依然没有，直接复制原卡本身
+        // 3. 【最后保底】连同费用都没有：只能复制原卡，避免卡牌凭空消失
         if (newCard == null) {
             newCard = oldCard.makeCopy();
         }
@@ -124,7 +134,7 @@ public class KernelMappingAction extends AbstractGameAction {
         }
 
         // 从手牌（或选牌缓存）中移除旧卡
-        if (upgraded) {
+        if (manager) {
             // 选择模式下，旧卡在 selectedCards 里，直接不放回即可
         } else {
             // 随机模式下，需要手动从玩家手牌移除旧卡
@@ -138,30 +148,29 @@ public class KernelMappingAction extends AbstractGameAction {
     }
 
     /**
-     * 动态检索符合特定费用的可用卡池
+     * 动态检索符合特定费用的可用卡池。
+     *
+     * <p><b>必须直接遍历 CardGroup 本体，不能拿 CardLibrary 的实例去 contains 比对。</b>
+     * 曾经写成：
+     * <pre>
+     *   for (AbstractCard c : CardLibrary.cards.values()) {
+     *       if (AbstractDungeon.commonCardPool.group.contains(c)) { ... }
+     *   }
+     * </pre>
+     * 这恒为 false —— {@code AbstractCard} 没有重写 equals/hashCode，所以
+     * {@code List.contains} 用的是【引用相等】；而 {@code modcore.LoadData()} 往卡池里
+     * 灌的是 {@code makeStatEquivalentCopy()} 出来的【副本】（见 modcore.java 卡池过滤那段），
+     * 与 CardLibrary 里的原对象不是同一个实例。结果候选池永远为空，
+     * 一路掉到"复制原卡"的兜底分支 —— 玩家看到的就是打出去的牌原样回到手里。
      */
     private AbstractCard getRandomCardOfCost(int targetCost) {
         ArrayList<AbstractCard> pool = new ArrayList<>();
 
-        for (AbstractCard c : CardLibrary.cards.values()) {
-            // 筛选条件：
-            // 1. 费用相符
-            // 2. 排除基础卡 (Strike/Defend) 和 特殊卡 (比如幻影)
-            // 3. 排除状态牌和诅咒牌
-            if (c.cost == targetCost
-                    && c.rarity != AbstractCard.CardRarity.BASIC
-                    && c.rarity != AbstractCard.CardRarity.SPECIAL
-                    && c.type != AbstractCard.CardType.STATUS
-                    && c.type != AbstractCard.CardType.CURSE) {
-
-                // 4. 必须匹配玩家当前的职业颜色，或者是中立无色牌
-                if (AbstractDungeon.commonCardPool.group.contains(c)
-                        || AbstractDungeon.uncommonCardPool.group.contains(c)
-                        || AbstractDungeon.rareCardPool.group.contains(c)) {
-                    pool.add(c);
-                }
-            }
-        }
+        // 卡池即"本职业可用牌"的白名单，直接遍历它，顺便完成颜色过滤。
+        // srcXxx 是未经过滤的原始池，这里要的是【过滤后】的池（modcore 已按卡包裁剪）。
+        addFromPool(pool, AbstractDungeon.commonCardPool, targetCost);
+        addFromPool(pool, AbstractDungeon.uncommonCardPool, targetCost);
+        addFromPool(pool, AbstractDungeon.rareCardPool, targetCost);
 
         if (pool.isEmpty()) {
             return null;
@@ -169,6 +178,31 @@ public class KernelMappingAction extends AbstractGameAction {
 
         // 随机返回一张复本
         return pool.get(AbstractDungeon.cardRandomRng.random(pool.size() - 1)).makeCopy();
+    }
+
+    /** 把某个 CardGroup 中费用相符、且不属于基础/特殊/状态/诅咒/HEAL 的牌收进候选池。 */
+    private void addFromPool(ArrayList<AbstractCard> pool, CardGroup group, int targetCost) {
+        if (group == null || group.group == null) {
+            return;
+        }
+        for (AbstractCard c : group.group) {
+            if (c == null || c.cost != targetCost) {
+                continue;
+            }
+            // 1. 排除基础卡 (Strike/Defend) 和 特殊卡 (比如幻影)
+            if (c.rarity == AbstractCard.CardRarity.BASIC || c.rarity == AbstractCard.CardRarity.SPECIAL) {
+                continue;
+            }
+            // 2. 排除状态牌和诅咒牌
+            if (c.type == AbstractCard.CardType.STATUS || c.type == AbstractCard.CardType.CURSE) {
+                continue;
+            }
+            // 3. 排除 HEAL 标签牌（回血类发现牌不该被转化出来）
+            if (c.hasTag(AbstractCard.CardTags.HEALING)) {
+                continue;
+            }
+            pool.add(c);
+        }
     }
 
     static {

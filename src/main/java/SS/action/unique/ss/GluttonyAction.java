@@ -20,10 +20,11 @@ public class GluttonyAction extends AbstractGameAction {
     private AbstractPlayer p;
     private boolean flag = false;
 
-    public GluttonyAction(boolean upgrade) {
+    public GluttonyAction(int amount, boolean upgrade) {
         this.actionType = ActionType.CARD_MANIPULATION;
         this.p = AbstractDungeon.player;
         this.duration = Settings.ACTION_DUR_FAST;
+        this.amount = amount;
         this.flag = upgrade;
     }
 
@@ -35,18 +36,20 @@ public class GluttonyAction extends AbstractGameAction {
         if (this.duration == Settings.ACTION_DUR_FAST) {
             if (this.p.hand.isEmpty()) {
                 this.isDone = true;
-            } else if (this.p.hand.size() == 1) {
-                if (this.p.hand.getBottomCard().costForTurn == -1) {
-                    this.addToTop(new MakeTempCardInHandAction(pep, EnergyPanel.getCurrentEnergy()));
-                } else if (this.p.hand.getBottomCard().costForTurn > 0) {
-                    this.addToTop(
-                            new MakeTempCardInHandAction(pep, this.p.hand.getBottomCard().costForTurn));
+            } else if (this.p.hand.size() <= amount) {
+                for (AbstractCard c : p.hand.group) {
+                    if (c.costForTurn == -1) {
+                        this.addToTop(new MakeTempCardInHandAction(pep, EnergyPanel.getCurrentEnergy()));
+                    } else if (c.costForTurn > 0) {
+                        this.addToTop(
+                                new MakeTempCardInHandAction(pep, c.costForTurn));
+                    }
+                    this.p.hand.moveToExhaustPile(c);
                 }
 
-                this.p.hand.moveToExhaustPile(this.p.hand.getBottomCard());
                 this.tickDuration();
             } else {
-                AbstractDungeon.handCardSelectScreen.open(TEXT[0], 1, false);
+                AbstractDungeon.handCardSelectScreen.open(TEXT[0], amount, false);
                 this.tickDuration();
             }
         } else {

@@ -48,6 +48,22 @@ public class EnvironmentManager {
         inst.queueNewEnvironment(card);
     }
 
+    /** 维持"魂火阵法"（3 只并列 + 魂火值统一）的环境牌 ID。 */
+    public static final String SOUL_SQUAD_ENV = "Double:GENESIS";
+
+    /**
+     * 当前是否处于"魂火阵法"环境。
+     *
+     * <p>
+     * 这里刻意按【环境 ID】判断，而不是 {@code instanceof Genesis}：
+     * 只要这个环境在场上，魂火就该并列成阵、数值统一。
+     * 将来若出现继承《创世记》机制的升级版环境牌，用 instanceof 会漏判。
+     */
+    public static boolean isSoulSquadActive() {
+        return inst.activeCard != null
+                && SOUL_SQUAD_ENV.equals(inst.activeCard.getEnvironmentID());
+    }
+
     private void queueNewEnvironment(IEnvironmentCard card) {
         this.pendingCard = card;
         this.stateTimer = 0.0f;

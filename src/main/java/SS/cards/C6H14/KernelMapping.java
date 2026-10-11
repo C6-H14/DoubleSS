@@ -43,6 +43,8 @@ public class KernelMapping extends AbstractC6H14Card {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        // 参数是「是否处于群主身份」：群主下改为让玩家指定要转化的牌，非群主则随机。
+        // 与卡牌是否强化无关（强化只加能量）。
         addToBot(new KernelMappingAction(needManager()));
         addToBot(new GainEnergyAction(this.magicNumber));
     }

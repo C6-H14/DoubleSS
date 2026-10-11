@@ -1,7 +1,7 @@
 package SS.cards;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -43,7 +43,7 @@ public class Seething extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            this.exhaust = false;
+            upgradeMagicNumber(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
@@ -52,18 +52,9 @@ public class Seething extends AbstractDoubleCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new EvokeAllDiceAction(this.magicNumber));
         addToBot(new ApplyPowerAction(p, p, new SinsPower(p, this.magicNumber)));
-    }
-
-    public void updateFiend() {
-        upgradeMagicNumber(1);
-        UpdateDescription();
-        initializeDescription();
-    }
-
-    public void exitFiend() {
-        upgradeMagicNumber(-1);
-        UpdateDescription();
-        initializeDescription();
+        if (needFiend()) {
+            addToBot(new MakeTempCardInDiscardAction(this, 1));
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package SS.action.monster;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -18,7 +19,10 @@ public class AllyPlayCardAction extends AbstractGameAction {
     // 动画阶段控制
     private boolean hasMovedToLimbo = false;
     private boolean hasUsedCard = false;
-    private float holdDuration = 0.5F; // 打出后悬停等待的时间 (0.5秒)
+    // 卡牌飞到中央后悬停多久才真正结算。原为 0.5F，加上 ACTION_DUR_MED(0.5) 后
+    // 总时长 1.0 秒，而卡牌位置是 6.0/s 的 lerp，实际 0.4 秒左右就飞到位了，
+    // 剩下的时间纯属干等。压到 0.1F 后总时长 0.6 秒，观感明显跟手。
+    private float holdDuration = 0.1F;
 
     // 【新增】是否无视能量限制
     private boolean ignoreEnergy = false;
@@ -138,6 +142,14 @@ public class AllyPlayCardAction extends AbstractGameAction {
                         (target instanceof AbstractMonster) ? (AbstractMonster) target : null);
             });
 
+            // 【守护者钝刺】原版 SharpHidePower.onUseCard 只监听玩家出牌，且伤害目标写死玩家，
+            // 友军出牌完全绕过它。这里补一次等价的反伤。
+            // 注意：原版是在 UseCardAction.update() 里遍历 AbstractDungeon.player.powers 触发的，
+            // 友军的能力不在那条链上，所以不能用 patch onUseCard 的办法接。
+            if (card.type == AbstractCard.CardType.ATTACK) {
+                triggerGuardianSharpHide(owner);
+            }
+
             // 标记已使用
             hasUsedCard = true;
         }
@@ -181,6 +193,40 @@ public class AllyPlayCardAction extends AbstractGameAction {
             card.target_y = owner.hb.cY;
             owner.refreshIntentCalculation();
             this.isDone = true;
+        }
+    }
+
+    /**
+     * 友军打出攻击牌时，结算敌方身上的「钝刺」(第一幕 Boss 守护者的 SharpHidePower)。
+     *
+     * <p><b>为什么不用 patch {@code SharpHidePower.onUseCard}</b>：该方法是原版
+     * {@code UseCardAction.update()} 在 duration==0.15f 时【遍历 AbstractDungeon.player.powers】
+     * 调用的，友军的能力根本不在那条遍历链上，永远不会被调用；而且它内部把伤害目标
+     * 硬编码为 {@code AbstractDungeon.player}。两条都得绕开，所以直接在友军出牌处补算。
+     *
+     * <p>与 {@link SS.patches.DiceDamageTypePatch} 覆盖的原版 {@code ThornsPower} 不同：
+     * 守护者用的是 SharpHidePower，两者是各自独立的类。
+     *
+     * <p>反伤用 {@code DamageType.THORNS}，与原版一致 —— 该类型不会再触发荆棘自身，
+     * 避免无限套娃。伤害目标是出牌的友军而【不是】玩家。
+     */
+    private static void triggerGuardianSharpHide(AbstractCardMonster actor) {
+        if (actor == null || AbstractDungeon.getMonsters() == null) {
+            return;
+        }
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            if (m.isDeadOrEscaped() || m.isDying) {
+                continue;
+            }
+            com.megacrit.cardcrawl.powers.AbstractPower p = m.getPower(
+                    com.megacrit.cardcrawl.powers.SharpHidePower.POWER_ID);
+            if (p == null || !(p instanceof com.megacrit.cardcrawl.powers.SharpHidePower) || p.amount <= 0) {
+                continue;
+            }
+            p.flash();
+            DamageInfo info = new DamageInfo(p.owner, p.amount, DamageInfo.DamageType.THORNS);
+            AbstractDungeon.actionManager.addToBottom(new com.megacrit.cardcrawl.actions.common.DamageAction(
+                    actor, info, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
         }
     }
 }

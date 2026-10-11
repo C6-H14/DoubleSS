@@ -75,10 +75,10 @@
     {
         "NAME": "急了",
         "DESCRIPTION": "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。",
-        "UPGRADE_DESCRIPTION": " 激发所有 double:骰子  !M! 次，获得 !M! 点 double:罪孽  。",
+        "UPGRADE_DESCRIPTION": " 激发所有 double:骰子  !M! 次，获得 !M! 点 double:罪孽 ， 消耗  。",
         "EXTENDED_DESCRIPTION": [
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。",
-            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 。"
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。  [#cf3fbe]将一张本牌的复制加入到弃牌堆[] 。",
+            "激发所有 double:骰子 !M! 次，获得 !M! 点 double:罪孽 ， 消耗 。 NL   [#cf3fbe]将一张本牌的复制加入到弃牌堆[] 。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：额外激发1次，罪孽值加1。"
     },
@@ -95,8 +95,8 @@
     "Double:DeafForm":
     {
         "NAME": "二龙形态",
-        "DESCRIPTION": "失去2点最大生命。你受到的伤害折半推迟到你的下个回合结束阶段及下 !M! 个回合结束阶段。",
-        "UPGRADE_DESCRIPTION": "失去1点最大生命。你受到的伤害折半推迟到你的下个回合结束阶段及下 !M! 个回合结束阶段。"
+        "DESCRIPTION": "失去2点最大生命。你受到的伤害折半推迟到你的下个回合结束阶段及下 !M! 个回合结束阶段结算。",
+        "UPGRADE_DESCRIPTION": "失去1点最大生命。你受到的伤害折半推迟到你的下个回合结束阶段及下 !M! 个回合结束阶段结算。"
     },
     "Double:RED_option":
     {
@@ -151,11 +151,11 @@
     },
     "Double:Gluttony":{
         "NAME": "暴食",
-        "DESCRIPTION": " double:消化 一张牌，获得2点  double:罪孽  。",
-        "UPGRADE_DESCRIPTION": " 好好 double:消化 一张牌，获得2点  double:罪孽  。",
+        "DESCRIPTION": " double:消化  !M! 张牌，获得2点  double:罪孽  。",
+        "UPGRADE_DESCRIPTION": " double:消化  !M! 张牌，获得2点  double:罪孽  。",
         "EXTENDED_DESCRIPTION": [
-            " double:消化 一张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪孽  。",
-            "好好 double:消化 一张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪孽  。"
+            " double:消化  !M! 张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪孽  。",
+            " double:消化  !M! 张牌， [#cf3fbe]生成一个肽链[]  double:骰子  (1)， 获得2点  double:罪孽  。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：生成 #b1 个肽链骰子( #b1 )。"
     },
@@ -191,13 +191,13 @@
     },
     "Double:ObsessivePhantom":{
         "NAME": "痴缠幻影",
-        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
-        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
+        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
-            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌，将它们 double:绑定 ，获得3点  double:罪孽 。"
+            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
+            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。"
         ],
-        "FLAVOR":" #p恶魔之焰身份 ：可以绑定的牌数量加 #b1 。"
+        "FLAVOR":" #p恶魔之焰身份 ：可以绑定的抽牌堆牌数加 #b1 。"
     },
     "Double:ShootOff":{
         "NAME": "射爆",
@@ -295,17 +295,17 @@
         "UPGRADE_DESCRIPTION": "回合开始时，抽 !M! 张牌，在抽牌堆中加入一张 灼伤 。",
         "EXTENDED_DESCRIPTION": [
             " [#cf3fbe]抽[] !M!  [#cf3fbe]张牌[] ，回合开始时，抽 !M! 张牌，在抽牌堆中加入一张 灼伤 。",
-            " [#cf3fbe]抽[] !M! [#cf3fbe] 张牌[] ，回合开始时，抽 !M! 张牌，在抽牌堆中加入一张 灼伤 。"
+            " [#cf3fbe]抽[] !M!  [#cf3fbe]张牌[] ，回合开始时，抽 !M! 张牌，在抽牌堆中加入一张 灼伤 。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：抽 #b1 / #b2 。"
     },
     "Double:Aggression":{
         "NAME": "挑衅",
-        "DESCRIPTION": "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得10点 double:罪孽 ， 消耗 。",
-        "UPGRADE_DESCRIPTION": "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得10点 double:罪孽 ， 消耗  。",
+        "DESCRIPTION": "生成一个攻击 double:骰子 ( !D! ) ，目标受到的伤害增加 !M! %，获得10点 double:罪孽 ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "生成一个攻击 double:骰子 ( !D! ) ，目标受到的伤害增加 !M! %，获得10点 double:罪孽 ， 消耗  。",
         "EXTENDED_DESCRIPTION": [
-            "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得7点 double:罪孽 ， 消耗 。",
-            "给予 !M! 层 double:嘲讽 ，生成一个攻击 double:骰子 ( !D! ) ，获得7点 double:罪孽 ， 消耗 。"
+            "生成一个攻击 double:骰子 ( !D! ) ，目标受到的伤害增加 !M! %，获得7点 double:罪孽 ， 消耗 。",
+            "生成一个攻击 double:骰子 ( !D! ) ，目标受到的伤害增加 !M! %，获得7点 double:罪孽 ， 消耗 。"
         ],
         "FLAVOR":" #p恶魔之焰身份 ：获得罪孽减3。"
     },
@@ -374,13 +374,13 @@
         "DESCRIPTION": "*肽链打击 造成的伤害增加 !M! 。",
         "UPGRADE_DESCRIPTION": "*肽链打击 造成的伤害增加 !M! 。"
     },
-    "Double:Decompose":{
-        "NAME": "分解",
+    "Double:DecomposeStrike":{
+        "NAME": "降解打击",
         "DESCRIPTION": "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。",
         "UPGRADE_DESCRIPTION": "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。",
         "EXTENDED_DESCRIPTION": [
-            "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。 [#cf3fbe] 消耗场上所有状态牌。[] ",
-            "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。 [#cf3fbe] 消耗场上所有状态牌。[] "
+            "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。 [#cf3fbe]消耗场上所有状态牌。[] ",
+            "造成 !D! 点伤害，生成1个枯萎 double:骰子 ( !M! )。 [#cf3fbe]消耗场上所有状态牌。[] "
         ],
         "FLAVOR":" #p恶魔之焰身份 ：消耗场上所有状态牌  。"
     },
@@ -406,8 +406,8 @@
     },
     "Double:Luxuriance":{
         "NAME": "枝繁叶茂",
-        "DESCRIPTION": "你每有一种不同的骰子，抽1张牌。 NL 生成一个攻击 double:骰子 ( !D! )。",
-        "UPGRADE_DESCRIPTION": "你每有一种不同的骰子，抽1张牌。 NL 生成一个攻击 double:骰子 ( !D! )。"
+        "DESCRIPTION": "生成一个攻击 double:骰子 ( !D! )，本场战斗中所有骰子判定点数加 !M! 。",
+        "UPGRADE_DESCRIPTION": "生成一个攻击 double:骰子 ( !D! )，本场战斗中所有骰子判定点数加 !M! 。"
     },
     "Double:Autophagy":{
         "NAME": "自噬",
@@ -692,11 +692,11 @@
     },
     "Double:DeathNotifier":{
         "NAME": "催逝员",
-        "DESCRIPTION": "下回合获得3张 *催化剂 ，消耗。",
-        "UPGRADE_DESCRIPTION": "下回合获得4张 *催化剂 ，消耗。",
+        "DESCRIPTION": "下回合获得3张 *催化剂 的 double:回响  ， 消耗 。",
+        "UPGRADE_DESCRIPTION": "下回合获得4张 *催化剂 的 double:回响  ， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            " *给予所有敌人 !M! *层 中毒 ，下回合获得3张 *催化剂，消耗。",
-            " *给予所有敌人 !M! *层 中毒 ，下回合获得4张 *催化剂，消耗。"
+            " *给予所有敌人 !M! *层 中毒 ，下回合获得3张 *催化剂 的 double:回响  ， 消耗 。",
+            " *给予所有敌人 !M! *层 中毒 ，下回合获得4张 *催化剂 的 double:回响  ， 消耗 。"
         ],
         "FLAVOR":" #y群主身份 ：给予所有敌人 4/6 层中毒 。"
     },
@@ -841,8 +841,8 @@
         "DESCRIPTION": " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 随机打出手牌中 !Double:PermanentMagicNumber! 张 虚无 牌。",
         "UPGRADE_DESCRIPTION": " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 随机打出手牌中 !Double:PermanentMagicNumber! 张 虚无 牌。",
         "EXTENDED_DESCRIPTION": [
-            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 随机打出手牌中 !Double:PermanentMagicNumber! 张 虚无 牌。 NL *获得1层 double:奄息 。",
-            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 随机打出手牌中 !Double:PermanentMagicNumber! 张 虚无 牌。 NL *获得1层 double:奄息 。"
+            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 随机打出手牌中 !Double:PermanentMagicNumber! 张 虚无 牌。 NL *获得1 *层 double:奄息 。",
+            " 虚无 ， double:持恒 ，对所有敌人造成 !Double:PermanentDamage! 点伤害， 随机打出手牌中 !Double:PermanentMagicNumber! 张 虚无 牌。 NL *获得1 *层 double:奄息 。"
         ],
         "FLAVOR":" #y群主身份 ：获得1层奄息。"
     },
@@ -1445,8 +1445,8 @@
         "DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] 。",
         "UPGRADE_DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] 。",
         "EXTENDED_DESCRIPTION": [
-            "对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] 。",
-            "对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] 。"
+            " 保留 ，对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] 。",
+            " 保留 ，对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] 。"
         ],
         "FLAVOR":" #y群主身份 ：魂火获得6点格挡。"
     },
@@ -1503,8 +1503,8 @@
     "Double:Genesis":
     {
         "NAME": "创世记",
-        "DESCRIPTION": " double:环境 ，进入创世记环境：魂火数变为3个，不再打出铭刻牌。",
-        "UPGRADE_DESCRIPTION": " double:环境 ，进入创世记环境：魂火数变为3个，不再打出铭刻牌。",
+        "DESCRIPTION": " double:环境 ，魂火数变为3个，不再打出铭刻牌。",
+        "UPGRADE_DESCRIPTION": " double:环境 ，魂火数变为3个，不再打出铭刻牌。",
         "EXTENDED_DESCRIPTION": [
             "这是第一行扩展描述。",
             "这是第二行扩展描述。",
@@ -1516,14 +1516,14 @@
             "这是第八行扩展描述。",
             "这是第九行扩展描述。",
             "这是第十行扩展描述。",
-            "#y进入 ：释放魂火铭刻的牌，召唤魂火至共有3个魂火。",
-            "#y进入 ：释放魂火铭刻的牌，召唤魂火至共有3个魂火。",
-            "魂火染色后不再变色，意图卡牌改为圣约； NL 打出染色牌时，随机白色魂火染色，然后所有魂火执行对应意图。",
-            "魂火染色后不再变色，意图卡牌改为圣约； NL 打出染色牌时，随机白色魂火染色，然后所有魂火执行对应意图。",
-            "#y退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。",
-            "#y退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。"
+            " *进入 ：释放魂火铭刻的牌，召唤魂火至共有3个魂火。",
+            " *进入 ：释放魂火铭刻的牌，召唤魂火至共有3个魂火。",
+            "魂火染色后不再变色，意图卡牌改为圣约； NL 打出染色牌时，随机白色魂火染色。",
+            "魂火染色后不再变色，意图卡牌改为圣约； NL 打出染色牌时，随机白色魂火染色。",
+            " *退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。",
+            " *退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。"
         ],
-        "FLAVOR":"#y进入 ：释放魂火铭刻的牌，召唤魂火直至一共有3个魂火； NL 魂火染色后不再变色，意图卡牌改为圣约； NL 打出染色牌时，随机白色魂火染色，然后所有魂火执行对应意图。#y退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。"
+        "FLAVOR":"#y进入 ：释放魂火铭刻的牌，召唤魂火至共有3个魂火； NL 魂火染色后不再变色，意图卡牌改为圣约； NL 打出染色牌时，随机白色魂火染色。 NL #y退出 ：合并所有魂火，返还其余魂火铭刻的卡牌。"
     },
     "Double:BlazingStrike":{
         "NAME": "燃焰打击",

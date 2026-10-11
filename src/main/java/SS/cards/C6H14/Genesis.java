@@ -21,7 +21,7 @@ public class Genesis extends AbstractC6H14Card implements IEnvironmentCard {
     private static final int COST = 3;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;
-    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
+    private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.RARE;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public Genesis() {

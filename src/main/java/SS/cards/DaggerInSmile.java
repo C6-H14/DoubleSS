@@ -46,6 +46,7 @@ public class DaggerInSmile extends AbstractDoubleCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeDamage(2);
+            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }

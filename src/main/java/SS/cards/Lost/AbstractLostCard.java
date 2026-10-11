@@ -76,6 +76,25 @@ public abstract class AbstractLostCard extends AbstractDoubleCard {
             this.tags.add(AbstractCardEnum.Manager);
     }
 
+    /**
+     * 进入/退出群主身份时同步状态位。
+     *
+     * <p>基类 {@code AbstractDoubleCard.updateManager()} 只刷新描述、不改 {@code isManager}，
+     * 所以这里必须自己置位，否则 {@code UpdateDescription()} 里
+     * {@code !isFiend && isManager} 那条分支永远进不去，牌面会一直停在 DESCRIPTION 上。
+     */
+    @Override
+    public void updateManager() {
+        this.isManager = true;
+        super.updateManager();
+    }
+
+    @Override
+    public void exitManager() {
+        this.isManager = false;
+        super.exitManager();
+    }
+
     public void triggerOnGlowCheck() {
         triggerOnGlowCheck_Manager();
     }

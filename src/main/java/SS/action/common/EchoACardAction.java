@@ -42,15 +42,30 @@ public class EchoACardAction extends AbstractGameAction {
             this.isDone = true;
             return;
         }
-        AbstractCard card = this.cardToEcho.makeStatEquivalentCopy();
+        AbstractCard card = buildEcho(this.cardToEcho, this.free);
+        addToTop(new MakeTempCardInHandAction(card, this.amount));
+        this.isDone = true;
+    }
+
+    /**
+     * 生成一张牌的回响版：虚无 + 消耗 + Echo 标签。
+     *
+     * <p>抽成静态方法是为了让【牌面预览】和【实际入手的牌】走同一段构造逻辑。
+     * 之前预览各自 new 一张原牌，结果改了实际效果后预览没跟着变，
+     * 玩家看到的和拿到的不是同一张牌。
+     *
+     * @param source 被回响的原牌（不会被修改，内部复制）
+     * @param free   回响牌是否带"本回合免费打出"
+     */
+    public static AbstractCard buildEcho(AbstractCard source, boolean free) {
+        AbstractCard card = source.makeStatEquivalentCopy();
         CardModifierManager.addModifier(card, new EtherealMod());
         CardModifierManager.addModifier(card, new ExhaustMod());
         CardModifierManager.addModifier(card, new EchoTagModifier());
-        if (this.free) {
+        if (free) {
             card.freeToPlayOnce = true;
         }
         card.tags.add(AbstractCardEnum.Echo);
-        addToTop(new MakeTempCardInHandAction(card, this.amount));
-        this.isDone = true;
+        return card;
     }
 }

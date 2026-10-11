@@ -18,7 +18,9 @@ public class Sinsbar {// 图片原始尺寸数据 (根据你的测量)
     private static final float RAW_OFFSET_X = 227.0F; // 左侧空白长度
     private static final float RAW_HEIGHT = 1024.0F; // 实际图片高度
     // 修改这个值来整体缩放 UI (0.5F = 一半大小, 1.0F = 原大小)
-    private static final float UI_SCALE = 0.6F;
+    private static final float UI_SCALE = 0.42F;
+    /** 中间数字的额外缩放（相对 UI_SCALE）。 */
+    private static final float TEXT_SCALE = 1.35F;
 
     // 经过游戏缩放后的尺寸 (用于实际绘制计算)
     private static final float TOTAL_WIDTH = RAW_TOTAL_WIDTH * Settings.scale * UI_SCALE;
@@ -27,7 +29,9 @@ public class Sinsbar {// 图片原始尺寸数据 (根据你的测量)
     private static final float BAR_HEIGHT = RAW_HEIGHT * Settings.scale * UI_SCALE;
 
     // 2. 实际进度条的最大宽度 (不包含翅膀)
-    private static final float HB_Y_OFFSET = -10.0F * Settings.scale * UI_SCALE; // 距离头顶的高度
+    // 距离玩家头顶的高度：直接写屏幕像素，不乘缩放，这样调多少就是多少。
+    // 当前的实际效果 = 之前的 4.2px + 40px。
+    private static final float HB_Y_OFFSET = 44.0F;
     private static final float MIN_SIN = -50.0F;
     private static final float MAX_SIN = 50.0F;
     private static final float TOTAL_RANGE = MAX_SIN - MIN_SIN;
@@ -176,6 +180,9 @@ public class Sinsbar {// 图片原始尺寸数据 (根据你的测量)
         if (displayNum < 0)
             textColor = Color.CYAN;
 
-        FontHelper.renderFontCentered(sb, FontHelper.powerAmountFont, msg, textX, textY, textColor, UI_SCALE * 2F);
+        // 用能量数字字体（Kreon 细体），比能力层数的 powerAmountFont 更清晰好看。
+        // 注意 renderFontCentered 不乘 Settings.scale，所以这里要自己带上。
+        FontHelper.renderFontCentered(sb, FontHelper.energyNumFontBlue, msg, textX, textY, textColor,
+                Settings.scale * UI_SCALE * TEXT_SCALE);
     }
 }

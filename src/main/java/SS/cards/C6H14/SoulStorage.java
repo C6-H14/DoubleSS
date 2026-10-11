@@ -43,10 +43,7 @@ public class SoulStorage extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            ExhaustiveField.ExhaustiveFields.baseExhaustive.set(this,
-                    ExhaustiveField.ExhaustiveFields.baseExhaustive.get(this) + 1);
-            ExhaustiveField.ExhaustiveFields.exhaustive.set(this,
-                    ExhaustiveField.ExhaustiveFields.exhaustive.get(this) + 1);
+            this.retain = true;
             UpdateDescription();
             initializeDescription();
         }

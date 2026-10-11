@@ -1,20 +1,16 @@
 package SS.cards;
 
 import java.util.HashMap;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.orbs.AbstractOrb;
-import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
-import SS.Dice.AttackDice;
-import SS.Dice.EmptyDiceSlot;
-import SS.action.dice.ChannelDiceAction;
+import SS.action.unique.ss.LuxurianceAction;
 import SS.animation.CharacterAnimationController;
 import SS.helper.ModHelper;
 import SS.path.AbstractCardEnum;
+import SS.power.RerollPower;
 
 public class Luxuriance extends AbstractDoubleCard {
     public static final String ID = ModHelper.makePath("Luxuriance");
@@ -28,34 +24,26 @@ public class Luxuriance extends AbstractDoubleCard {
     private static final AbstractCard.CardColor COLOR = AbstractCardEnum.SS_Yellow;
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.COMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ENEMY;
-    private HashMap<String, Boolean> hsmap = new HashMap<String, Boolean>();
 
     public Luxuriance() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, COLOR, RARITY, TARGET);
-        this.damage = this.baseDamage = 7;
+        setDamage(9);
+        setMagic(1);
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(3);
+            upgradeDamage(2);
+            upgradeMagicNumber(1);
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        int amount = 0;
-        hsmap.clear();
-        for (AbstractOrb c : p.orbs) {
-            if (!hsmap.containsKey(c.ID) && !(c instanceof EmptyDiceSlot) && !(c instanceof EmptyOrbSlot)) {
-                ++amount;
-                hsmap.put(c.ID, true);
-            }
-        }
-        hsmap.clear();
-        addToBot(new DrawCardAction(amount));
-        addToBot(new ChannelDiceAction(new AttackDice(this.damage, m)));
+        dmgAct(m, damage);
+        selfPower(new RerollPower(p, magicNumber));
     }
 
     @Override

@@ -51,18 +51,28 @@ public class CombatStatsPatch {
 
     @SpirePatch(clz = AbstractPlayer.class, method = "useCard")
     public static class OnPlay {
-        private static int energyBefore;
+        /**
+         * 出牌前的能量值，按调用深度入栈。
+         *
+         * <p>useCard 可重入：一张牌打出时触发另一张牌（回响/双击/额外打出）会再次进入
+         * useCard。若用单个类级静态变量存 energyBefore，内层 Prefix 会先覆盖它，
+         * 外层 Postfix 读到内层的值 → 差值算错（0 或乱值）。故改为随调用深度入栈。
+         */
+        private static final ThreadLocal<java.util.ArrayDeque<Integer>> energyStack =
+                ThreadLocal.withInitial(java.util.ArrayDeque::new);
 
         @SpirePrefixPatch
         public static void Prefix(AbstractPlayer __instance, AbstractCard c, AbstractMonster m, int energyOnUse) {
-            energyBefore = __instance.energy.energy;
+            energyStack.get().push(__instance.energy.energy);
             CardStats.onPlay(c, m);
         }
 
         @SpirePostfixPatch
         public static void Postfix(AbstractPlayer __instance, AbstractCard c, AbstractMonster m, int energyOnUse) {
             // useCard:1425 this.energy.use(costForTurn) 在同步段，前后差 = 本张牌实际付出
-            CardStats.onPlayEnd(energyBefore - __instance.energy.energy);
+            java.util.ArrayDeque<Integer> st = energyStack.get();
+            int before = st.isEmpty() ? __instance.energy.energy : st.pop();
+            CardStats.onPlayEnd(before - __instance.energy.energy);
         }
     }
 

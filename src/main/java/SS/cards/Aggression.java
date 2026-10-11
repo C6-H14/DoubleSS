@@ -35,7 +35,7 @@ public class Aggression extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Pride);
         this.damage = this.baseDamage = 4;
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.magicNumber = this.baseMagicNumber = 50;
         this.exhaust = true;
         if (needFiend()) {
             updateFiend();
@@ -47,7 +47,7 @@ public class Aggression extends AbstractDoubleCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeDamage(2);
-            upgradeMagicNumber(1);
+            upgradeMagicNumber(50);
             UpdateDescription();
             initializeDescription();
         }

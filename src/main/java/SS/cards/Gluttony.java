@@ -35,6 +35,7 @@ public class Gluttony extends AbstractDoubleCard {
         this.tags.add(AbstractCardEnum.Fiend);
         this.tags.add(AbstractCardEnum.Sins);
         this.tags.add(AbstractCardEnum.Gluttony);
+        setMagic(1);
         if (needFiend()) {
             updateFiend();
         }
@@ -44,7 +45,7 @@ public class Gluttony extends AbstractDoubleCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBlock(3);
+            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
@@ -54,7 +55,7 @@ public class Gluttony extends AbstractDoubleCard {
         if (p.getPower("Double:FiendStance") != null) {
             addToBot(new ChannelAction(new PeptideDice(1, AbstractDungeon.getRandomMonster())));
         }
-        addToBot(new GluttonyAction(this.upgraded));
+        addToBot(new GluttonyAction(magicNumber, false));
         addToBot(new ApplyPowerAction(p, p, new SinsPower(p, 2)));
     }
 

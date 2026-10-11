@@ -224,6 +224,11 @@ public class CardStats {
         public int[] coverageTurns = new int[ACTS];
         /** 持有期间玩家每次命中少打的力量值累加（Shackled 负力量等效）。 */
         public long hitValueSum = 0;
+        /**
+         * 玩家打出的牌因本 debuff 而获得的增伤（damageDealtToTarget 的子集，正值）。
+         * 用于把这份增伤从「施加 debuff 的牌」上核算出来（如巧劲加层数、嘲讽增伤）。
+         */
+        public long amplifiedDamage = 0;
 
         public PowerLedger(String powerId, boolean isDebuff) {
             this.powerId = powerId;
@@ -426,6 +431,10 @@ public class CardStats {
         dyingSaveRooms.clear();
         unattributedEnergyGain = 0;
         unattributedDraws = 0;
+        unattributedSoulDamage = 0;
+        unattributedSoulBlock = 0;
+        heroDamageBlocked = 0;
+        soulAbsorbedTotal = 0;
         lastPlayedCard = null;
     }
 
@@ -551,6 +560,7 @@ public class CardStats {
                 o.addProperty("blk", L.blockDuring);
                 o.addProperty("dmgT", L.damageTakenDuring);
                 o.addProperty("dealt", L.damageDealtToTarget);
+                o.addProperty("amp", L.amplifiedDamage);
                 o.addProperty("saved", L.blockSaved);
                 JsonObject gr = new JsonObject();
                 for (Map.Entry<String, Long> e : L.granters.entrySet()) {
@@ -748,6 +758,9 @@ public class CardStats {
                     L.blockDuring = o.get("blk").getAsLong();
                     L.damageTakenDuring = o.get("dmgT").getAsLong();
                     L.damageDealtToTarget = o.get("dealt").getAsLong();
+                    if (o.has("amp")) {
+                        L.amplifiedDamage = o.get("amp").getAsLong();
+                    }
                     L.blockSaved = o.get("saved").getAsLong();
                     if (o.has("stkAct")) {
                         L.name = o.has("name") ? o.get("name").getAsString() : L.powerId;
@@ -1051,13 +1064,19 @@ public class CardStats {
         }
     }
 
-    /** 打出结束（useCard Postfix）：energyDelta = 打出前-打出后（本张牌实际付出；-1 特殊费用/0费=0）。 */
+    /**
+     * 打出结束（useCard Postfix）：energyDelta = 打出前-打出后（本张牌实际付出）。
+     *
+     * <p>注意【不再丢弃 delta ≤ 0】：0 费牌、X 费牌（打出后清空但差值记 0）、
+     * 以及被减费到 0 的牌，其"付"本就是 0，如实记 0 才不会让消耗侧系统性偏小。
+     * 只在无进行中战斗时忽略。
+     */
     public static void onPlayEnd(int energyDelta) {
-        if (!enabled || energyDelta <= 0 || currentCombat == null) {
+        if (!enabled || currentCombat == null) {
             return;
         }
         Frame top = stack.peek();
-        if (top != null) {
+        if (top != null && energyDelta > 0) {
             getOrCreate(top.card).energySpent[currentCombat.act] += energyDelta;
         }
     }
@@ -1166,12 +1185,15 @@ public class CardStats {
         // 2) 卡牌直接伤害：栈顶牌
         Frame top = stack.peek();
         if (top != null) {
+            // 扣掉目标身上增伤 debuff（嘲讽/易伤等）贡献的部分——那部分归施加 debuff 的牌，
+            // 不记在攻击牌自身头上（用户口径：巧劲加层数 → 伤害算巧劲）。
+            long net = stripAmplified(target, amount);
             CardInstance ins = getOrCreate(top.card);
-            ins.dmg[act] += amount;
+            ins.dmg[act] += net;
             if (currentCombat.enemyCount > 1) {
-                ins.dmgMulti[act] += amount;
+                ins.dmgMulti[act] += net;
             } else {
-                ins.dmgSingle[act] += amount;
+                ins.dmgSingle[act] += net;
             }
             // 3) 力量贡献：只有 NORMAL 型吃力量（StrengthPower.atDamageGive 判 NORMAL），
             //    DICE/THORNS/DELAY 型游戏不加力量 → 不归属（不凭空造数）
@@ -1457,6 +1479,11 @@ public class CardStats {
         }
         ArrayList<AbstractCard> list = powerGranters.get(powerId);
         return (list != null && !list.isEmpty()) ? list : null;
+    }
+
+    /** 取某 power 的台账（导出侧核算增伤等；无记录返回 null）。 */
+    public static PowerLedger ledgerOf(String powerId) {
+        return powerId == null ? null : ledgers.get(powerId);
     }
 
     // ==================== v2 事件入口 ====================
@@ -1791,6 +1818,29 @@ public class CardStats {
         attributeSoul(amount, false, currentCombat.act);
     }
 
+    /**
+     * 魂火跟班替玩家扛下的伤害 → 等效格挡，归到唤魂牌头上。
+     *
+     * <p>嘲讽（SOLID/OVERFLOW）把打到玩家身上的伤害转到魂火身上（见 RedirectDamagePatch），
+     * 这是玩家"少挨的打"，语义等于格挡。计入我方的 heroDamageBlocked，
+     * 并按魂火权重均分给唤魂牌——与 {@link #onSoulBlock} 同一套归属。
+     *
+     * @param prevented 魂火实际承受的量（不超过转入前的剩余伤害，由调用方钳制）
+     */
+    public static void onSoulAbsorb(int prevented) {
+        if (!enabled || prevented <= 0 || currentCombat == null) {
+            return;
+        }
+        heroDamageBlocked += prevented;
+        soulAbsorbedTotal += prevented;
+        attributeSoul(prevented, false, currentCombat.act);
+    }
+
+    /** 整局：玩家侧被挡下的伤害（真格挡 + 嘲讽替伤），用于"有效血量/承伤"口径。 */
+    private static long heroDamageBlocked = 0;
+    /** 整局：其中由魂火嘲讽替玩家扛下的量（heroDamageBlocked 的子集）。 */
+    private static long soulAbsorbedTotal = 0;
+
     private static CardInstance getOrCreate(AbstractCard c) {
         CardInstance ins = instances.get(c.uuid);
         if (ins == null) {
@@ -1967,6 +2017,41 @@ public class CardStats {
     }
 
     /**
+     * 把「因目标身上的增伤 debuff 而多打的伤害」从攻击牌自身的伤害里扣回。
+     *
+     * <p>用户口径：给敌人加层数的牌（如巧劲加中毒/流血/嘲讽层数）才是这份增伤的来源，
+     * 不该算到打出攻击的这张牌头上。扣减在 {@link #onMonsterDamage} 归属卡牌之后进行，
+     * 扣掉的量已在 {@link #ledgerBlockSaved} 里记进对应 PowerLedger.amplifiedDamage。
+     *
+     * @return 应计入攻击牌的净伤害（≥0）
+     */
+    private static long stripAmplified(AbstractMonster target, long amount) {
+        if (target == null || amount <= 0) {
+            return amount;
+        }
+        long amp = 0;
+        for (AbstractPower pw : target.powers) {
+            if (pw.ID == null || pw.type != AbstractPower.PowerType.DEBUFF) {
+                continue;
+            }
+            PowerLedger L = ledgers.get(pw.ID);
+            if (L == null) {
+                continue;
+            }
+            float probe = pw.atDamageReceive(1f, DamageInfo.DamageType.NORMAL);
+            if (probe > 1f) {
+                // 本次命中因该 debuff 多打的量（与 ledgerBlockSaved 同一套反推口径）
+                float mult = probe;
+                long extra = (long) (amount - amount / mult);
+                if (extra > 0) {
+                    amp += extra;
+                }
+            }
+        }
+        return Math.max(0, amount - amp);
+    }
+
+    /**
      * 防御性 buff 的格挡作用估算：怪物身上的减伤 debuff（如虚弱 ×0.75、缓速等）
      * 让本次命中少打了多少。用 atDamageReceive(1, NORMAL) 探测每个 buff 的乘法
      * 修正（虚弱 0.75 → 倍率 m=0.75），从结算值反推：未减伤伤害 ≈ output/m，
@@ -2021,6 +2106,15 @@ public class CardStats {
             }
             if (saved > 0) {
                 L.blockSaved += (long) saved;
+            }
+            // 增伤方向（如嘲讽 ×1.x、易伤 ×1.5）：这次命中因本 debuff 多打了多少。
+            // 记为 amplifiedDamage —— 它是「给敌人加这个 debuff 的牌」的贡献，
+            // 而不是打出攻击的这张牌的功劳（用户口径：巧劲加层数 → 伤害算巧劲）。
+            if (probe > 1f) {
+                long amp = (long) (amount - base);
+                if (amp > 0) {
+                    L.amplifiedDamage += amp;
+                }
             }
         }
     }
@@ -2178,8 +2272,10 @@ public class CardStats {
                         .append("  **均伤/次**: ").append(ave(sumDmg, sumPlays))
                         .append("  **均格挡/次**: ").append(ave(sumBlock, sumPlays))
                         .append("  **平均每轮打出**: ").append(fmt(ppr / list.size())).append('\n');
-                sb.append("- **力量贡献**: ").append(sumStrC)
-                        .append("  **敏捷贡献**: ").append(sumDexC).append("\n\n");
+                // 力敏一律给「每次打出平均」：>1 说明这张牌平均每次能从力敏拿到多少点
+                sb.append("- **力量贡献**: ").append(perPlay(sumStrC, sumPlays))
+                        .append("/次  **敏捷贡献**: ").append(perPlay(sumDexC, sumPlays))
+                        .append("/次\n\n");
                 appendCardGroupStats(sb, list, act);
             }
         }
@@ -2221,8 +2317,13 @@ public class CardStats {
                             .append("  **均伤/次**: ").append(ave(sumDmg, sumPlays))
                             .append("  **均格挡/次**: ").append(ave(sumBlock, sumPlays))
                             .append("  **平均每轮打出**: ").append(fmt(ppr / list.size())).append('\n');
-                    sb.append("- **力量**: 授予 ").append(sumStrG).append("  贡献 ").append(sumStrC)
-                            .append("  **敏捷**: 授予 ").append(sumDexG).append("  贡献 ").append(sumDexC).append("\n\n");
+                    // 力敏一律给「每次打出平均」，同时保留总量便于核对
+                    sb.append("- **力量**: 授予 ").append(perPlay(sumStrG, sumPlays)).append("/次（总 ").append(sumStrG)
+                            .append("）  贡献 ").append(perPlay(sumStrC, sumPlays)).append("/次（总 ").append(sumStrC)
+                            .append("）\n");
+                    sb.append("- **敏捷**: 授予 ").append(perPlay(sumDexG, sumPlays)).append("/次（总 ").append(sumDexG)
+                            .append("）  贡献 ").append(perPlay(sumDexC, sumPlays)).append("/次（总 ").append(sumDexC)
+                            .append("）\n\n");
                     appendCardGroupStats(sb, list, null);
                 }
             }
@@ -2242,15 +2343,16 @@ public class CardStats {
                     deckTotal++;
                 }
             }
-            Map<String, long[]> agg = new HashMap<>(); // [dmg, block, plays, energyNet, drawn]
+            Map<String, long[]> agg = new HashMap<>(); // [dmg, block, plays, energyGained, drawn, energySpent]
             for (CardInstance ci : instances.values()) {
                 long[] a = agg.computeIfAbsent(packageOf(ci),
-                        k -> new long[5]);
+                        k -> new long[6]);
                 a[0] += totalDmg(ci);
                 a[1] += totalBlock(ci);
                 a[2] += totalPlays(ci);
-                a[3] += total(ci.energyGained) - total(ci.energySpent);
+                a[3] += total(ci.energyGained);
                 a[4] += total(ci.drawn);
+                a[5] += total(ci.energySpent);
             }
             Map<String, Long> diceByPkg = new HashMap<>();
             for (DiceStat d : diceStats.values()) {
@@ -2275,7 +2377,7 @@ public class CardStats {
             sb.append("> 全表为**整局**口径：牌库 = 本局拥有过的牌（去重），打出 = 整局打出次数。\n");
             sb.append("> 稀释件 = 该包每张牌平均打出次数 < 全场每张牌均值×0.5（两列同量纲）。\n\n");
             for (String pkg : pkgs) {
-                long[] a = agg.getOrDefault(pkg, new long[5]);
+                long[] a = agg.getOrDefault(pkg, new long[6]);
                 long dDmg = diceByPkg.getOrDefault(pkg, 0L);
                 int deckN = deckByPkg.getOrDefault(pkg, 0);
                 double deckShare = deckTotal <= 0 ? 0 : 100.0 * deckN / deckTotal;
@@ -2284,7 +2386,9 @@ public class CardStats {
                 line.append("伤害占比 ").append(pct(a[0] + dDmg, totalDmgAll))
                         .append("（卡 ").append(a[0]).append(" + 骰 ").append(dDmg).append("）")
                         .append("  格挡占比 ").append(pct(a[1], allCardBlock))
-                        .append("  净能量 ").append(a[3])
+                        // 净能量按每次打出平均（与单卡节口径一致）：>0 净赚，<0 净亏
+                        .append("  净能量 ").append(a[2] <= 0 ? "-"
+                                : fmt((double) (a[3] - a[5]) / a[2]) + "/次")
                         .append("  净过牌 ").append(a[2] <= 0 ? "-" : fmt((double) a[4] / a[2] - 1))
                         .append("  牌库 ").append(deckN).append("张(").append(fmt(deckShare)).append("%)")
                         .append("  打出 ").append(a[2]).append("次(").append(fmt(playShare)).append("%)");
@@ -2425,6 +2529,11 @@ public class CardStats {
                 if (L.damageDealtToTarget > 0) {
                     sb.append("- **对带此debuff目标造成伤害**: ").append(L.damageDealtToTarget).append('\n');
                 }
+                if (L.amplifiedDamage > 0) {
+                    // 本次增伤是「施加此 debuff 的牌」的贡献（如巧劲加层数、嘲讽增伤），
+                    // 已从攻击牌自身伤害里拆出，不重复计入卡牌均伤。
+                    sb.append("- **增伤贡献(算给施加此debuff的牌)**: ").append(L.amplifiedDamage).append('\n');
+                }
                 if (L.blockSaved > 0) {
                     sb.append("- **减战损等效(约)**: ").append(L.blockSaved).append('\n');
                 }
@@ -2493,6 +2602,9 @@ public class CardStats {
 
         // ---- 诊断 ----
         sb.append("## 诊断\n\n");
+        sb.append("- 玩家侧被挡下的伤害(真格挡+嘲讽替伤, 计入各卡均格挡): ").append(heroDamageBlocked)
+                .append("（其中真格挡 ").append(Math.max(0, heroDamageBlocked - soulAbsorbedTotal))
+                .append(" / 魂火替伤 ").append(soulAbsorbedTotal).append("）\n");
         sb.append("- 无归属伤害(栈空且非骰子): ").append(unattributedDamage).append('\n');
         sb.append("- 无归属骰子伤害(sources为空, 遗物/环境产骰): ").append(unattributedDiceDamage).append('\n');
         sb.append("- 无归属格挡(栈空且非骰子): ").append(unattributedBlock).append('\n');
@@ -2525,9 +2637,15 @@ public class CardStats {
             condTotal += i.conditionTotal;
             condMet += i.conditionMet;
         }
-        // 资源收支
-        sb.append("- **资源收支**: 净能量 ").append(gained - spent)
-                .append("（付 ").append(spent).append(" / 得 ").append(gained).append("）");
+        // 资源收支（净能量按【每次打出】平均：>0 = 平均每打一次净赚，<0 = 净亏）
+        sb.append("- **资源收支**: 净能量 ");
+        if (plays <= 0) {
+            sb.append("-");
+        } else {
+            sb.append(fmt((double) (gained - spent) / plays)).append("/次");
+        }
+        sb.append("（付 ").append(spent).append(" / 得 ").append(gained)
+                .append(" / 打出 ").append(plays).append("）");
         sb.append("  净过牌 ").append(plays <= 0 ? "-" : fmt((double) drawn / plays - 1))
                 .append("（抽 ").append(drawn).append(" / 打出 ").append(plays).append("）\n");
         // 手牌表现（整局口径）
@@ -2782,6 +2900,11 @@ public class CardStats {
 
     private static String ave(long total, long count) {
         return count <= 0 ? "-" : fmt((double) total / count);
+    }
+
+    /** 每次打出的平均值（打出次数 0 → "-"）。力敏等"摊到单次"的指标统一走这里。 */
+    private static String perPlay(long total, long plays) {
+        return plays <= 0 ? "-" : fmt((double) total / plays);
     }
 
     private static String fmt(double v) {
