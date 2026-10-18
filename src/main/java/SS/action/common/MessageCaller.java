@@ -25,6 +25,14 @@ public class MessageCaller extends AbstractGameAction {
 
         if (tutorialStrings != null && tutorialStrings.TEXT != null) {
             this.texts = tutorialStrings.TEXT;
+
+            // 1.5 简洁模式：若 tutorial_concise.json 里写了这个 key 的精简版，优先用它。
+            //     页数可以与正式文案不同，下面的图片加载会跟着走。
+            String[] concise = SS.helper.ConciseText.tutorialText("Double:" + relicKey);
+            if (concise != null && concise.length > 0) {
+                this.texts = concise;
+            }
+
             int pageCount = this.texts.length;
             this.images = new Texture[pageCount];
 

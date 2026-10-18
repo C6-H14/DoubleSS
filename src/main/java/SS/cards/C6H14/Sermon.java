@@ -6,11 +6,12 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import SS.action.monster.EvokeSoulAction;
 import SS.animation.CharacterAnimationController;
+import SS.cardmodifiers.PaintingModifier;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.power.SermonPower;
+import basemod.helpers.CardModifierManager;
 
 public class Sermon extends AbstractC6H14Card {
     public static final String ID = ModHelper.makePath("Sermon");
@@ -26,6 +27,8 @@ public class Sermon extends AbstractC6H14Card {
     public Sermon() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
+        setMagic(1);
+        this.exhaust = true;
         if (needManager()) {
             updateManager();
         }
@@ -35,6 +38,7 @@ public class Sermon extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
+            // 强化只加"保留"，不加 !M! —— 数值成长走群主身份的染色，见 EXTENDED_DESCRIPTION。
             this.selfRetain = true;
             UpdateDescription();
             initializeDescription();
@@ -42,10 +46,29 @@ public class Sermon extends AbstractC6H14Card {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        selfPower(new SermonPower(p));
-        if (needManager()) {
-            addToBot(new EvokeSoulAction(1));
-        }
+        // 挂上本回合的布道记录。之后的每次出牌由 SermonPower.onUseCard 负责判定与唤魂。
+        selfPower(new SermonPower(p, this.magicNumber));
+    }
+
+    /**
+     * 群主身份：本牌获得"染色"。
+     *
+     * <p>与 {@link Hymn} 同款做法 —— 挂 {@link PaintingModifier}，打出时自动施加
+     * {@link SS.power.PaintingPower}，于是本回合后续出牌会改变魂火颜色。
+     *
+     * <p>注意必须调 {@code super}：基类负责置 {@code isManager} 并刷新描述文本，
+     * 少了它牌面不会切到 EXTENDED_DESCRIPTION。
+     */
+    @Override
+    public void updateManager() {
+        super.updateManager();
+        CardModifierManager.addModifier(this, new PaintingModifier());
+    }
+
+    @Override
+    public void exitManager() {
+        super.exitManager();
+        CardModifierManager.removeSpecificModifier(this, new PaintingModifier(), false);
     }
 
     @Override

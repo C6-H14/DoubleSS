@@ -2,12 +2,14 @@ package SS.cards.C6H14;
 
 import java.util.ArrayList;
 
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
 import SS.Dice.AttackDice;
 import SS.action.dice.ChannelDiceAction;
@@ -62,33 +64,72 @@ public class BlazingStrike extends AbstractC6H14Card {
                 }
             }
 
-            if (!candidates.isEmpty()) {
-                AbstractHaoCard target = candidates.get(AbstractDungeon.cardRandomRng.random(candidates.size() - 1));
-                target.superFlash();
+            if (candidates.isEmpty()) {
+                return;
+            }
 
-                AbstractCard copy = target.makeStatEquivalentCopy();
+            AbstractHaoCard target = candidates.get(AbstractDungeon.cardRandomRng.random(candidates.size() - 1));
+            target.superFlash();
 
-                InscribeCardPower power = null;
-                for (AbstractMonster mo : AllyManager.allies.monsters) {
-                    if (mo instanceof SoulAlly && !mo.isDeadOrEscaped() && mo.hasPower("Double:InscribeCardPower")) {
-                        power = (InscribeCardPower) mo.getPower("Double:InscribeCardPower");
-                        break;
-                    }
-                }
-                if (power == null && p.hasPower("Double:InscribeCardPower")) {
-                    power = (InscribeCardPower) p.getPower("Double:InscribeCardPower");
-                }
+            AbstractCard copy = target.makeStatEquivalentCopy();
 
-                if (power != null) {
-                    if (power.card != null) {
-                        power.playCard();
-                    }
-                    copy.setCostForTurn(0);
-                    power.card = copy;
-                    power.updateDescription();
+            InscribeCardPower power = null;
+            SoulAlly carrier = null;
+            for (AbstractMonster mo : AllyManager.allies.monsters) {
+                if (mo instanceof SoulAlly && !mo.isDeadOrEscaped() && mo.hasPower("Double:InscribeCardPower")) {
+                    carrier = (SoulAlly) mo;
+                    power = (InscribeCardPower) mo.getPower("Double:InscribeCardPower");
+                    break;
                 }
             }
+            if (power == null && p.hasPower("Double:InscribeCardPower")) {
+                power = (InscribeCardPower) p.getPower("Double:InscribeCardPower");
+                carrier = null; // 铭刻在玩家身上，不涉及魂火染色
+            }
+
+            if (power == null) {
+                return;
+            }
+
+            // 1. 先打出旧牌。这里必须补一个 WaitAction：power.playCard() 只是把
+            //    PlayCardAction 排进队列，紧接着的 setCard 会把 power.card 覆盖掉，
+            //    如果中间不等一拍，旧牌的"飞出去 -> 结算"会和"新牌装进槽位"挤在同一帧，
+            //    观感上就是旧牌被吞掉了。SoulColorCycleAction 用的也是同样的 0.3f 间隔。
+            if (power.card != null) {
+                AbstractCard visualCard = power.card.makeStatEquivalentCopy();
+                visualCard.current_x = (carrier != null) ? carrier.hb.cX : p.hb.cX;
+                visualCard.current_y = (carrier != null) ? carrier.hb.cY : p.hb.cY;
+                AbstractDungeon.topLevelEffects.add(new ShowCardBrieflyEffect(visualCard));
+
+                power.playCard();
+                addToTop(new WaitAction(0.3f));
+            }
+
+            // 2. 再铭刻新牌。走 setCard 而不是直接写字段，保证描述同步。
+            copy.setCostForTurn(0);
+            copy.retain = true;
+            power.setCard(copy);
+
+            // 3. 魂火切换为被铭刻牌对应的颜色（不额外吸牌）。
+            if (carrier != null) {
+                carrier.setColorOnly(soulColorOf(copy));
+            }
         });
+    }
+
+    /** 卡牌类型 → 魂火颜色。与 SoulColorCycleAction / PaintingPower 的映射一致。 */
+    private static SoulAlly.SoulColor soulColorOf(AbstractCard c) {
+        switch (c.type) {
+            case ATTACK:
+                return SoulAlly.SoulColor.RED;
+            case SKILL:
+                return SoulAlly.SoulColor.GREEN;
+            case POWER:
+                return SoulAlly.SoulColor.BLUE;
+            default:
+                // STATUS / CURSE 之类一律紫色，与 SoulColorCycleAction 第 63 行的处理相同
+                return SoulAlly.SoulColor.PURPLE;
+        }
     }
 
     public void updateManager() {

@@ -36,16 +36,15 @@ public class KernelMapping extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        // 参数是「是否处于群主身份」：群主下改为让玩家指定要转化的牌，非群主则随机。
-        // 与卡牌是否强化无关（强化只加能量）。
-        addToBot(new KernelMappingAction(needManager()));
+        // 参数 1 =「是否处于群主身份」：群主下改为让玩家指定要加费的牌，非群主则随机。
+        // 参数 2 =「是否强化」：强化放宽可选费用上限（0 → 0或1），与群主身份无关。
+        addToBot(new KernelMappingAction(needManager(), this.upgraded));
         addToBot(new GainEnergyAction(this.magicNumber));
     }
 

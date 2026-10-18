@@ -23,6 +23,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import SS.helper.CardUtil;
+import SS.helper.ConciseText;
 import SS.path.AbstractCardEnum;
 import SS.path.PackageEnumList.PackageEnum;
 import basemod.abstracts.CustomCard;
@@ -388,27 +389,78 @@ public abstract class AbstractDoubleCard extends CustomCard {
         UpdateDescription(0, 1, 2, 3, 4, 5);
     }
 
+    /**
+     * 取某个正式文案的简洁版替换。
+     *
+     * <p>简洁模式下 {@link SS.helper.ConciseText} 里有对应条目就用它，没有就原样返回。
+     * 用值相等去查而不是直接把参数带进来：这个方法被 20 多处用不同的 index 调用，
+     * 每处都要多传一遍 id 太吵，而 formal 本身（DESCRIPTION/UPGRADE_DESCRIPTION/
+     * EXTENDED_DESCRIPTION[i]）已经唯一确定了要覆盖哪一句。
+     */
+    private String concise(String formal) {
+        if (formal == null || !SS.helper.TextMode.isConcise()) {
+            return formal;
+        }
+        // 先按 ED 槽位匹配：简洁表里的 ED 数组与正式 ED 数组按下标一一对应，
+        // 所以这里用"formal 等于正式 ED 的第 i 项"来定位，而不是用 formal 去反查 map。
+        String concised = matchExtended(formal);
+        if (concised != null) {
+            return concised;
+        }
+        String d = ConciseText.cardText(this.cardID, "DESCRIPTION");
+        if (d != null && formal.equals(getFormalDescription(false))) {
+            return d;
+        }
+        String u = ConciseText.cardText(this.cardID, "UPGRADE_DESCRIPTION");
+        if (u != null && formal.equals(getFormalDescription(true))) {
+            return u;
+        }
+        return formal;
+    }
+
+    /** 在简洁表的 ED 数组里找 formal 对应的那一项；没有则返回 null（由调用方继续往基础文案里找）。 */
+    private String matchExtended(String formal) {
+        String[] mine = ConciseText.cardExtended(this.cardID);
+        if (mine == null) {
+            return null;
+        }
+        int myLen = (EXTENDED_DESCRIPTION == null) ? 0 : EXTENDED_DESCRIPTION.length;
+        // 只遍历两边都存在的下标，避免 formal==null 时误匹配到 null 槽位
+        for (int i = 0; i < mine.length && i < myLen; i++) {
+            String formalSlot = EXTENDED_DESCRIPTION[i];
+            if (formalSlot != null && !formalSlot.isEmpty() && formalSlot.equals(formal)) {
+                return mine[i];
+            }
+        }
+        return null;
+    }
+
+    /** 正式（详细模式）文案：强化取 UPGRADE_DESCRIPTION，否则 DESCRIPTION。 */
+    private String getFormalDescription(boolean upgraded) {
+        if (CARD_STRINGS == null) {
+            return null;
+        }
+        return upgraded ? CARD_STRINGS.UPGRADE_DESCRIPTION : CARD_STRINGS.DESCRIPTION;
+    }
+
     public void UpdateDescription(int a, int b, int c, int d, int e, int f) {
         if (!isFiend && !isManager
                 || !isInCombat()) {
-            if (this.upgraded)
-                this.rawDescription = this.CARD_STRINGS.UPGRADE_DESCRIPTION;
-            else
-                this.rawDescription = this.CARD_STRINGS.DESCRIPTION;
+            this.rawDescription = concise(getFormalDescription(this.upgraded));
             return;
         }
         if (isFiend && !isManager) {
             if (this.upgraded) {
                 if (needFiend()) {
-                    this.rawDescription = this.EXTENDED_DESCRIPTION[b];
+                    this.rawDescription = concise(extended(b));
                 } else {
-                    this.rawDescription = this.CARD_STRINGS.UPGRADE_DESCRIPTION;
+                    this.rawDescription = concise(getFormalDescription(true));
                 }
             } else {
                 if (needFiend()) {
-                    this.rawDescription = this.EXTENDED_DESCRIPTION[a];
+                    this.rawDescription = concise(extended(a));
                 } else {
-                    this.rawDescription = this.CARD_STRINGS.DESCRIPTION;
+                    this.rawDescription = concise(getFormalDescription(false));
                 }
             }
             return;
@@ -416,15 +468,15 @@ public abstract class AbstractDoubleCard extends CustomCard {
         if (!isFiend && isManager) {
             if (this.upgraded) {
                 if (needManager()) {
-                    this.rawDescription = this.EXTENDED_DESCRIPTION[b];
+                    this.rawDescription = concise(extended(b));
                 } else {
-                    this.rawDescription = this.CARD_STRINGS.UPGRADE_DESCRIPTION;
+                    this.rawDescription = concise(getFormalDescription(true));
                 }
             } else {
                 if (needManager()) {
-                    this.rawDescription = this.EXTENDED_DESCRIPTION[a];
+                    this.rawDescription = concise(extended(a));
                 } else {
-                    this.rawDescription = this.CARD_STRINGS.DESCRIPTION;
+                    this.rawDescription = concise(getFormalDescription(false));
                 }
             }
             return;
@@ -433,32 +485,49 @@ public abstract class AbstractDoubleCard extends CustomCard {
             if (this.upgraded) {
                 if (needFiend()) {
                     if (needManager()) {
-                        this.rawDescription = this.EXTENDED_DESCRIPTION[f];
+                        this.rawDescription = concise(extended(f));
                     } else {
-                        this.rawDescription = this.EXTENDED_DESCRIPTION[b];
+                        this.rawDescription = concise(extended(b));
                     }
                 } else {
                     if (needManager()) {
-                        this.rawDescription = this.EXTENDED_DESCRIPTION[d];
+                        this.rawDescription = concise(extended(d));
                     } else {
-                        this.rawDescription = this.CARD_STRINGS.UPGRADE_DESCRIPTION;
+                        this.rawDescription = concise(getFormalDescription(true));
                     }
                 }
             } else {
                 if (needFiend()) {
                     if (needManager()) {
-                        this.rawDescription = this.EXTENDED_DESCRIPTION[e];
+                        this.rawDescription = concise(extended(e));
                     } else {
-                        this.rawDescription = this.EXTENDED_DESCRIPTION[a];
+                        this.rawDescription = concise(extended(a));
                     }
                 } else {
                     if (needManager()) {
-                        this.rawDescription = this.EXTENDED_DESCRIPTION[c];
+                        this.rawDescription = concise(extended(c));
                     } else {
-                        this.rawDescription = this.CARD_STRINGS.DESCRIPTION;
+                        this.rawDescription = concise(getFormalDescription(false));
                     }
                 }
             }
         }
+    }
+
+    /**
+     * 安全取 EXTENDED_DESCRIPTION 的第 i 项。
+     *
+     * <p>ED 数组长度由 JSON 决定，实测分布是 0 / 2 / 6 / 16 —— 大部分牌只有 2 项，
+     * 而 fiend+manager 双身份会读到 index 4/5。老代码直接下标取值，靠"这些牌不会同时
+     * 挂两种身份"侥幸不越界。这里补一层长度保护：越界返回 null，让 concise() 原样透传，
+     * 再由调用方落到 rawDescription = null 之外的分支 —— 实际上越界时回退到基础文案更安全。
+     */
+    private String extended(int i) {
+        if (EXTENDED_DESCRIPTION == null || i < 0 || i >= EXTENDED_DESCRIPTION.length) {
+            return getFormalDescription(this.upgraded);
+        }
+        String s = EXTENDED_DESCRIPTION[i];
+        // 空串是"该槽位没写"，同样回退
+        return (s == null || s.isEmpty()) ? getFormalDescription(this.upgraded) : s;
     }
 }

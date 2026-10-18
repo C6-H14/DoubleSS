@@ -28,7 +28,7 @@ public class Guidance extends AbstractC6H14Card {
     public Guidance() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        setDamage(5);
+        setDamage(7);
         setMagic(1);
         if (needManager()) {
             updateManager();

@@ -5,29 +5,49 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndAddToHandEffect;
 
 public class KernelMappingAction extends AbstractGameAction {
     private static final UIStrings uiStrings;
     public static final String[] TEXT;
     private boolean isInitialized = false;
     /**
-     * 是否处于【群主身份】（决定是随机转化还是让玩家指定）。
+     * 是否处于【群主身份】（决定是随机加费还是让玩家指定）。
      *
-     * <p>注意：这与卡牌是否强化【无关】。KernelMapping 的强化只加能量（magicNumber），
-     * 转化方式只由群主身份决定 —— 调用方 {@code KernelMapping.use()} 传的是
-     * {@code needManager()}。之前这个字段叫 upgraded，极易被误读成强化状态。
+     * <p>注意：这与卡牌是否强化【无关】。转化方式只由群主身份决定 ——
+     * 调用方 {@code KernelMapping.use()} 传的是 {@code needManager()}。
+     * 之前这个字段叫 upgraded，极易被误读成强化状态。
      */
     private boolean manager;
+    /**
+     * 卡牌是否强化。强化只放宽费用限制：未强化只认 0 费牌，强化后认 0 费或 1 费牌。
+     * 与 {@link #manager} 是两个独立维度。
+     */
+    private boolean upgraded;
     private ArrayList<AbstractCard> tempInvalidCards = new ArrayList<>(); // 暂存不合规卡牌
 
-    public KernelMappingAction(boolean manager) {
+    /** 可以被本次效果加费的牌的费用上限（未强化 0，强化 1）。 */
+    private int maxTargetCost() {
+        return this.upgraded ? 1 : 0;
+    }
+
+    /**
+     * 卡牌当前**实际显示/生效**的费用。
+     *
+     * <p>{@code costForTurn} 才是卡面读的那个数（回合开始会被重置为 cost，被改费时会单独变），
+     * 所以 0 费的判断不能只看 {@code cost}。负数（X 费牌 / 不可打出的状态牌）直接原样返回，
+     * 让上层用它去和 0 比较从而排除掉。
+     */
+    private int effectiveCost(AbstractCard c) {
+        return c.costForTurn;
+    }
+
+    public KernelMappingAction(boolean manager, boolean upgraded) {
         this.actionType = ActionType.CARD_MANIPULATION;
         this.duration = Settings.ACTION_DUR_FAST;
         this.manager = manager;
+        this.upgraded = upgraded;
     }
 
     @Override
@@ -42,10 +62,14 @@ public class KernelMappingAction extends AbstractGameAction {
         // 阶段 1：筛选并初始化 (第一帧执行)
         // =================================================================
         if (!isInitialized) {
-            // 找出所有符合条件的手牌 (费用在 0 到 2 之间)
+            // 找出所有符合条件的手牌：未强化只认 0 费，强化后认 0/1 费。
+            // 用 effectiveCost 而不是裸 cost：刚被别的效果改过费的牌，两者会不一致，
+            // 按卡面显示的费用来判断才符合玩家预期。
+            int limit = maxTargetCost();
             ArrayList<AbstractCard> validCards = new ArrayList<>();
             for (AbstractCard c : AbstractDungeon.player.hand.group) {
-                if (c.cost >= 0 && c.cost <= 2) {
+                int ec = effectiveCost(c);
+                if (ec >= 0 && ec <= limit) {
                     validCards.add(c);
                 } else {
                     // 如果不符合条件，记录到暂存区
@@ -65,17 +89,17 @@ public class KernelMappingAction extends AbstractGameAction {
                 AbstractDungeon.player.hand.group.removeAll(tempInvalidCards);
 
                 // 打开选牌界面
-                AbstractDungeon.handCardSelectScreen.open("选择一张牌进行转化", 1, false, false);
+                AbstractDungeon.handCardSelectScreen.open(TEXT[0], 1, false, false);
 
                 this.isInitialized = true;
                 this.tickDuration();
                 return;
             } else {
-                // 【非群主】：随机选择 1 张转化
+                // 【非群主】：随机选择 1 张加费
                 AbstractCard oldCard = validCards.get(AbstractDungeon.cardRandomRng.random(validCards.size() - 1));
 
-                // 执行转化
-                transformCardInHand(oldCard);
+                // 执行加费
+                increaseCardCost(oldCard);
 
                 this.isDone = true;
                 return;
@@ -87,8 +111,8 @@ public class KernelMappingAction extends AbstractGameAction {
         // =================================================================
         if (manager && !AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) {
             for (AbstractCard oldCard : AbstractDungeon.handCardSelectScreen.selectedCards.group) {
-                // 执行转化并放入手牌
-                transformCardInHand(oldCard);
+                // 执行加费（牌留在手里，只是变得更贵）
+                increaseCardCost(oldCard);
             }
 
             // 【关键】将我们之前隐藏的不合规卡牌重新放回手牌中
@@ -107,106 +131,40 @@ public class KernelMappingAction extends AbstractGameAction {
     }
 
     /**
-     * 将手牌中的旧卡替换为符合规则的随机新卡
-     */
-    private void transformCardInHand(AbstractCard oldCard) {
-        int targetCost = oldCard.cost + 1;
-
-        // 1. 检索 目标费用+1 的卡池（费用 3 的牌池存在，正常不会落空）
-        AbstractCard newCard = getRandomCardOfCost(targetCost);
-
-        // 2. 【保底】同费用重抽。
-        //    刻意【不】退化成"复制原卡本身"：那会让玩家看到一张和自己刚打出的牌
-        //    一模一样的牌，观感上等同于"什么都没发生"，与"变化为费用加1的随机牌"严重不符。
-        //    同费用重抽至少保证换成的是另一张牌。真出现全费用无牌可抽才会走到复制。
-        if (newCard == null) {
-            newCard = getRandomCardOfCost(oldCard.cost);
-        }
-
-        // 3. 【最后保底】连同费用都没有：只能复制原卡，避免卡牌凭空消失
-        if (newCard == null) {
-            newCard = oldCard.makeCopy();
-        }
-
-        // 4. 继承原本卡牌的升级状态
-        if (oldCard.upgraded) {
-            newCard.upgrade();
-        }
-
-        // 从手牌（或选牌缓存）中移除旧卡
-        if (manager) {
-            // 选择模式下，旧卡在 selectedCards 里，直接不放回即可
-        } else {
-            // 随机模式下，需要手动从玩家手牌移除旧卡
-            AbstractDungeon.player.hand.removeCard(oldCard);
-        }
-
-        // 5. 播放卡牌飞入手牌特效
-        newCard.current_x = Settings.WIDTH / 2.0F;
-        newCard.current_y = Settings.HEIGHT / 2.0F;
-        AbstractDungeon.effectList.add(new ShowCardAndAddToHandEffect(newCard));
-    }
-
-    /**
-     * 动态检索符合特定费用的可用卡池。
+     * 给一张手牌加费：本场战斗永久 +1，牌本身留在手里。
      *
-     * <p><b>必须直接遍历 CardGroup 本体，不能拿 CardLibrary 的实例去 contains 比对。</b>
-     * 曾经写成：
+     * <p><b>不能用 {@code modifyCostForCombat(1)}</b>。反编译原版实现是这样的：
      * <pre>
-     *   for (AbstractCard c : CardLibrary.cards.values()) {
-     *       if (AbstractDungeon.commonCardPool.group.contains(c)) { ... }
+     *   if (costForTurn &gt; 0) {           // ① 有本回合费用：改 costForTurn
+     *       costForTurn += amount;
+     *       cost = costForTurn;
+     *   } else if (cost &gt;= 0) {          // ② 否则改 cost
+     *       cost += amount;
+     *       costForTurn = 0;             // ← 把本回合费用强制清零
      *   }
      * </pre>
-     * 这恒为 false —— {@code AbstractCard} 没有重写 equals/hashCode，所以
-     * {@code List.contains} 用的是【引用相等】；而 {@code modcore.LoadData()} 往卡池里
-     * 灌的是 {@code makeStatEquivalentCopy()} 出来的【副本】（见 modcore.java 卡池过滤那段），
-     * 与 CardLibrary 里的原对象不是同一个实例。结果候选池永远为空，
-     * 一路掉到"复制原卡"的兜底分支 —— 玩家看到的就是打出去的牌原样回到手里。
+     * 0 费牌 {@code costForTurn == 0}，永远走分支 ②：{@code cost} 确实 +1 了，
+     * 但紧接着 {@code costForTurn} 被重置成 0。而<b>卡面渲染读的是 costForTurn</b>，
+     * 所以玩家看到的是"费用还是 0"、本回合打出去也真的只花 0 费 —— 看起来就是完全没生效，
+     * 要等下回合回合开始重置 costForTurn 时才显形。原版这个方法假设你只会给 &gt;0 费的牌加费，
+     * 0 费场景是它的盲区。
+     *
+     * <p>这里手动两件都写：{@code cost} 是本场战斗的基准值（回合开始会同步到 costForTurn），
+     * {@code costForTurn} 让改动<b>立刻可见可用</b>。
      */
-    private AbstractCard getRandomCardOfCost(int targetCost) {
-        ArrayList<AbstractCard> pool = new ArrayList<>();
+    private void increaseCardCost(AbstractCard card) {
+        card.cost += 1;
+        card.costForTurn = card.cost;
+        card.isCostModified = true;
+        card.isCostModifiedForTurn = true;
 
-        // 卡池即"本职业可用牌"的白名单，直接遍历它，顺便完成颜色过滤。
-        // srcXxx 是未经过滤的原始池，这里要的是【过滤后】的池（modcore 已按卡包裁剪）。
-        addFromPool(pool, AbstractDungeon.commonCardPool, targetCost);
-        addFromPool(pool, AbstractDungeon.uncommonCardPool, targetCost);
-        addFromPool(pool, AbstractDungeon.rareCardPool, targetCost);
-
-        if (pool.isEmpty()) {
-            return null;
-        }
-
-        // 随机返回一张复本
-        return pool.get(AbstractDungeon.cardRandomRng.random(pool.size() - 1)).makeCopy();
-    }
-
-    /** 把某个 CardGroup 中费用相符、且不属于基础/特殊/状态/诅咒/HEAL 的牌收进候选池。 */
-    private void addFromPool(ArrayList<AbstractCard> pool, CardGroup group, int targetCost) {
-        if (group == null || group.group == null) {
-            return;
-        }
-        for (AbstractCard c : group.group) {
-            if (c == null || c.cost != targetCost) {
-                continue;
-            }
-            // 1. 排除基础卡 (Strike/Defend) 和 特殊卡 (比如幻影)
-            if (c.rarity == AbstractCard.CardRarity.BASIC || c.rarity == AbstractCard.CardRarity.SPECIAL) {
-                continue;
-            }
-            // 2. 排除状态牌和诅咒牌
-            if (c.type == AbstractCard.CardType.STATUS || c.type == AbstractCard.CardType.CURSE) {
-                continue;
-            }
-            // 3. 排除 HEAL 标签牌（回血类发现牌不该被转化出来）
-            if (c.hasTag(AbstractCard.CardTags.HEALING)) {
-                continue;
-            }
-            pool.add(c);
-        }
+        // 闪一下，让玩家看清"被选中的是哪张"。用 superFlash 而不是 flash：
+        // 后者画的是白框，前者用牌自身的颜色，和游戏内其它"选中"反馈一致。
+        card.superFlash();
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString("Double:ChooseHandCardAction");
+        uiStrings = CardCrawlGame.languagePack.getUIString("Double:KernelMapping");
         TEXT = uiStrings.TEXT;
     }
 }

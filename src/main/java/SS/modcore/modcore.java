@@ -667,6 +667,7 @@ public class modcore implements EditCardsSubscriber, EditRelicsSubscriber, EditC
     public void receivePostInitialize() {
         initializePackage();
         sinBar = new Sinsbar();
+        SS.helper.DoubleConfigPanel.register();
         BaseMod.registerCustomReward(
                 RewardEnum.HaoCardReward,
                 (rewardSave) -> { // this handles what to do when this quest type is loaded.

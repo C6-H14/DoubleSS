@@ -32,6 +32,8 @@ public class Conduct extends AbstractC6H14Card {
     public Conduct() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
+        this.selfRetain = true;
+        setMagic(1);
         if (needManager()) {
             updateManager();
         }
@@ -41,7 +43,7 @@ public class Conduct extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            this.selfRetain = true;
+            upgradeMagicNumber(1);
             UpdateDescription();
             initializeDescription();
         }
@@ -86,13 +88,13 @@ public class Conduct extends AbstractC6H14Card {
         int roll = AbstractDungeon.cardRandomRng.random(2);
         switch (roll) {
             case 0:
-                addToTop(new ApplyPowerAction(target, p, new VulnerablePower(target, 1, false), 1));
+                addToTop(new ApplyPowerAction(target, p, new VulnerablePower(target, magicNumber, false), magicNumber));
                 break;
             case 1:
-                addToTop(new ApplyPowerAction(target, p, new WeakPower(target, 1, false), 1));
+                addToTop(new ApplyPowerAction(target, p, new WeakPower(target, magicNumber, false), magicNumber));
                 break;
             case 2:
-                addToTop(new ApplyPowerAction(target, p, new PoisonPower(target, p, 2), 2));
+                addToTop(new ApplyPowerAction(target, p, new PoisonPower(target, p, magicNumber), magicNumber));
                 break;
         }
     }

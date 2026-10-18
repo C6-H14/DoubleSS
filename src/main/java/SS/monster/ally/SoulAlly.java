@@ -215,6 +215,56 @@ public class SoulAlly extends AbstractAlly {
         addToBot(new RollMoveAction(this));
     }
 
+    /**
+     * 只换颜色，不吸牌。
+     *
+     * <p>与 {@link #changeColor} 的区别：{@code changeColor} 是"染色"的完整语义，
+     * 非白色时必定往抽牌堆抓一张对应类型的牌铭刻起来（见方法尾部对
+     * {@link SoulColorCycleAction} 的排队）。有些来源（例如《炽烈打击》铭刻自己手里的牌）
+     * 只是想让魂火换个颜色，不应该再去抽牌堆顺一张牌，于是单开这个入口。
+     *
+     * <p>渐变字段（colorStart/colorTarget/colorTimer/isChangingColor）是私有的，
+     * 外部无法直接改，所以这个方法必须放在 SoulAlly 里面。
+     */
+    public void setColorOnly(SoulColor newColor) {
+        if (this.stateColor == newColor)
+            return;
+        // 创世记下已染色的魂火不允许再改色，与 changeColor 的守卫保持一致
+        boolean isGenesisActive = SS.helper.EnvironmentManager.inst.activeCard != null &&
+                SS.helper.EnvironmentManager.inst.activeCard.getEnvironmentID().equals("Double:GENESIS");
+        if (isGenesisActive && this.stateColor != SoulColor.WHITE) {
+            return;
+        }
+
+        this.stateColor = newColor;
+        this.colorStart = this.tint.color.cpy();
+        this.colorTarget = colorTargetOf(newColor);
+        this.colorTimer = 0.0f;
+        this.isChangingColor = true;
+
+        AbstractDungeon.effectsQueue.add(new BorderFlashEffect(this.colorTarget));
+        if (newColor == SoulColor.RED) {
+            AbstractDungeon.effectsQueue.add(new InflameEffect(this));
+        }
+    }
+
+    /** SoulColor → 目标 Tint 颜色。抽出来给 changeColor / setColorOnly 共用，避免两处各写一份。 */
+    private static Color colorTargetOf(SoulColor c) {
+        switch (c) {
+            case RED:
+                return new Color(1.0f, 0.1f, 0.1f, 1.0f);
+            case GREEN:
+                return new Color(0.2f, 1.0f, 0.2f, 1.0f);
+            case BLUE:
+                return new Color(0.2f, 0.6f, 1.0f, 1.0f); // 天蓝
+            case PURPLE:
+                return new Color(0.8f, 0.2f, 1.0f, 1.0f);
+            case WHITE:
+            default:
+                return Color.WHITE.cpy();
+        }
+    }
+
     public void changeColor(SoulColor newColor) {
         if (this.stateColor == newColor)
             return;
@@ -229,25 +279,8 @@ public class SoulAlly extends AbstractAlly {
         // 1. 记录起点 (当前 Tint 的颜色)
         this.colorStart = this.tint.color.cpy();
 
-        // 2. 设定终点 (目标颜色)
-        switch (newColor) {
-            case WHITE:
-                this.colorTarget = Color.WHITE.cpy();
-                break;
-            // 建议稍微调亮一点，避免纯色导致画面太暗
-            case RED:
-                this.colorTarget = new Color(1.0f, 0.1f, 0.1f, 1.0f);
-                break;
-            case GREEN:
-                this.colorTarget = new Color(0.2f, 1.0f, 0.2f, 1.0f);
-                break;
-            case BLUE:
-                this.colorTarget = new Color(0.2f, 0.6f, 1.0f, 1.0f);
-                break; // 天蓝
-            case PURPLE:
-                this.colorTarget = new Color(0.8f, 0.2f, 1.0f, 1.0f);
-                break;
-        }
+        // 2. 设定终点 (目标颜色)。建议稍微调亮一点，避免纯色导致画面太暗
+        this.colorTarget = colorTargetOf(newColor);
         this.colorTimer = 0.0f;
         this.isChangingColor = true;
 
