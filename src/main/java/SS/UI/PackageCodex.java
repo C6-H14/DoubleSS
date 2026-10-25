@@ -33,6 +33,8 @@ public final class PackageCodex {
     private static final PackageType[] TYPES = {PackageType.VALUE, PackageType.CONSISTENCY, PackageType.CEILING};
     private static final float CARD_SCALE = .65F, TOP = 935, BOTTOM = 60, ROW_STEP = 290;
     private static final float FIRST_CARD_Y = 790;
+    private static final float PAIR_FIRST_Y = 730, PAIR_ROW_STEP = 380;
+    private static final float PAIR_LABEL_OFFSET = 256*CARD_SCALE+28;
     private static final float LIST_TOP = 935, LIST_BOTTOM = 140, LIST_STEP = 76;
     private static final Color MUTED = new Color(.68F, .69F, .66F, 1);
     private static final List<AbstractPackage> packages = new ArrayList<>();
@@ -41,10 +43,11 @@ public final class PackageCodex {
     private static final List<List<String>> columns = new ArrayList<>();
     private static final Hitbox entry = new Hitbox(1,1), close = new Hitbox(1,1);
     private static final Hitbox tabCards = new Hitbox(1,1), tabPairs = new Hitbox(1,1), upgrade = new Hitbox(1,1);
+    private static final Hitbox manager = new Hitbox(1,1);
     private static final Hitbox packInfo = new Hitbox(1,1);
     private static final ArrayList<PowerTip> packTips = new ArrayList<>();
     private static ScrollBar listBar, cardBar;
-    private static boolean open, pairs, upgraded, popupWasOpen, libraryEntry;
+    private static boolean open, pairs, upgraded, managerPreview, popupWasOpen, libraryEntry;
     private static int selected;
     private static float listScroll, listTarget, listMax, cardScroll, cardTarget, cardMax;
     private static float scale, offsetX, offsetY;
@@ -70,7 +73,8 @@ public final class PackageCodex {
         offsetX = (Settings.WIDTH - 1920 * scale) / 2; offsetY = (Settings.HEIGHT - 1080 * scale) / 2;
         place(entry,1680,libraryEntry ? 65 : 290,280,52); place(close,1750,1020,160,50);
         place(packInfo,550,1020,260,50);
-        place(tabCards,880,1020,220,50); place(tabPairs,1120,1020,200,50); place(upgrade,1460,1020,250,50);
+        place(tabCards,880,1020,220,50); place(tabPairs,1120,1020,200,50);
+        place(upgrade,1330,1020,200,50); place(manager,1545,1020,220,50);
         for (int i=0;i<packButtons.size();i++) place(packButtons.get(i),202,888-i*LIST_STEP+listScroll,265,62);
         if (listBar != null) {
             listBar.setCenter(x(365),y((LIST_TOP+LIST_BOTTOM)/2)); listBar.changeHeight((LIST_TOP-LIST_BOTTOM)*scale);
@@ -79,7 +83,8 @@ public final class PackageCodex {
         for (CardSlot slot:cards) position(slot);
     }
     private static void position(CardSlot slot) {
-        place(slot.hb,585+slot.col*345,FIRST_CARD_Y-slot.row*ROW_STEP+cardScroll,300*CARD_SCALE,420*CARD_SCALE);
+        place(slot.hb,585+slot.col*345,(pairs?PAIR_FIRST_Y:FIRST_CARD_Y)
+                -slot.row*(pairs?PAIR_ROW_STEP:ROW_STEP)+cardScroll,300*CARD_SCALE,420*CARD_SCALE);
         if (slot.card == null) return;
         AbstractCard c=slot.card;
         c.current_x=c.target_x=slot.hb.cX; c.current_y=c.target_y=slot.hb.cY;
@@ -134,22 +139,44 @@ public final class PackageCodex {
                     int i=cards.size(); cards.add(new CardSlot(id,name(owner)+" > "+partnerName(partner),i%4,i/4));
                 }
             }
+            cards.sort((a,b) -> Integer.compare(rarityOrder(a.id), rarityOrder(b.id)));
+            for (int i=0;i<cards.size();i++) {
+                CardSlot slot=cards.get(i);
+                cards.set(i,new CardSlot(slot.id,slot.label,i%4,i/4));
+            }
             rowCount=(cards.size()+3)/4;
         } else {
             PackageCardGroups groups=new PackageCardGroups(pack.SubPackages.get(TYPES[0]).getCards(),
                     pack.SubPackages.get(TYPES[1]).getCards(),pack.SubPackages.get(TYPES[2]).getCards());
-            columns.add(groups.common); columns.addAll(groups.exclusive);
+            columns.add(new ArrayList<>(groups.common));
+            for (List<String> group:groups.exclusive) columns.add(new ArrayList<>(group));
             for (int col=0;col<columns.size();col++) {
-                List<String> ids=columns.get(col); rowCount=Math.max(rowCount,ids.size());
+                List<String> ids=columns.get(col);
+                ids.sort((a,b) -> Integer.compare(rarityOrder(a),rarityOrder(b)));
+                rowCount=Math.max(rowCount,ids.size());
                 for (int row=0;row<ids.size();row++) cards.add(new CardSlot(ids.get(row),null,col,row));
             }
         }
         // Include a small top/bottom inset while keeping the last full card reachable.
-        float contentHeight = rowCount == 0 ? 0
+        float contentHeight = rowCount == 0 ? 0 : pairs
+                ? (rowCount-1)*PAIR_ROW_STEP + TOP-PAIR_FIRST_Y + 256*CARD_SCALE+16
                 : (rowCount-1)*ROW_STEP + 420*CARD_SCALE + 2*(TOP-FIRST_CARD_Y-210*CARD_SCALE);
         cardMax=Math.max(0,contentHeight-(TOP-BOTTOM));
         if (cardBar!=null) cardBar.reset();
         layout();
+    }
+    private static int rarityOrder(String id) {
+        AbstractCard card=CardLibrary.getCard(id);
+        if(card==null) return 7;
+        switch(card.rarity) {
+            case BASIC: return 0;
+            case COMMON: return 1;
+            case UNCOMMON: return 2;
+            case RARE: return 3;
+            case SPECIAL: return 4;
+            case CURSE: return 5;
+            default: return 6;
+        }
     }
     private static void choose(int index) {
         selected=(index+packages.size())%packages.size();
@@ -169,8 +196,12 @@ public final class PackageCodex {
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) choose(selected+1);
         if (clicked(tabCards) && pairs) {pairs=false;rebuild();}
         if (clicked(tabPairs) && !pairs) {pairs=true;rebuild();}
-        if (clicked(upgrade)) {
-            float previous=cardScroll; upgraded=!upgraded; rebuild(); cardScroll=cardTarget=clamp(previous,cardMax);
+        boolean changeUpgrade=clicked(upgrade), changeManager=clicked(manager);
+        if (changeUpgrade || changeManager) {
+            float previous=cardScroll;
+            if(changeUpgrade) upgraded=!upgraded;
+            if(changeManager) managerPreview=!managerPreview;
+            rebuild(); cardScroll=cardTarget=clamp(previous,cardMax);
         }
         float wheel=InputHelper.scrolledDown?90:InputHelper.scrolledUp?-90:0;
         if (mx()<390 && my()>LIST_BOTTOM && my()<LIST_TOP) listTarget=clamp(listTarget+wheel,listMax);
@@ -190,7 +221,7 @@ public final class PackageCodex {
         for (CardSlot slot:cards) {
             if (inside && !dragging && slot.hb.cY+slot.hb.height/2>y(BOTTOM) && slot.hb.cY-slot.hb.height/2<y(TOP)) {
                 if (clicked(slot.hb) && slot.card!=null) {
-                    AbstractCard original=CardLibrary.getCard(slot.id).makeCopy();original.isSeen=true;original.isLocked=false;
+                    AbstractCard original=previewCopy(slot.id,false);
                     CardCrawlGame.cardPopup.open(original);SingleCardViewPopup.isViewingUpgrade=upgraded;
                     popupWasOpen=true;consumeInput();return;
                 }
@@ -225,13 +256,14 @@ public final class PackageCodex {
         }
         if(listMax>0) listBar.render(sb);
         button(sb,tabCards,t(3),!pairs);button(sb,tabPairs,t(4),pairs);button(sb,upgrade,upgraded?t(12):t(11),upgraded);
+        button(sb,manager,managerPreview?t(20):t(19),managerPreview);
         if(!pairs) for(int col=0;col<4;col++) label(sb,t(5+col)+" ("+columns.get(col).size()+")",585+col*345,963,Settings.GOLD_COLOR);
         else fit(sb,t(9),x(1110),y(963),1300*scale,MUTED);
         if(clip(sb,410,BOTTOM,1420,TOP-BOTTOM)) {
             for(CardSlot slot:cards) {
                 if(slot.hb.cY+slot.hb.height/2<y(BOTTOM)||slot.hb.cY-slot.hb.height/2>y(TOP)) continue;
                 position(slot);
-                if(slot.label!=null) fit(sb,slot.label,slot.hb.cX,slot.hb.cY+(210*CARD_SCALE+8)*scale,320*scale,Settings.GOLD_COLOR);
+                if(slot.label!=null) fit(sb,slot.label,slot.hb.cX,slot.hb.cY+PAIR_LABEL_OFFSET*scale,320*scale,Settings.GOLD_COLOR);
                 if(slot.card!=null) slot.card.render(sb);else fit(sb,slot.id,slot.hb.cX,slot.hb.cY,270*scale,MUTED);
             }
             unclip(sb);
@@ -275,12 +307,21 @@ public final class PackageCodex {
         float actual=FontHelper.getWidth(font,value,1),factor=actual>width?width/actual:1;
         font.getData().setScale(sx*factor,sy*factor);FontHelper.renderFontCentered(sb,font,value,cx,cy,color);font.getData().setScale(sx,sy);
     }
+    private static AbstractCard previewCopy(String id, boolean showUpgrade) {
+        return SS.helper.CardPreviewContext.withManager(managerPreview, () -> {
+            AbstractCard original=CardLibrary.getCard(id);
+            if(original==null) return null;
+            AbstractCard card=original.makeCopy();
+            card.isSeen=true;card.isLocked=false;
+            if(showUpgrade && card.canUpgrade()){card.upgrade();card.displayUpgrades();}
+            return card;
+        });
+    }
     private static final class CardSlot {
         final String id,label;final int col,row;final Hitbox hb=new Hitbox(1,1);final AbstractCard card;
         CardSlot(String id,String label,int col,int row) {
-            this.id=id;this.label=label;this.col=col;this.row=row;AbstractCard original=CardLibrary.getCard(id);
-            card=original==null?null:original.makeCopy();
-            if(card!=null) {card.isSeen=true;card.isLocked=false;if(upgraded && card.canUpgrade()){card.upgrade();card.displayUpgrades();}}
+            this.id=id;this.label=label;this.col=col;this.row=row;
+            card=previewCopy(id,upgraded);
         }
     }
 }

@@ -1,39 +1,29 @@
 package SS.cards.C6H14;
 
-import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.ExhaustiveField;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
-import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
-import SS.monster.ally.AllyManager;
-import SS.monster.ally.SoulAlly;
 
 public class SoulStorage extends AbstractC6H14Card {
     public static final String ID = ModHelper.makePath("SoulStorage");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
     private static final String NAME = CARD_STRINGS.NAME;
     private static final String IMG_PATH = "img/cards/C6H14/SoulStorage.png";
-    private static final int COST = 3;
+    private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
-    private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
+    private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
-    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ALL_ENEMY;
+    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public SoulStorage() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        setDamage(6);
         if (needManager()) {
             updateManager();
         }
@@ -43,46 +33,20 @@ public class SoulStorage extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            this.retain = true;
+            basemod.helpers.CardModifierManager.addModifier(this, new SS.cardmodifiers.PaintingModifier());
             UpdateDescription();
             initializeDescription();
         }
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        for (AbstractMonster mo : AllyManager.allies.monsters) {
-            if (mo instanceof SoulAlly) {
-                DamageInfo info = new DamageInfo(p, this.damage, DamageType.NORMAL);
-                SS.patches.AllyDamagePatch.allowFriendlyFire.set(info, true);
-                addToBot(new DamageAction(mo, info));
-            }
-        }
-        for (AbstractMonster mo : AbstractDungeon.getCurrRoom().monsters.monsters) {
-            dmgAct(mo, this.damage, DamageType.NORMAL);
-        }
-        ModHelper.atbLambda(() -> {
-            int cnt = 0;
-            for (AbstractMonster mo : AllyManager.allies.monsters) {
-                if (mo instanceof SoulAlly) {
-                    if (mo.hasPower("Double:SoulFirePower")) {
-                        cnt = Math.max(cnt, mo.getPower("Double:SoulFirePower").amount);
-                    }
-                }
-            }
-            addToBot(new GainEnergyAction(cnt));
-        });
-        if (needManager()) {
-            for (AbstractMonster mo : AllyManager.allies.monsters) {
-                if (mo instanceof SoulAlly) {
-                    addToBot(new GainBlockAction(mo, 6));
-                }
-            }
-        }
+        addToBot(new SS.action.unique.c6h14.EchoInscriptionsAction());
+        if (needManager()) addToBot(new SS.action.monster.GainAllyEnergyAction(1));
     }
 
     @Override
     public String getDefaultCharacterAnimation() {
-        return CharacterAnimationController.ATTACK_SWORD;
+        return CharacterAnimationController.COMMAND_ALLY;
     }
 
     public AbstractDoubleCard makeCopy() {

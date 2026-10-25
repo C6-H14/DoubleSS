@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import SS.action.common.SpawnAllyAction;
 
-import SS.action.unique.GainVirtueAction;
 import SS.monster.ally.AbstractAlly;
 import SS.monster.ally.AllyManager;
 import SS.monster.ally.AllyPositionHelper;
@@ -33,8 +32,7 @@ public class EvokeSoulAction extends AbstractGameAction {
 
     @Override
     public void update() {
-        // 1. 获得 1 点美德
-        addToTop(new GainVirtueAction(AbstractDungeon.player, this.amount));
+        // 唤魂只负责魂火，不额外获得美德。
         if (this.amount >= 1) {
             if (AbstractDungeon.player.hasPower("Double:SermonPower")) {
                 addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,

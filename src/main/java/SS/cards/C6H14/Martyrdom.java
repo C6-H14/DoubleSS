@@ -1,8 +1,6 @@
 package SS.cards.C6H14;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
-import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
-import com.megacrit.cardcrawl.actions.common.InstantKillAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo.DamageType;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -16,7 +14,6 @@ import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import SS.monster.ally.AllyManager;
 import SS.monster.ally.SoulAlly;
-import SS.power.InscribeCardPower;
 
 public class Martyrdom extends AbstractC6H14Card {
     public static final String ID = ModHelper.makePath("Martyrdom");
@@ -27,12 +24,13 @@ public class Martyrdom extends AbstractC6H14Card {
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
     private static final AbstractCard.CardType TYPE = AbstractCard.CardType.ATTACK;
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
-    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ALL_ENEMY;
+    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public Martyrdom() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
         setMagic(1);
+        exhaust = true;
         if (needManager()) {
             updateManager();
         }
@@ -50,21 +48,24 @@ public class Martyrdom extends AbstractC6H14Card {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         int amount = 0;
+        java.util.ArrayList<AbstractMonster> souls = new java.util.ArrayList<>();
         for (AbstractMonster mo : AllyManager.allies.monsters) {
-            if (mo instanceof SoulAlly) {
+            if (mo instanceof SoulAlly && !mo.isDeadOrEscaped()) {
                 SoulAlly s = (SoulAlly) mo;
                 amount += s.currentHealth;
-                if (s.hasPower("Double:InscribeCardPower")) {
-                    InscribeCardPower power = (InscribeCardPower) s.getPower("Double:InscribeCardPower");
-                    if (power.card != null) {
-                        power.card = null;
-                        power.updateDescription();
-                    }
-                }
-                addToBot(new InstantKillAction(mo));
+                souls.add(s);
             }
         }
-        addToBot(new DamageAllEnemiesAction(p, amount, DamageType.NORMAL, AttackEffect.SMASH));
+        if (amount > 0) {
+            addToBot(new com.megacrit.cardcrawl.actions.common.ApplyPowerAction(p, p,
+                    new com.megacrit.cardcrawl.powers.ThornsPower(p, amount), amount));
+        }
+        for (AbstractMonster soul : souls) {
+            com.megacrit.cardcrawl.cards.DamageInfo info = new com.megacrit.cardcrawl.cards.DamageInfo(p, 99, DamageType.THORNS);
+            SS.patches.AllyDamagePatch.allowFriendlyFire.set(info, true);
+            addToBot(new com.megacrit.cardcrawl.actions.common.DamageAction(soul,
+                    info, AttackEffect.FIRE));
+        }
         if (needManager()) {
             addToBot(new EvokeSoulAction(1));
         }

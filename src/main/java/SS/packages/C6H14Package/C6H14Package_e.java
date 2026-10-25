@@ -23,7 +23,7 @@ public class C6H14Package_e extends AbstractPackage {
         cards.add("Double:Hymn");
         cards.add("Double:Martyrdom");
         cards.add("Double:Sermon");
-        cards.add("Double:Genesis");
+        cards.add("Double:Trisagion");
         cards.add("Double:FinalJudgement");
         return cards;
     }

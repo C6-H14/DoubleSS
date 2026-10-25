@@ -19,7 +19,9 @@
             "初始遗物：",
             "升级遗物：",
             "卡包列表",
-            "卡包"
+            "卡包",
+            "预览群主身份",
+            "正在查看群主身份"
         ]
     },
     "Double:AtGameStart": {
@@ -30,9 +32,9 @@
     },
     "Double:ConjugateCardAction": {
         "TEXT": [
-            "绑定",
+            "进行绑定（首先选中的牌作为主牌）。",
             "选择",
-            "张牌进行绑定"
+            "张抽牌堆中的牌进行绑定（首先选中的牌作为主牌）。"
         ]
     },
     "Double:ConjugateModifier": {
@@ -42,7 +44,7 @@
     },
     "Double:YinYangAction": {
         "TEXT": [
-            "选择一张转化的牌"
+            "并消耗，将其转化为对应的美德牌。"
         ]
     },
     "Double:HaoReward": {
@@ -69,12 +71,12 @@
     },
     "Double:ChooseHandCardAction": {
         "TEXT": [
-            "。"
+            "作为效果目标。"
         ]
     },
     "Double:KernelMapping": {
         "TEXT": [
-            "选择一张牌，本场战斗中其费用永久加1"
+            "，使其在本场战斗中耗能增加1。"
         ]
     },
     "Double:OptionCardSuffix": {
@@ -93,6 +95,36 @@
     "Double:CustomPackOptionDefault": {
         "TEXT": [
             "默认选项（进游戏后选择）"
+        ]
+    },
+    "Double:SelfReliantSelect": {
+        "TEXT": [
+            "，从抽牌堆和弃牌堆中获取与所选牌同色的牌。"
+        ]
+    },
+    "Double:EraserSelect": {
+        "TEXT": [
+            "，使其在本场战斗中耗能变为0。"
+        ]
+    },
+    "Double:LocalizationSelect": {
+        "TEXT": [
+            "，将铭刻牌的攻击和防御数值添加到所选牌上。"
+        ]
+    },
+    "Double:GluttonySelect": {
+        "TEXT": [
+            "并消耗，根据其耗能生成肽链打击。"
+        ]
+    },
+    "Double:KindredSelect": {
+        "TEXT": [
+            "，消耗所有同名牌并强化恒久牌。"
+        ]
+    },
+    "Double:AltarSelect": {
+        "TEXT": [
+            "并消耗，每张牌使跟班获得格挡和1层濒死。"
         ]
     }
 }

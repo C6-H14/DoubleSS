@@ -19,6 +19,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 public class PaintingPower extends AbstractPower {
+    private final java.util.Set<UseCardAction> pendingCards = java.util.Collections.newSetFromMap(
+            new java.util.IdentityHashMap<UseCardAction, Boolean>());
+    private int reserved;
     public static final String POWER_ID = ModHelper.makePath("PaintingPower");
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private static final String NAME = powerStrings.NAME;
@@ -41,9 +44,29 @@ public class PaintingPower extends AbstractPower {
 
     @Override
     public void onUseCard(final AbstractCard card, final UseCardAction action) {
+        // Reserve existing charges only. Painting gained by this card must not
+        // retroactively trigger for the very same play at onAfterUseCard.
+        if (amount > reserved && pendingCards.add(action)) reserved++;
+    }
+
+    @Override
+    public void onAfterUseCard(final AbstractCard card, final UseCardAction action) {
+        if (!pendingCards.remove(action)) return;
+        addToBot(new com.megacrit.cardcrawl.actions.AbstractGameAction() {
+            @Override
+            public void update() {
+                reserved--;
+                applyPainting(card);
+                isDone = true;
+            }
+        });
+    }
+
+    private void applyPainting(AbstractCard card) {
+        if (amount <= 0 || owner.getPower(ID) != this) return;
         SoulAlly s = null;
         for (AbstractMonster m : AllyManager.allies.monsters) {
-            if (m instanceof SoulAlly) {
+            if (m instanceof SoulAlly && !m.isDeadOrEscaped()) {
                 s = (SoulAlly) m;
                 if (s.stateColor == SoulColor.WHITE) {
                     break;
@@ -62,8 +85,8 @@ public class PaintingPower extends AbstractPower {
         } else {
             s.changeColor(SoulColor.PURPLE);
         }
-        this.addToBot(new ReducePowerAction(this.owner, this.owner, this, 1));
-        for (AbstractCard c : AbstractDungeon.player.discardPile.group) {
+        this.addToTop(new ReducePowerAction(this.owner, this.owner, this, 1));
+        for (AbstractCard c : new java.util.ArrayList<>(AbstractDungeon.player.discardPile.group)) {
             if (c instanceof OnPaintingSubscriber) {
                 ((OnPaintingSubscriber) c).triggerOnPainting(c);
             }

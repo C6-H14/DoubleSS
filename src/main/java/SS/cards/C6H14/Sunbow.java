@@ -39,7 +39,7 @@ public class Sunbow extends AbstractC6H14Card {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
+            this.isInnate = true;
             UpdateDescription();
             initializeDescription();
         }

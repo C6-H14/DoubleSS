@@ -112,7 +112,7 @@ public class EraserAction extends AbstractGameAction {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString("Double:ChooseHandCardAction");
+        uiStrings = CardCrawlGame.languagePack.getUIString("Double:EraserSelect");
         TEXT = uiStrings.TEXT;
     }
 }

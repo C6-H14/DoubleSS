@@ -33,6 +33,7 @@ public abstract class AbstractDoubleCard extends CustomCard {
     protected CardStrings CARD_STRINGS;
     protected String[] EXTENDED_DESCRIPTION = { "", "", "", "", "", "" };
     protected boolean isFiend = false, isManager = false;
+    private final Boolean codexManagerPreview = SS.helper.CardPreviewContext.managerMode();
     public PackageEnum packagetype;
     /**
      * 开局选卡包时，本选项卡（OptionCard 的副本）对应哪个子卡包。
@@ -317,6 +318,12 @@ public abstract class AbstractDoubleCard extends CustomCard {
     @Override
     public abstract AbstractDoubleCard makeCopy();
 
+    @Override
+    public AbstractCard makeStatEquivalentCopy() {
+        if (codexManagerPreview == null) return super.makeStatEquivalentCopy();
+        return SS.helper.CardPreviewContext.withManager(codexManagerPreview, () -> super.makeStatEquivalentCopy());
+    }
+
     public void refreshPower() {
     }
 
@@ -376,11 +383,13 @@ public abstract class AbstractDoubleCard extends CustomCard {
     }
 
     public boolean needFiend() {
+        if (codexManagerPreview != null) return false;
         return AbstractDungeon.player != null && AbstractDungeon.player.getPower("Double:FiendStance") != null
                 && !(AbstractDungeon.getCurrRoom()).isBattleEnding();
     }
 
     public boolean needManager() {
+        if (codexManagerPreview != null) return codexManagerPreview;
         return AbstractDungeon.player != null && AbstractDungeon.player.getPower("Double:ManagerStance") != null
                 && !(AbstractDungeon.getCurrRoom()).isBattleEnding();
     }
@@ -445,7 +454,7 @@ public abstract class AbstractDoubleCard extends CustomCard {
 
     public void UpdateDescription(int a, int b, int c, int d, int e, int f) {
         if (!isFiend && !isManager
-                || !isInCombat()) {
+                || (!isInCombat() && codexManagerPreview == null)) {
             this.rawDescription = concise(getFormalDescription(this.upgraded));
             return;
         }

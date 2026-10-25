@@ -16,7 +16,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import SS.power.DyingPower;
 
 public class AltarActon extends AbstractGameAction {
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("ExhaustAction");
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("Double:AltarSelect");
     public static final String[] TEXT = uiStrings.TEXT;
     private AbstractPlayer p;
     public static int numCombined;

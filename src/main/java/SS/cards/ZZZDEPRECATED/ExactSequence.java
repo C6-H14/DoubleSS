@@ -1,4 +1,7 @@
-package SS.cards.C6H14;
+package SS.cards.ZZZDEPRECATED;
+
+import SS.cards.C6H14.AbstractC6H14Card;
+import basemod.AutoAdd;
 
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.unique.DiscardPileToTopOfDeckAction;
@@ -17,6 +20,7 @@ import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 import basemod.helpers.CardModifierManager;
 
+@AutoAdd.Ignore
 public class ExactSequence extends AbstractC6H14Card {
     public static final String ID = ModHelper.makePath("ExactSequence");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

@@ -20,7 +20,7 @@ public class C6H14Package_c extends AbstractPackage {
             cards.add(c);
         }
 
-        cards.add("Double:ExactSequence");
+        cards.add("Double:Circulation");
         cards.add("Double:KernelMapping");
         cards.add("Double:Eraser");
         cards.add("Double:SoulStorage");

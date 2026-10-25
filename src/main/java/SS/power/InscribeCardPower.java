@@ -37,7 +37,7 @@ public class InscribeCardPower extends AbstractPower {
     }
 
     public void updateDescription() {
-        this.description = DESCRIPTIONS[0] + (this.card == null ? 114514 : this.card.name) + DESCRIPTIONS[1];
+        this.description = DESCRIPTIONS[0] + (this.card == null ? "无" : this.card.name) + DESCRIPTIONS[1];
     }
 
     public void setCard(AbstractCard card) {

@@ -56,6 +56,7 @@ public class SinsPower extends AbstractPower implements InvisiblePower {
             this.lock = true;
         }
         CardStats.onKarmaChange(this.amount - prev);
+        notifyVirtueGained(prev);
     }
 
     public void reducePower(int stackAmount) {
@@ -69,11 +70,20 @@ public class SinsPower extends AbstractPower implements InvisiblePower {
             this.lock = true;
         }
         CardStats.onKarmaChange(this.amount - prev);
+        notifyVirtueGained(prev);
     }
 
     public void onInitialApplication() {
         // AbstractDungeon.player.decreaseMaxHealth(this.amount / 10);
         CardStats.onKarmaApply(this.amount);
+        notifyVirtueGained(0);
+    }
+
+    private void notifyVirtueGained(int previous) {
+        if (amount < previous && owner == AbstractDungeon.player) {
+            AbstractPower power = owner.getPower(SunbowPower.POWER_ID);
+            if (power instanceof SunbowPower) ((SunbowPower) power).onVirtueGained();
+        }
     }
 
     public void onVictory() {

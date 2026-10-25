@@ -133,12 +133,14 @@ public class BlazingStrike extends AbstractC6H14Card {
     }
 
     public void updateManager() {
+        super.updateManager();
         CardModifierManager.addModifier(this, new PaintingModifier());
         UpdateDescription();
         initializeDescription();
     }
 
     public void exitManager() {
+        super.exitManager();
         CardModifierManager.removeModifiersById(this, "Double:PaintingModifier", false);
         UpdateDescription();
         initializeDescription();

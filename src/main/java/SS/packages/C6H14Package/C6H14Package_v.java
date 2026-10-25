@@ -22,9 +22,9 @@ public class C6H14Package_v extends AbstractPackage {
 
         cards.add("Double:Lily");
         cards.add("Double:Orbit");
-        cards.add("Double:Localization");
+        cards.add("Double:PassingTheTorch");
         cards.add("Double:Backtracking");
-        cards.add("Double:Trisagion");
+        cards.add("Double:Genesis");
         return cards;
     }
 

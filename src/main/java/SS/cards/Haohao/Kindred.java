@@ -28,7 +28,7 @@ public class Kindred extends AbstractHaoCard {
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
     private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("ExhaustAction");
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString("Double:KindredSelect");
     public static final String[] TEXT = uiStrings.TEXT;
 
     public Kindred() {

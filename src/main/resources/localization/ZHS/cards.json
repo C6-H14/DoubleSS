@@ -180,7 +180,7 @@
     "Double:ObsessivePhantom": {
         "NAME": "痴缠幻影",
         "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )， double:绑定  !M! 张抽牌堆的牌和1张手牌，获得3点  double:罪孽 。",
-        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，double:绑定  !M! 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )， double:绑定  !M! 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
             "生成一个防御 double:骰子 ( !B! )， double:绑定  [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，获得3点  double:罪孽 。",
             "生成一个防御 double:骰子 ( !B! )， double:绑定  [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，获得3点  double:罪孽 。"
@@ -1312,21 +1312,21 @@
     },
     "Double:Guidance": {
         "NAME": "指点",
-        "DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )，所有魂火跟班强制执行一次最左侧的意图。",
-        "UPGRADE_DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )，所有魂火跟班强制执行一次最左侧的意图。",
+        "DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )，所有魂火获得1 [E] 。",
+        "UPGRADE_DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )，所有魂火获得1 [E] 。",
         "EXTENDED_DESCRIPTION": [
-            "生成2个攻击 double:骰子 ( !D! )， double:唤魂 !M! ，所有魂火跟班强制执行一次最左侧的意图 。",
-            "生成2个攻击 double:骰子 ( !D! )， double:唤魂 !M! ，所有魂火跟班强制执行一次最左侧的意图 。"
+            "生成2个攻击 double:骰子 ( !D! )， double:唤魂 !M! ，所有魂火获得1 [E] 。",
+            "生成2个攻击 double:骰子 ( !D! )， double:唤魂 !M! ，所有魂火获得1 [E] 。"
         ],
         "FLAVOR": " #y群主身份 ：唤魂1。"
     },
     "Double:Kaleidoscope": {
         "NAME": "万花筒",
-        "DESCRIPTION": "回合开始时，获得 !M! 层 double:染色 。",
-        "UPGRADE_DESCRIPTION": " 固有 ，回合开始时，获得 !M! 层 double:染色 。",
+        "DESCRIPTION": "回合开始时，若有魂火，获得 !M! 层 double:染色 ，否则 double:唤魂 !M! 。",
+        "UPGRADE_DESCRIPTION": " 固有 。 NL 回合开始时，若有魂火，获得 !M! 层 double:染色 ，否则 double:唤魂 !M! 。",
         "EXTENDED_DESCRIPTION": [
-            "随机 !M! 张手牌获得 double:染色 。 NL 回合开始时，随机 !M! 张手牌获得 double:染色 。",
-            " 固有 ，随机 !M! 张手牌获得 double:染色 。 NL 回合开始时，随机 !M! 张手牌获得 double:染色 。"
+            "随机 !M! 张手牌获得 double:染色 。 NL 回合开始时，若有魂火，获得 !M! 层 double:染色 ，否则 double:唤魂 !M! 。",
+            " 固有 。 NL 随机 !M! 张手牌获得 double:染色 。 NL 回合开始时，若有魂火，获得 !M! 层 double:染色 ，否则 double:唤魂 !M! 。"
         ],
         "FLAVOR": " #y群主身份 ：打出时随机1张手牌获得染色。"
     },
@@ -1342,13 +1342,13 @@
     },
     "Double:Lily": {
         "NAME": "孤芳",
-        "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，所有魂火跟班获得 !B! 点 格挡 。",
-        "UPGRADE_DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )，所有魂火跟班获得 !B! 点 格挡 。",
+        "DESCRIPTION": "若你没有 格挡 ， double:唤魂 !M! 。 NL 消耗 。",
+        "UPGRADE_DESCRIPTION": "若你没有 格挡 ， double:唤魂 !M! 。 NL 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "生成1个攻击 double:骰子 ( !D! )，所有魂火跟班获得 !B! 点 格挡 并回复等量生命。",
-            "生成1个攻击 double:骰子 ( !D! )，所有魂火跟班获得 !B! 点 格挡 并回复等量生命。"
+            "若你没有 格挡 ， double:唤魂 5。 NL 消耗 。",
+            "若你没有 格挡 ， double:唤魂 6。 NL 消耗 。"
         ],
-        "FLAVOR": " #y群主身份 ：所有魂火回复等同于格挡值的生命。"
+        "FLAVOR": " #y群主身份 ：唤魂数加1。"
     },
     "Double:Orbit": {
         "NAME": "轨道",
@@ -1359,6 +1359,16 @@
             "生成2个防御 double:骰子 ( !B! )，获得 !B! 点格挡，获得 !M! 点 double:美德 ，本局游戏中所有同名牌格挡值增加 2 ， 消耗 。"
         ],
         "FLAVOR": " #y群主身份 ：额外获得等量格挡。"
+    },
+    "Double:PassingTheTorch": {
+        "NAME": "传薪",
+        "DESCRIPTION": "double:唤魂 X 。 NL 接下来的 X 次回合结束时， double:唤魂 1。 NL 消耗 。",
+        "UPGRADE_DESCRIPTION": "double:唤魂 X+1 。 NL 接下来的 X+1 次回合结束时， double:唤魂 1。 NL 消耗 。",
+        "EXTENDED_DESCRIPTION": [
+            "double:唤魂 X 。 NL 接下来的 X 次回合结束时， double:唤魂 1，所有魂火获得1 [E] 。 NL 消耗 。",
+            "double:唤魂 X+1 。 NL 接下来的 X+1 次回合结束时， double:唤魂 1，所有魂火获得1 [E] 。 NL 消耗 。"
+        ],
+        "FLAVOR": " #y群主身份 ：接下来的 X （升级后 X+1）次回合结束时，所有魂火获得1 [E] 。"
     },
     "Double:Localization": {
         "NAME": "局部化",
@@ -1390,6 +1400,16 @@
         ],
         "FLAVOR": " #y群主身份 ：获得10点美德 。"
     },
+    "Double:Circulation": {
+        "NAME": "流转",
+        "DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )。 NL 获得 !M! 层 double:染色 。",
+        "UPGRADE_DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )。 NL 获得 !M! 层 double:染色 。",
+        "EXTENDED_DESCRIPTION": [
+            "生成2个攻击 double:骰子 ( !D! )。 NL 获得 !M! 层 double:染色 。 NL 下回合额外抽1张牌。",
+            "生成2个攻击 double:骰子 ( !D! )。 NL 获得 !M! 层 double:染色 。 NL 下回合额外抽1张牌。"
+        ],
+        "FLAVOR": " #y群主身份 ：下回合额外抽1张牌。"
+    },
     "Double:ExactSequence": {
         "NAME": "正合列",
         "DESCRIPTION": "生成1个攻击 double:骰子 ( !D! )和1个防御 double:骰子 ( !B! )，抽1张牌，将1张弃牌堆的牌放入抽牌堆顶。",
@@ -1412,73 +1432,73 @@
     },
     "Double:Eraser": {
         "NAME": "橡皮擦",
-        "DESCRIPTION": "移除被铭刻的牌，随机一张手牌打出前耗能为0， 消耗 。",
-        "UPGRADE_DESCRIPTION": "移除被铭刻的牌，选择一张手牌打出前耗能为0， 消耗 。",
+        "DESCRIPTION": "移除所有被 double:铭刻 的牌，获得等同于其耗能总和的 [E] 。 NL 消耗 。",
+        "UPGRADE_DESCRIPTION": "移除所有被 double:铭刻 的牌，获得等同于其耗能总和的 [E] 。 NL 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "移除被铭刻的牌，随机一张手牌打出前耗能为0， 消耗 。若你拥有至少5点 double:美德 ，将一张本牌的复制加入到弃牌堆中，并失去5点 double:美德 。",
-            "移除被铭刻的牌，选择一张手牌打出前耗能为0， 消耗 。若你拥有至少5点 double:美德 ，将一张本牌的复制加入到弃牌堆中，并失去5点 double:美德 。"
+            "移除所有被 double:铭刻 的牌，获得等同于其耗能总和的 [E] 。 NL 消耗 。",
+            "移除所有被 double:铭刻 的牌，获得等同于其耗能总和的 [E] 。 NL 消耗 。"
         ],
-        "FLAVOR": " #y群主身份 ：改为选择手牌 。"
+        "FLAVOR": " #y群主身份 ：染色。"
     },
     "Double:SoulStorage": {
         "NAME": "灵魂储能",
-        "DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] 。",
-        "UPGRADE_DESCRIPTION": "对所有魂火和所有敌人造成 !D! 点伤害，每有1点魂火值获得 [E] 。",
+        "DESCRIPTION": "所有魂火打出其 double:铭刻 牌的 double:回响 。",
+        "UPGRADE_DESCRIPTION": "所有魂火打出其 double:铭刻 牌的 double:回响 。",
         "EXTENDED_DESCRIPTION": [
-            " 保留 ，对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] 。",
-            " 保留 ，对所有魂火和所有敌人造成 !D! 点伤害，所有魂火获得6点格挡，每有1点魂火值获得 [E] 。"
+            "所有魂火打出其 double:铭刻 牌的 double:回响 。 NL 所有魂火获得1 [E] 。",
+            "所有魂火打出其 double:铭刻 牌的 double:回响 。 NL 所有魂火获得1 [E] 。"
         ],
-        "FLAVOR": " #y群主身份 ：魂火获得6点格挡。"
+        "FLAVOR": " #y群主身份 ：所有魂火获得1 [E] 。"
     },
     "Double:Sunbow": {
         "NAME": "长虹贯日",
-        "DESCRIPTION": "回合开始时，唤魂 !M! ，魂火跟班切换至抽牌堆顶的牌对应颜色。",
-        "UPGRADE_DESCRIPTION": "回合开始时，唤魂 !M! ，魂火跟班切换至抽牌堆顶的牌对应颜色。",
+        "DESCRIPTION": "每当你获得 double:美德 时，所有魂火获得1 [E] 并立即行动1次。",
+        "UPGRADE_DESCRIPTION": " 固有 。 NL 每当你获得 double:美德 时，所有魂火获得1 [E] 并立即行动1次。",
         "EXTENDED_DESCRIPTION": [
-            "所有魂火获得1点 力量 。回合开始时，唤魂 !M! ，魂火跟班切换至抽牌堆顶的牌对应颜色。",
-            "所有魂火获得1点 力量 。回合开始时，唤魂 !M! ，魂火跟班切换至抽牌堆顶的牌对应颜色。"
+            "所有魂火获得1点 力量 。 NL 每当你获得 double:美德 时，所有魂火获得1 [E] 并立即行动1次。",
+            " 固有 。 NL 所有魂火获得1点 力量 。 NL 每当你获得 double:美德 时，所有魂火获得1 [E] 并立即行动1次。"
         ],
-        "FLAVOR": " #y群主身份 ：所有魂火获得1点 力量 。"
+        "FLAVOR": " #y群主身份 ：所有魂火获得1点力量。"
     },
     "Double:Hymn": {
         "NAME": "颂歌",
-        "DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )。 NL 每当你染色时，此牌伤害增加 !M! 。",
-        "UPGRADE_DESCRIPTION": "生成2个攻击 double:骰子 ( !D! )。 NL 每当你染色时，此牌伤害增加 !M! 。",
+        "DESCRIPTION": "对所有敌人造成等同于你的 double:美德 值的伤害。",
+        "UPGRADE_DESCRIPTION": "对所有敌人造成等同于你的 double:美德 值的伤害。",
         "EXTENDED_DESCRIPTION": [
-            "生成2个攻击 double:骰子 ( !D! )。 NL 每当你染色时，此牌伤害增加 !M! 。",
-            "生成2个攻击 double:骰子 ( !D! )。 NL 每当你染色时，此牌伤害增加 !M! 。"
+            "对所有敌人造成等同于你的 double:美德 值的伤害。 NL 获得 !M! 点 double:美德 。",
+            "对所有敌人造成等同于你的 double:美德 值的伤害。 NL 获得 !M! 点 double:美德 。"
         ],
-        "FLAVOR": " #y群主身份 ：染色。"
+        "FLAVOR": " #y群主身份 ：获得2（升级后3）点美德。"
     },
     "Double:Martyrdom": {
         "NAME": "殉道",
-        "DESCRIPTION": "消灭所有魂火及魂火所铭刻的卡牌，对所有敌人造成等同于魂火血量和的伤害。",
-        "UPGRADE_DESCRIPTION": "消灭所有魂火及魂火所铭刻的卡牌，对所有敌人造成等同于魂火血量和的伤害。",
+        "DESCRIPTION": "获得等同于所有魂火生命值总和的 荆棘 ，对所有魂火造成99点伤害。 NL 消耗 。",
+        "UPGRADE_DESCRIPTION": "获得等同于所有魂火生命值总和的 荆棘 ，对所有魂火造成99点伤害。 NL 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "消灭所有魂火及魂火所铭刻的卡牌，对所有敌人造成等同于魂火血量和的伤害。 NL 唤魂1。",
-            "消灭所有魂火及魂火所铭刻的卡牌，对所有敌人造成等同于魂火血量和的伤害。 NL 唤魂1。"
+            "获得等同于所有魂火生命值总和的 荆棘 ，对所有魂火造成99点伤害。 NL double:唤魂 1。 NL 消耗 。",
+            "获得等同于所有魂火生命值总和的 荆棘 ，对所有魂火造成99点伤害。 NL double:唤魂 1。 NL 消耗 。"
         ],
-        "FLAVOR": " #y群主身份 ：唤魂1 。"
+        "FLAVOR": " #y群主身份 ：唤魂1。"
     },
     "Double:Sermon": {
         "NAME": "布道",
-        "DESCRIPTION": "本回合每当你打出牌时， double:唤魂 !M! ，同色牌不再触发， 消耗 。",
-        "UPGRADE_DESCRIPTION": " 保留 ，本回合每当你打出牌时，若本回合未打出过同色牌， double:唤魂 !M! ， 消耗 。",
+        "DESCRIPTION": "你每有1点 double:罪孽 ，获得 !M! 点 double:美德 。 NL 消耗 。",
+        "UPGRADE_DESCRIPTION": "你每有1点 double:罪孽 ，获得 !M! 点 double:美德 。 NL 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "本回合每当你打出牌时， double:唤魂 !M! ，同色牌不再触发， 消耗 。",
-            " 保留 ，本回合每当你打出牌时， double:唤魂 !M! ，同色牌不再触发， 消耗 。"
+            "你每有1点 double:罪孽 ，获得 !M! 点 double:美德 。 NL 获得 !M! 点 double:美德 。 NL 消耗 。",
+            "你每有1点 double:罪孽 ，获得 !M! 点 double:美德 。 NL 获得 !M! 点 double:美德 。 NL 消耗 。"
         ],
-        "FLAVOR": " #y群主身份 ：染色。"
+        "FLAVOR": " #y群主身份 ：额外获得1（升级后2）点美德。"
     },
     "Double:FinalJudgement": {
         "NAME": "终审",
-        "DESCRIPTION": "消灭所有血量不大于你的美德 !M! 倍的敌人。",
-        "UPGRADE_DESCRIPTION": "消灭所有血量不大于你的美德 !M! 倍的敌人。",
+        "DESCRIPTION": "回合结束时，消灭所有生命值不大于你的 double:美德 值 !M! 倍的敌人。",
+        "UPGRADE_DESCRIPTION": "回合结束时，消灭所有生命值不大于你的 double:美德 值 !M! 倍的敌人。",
         "EXTENDED_DESCRIPTION": [
-            "消灭所有血量不大于你的美德 !M! 倍的敌人。",
-            "消灭所有血量不大于你的美德 !M! 倍的敌人。"
+            "回合结束时，消灭所有生命值不大于你的 double:美德 值 !M! 倍的敌人。",
+            "回合结束时，消灭所有生命值不大于你的 double:美德 值 !M! 倍的敌人。"
         ],
-        "FLAVOR": " #y群主身份 ：增加一倍 。"
+        "FLAVOR": " #y群主身份 ：阈值倍数增加1。"
     },
     "Double:Genesis": {
         "NAME": "创世记",

@@ -1,17 +1,10 @@
 package SS.cards.C6H14;
 
-import com.badlogic.gdx.graphics.Color;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.InstantKillAction;
-import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.combat.GiantTextEffect;
-import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 
 import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
@@ -24,14 +17,14 @@ public class FinalJudgement extends AbstractC6H14Card {
     private static final String IMG_PATH = "img/cards/C6H14/FinalJudgement.png";
     private static final int COST = 1;
     private static final String DESCRIPTION = CARD_STRINGS.DESCRIPTION;
-    private static final AbstractCard.CardType TYPE = AbstractCard.CardType.SKILL;
+    private static final AbstractCard.CardType TYPE = AbstractCard.CardType.POWER;
     private static final AbstractCard.CardRarity RARITY = AbstractCard.CardRarity.UNCOMMON;
-    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.ALL_ENEMY;
+    private static final AbstractCard.CardTarget TARGET = AbstractCard.CardTarget.SELF;
 
     public FinalJudgement() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, RARITY, TARGET, CARD_STRINGS,
                 CARD_STRINGS.EXTENDED_DESCRIPTION);
-        setMagic(3);
+        setMagic(2);
         if (needManager()) {
             updateManager();
         }
@@ -48,14 +41,7 @@ public class FinalJudgement extends AbstractC6H14Card {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        for (AbstractMonster mo : AbstractDungeon.getCurrRoom().monsters.monsters) {
-            if (mo.currentHealth <= getVirtue() * this.magicNumber) {
-                this.addToBot(new VFXAction(new WeightyImpactEffect(mo.hb.cX, mo.hb.cY, Color.GOLD.cpy())));
-                this.addToBot(new WaitAction(0.8F));
-                this.addToBot(new VFXAction(new GiantTextEffect(mo.hb.cX, mo.hb.cY)));
-                addToBot(new InstantKillAction(mo));
-            }
-        }
+        selfPower(new SS.power.FinalJudgementPower(p, magicNumber));
     }
 
     @Override

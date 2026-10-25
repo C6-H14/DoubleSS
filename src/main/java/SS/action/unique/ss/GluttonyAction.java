@@ -76,7 +76,7 @@ public class GluttonyAction extends AbstractGameAction {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString("RecycleAction");
+        uiStrings = CardCrawlGame.languagePack.getUIString("Double:GluttonySelect");
         TEXT = uiStrings.TEXT;
     }
 }

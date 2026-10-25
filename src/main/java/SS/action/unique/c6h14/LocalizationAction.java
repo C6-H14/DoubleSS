@@ -124,7 +124,7 @@ public class LocalizationAction extends AbstractGameAction {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString("Double:ChooseHandCardAction");
+        uiStrings = CardCrawlGame.languagePack.getUIString("Double:LocalizationSelect");
         TEXT = uiStrings.TEXT;
     }
 }

@@ -1,4 +1,7 @@
-package SS.cards.C6H14;
+package SS.cards.ZZZDEPRECATED;
+
+import SS.cards.C6H14.AbstractC6H14Card;
+import basemod.AutoAdd;
 
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -12,6 +15,7 @@ import SS.animation.CharacterAnimationController;
 import SS.cards.AbstractDoubleCard;
 import SS.helper.ModHelper;
 
+@AutoAdd.Ignore
 public class Localization extends AbstractC6H14Card {
     public static final String ID = ModHelper.makePath("Localization");
     private static final CardStrings CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);

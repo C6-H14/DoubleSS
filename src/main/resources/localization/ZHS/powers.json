@@ -1,4 +1,12 @@
 {
+  "Double:PassingTheTorchEnergyPower": {
+    "NAME": "传薪：余火",
+    "DESCRIPTIONS": ["接下来的 #b", " 次回合结束时，所有魂火获得 [E] （在魂火行动前结算）。"]
+  },
+  "Double:PassingTheTorchPower": {
+    "NAME": "传薪",
+    "DESCRIPTIONS": ["接下来的 #b", " 次回合结束时， #y唤魂 #b1 。"]
+  },
   "Double:ManagerStance": {
     "NAME": "身份：群主",
     "DESCRIPTIONS": [
@@ -314,7 +322,7 @@
     "NAME": "铭刻牌",
     "DESCRIPTIONS": [
       "当前铭刻的牌为：",
-      " ，若显示114514则表示未铭刻任何牌"
+      "。"
     ]
   },
   "Double:PaintingPower": {
@@ -332,11 +340,12 @@
     ]
   },
   "Double:KaleidoscopePower": {
-    "NAME": "万花筒",
-    "DESCRIPTIONS": [
-      "回合开始时，获得 #b",
-      " 层 #y染色"
-    ]
+      "NAME": "万花筒",
+      "DESCRIPTIONS": [
+          "回合开始时，若有魂火，获得 #b",
+          " 层 #y染色 ；否则 #y唤魂 #b",
+          " 。"
+      ]
   },
   "Double:MinuteOfDeathPower": {
     "NAME": "死亡倒计时",
@@ -360,11 +369,11 @@
     ]
   },
   "Double:SunbowPower": {
-    "NAME": "长虹贯日",
-    "DESCRIPTIONS": [
-      "回合开始时，唤魂 #b",
-      " ，并切换至抽牌堆顶牌的对应颜色。"
-    ]
+      "NAME": "长虹贯日",
+      "DESCRIPTIONS": [
+          "每当你获得 #y美德 时，所有魂火获得 #b",
+          " [E] 并立即行动1次。"
+      ]
   },
   "Double:BestIroncladPower": {
     "NAME": "世一战",
@@ -400,5 +409,12 @@
       "下回合开始时，将 ",
       " 张 #y催化剂 的 #y回响 加入你的手牌。"
     ]
-  }
+  },
+    "Double:FinalJudgementPower": {
+        "NAME": "终审",
+        "DESCRIPTIONS": [
+            "回合结束时，消灭所有生命值不大于你的 #y美德 值 #b",
+            " 倍的敌人。"
+        ]
+    }
 }

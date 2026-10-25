@@ -31,10 +31,24 @@ public class KaleidoscopePower extends AbstractPower {
     }
 
     public void atStartOfTurnPostDraw() {
-        addToBot(new ApplyPowerAction(owner, owner, new PaintingPower(owner, amount)));
+        addToBot(new com.megacrit.cardcrawl.actions.AbstractGameAction() {
+            @Override
+            public void update() {
+                boolean hasSoul = false;
+                for (com.megacrit.cardcrawl.monsters.AbstractMonster ally : SS.monster.ally.AllyManager.allies.monsters) {
+                    if (ally instanceof SS.monster.ally.SoulAlly && !ally.isDeadOrEscaped()) {
+                        hasSoul = true;
+                        break;
+                    }
+                }
+                if (hasSoul) addToTop(new ApplyPowerAction(owner, owner, new PaintingPower(owner, amount)));
+                else addToTop(new SS.action.monster.EvokeSoulAction(amount));
+                isDone = true;
+            }
+        });
     }
 
     public void updateDescription() {
-        this.description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1];
+        this.description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1] + amount + DESCRIPTIONS[2];
     }
 }
