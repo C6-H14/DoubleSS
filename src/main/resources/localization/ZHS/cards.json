@@ -179,11 +179,11 @@
     },
     "Double:ObsessivePhantom": {
         "NAME": "痴缠幻影",
-        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
-        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，选择 !M! 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
+        "DESCRIPTION": "生成一个防御 double:骰子 ( !B! )， double:绑定  !M! 张抽牌堆的牌和1张手牌，获得3点  double:罪孽 。",
+        "UPGRADE_DESCRIPTION": "生成一个防御 double:骰子 ( !B! )，double:绑定  !M! 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
         "EXTENDED_DESCRIPTION": [
-            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。",
-            "生成一个防御 double:骰子 ( !B! )，选择 [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，将它们 double:绑定 ，获得3点  double:罪孽 。"
+            "生成一个防御 double:骰子 ( !B! )， double:绑定  [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，获得3点  double:罪孽 。",
+            "生成一个防御 double:骰子 ( !B! )， double:绑定  [#cf3fbe]!M![] 张抽牌堆的牌和1张手牌，获得3点  double:罪孽 。"
         ],
         "FLAVOR": " #p恶魔之焰身份 ：可以绑定的抽牌堆牌数加 #b1 。"
     },
@@ -729,11 +729,11 @@
     },
     "Double:SupervisedLearning": {
         "NAME": "监督学习",
-        "DESCRIPTION": "消耗一个颢骰，获得一张随机震荡波卡包的牌， 消耗。",
-        "UPGRADE_DESCRIPTION": "消耗一个颢骰，获得一张随机震荡波卡包的牌， 消耗。",
+        "DESCRIPTION": "消耗一个颢骰，获得一张随机震荡波卡包的牌， 消耗 。",
+        "UPGRADE_DESCRIPTION": "消耗一个颢骰，获得一张随机震荡波卡包的牌， 消耗 。",
         "EXTENDED_DESCRIPTION": [
-            "消耗一个颢骰，获得一张随机震荡波卡包的牌，这张牌在本回合为0费， 消耗。",
-            "消耗一个颢骰，获得一张随机震荡波卡包的牌，这张牌在本回合为0费， 消耗。"
+            "消耗一个颢骰，获得一张随机震荡波卡包的牌，这张牌在本回合为0费， 消耗 。",
+            "消耗一个颢骰，获得一张随机震荡波卡包的牌，这张牌在本回合为0费， 消耗 。"
         ],
         "FLAVOR": " #y群主身份 ：这张牌在本回合为0费。"
     },
@@ -1004,8 +1004,8 @@
     },
     "Double:Shock_Blue_option": {
         "NAME": "震荡波牌",
-        "DESCRIPTION": "一位震荡波狂热粉丝的（前）群友卡包。",
-        "UPGRADE_DESCRIPTION": "一位震荡波狂热粉丝的（前）群友卡包。"
+        "DESCRIPTION": "一位震荡波狂热粉丝的群友卡包。",
+        "UPGRADE_DESCRIPTION": "一位震荡波狂热粉丝的群友卡包。"
     },
     "Double:YieldPoint": {
         "NAME": "屈服点",
