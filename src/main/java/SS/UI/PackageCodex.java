@@ -17,6 +17,8 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.MathHelper;
+import com.megacrit.cardcrawl.helpers.PowerTip;
+import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
@@ -26,10 +28,11 @@ import SS.packages.AbstractPackage;
 import SS.packages.AbstractPackage.PackageType;
 import SS.path.PackageEnumList.PackageEnum;
 
-/** Vanilla-size cards, four labeled columns, and independent scrolling pack navigation. */
+/** Three visible card rows, four labeled columns, and independently scrolling pack navigation. */
 public final class PackageCodex {
     private static final PackageType[] TYPES = {PackageType.VALUE, PackageType.CONSISTENCY, PackageType.CEILING};
-    private static final float CARD_SCALE = .75F, TOP = 825, BOTTOM = 125, ROW_STEP = 355;
+    private static final float CARD_SCALE = .65F, TOP = 935, BOTTOM = 60, ROW_STEP = 290;
+    private static final float FIRST_CARD_Y = 790;
     private static final float LIST_TOP = 935, LIST_BOTTOM = 140, LIST_STEP = 76;
     private static final Color MUTED = new Color(.68F, .69F, .66F, 1);
     private static final List<AbstractPackage> packages = new ArrayList<>();
@@ -38,6 +41,8 @@ public final class PackageCodex {
     private static final List<List<String>> columns = new ArrayList<>();
     private static final Hitbox entry = new Hitbox(1,1), close = new Hitbox(1,1);
     private static final Hitbox tabCards = new Hitbox(1,1), tabPairs = new Hitbox(1,1), upgrade = new Hitbox(1,1);
+    private static final Hitbox packInfo = new Hitbox(1,1);
+    private static final ArrayList<PowerTip> packTips = new ArrayList<>();
     private static ScrollBar listBar, cardBar;
     private static boolean open, pairs, upgraded, popupWasOpen, libraryEntry;
     private static int selected;
@@ -63,8 +68,9 @@ public final class PackageCodex {
     private static void layout() {
         scale = Math.min(Settings.WIDTH / 1920F, Settings.HEIGHT / 1080F);
         offsetX = (Settings.WIDTH - 1920 * scale) / 2; offsetY = (Settings.HEIGHT - 1080 * scale) / 2;
-        place(entry,1680,libraryEntry ? 65 : 290,280,52); place(close,1740,1010,170,52);
-        place(tabCards,570,935,250,50); place(tabPairs,850,935,230,50); place(upgrade,1655,935,285,50);
+        place(entry,1680,libraryEntry ? 65 : 290,280,52); place(close,1750,1020,160,50);
+        place(packInfo,550,1020,260,50);
+        place(tabCards,880,1020,220,50); place(tabPairs,1120,1020,200,50); place(upgrade,1460,1020,250,50);
         for (int i=0;i<packButtons.size();i++) place(packButtons.get(i),202,888-i*LIST_STEP+listScroll,265,62);
         if (listBar != null) {
             listBar.setCenter(x(365),y((LIST_TOP+LIST_BOTTOM)/2)); listBar.changeHeight((LIST_TOP-LIST_BOTTOM)*scale);
@@ -73,7 +79,7 @@ public final class PackageCodex {
         for (CardSlot slot:cards) position(slot);
     }
     private static void position(CardSlot slot) {
-        place(slot.hb,585+slot.col*345,645-slot.row*ROW_STEP+cardScroll,300*CARD_SCALE,420*CARD_SCALE);
+        place(slot.hb,585+slot.col*345,FIRST_CARD_Y-slot.row*ROW_STEP+cardScroll,300*CARD_SCALE,420*CARD_SCALE);
         if (slot.card == null) return;
         AbstractCard c=slot.card;
         c.current_x=c.target_x=slot.hb.cX; c.current_y=c.target_y=slot.hb.cY;
@@ -99,7 +105,7 @@ public final class PackageCodex {
             listMax=Math.max(0,packages.size()*LIST_STEP-(LIST_TOP-LIST_BOTTOM)+20);
             listScroll=listTarget=clamp(selected*LIST_STEP-2*LIST_STEP,listMax);
             listBar=new ScrollBar(p -> {listScroll=listTarget=p*listMax;},x(365),y(537),795*scale);
-            cardBar=new ScrollBar(p -> {cardScroll=cardTarget=p*cardMax;},x(1860),y(475),700*scale);
+            cardBar=new ScrollBar(p -> {cardScroll=cardTarget=p*cardMax;},x(1860),y((TOP+BOTTOM)/2),(TOP-BOTTOM)*scale);
             rebuild(); layout();
         }
         consumeInput(); return true;
@@ -138,7 +144,10 @@ public final class PackageCodex {
                 for (int row=0;row<ids.size();row++) cards.add(new CardSlot(ids.get(row),null,col,row));
             }
         }
-        cardMax=Math.max(0,rowCount*ROW_STEP-5-(TOP-BOTTOM));
+        // Include a small top/bottom inset while keeping the last full card reachable.
+        float contentHeight = rowCount == 0 ? 0
+                : (rowCount-1)*ROW_STEP + 420*CARD_SCALE + 2*(TOP-FIRST_CARD_Y-210*CARD_SCALE);
+        cardMax=Math.max(0,contentHeight-(TOP-BOTTOM));
         if (cardBar!=null) cardBar.reset();
         layout();
     }
@@ -202,8 +211,9 @@ public final class PackageCodex {
     public static void render(SpriteBatch sb) {
         if(!open) return;layout();
         sb.setColor(.025F,.022F,.02F,.96F);sb.draw(ImageMaster.WHITE_SQUARE_IMG,0,0,Settings.WIDTH,Settings.HEIGHT);
-        label(sb,t(0),200,1010,Settings.GOLD_COLOR);label(sb,name(packages.get(selected)),1110,1010,Settings.GOLD_COLOR);
-        button(sb,close,t(2),false);line(sb,390,115,1,865);line(sb,425,835,1400,1);label(sb,t(17),200,963,MUTED);
+        label(sb,t(0),200,1020,Settings.GOLD_COLOR);
+        fit(sb,name(packages.get(selected)),packInfo.cX,packInfo.cY,packInfo.width,Settings.GOLD_COLOR);
+        button(sb,close,t(2),false);line(sb,390,60,1,925);line(sb,425,940,1400,1);label(sb,t(17),200,963,MUTED);
         if(clip(sb,60,LIST_BOTTOM,285,LIST_TOP-LIST_BOTTOM)) {
             for(int i=0;i<packages.size();i++) {
                 Hitbox hb=packButtons.get(i);boolean active=i==selected;
@@ -215,17 +225,13 @@ public final class PackageCodex {
         }
         if(listMax>0) listBar.render(sb);
         button(sb,tabCards,t(3),!pairs);button(sb,tabPairs,t(4),pairs);button(sb,upgrade,upgraded?t(12):t(11),upgraded);
-        AbstractPackage pack=packages.get(selected);AbstractCard starter=CardLibrary.getCard(pack.getStarterCard());
-        String info=t(14)+(starter==null?pack.getStarterCard():starter.name)+"    "+t(15)
-                +(pack.StartRelic==null?"-":pack.StartRelic.name)+"    "+t(16)+(pack.BossRelic==null?"-":pack.BossRelic.name);
-        fit(sb,info,x(1110),y(885),1350*scale,MUTED);
-        if(!pairs) for(int col=0;col<4;col++) label(sb,t(5+col)+" ("+columns.get(col).size()+")",585+col*345,855,Settings.GOLD_COLOR);
-        else fit(sb,t(9),x(1110),y(855),1300*scale,MUTED);
+        if(!pairs) for(int col=0;col<4;col++) label(sb,t(5+col)+" ("+columns.get(col).size()+")",585+col*345,963,Settings.GOLD_COLOR);
+        else fit(sb,t(9),x(1110),y(963),1300*scale,MUTED);
         if(clip(sb,410,BOTTOM,1420,TOP-BOTTOM)) {
             for(CardSlot slot:cards) {
                 if(slot.hb.cY+slot.hb.height/2<y(BOTTOM)||slot.hb.cY-slot.hb.height/2>y(TOP)) continue;
                 position(slot);
-                if(slot.label!=null) fit(sb,slot.label,slot.hb.cX,slot.hb.cY+170*scale,320*scale,Settings.GOLD_COLOR);
+                if(slot.label!=null) fit(sb,slot.label,slot.hb.cX,slot.hb.cY+(210*CARD_SCALE+8)*scale,320*scale,Settings.GOLD_COLOR);
                 if(slot.card!=null) slot.card.render(sb);else fit(sb,slot.id,slot.hb.cX,slot.hb.cY,270*scale,MUTED);
             }
             unclip(sb);
@@ -237,7 +243,18 @@ public final class PackageCodex {
         }
         if(cards.isEmpty()) label(sb,t(10),1100,500,MUTED);
         if(cardMax>0) cardBar.render(sb);
-        fit(sb,t(13),x(1110),y(75),1360*scale,MUTED);sb.setColor(Color.WHITE);
+        fit(sb,t(13),x(1110),y(25),1360*scale,MUTED);
+        if(!CardCrawlGame.isPopupOpen) {
+            packInfo.update();
+            if(packInfo.hovered) {
+                AbstractPackage pack=packages.get(selected);AbstractCard starter=CardLibrary.getCard(pack.getStarterCard());
+                String info=t(14)+(starter==null?pack.getStarterCard():starter.name)+" NL "+t(15)
+                        +(pack.StartRelic==null?"-":pack.StartRelic.name)+" NL "+t(16)+(pack.BossRelic==null?"-":pack.BossRelic.name);
+                packTips.clear();packTips.add(new PowerTip(name(pack),info));
+                TipHelper.queuePowerTips(x(420),y(970),packTips);
+            }
+        }
+        sb.setColor(Color.WHITE);
     }
     private static boolean clip(SpriteBatch sb,float left,float bottom,float width,float height) {
         sb.flush();return ScissorStack.pushScissors(new Rectangle(x(left),y(bottom),width*scale,height*scale));
