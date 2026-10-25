@@ -14,10 +14,12 @@
       "No pair cards registered",
       "Preview Upgrades",
       "Showing Upgrades",
-      "Hover to preview; click a name to enlarge; Left/Right changes pack. Browsing does not change your choices.",
+      "Select a pack on the left; scroll to browse; click a card to enlarge; Left/Right changes pack.",
       "Starter: ",
       "Starting relic: ",
-      "Upgraded relic: "
+      "Upgraded relic: ",
+      "Packs",
+      " Pack"
     ]
   },
   "Double:CustomPackToggle": {

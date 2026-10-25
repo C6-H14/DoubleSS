@@ -2,13 +2,13 @@ package SS.UI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -16,441 +16,254 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.PowerTip;
-import com.megacrit.cardcrawl.helpers.TipHelper;
+import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
-
+import com.megacrit.cardcrawl.screens.mainMenu.ScrollBar;
 import SS.modcore.modcore;
 import SS.packages.AbstractPackage;
 import SS.packages.AbstractPackage.PackageType;
 import SS.path.PackageEnumList.PackageEnum;
 
-/** Read-only character-select catalog. All card identities come from live package definitions. */
+/** Vanilla-size cards, four labeled columns, and independent scrolling pack navigation. */
 public final class PackageCodex {
-    private static final PackageType[] TYPES = {
-            PackageType.VALUE, PackageType.CONSISTENCY, PackageType.CEILING };
-    private static final Color PANEL = new Color(0.055F, 0.075F, 0.10F, 1F);
-    private static final Color TILE = new Color(0.10F, 0.13F, 0.17F, 1F);
-    private static final Color ACTIVE = new Color(0.19F, 0.25F, 0.29F, 1F);
-    private static final Color MUTED = new Color(0.66F, 0.72F, 0.77F, 1F);
-    private static final int ROWS = 5;
+    private static final PackageType[] TYPES = {PackageType.VALUE, PackageType.CONSISTENCY, PackageType.CEILING};
+    private static final float CARD_SCALE = .75F, TOP = 825, BOTTOM = 125, ROW_STEP = 355;
+    private static final float LIST_TOP = 935, LIST_BOTTOM = 140, LIST_STEP = 76;
+    private static final Color MUTED = new Color(.68F, .69F, .66F, 1);
     private static final List<AbstractPackage> packages = new ArrayList<>();
-    private static final List<Row> rows = new ArrayList<>();
+    private static final List<Hitbox> packButtons = new ArrayList<>();
+    private static final List<CardSlot> cards = new ArrayList<>();
     private static final List<List<String>> columns = new ArrayList<>();
-    private static final ArrayList<PowerTip> relicTips = new ArrayList<>();
-    private static final Hitbox entry = new Hitbox(1, 1);
-    private static final Hitbox previous = new Hitbox(1, 1);
-    private static final Hitbox next = new Hitbox(1, 1);
-    private static final Hitbox close = new Hitbox(1, 1);
-    private static final Hitbox tabCards = new Hitbox(1, 1);
-    private static final Hitbox tabPairs = new Hitbox(1, 1);
-    private static final Hitbox upgrade = new Hitbox(1, 1);
-    private static final Hitbox pagePrevious = new Hitbox(1, 1);
-    private static final Hitbox pageNext = new Hitbox(1, 1);
-    private static boolean open;
-    private static boolean pairs;
-    private static boolean upgraded;
-    private static boolean popupWasOpen;
-    private static boolean libraryEntry;
-    private static int selectedPackage;
-    private static int page;
-    private static int pageCount = 1;
+    private static final Hitbox entry = new Hitbox(1,1), close = new Hitbox(1,1);
+    private static final Hitbox tabCards = new Hitbox(1,1), tabPairs = new Hitbox(1,1), upgrade = new Hitbox(1,1);
+    private static ScrollBar listBar, cardBar;
+    private static boolean open, pairs, upgraded, popupWasOpen, libraryEntry;
+    private static int selected;
+    private static float listScroll, listTarget, listMax, cardScroll, cardTarget, cardMax;
+    private static float scale, offsetX, offsetY;
     private static String[] text;
-    private static AbstractCard preview;
-    private static String previewId;
-    private static float scale;
-    private static float offsetX;
-    private static float offsetY;
+    private static CardSlot hovered;
 
     private PackageCodex() { }
-
     public static boolean isOpen() { return open; }
-
-    private static String t(int index) {
-        if (text == null) {
-            text = CardCrawlGame.languagePack.getUIString("Double:PackageCodex").TEXT;
-        }
-        return text[index];
+    private static String t(int i) {
+        if (text == null) text = CardCrawlGame.languagePack.getUIString("Double:PackageCodex").TEXT;
+        return text[i];
     }
-
+    private static float x(float v) { return offsetX + v * scale; }
+    private static float y(float v) { return offsetY + v * scale; }
+    private static float mx() { return (InputHelper.mX - offsetX) / scale; }
+    private static float my() { return (InputHelper.mY - offsetY) / scale; }
+    private static float clamp(float v, float max) { return Math.max(0, Math.min(v, max)); }
+    private static void place(Hitbox hb, float cx, float cy, float w, float h) {
+        hb.resize(w * scale, h * scale); hb.move(x(cx), y(cy));
+    }
     private static void layout() {
         scale = Math.min(Settings.WIDTH / 1920F, Settings.HEIGHT / 1080F);
-        offsetX = (Settings.WIDTH - 1920F * scale) / 2;
-        offsetY = (Settings.HEIGHT - 1080F * scale) / 2;
-        place(entry, 1680, libraryEntry ? 65 : 290, 280, 52);
-        place(previous, 140, 924, 80, 54);
-        place(next, 1230, 924, 80, 54);
-        place(close, 1710, 962, 140, 50);
-        place(tabCards, 210, 838, 240, 52);
-        place(tabPairs, 460, 838, 240, 52);
-        place(upgrade, 1595, 236, 270, 52);
-        place(pagePrevious, 640, 210, 110, 46);
-        place(pageNext, 940, 210, 110, 46);
-    }
-
-    private static float x(float x) { return offsetX + x * scale; }
-    private static float y(float y) { return offsetY + y * scale; }
-
-    private static void place(Hitbox hb, float x, float y, float width, float height) {
-        hb.resize(width * scale, height * scale);
-        hb.move(x(x), y(y));
-    }
-
-    public static void renderEntry(SpriteBatch sb) {
-        libraryEntry = false;
-        layout();
-        button(sb, entry, t(0), false);
-    }
-
-    public static void renderLibraryEntry(SpriteBatch sb) {
-        libraryEntry = true;
-        layout();
-        button(sb, entry, t(0), false);
-    }
-
-    public static boolean updateLibraryEntry() {
-        libraryEntry = true;
-        return updateEntryAtCurrentPosition();
-    }
-
-    /** Called before the underlying character screen consumes mouse input. */
-    public static boolean updateEntry() {
-        libraryEntry = false;
-        return updateEntryAtCurrentPosition();
-    }
-
-    private static boolean updateEntryAtCurrentPosition() {
-        layout();
-        if (CardCrawlGame.isPopupOpen) { return false; }
-        if (clicked(entry)) {
-            modcore.ensurePackages();
-            packages.clear();
-            for (AbstractPackage pack : modcore.mainPackageList) {
-                if (hasVariants(pack)) { packages.add(pack); }
-            }
-            if (!packages.isEmpty()) {
-                selectedPackage = Math.min(selectedPackage, packages.size() - 1);
-                pairs = false;
-                page = 0;
-                open = true;
-                rebuild();
-            }
-            consumeInput();
-            return true;
+        offsetX = (Settings.WIDTH - 1920 * scale) / 2; offsetY = (Settings.HEIGHT - 1080 * scale) / 2;
+        place(entry,1680,libraryEntry ? 65 : 290,280,52); place(close,1740,1010,170,52);
+        place(tabCards,570,935,250,50); place(tabPairs,850,935,230,50); place(upgrade,1655,935,285,50);
+        for (int i=0;i<packButtons.size();i++) place(packButtons.get(i),202,888-i*LIST_STEP+listScroll,265,62);
+        if (listBar != null) {
+            listBar.setCenter(x(365),y((LIST_TOP+LIST_BOTTOM)/2)); listBar.changeHeight((LIST_TOP-LIST_BOTTOM)*scale);
+            cardBar.setCenter(x(1860),y((TOP+BOTTOM)/2)); cardBar.changeHeight((TOP-BOTTOM)*scale);
         }
-        return false;
+        for (CardSlot slot:cards) position(slot);
     }
-
-    private static boolean hasVariants(AbstractPackage pack) {
-        for (PackageType type : TYPES) {
-            if (pack.SubPackages.get(type) == null) { return false; }
+    private static void position(CardSlot slot) {
+        place(slot.hb,585+slot.col*345,645-slot.row*ROW_STEP+cardScroll,300*CARD_SCALE,420*CARD_SCALE);
+        if (slot.card == null) return;
+        AbstractCard c=slot.card;
+        c.current_x=c.target_x=slot.hb.cX; c.current_y=c.target_y=slot.hb.cY;
+        c.drawScale=c.targetDrawScale=CARD_SCALE*scale/Settings.scale; c.angle=c.targetAngle=0;
+        c.hb.resize(slot.hb.width,slot.hb.height); c.hb.move(slot.hb.cX,slot.hb.cY);
+    }
+    public static void renderEntry(SpriteBatch sb) { libraryEntry=false; renderEntryButton(sb); }
+    public static void renderLibraryEntry(SpriteBatch sb) { libraryEntry=true; renderEntryButton(sb); }
+    private static void renderEntryButton(SpriteBatch sb) { layout(); button(sb,entry,t(0),false); }
+    public static boolean updateEntry() { libraryEntry=false; return updateEntryButton(); }
+    public static boolean updateLibraryEntry() { libraryEntry=true; return updateEntryButton(); }
+    private static boolean updateEntryButton() {
+        layout();
+        if (CardCrawlGame.isPopupOpen || !clicked(entry)) return false;
+        modcore.ensurePackages(); packages.clear(); packButtons.clear();
+        for (AbstractPackage p:modcore.mainPackageList) {
+            boolean complete=true;
+            for (PackageType type:TYPES) complete &= p.SubPackages.get(type)!=null;
+            if (complete) { packages.add(p); packButtons.add(new Hitbox(1,1)); }
         }
-        return true;
+        if (!packages.isEmpty()) {
+            selected=Math.min(selected,packages.size()-1); pairs=false; open=true;
+            listMax=Math.max(0,packages.size()*LIST_STEP-(LIST_TOP-LIST_BOTTOM)+20);
+            listScroll=listTarget=clamp(selected*LIST_STEP-2*LIST_STEP,listMax);
+            listBar=new ScrollBar(p -> {listScroll=listTarget=p*listMax;},x(365),y(537),795*scale);
+            cardBar=new ScrollBar(p -> {cardScroll=cardTarget=p*cardMax;},x(1860),y(475),700*scale);
+            rebuild(); layout();
+        }
+        consumeInput(); return true;
     }
-
     public static void close() {
-        open = false;
-        popupWasOpen = false;
-        rows.clear();
-        columns.clear();
-        preview = null;
-        previewId = null;
-        InputHelper.pressedEscape = false;
-        consumeInput();
+        open=false; popupWasOpen=false; hovered=null; cards.clear(); columns.clear();
+        InputHelper.pressedEscape=false; consumeInput();
     }
-
-    private static String packageName(AbstractPackage pack) {
-        return pack.OptionCard == null ? pack.ID : pack.OptionCard.name;
+    private static String name(AbstractPackage p) {
+        String value=p.OptionCard==null?p.ID:p.OptionCard.name;
+        if (value.endsWith("卡包")) return value;
+        if (value.endsWith("牌")) value=value.substring(0,value.length()-1);
+        return value+t(18);
     }
-
     private static String partnerName(PackageEnum color) {
-        for (AbstractPackage pack : packages) {
-            if (pack.PackageColor == color) { return packageName(pack); }
-        }
+        for (AbstractPackage p:packages) if (p.PackageColor==color) return name(p);
         return color.toString();
     }
-
     private static void rebuild() {
-        rows.clear();
-        columns.clear();
-        preview = null;
-        previewId = null;
-        AbstractPackage pack = packages.get(selectedPackage);
+        cards.clear(); columns.clear(); hovered=null; cardScroll=cardTarget=0;
+        int rowCount=0; AbstractPackage pack=packages.get(selected);
         if (pairs) {
-            List<String> ids = new ArrayList<>();
-            List<String> labels = new ArrayList<>();
-            // Both directed declarations are visible, with the declaring pack named.
-            for (AbstractPackage owner : packages) {
-                for (PackageEnum partner : PackageEnum.values()) {
-                    String id = owner.pairCards.get(partner);
-                    if (id != null && (owner == pack || partner == pack.PackageColor)) {
-                        ids.add(id);
-                        labels.add(packageName(owner) + " > " + partnerName(partner));
-                    }
+            for (AbstractPackage owner:packages) for (PackageEnum partner:PackageEnum.values()) {
+                String id=owner.pairCards.get(partner);
+                if (id!=null && (owner==pack || partner==pack.PackageColor)) {
+                    int i=cards.size(); cards.add(new CardSlot(id,name(owner)+" > "+partnerName(partner),i%4,i/4));
                 }
             }
-            pageCount = Math.max(1, (ids.size() + 11) / 12);
-            page = Math.min(page, pageCount - 1);
-            for (int i = page * 12; i < Math.min(ids.size(), (page + 1) * 12); ++i) {
-                int local = i - page * 12;
-                addRow(ids.get(i), labels.get(i), local / 4, local % 4, true);
-            }
+            rowCount=(cards.size()+3)/4;
         } else {
-            PackageCardGroups groups = new PackageCardGroups(
-                    pack.SubPackages.get(TYPES[0]).getCards(),
-                    pack.SubPackages.get(TYPES[1]).getCards(),
-                    pack.SubPackages.get(TYPES[2]).getCards());
-            columns.add(groups.common);
-            columns.addAll(groups.exclusive);
-            int max = 0;
-            for (List<String> ids : columns) { max = Math.max(max, ids.size()); }
-            pageCount = Math.max(1, (max + ROWS - 1) / ROWS);
-            page = Math.min(page, pageCount - 1);
-            for (int col = 0; col < columns.size(); ++col) {
-                List<String> ids = columns.get(col);
-                for (int i = page * ROWS; i < Math.min(ids.size(), (page + 1) * ROWS); ++i) {
-                    addRow(ids.get(i), null, col, i - page * ROWS, false);
-                }
+            PackageCardGroups groups=new PackageCardGroups(pack.SubPackages.get(TYPES[0]).getCards(),
+                    pack.SubPackages.get(TYPES[1]).getCards(),pack.SubPackages.get(TYPES[2]).getCards());
+            columns.add(groups.common); columns.addAll(groups.exclusive);
+            for (int col=0;col<columns.size();col++) {
+                List<String> ids=columns.get(col); rowCount=Math.max(rowCount,ids.size());
+                for (int row=0;row<ids.size();row++) cards.add(new CardSlot(ids.get(row),null,col,row));
             }
         }
-        if (!rows.isEmpty()) { select(rows.get(0).id); }
+        cardMax=Math.max(0,rowCount*ROW_STEP-5-(TOP-BOTTOM));
+        if (cardBar!=null) cardBar.reset();
+        layout();
     }
-
-    private static void addRow(String id, String label, int col, int row, boolean pair) {
-        Row item = new Row(id, label);
-        float width = pair ? 390 : 285;
-        float cx = pair ? 310 + col * 405 : 255 + col * 300;
-        float cy = 669 - row * (pair ? 105 : 78);
-        place(item.hb, cx, cy, width, pair ? 86 : 66);
-        rows.add(item);
+    private static void choose(int index) {
+        selected=(index+packages.size())%packages.size();
+        float cy=888-selected*LIST_STEP+listTarget;
+        if (cy<LIST_BOTTOM+40) listTarget+=LIST_BOTTOM+40-cy;
+        if (cy>LIST_TOP-40) listTarget-=cy-LIST_TOP+40;
+        listTarget=clamp(listTarget,listMax); rebuild();
     }
-
-    private static void select(String id) {
-        if (id.equals(previewId)) { return; }
-        previewId = id;
-        AbstractCard card = CardLibrary.getCard(id);
-        preview = card == null ? null : card.makeCopy();
-        if (preview != null) {
-            preview.isSeen = true;
-            preview.isLocked = false;
-            if (upgraded && preview.canUpgrade()) {
-                preview.upgrade();
-                preview.displayUpgrades();
-            }
-        }
-    }
-
     public static void update() {
         layout();
-        if (CardCrawlGame.isPopupOpen) { popupWasOpen = true; return; }
-        if (popupWasOpen) {
-            popupWasOpen = false;
-            InputHelper.pressedEscape = false;
-            consumeInput();
-            return;
-        }
+        if (CardCrawlGame.isPopupOpen) {popupWasOpen=true;return;}
+        if (popupWasOpen) {popupWasOpen=false;InputHelper.pressedEscape=false;consumeInput();return;}
         if (InputHelper.pressedEscape || CInputActionSet.cancel.isJustPressed() || clicked(close)) {
-            close();
-            CInputActionSet.cancel.unpress();
-            return;
+            close(); CInputActionSet.cancel.unpress(); return;
         }
-        if (clicked(previous) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            selectedPackage = (selectedPackage + packages.size() - 1) % packages.size();
-            page = 0; rebuild();
-        } else if (clicked(next) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            selectedPackage = (selectedPackage + 1) % packages.size();
-            page = 0; rebuild();
-        }
-        if (clicked(tabCards) && pairs) { pairs = false; page = 0; rebuild(); }
-        if (clicked(tabPairs) && !pairs) { pairs = true; page = 0; rebuild(); }
-        if (pageCount > 1) {
-            if (clicked(pagePrevious)) { page = (page + pageCount - 1) % pageCount; rebuild(); }
-            if (clicked(pageNext)) { page = (page + 1) % pageCount; rebuild(); }
-        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) choose(selected-1);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) choose(selected+1);
+        if (clicked(tabCards) && pairs) {pairs=false;rebuild();}
+        if (clicked(tabPairs) && !pairs) {pairs=true;rebuild();}
         if (clicked(upgrade)) {
-            upgraded = !upgraded;
-            String id = previewId;
-            rebuild();
-            if (id != null) { select(id); }
+            float previous=cardScroll; upgraded=!upgraded; rebuild(); cardScroll=cardTarget=clamp(previous,cardMax);
         }
-        for (Row row : rows) {
-            boolean clicked = clicked(row.hb);
-            if (row.hb.hovered) { select(row.id); }
-            if (clicked) {
-                AbstractCard original = CardLibrary.getCard(row.id);
-                if (original != null) {
-                    AbstractCard copy = original.makeCopy();
-                    copy.isSeen = true;
-                    copy.isLocked = false;
-                    CardCrawlGame.cardPopup.open(copy);
-                    SingleCardViewPopup.isViewingUpgrade = upgraded;
-                    popupWasOpen = true;
+        float wheel=InputHelper.scrolledDown?90:InputHelper.scrolledUp?-90:0;
+        if (mx()<390 && my()>LIST_BOTTOM && my()<LIST_TOP) listTarget=clamp(listTarget+wheel,listMax);
+        else if (mx()>=410 && my()>BOTTOM && my()<TOP) cardTarget=clamp(cardTarget+wheel,cardMax);
+        if (listMax>0) listBar.update();
+        boolean dragging=cardMax>0 && cardBar.update();
+        listScroll=MathHelper.scrollSnapLerpSpeed(listScroll,listTarget);
+        cardScroll=MathHelper.scrollSnapLerpSpeed(cardScroll,cardTarget);
+        listBar.parentScrolledToPercent(listMax==0?0:listScroll/listMax);
+        cardBar.parentScrolledToPercent(cardMax==0?0:cardScroll/cardMax);
+        layout();
+        if (my()>LIST_BOTTOM && my()<LIST_TOP) for (int i=0;i<packButtons.size();i++) {
+            if (clicked(packButtons.get(i))) {choose(i);consumeInput();return;}
+        }
+        hovered=null;
+        boolean inside=mx()>410 && mx()<1835 && my()>BOTTOM && my()<TOP;
+        for (CardSlot slot:cards) {
+            if (inside && !dragging && slot.hb.cY+slot.hb.height/2>y(BOTTOM) && slot.hb.cY-slot.hb.height/2<y(TOP)) {
+                if (clicked(slot.hb) && slot.card!=null) {
+                    AbstractCard original=CardLibrary.getCard(slot.id).makeCopy();original.isSeen=true;original.isLocked=false;
+                    CardCrawlGame.cardPopup.open(original);SingleCardViewPopup.isViewingUpgrade=upgraded;
+                    popupWasOpen=true;consumeInput();return;
                 }
-                consumeInput();
-                break;
-            }
+                if (slot.card!=null) {slot.card.updateHoverLogic();if(slot.hb.hovered) hovered=slot;}
+            } else if (slot.card!=null) {slot.card.unhover();slot.hb.clickStarted=false;}
         }
         consumeInput();
     }
-
     private static boolean clicked(Hitbox hb) {
-        hb.update();
-        if (hb.hovered && InputHelper.justClickedLeft) { hb.clickStarted = true; }
-        if (hb.clicked) {
-            hb.clicked = false;
-            CardCrawlGame.sound.playA("UI_CLICK_1", -0.4F);
-            return true;
-        }
-        return false;
+        hb.update();if(hb.hovered && InputHelper.justClickedLeft) hb.clickStarted=true;
+        if(!hb.clicked) return false;
+        hb.clicked=false;CardCrawlGame.sound.playA("UI_CLICK_1",-.4F);return true;
     }
-
     private static void consumeInput() {
-        InputHelper.justClickedLeft = false;
-        InputHelper.justReleasedClickLeft = false;
-        InputHelper.justClickedRight = false;
-        CInputActionSet.select.unpress();
-        CInputActionSet.proceed.unpress();
+        InputHelper.justClickedLeft=false;InputHelper.justReleasedClickLeft=false;InputHelper.justClickedRight=false;
+        InputHelper.scrolledDown=InputHelper.scrolledUp=false;CInputActionSet.select.unpress();CInputActionSet.proceed.unpress();
     }
-
     public static void render(SpriteBatch sb) {
-        if (!open) { return; }
-        layout();
-        sb.setColor(0, 0, 0, 0.86F);
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, 0, 0, Settings.WIDTH, Settings.HEIGHT);
-        rect(sb, 60, 125, 1800, 890, PANEL);
-        rect(sb, 1415, 265, 390, 610, TILE);
-        centered(sb, t(1), 960, 980, Settings.GOLD_COLOR);
-        button(sb, close, t(2), false);
-        button(sb, previous, "<", false);
-        button(sb, next, ">", false);
-        centered(sb, packageName(packages.get(selectedPackage)) + "  "
-                + (selectedPackage + 1) + "/" + packages.size(), 690, 925, Settings.CREAM_COLOR);
-        button(sb, tabCards, t(3), !pairs);
-        button(sb, tabPairs, t(4), pairs);
-        drawMetadata(sb);
-        if (!pairs) {
-            for (int col = 0; col < 4; ++col) {
-                centered(sb, t(5 + col) + " (" + columns.get(col).size() + ")",
-                        255 + col * 300, 737, Settings.GOLD_COLOR);
+        if(!open) return;layout();
+        sb.setColor(.025F,.022F,.02F,.96F);sb.draw(ImageMaster.WHITE_SQUARE_IMG,0,0,Settings.WIDTH,Settings.HEIGHT);
+        label(sb,t(0),200,1010,Settings.GOLD_COLOR);label(sb,name(packages.get(selected)),1110,1010,Settings.GOLD_COLOR);
+        button(sb,close,t(2),false);line(sb,390,115,1,865);line(sb,425,835,1400,1);label(sb,t(17),200,963,MUTED);
+        if(clip(sb,60,LIST_BOTTOM,285,LIST_TOP-LIST_BOTTOM)) {
+            for(int i=0;i<packages.size();i++) {
+                Hitbox hb=packButtons.get(i);boolean active=i==selected;
+                fit(sb,(active?"> ":"")+name(packages.get(i)),hb.cX,hb.cY,255*scale,
+                        active||hb.hovered?Settings.GOLD_COLOR:Settings.CREAM_COLOR);
+                if(active) line(sb,82,(hb.cY-offsetY)/scale-28,240,1);
             }
-        } else {
-            left(sb, t(9), 115, 745, 1260, MUTED);
-            if (rows.isEmpty()) { centered(sb, t(10), 730, 560, MUTED); }
+            unclip(sb);
         }
-        for (Row row : rows) {
-            rect(sb, row.hb, row.id.equals(previewId) ? ACTIVE : TILE);
-            AbstractCard card = row.displayCard;
-            String name = card == null ? row.id : card.name;
-            float localX = (row.hb.x - offsetX) / scale + 14;
-            float localY = (row.hb.cY - offsetY) / scale;
-            if (row.label != null) {
-                left(sb, row.label, localX, localY + 22, row.hb.width / scale - 28, MUTED);
-                localY -= 15;
+        if(listMax>0) listBar.render(sb);
+        button(sb,tabCards,t(3),!pairs);button(sb,tabPairs,t(4),pairs);button(sb,upgrade,upgraded?t(12):t(11),upgraded);
+        AbstractPackage pack=packages.get(selected);AbstractCard starter=CardLibrary.getCard(pack.getStarterCard());
+        String info=t(14)+(starter==null?pack.getStarterCard():starter.name)+"    "+t(15)
+                +(pack.StartRelic==null?"-":pack.StartRelic.name)+"    "+t(16)+(pack.BossRelic==null?"-":pack.BossRelic.name);
+        fit(sb,info,x(1110),y(885),1350*scale,MUTED);
+        if(!pairs) for(int col=0;col<4;col++) label(sb,t(5+col)+" ("+columns.get(col).size()+")",585+col*345,855,Settings.GOLD_COLOR);
+        else fit(sb,t(9),x(1110),y(855),1300*scale,MUTED);
+        if(clip(sb,410,BOTTOM,1420,TOP-BOTTOM)) {
+            for(CardSlot slot:cards) {
+                if(slot.hb.cY+slot.hb.height/2<y(BOTTOM)||slot.hb.cY-slot.hb.height/2>y(TOP)) continue;
+                position(slot);
+                if(slot.label!=null) fit(sb,slot.label,slot.hb.cX,slot.hb.cY+170*scale,320*scale,Settings.GOLD_COLOR);
+                if(slot.card!=null) slot.card.render(sb);else fit(sb,slot.id,slot.hb.cX,slot.hb.cY,270*scale,MUTED);
             }
-            Color color = card == null ? Settings.RED_TEXT_COLOR : rarityColor(card);
-            left(sb, name, localX, localY + 8, row.hb.width / scale - 58, color);
-            if (card != null) {
-                String cost = card.cost == -1 ? "X" : card.cost < 0 ? "-" : String.valueOf(card.cost);
-                centered(sb, cost, (row.hb.x + row.hb.width - offsetX) / scale - 20, localY, MUTED);
-            }
+            unclip(sb);
         }
-        if (preview != null) {
-            preview.current_x = preview.target_x = x(1610);
-            preview.current_y = preview.target_y = y(560);
-            preview.drawScale = preview.targetDrawScale = 0.94F * scale / Settings.scale;
-            preview.angle = preview.targetAngle = 0;
-            preview.render(sb);
-            if (InputHelper.mX > x(1415) && InputHelper.mY > y(265)) {
-                preview.renderCardTip(sb);
-            }
+        // Render the hovered card last at the same enlarged size as the vanilla library.
+        if(hovered!=null && !CardCrawlGame.isPopupOpen) {
+            AbstractCard c=hovered.card;c.current_y=Math.max(y(BOTTOM+215),Math.min(y(TOP-215),c.current_y));
+            c.drawScale=scale/Settings.scale;c.renderHoverShadow(sb);c.render(sb);c.renderCardTip(sb);position(hovered);
         }
-        button(sb, upgrade, upgraded ? t(12) : t(11), upgraded);
-        if (pageCount > 1) {
-            button(sb, pagePrevious, "<", false);
-            button(sb, pageNext, ">", false);
-            centered(sb, (page + 1) + "/" + pageCount, 790, 210, MUTED);
-        }
-        left(sb, t(13), 120, 160, 1580, MUTED);
-        sb.setColor(Color.WHITE);
+        if(cards.isEmpty()) label(sb,t(10),1100,500,MUTED);
+        if(cardMax>0) cardBar.render(sb);
+        fit(sb,t(13),x(1110),y(75),1360*scale,MUTED);sb.setColor(Color.WHITE);
     }
-
-    private static void drawMetadata(SpriteBatch sb) {
-        AbstractPackage pack = packages.get(selectedPackage);
-        AbstractCard starter = CardLibrary.getCard(pack.getStarterCard());
-        String starterName = starter == null ? pack.getStarterCard() : starter.name;
-        String relic = pack.StartRelic == null ? "-" : pack.StartRelic.name;
-        String boss = pack.BossRelic == null ? "-" : pack.BossRelic.name;
-        left(sb, t(14) + starterName + "    " + t(15) + relic + "    " + t(16) + boss,
-                120, 785, 1250, Settings.CREAM_COLOR);
-        float[] positions = {1480, 1585, 1690};
-        AbstractRelic[] relics = {pack.StartRelic, pack.BossRelic};
-        for (int i = 0; i < relics.length; ++i) {
-            AbstractRelic item = relics[i];
-            if (item == null || item.img == null) { continue; }
-            float cx = x(positions[i + 1]), cy = y(818);
-            sb.setColor(Color.WHITE);
-            sb.draw(item.img, cx - 28 * scale, cy - 28 * scale, 56 * scale, 56 * scale);
-            if (!CardCrawlGame.isPopupOpen && Math.abs(InputHelper.mX - cx) < 30 * scale
-                    && Math.abs(InputHelper.mY - cy) < 30 * scale) {
-                relicTips.clear();
-                relicTips.add(new PowerTip(item.name, item.description));
-                TipHelper.queuePowerTips(x(1400), y(760), relicTips);
-            }
-        }
+    private static boolean clip(SpriteBatch sb,float left,float bottom,float width,float height) {
+        sb.flush();return ScissorStack.pushScissors(new Rectangle(x(left),y(bottom),width*scale,height*scale));
     }
-
-    private static Color rarityColor(AbstractCard card) {
-        switch (card.rarity) {
-            case RARE: return Settings.GOLD_COLOR;
-            case UNCOMMON: return Settings.BLUE_TEXT_COLOR;
-            default: return Settings.CREAM_COLOR;
-        }
+    private static void unclip(SpriteBatch sb) {sb.flush();ScissorStack.popScissors();}
+    private static void line(SpriteBatch sb,float left,float bottom,float width,float height) {
+        sb.setColor(.75F,.64F,.40F,.5F);sb.draw(ImageMaster.WHITE_SQUARE_IMG,x(left),y(bottom),width*scale,height*scale);
     }
-
-    private static void button(SpriteBatch sb, Hitbox hb, String label, boolean active) {
-        rect(sb, hb, active || hb.hovered ? ACTIVE : TILE);
-        FontHelper.renderFontCentered(sb, FontHelper.tipHeaderFont, label, hb.cX, hb.cY,
-                active || hb.hovered ? Settings.GOLD_COLOR : Settings.CREAM_COLOR);
+    private static void label(SpriteBatch sb,String value,float cx,float cy,Color color) {
+        FontHelper.renderFontCentered(sb,FontHelper.tipHeaderFont,value,x(cx),y(cy),color);
     }
-
-    private static void rect(SpriteBatch sb, Hitbox hb, Color color) {
-        sb.setColor(color);
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, hb.x, hb.y, hb.width, hb.height);
+    private static void button(SpriteBatch sb,Hitbox hb,String value,boolean active) {
+        fit(sb,value,hb.cX,hb.cY,hb.width,active||hb.hovered?Settings.GOLD_COLOR:Settings.CREAM_COLOR);
+        if(active||hb.hovered) line(sb,(hb.x-offsetX)/scale+10,(hb.y-offsetY)/scale+2,hb.width/scale-20,2);
     }
-
-    private static void rect(SpriteBatch sb, float x, float y, float width, float height, Color color) {
-        sb.setColor(color);
-        sb.draw(ImageMaster.WHITE_SQUARE_IMG, x(x), y(y), width * scale, height * scale);
+    private static void fit(SpriteBatch sb,String value,float cx,float cy,float width,Color color) {
+        BitmapFont font=FontHelper.tipHeaderFont;float sx=font.getData().scaleX,sy=font.getData().scaleY;
+        float actual=FontHelper.getWidth(font,value,1),factor=actual>width?width/actual:1;
+        font.getData().setScale(sx*factor,sy*factor);FontHelper.renderFontCentered(sb,font,value,cx,cy,color);font.getData().setScale(sx,sy);
     }
-
-    private static void centered(SpriteBatch sb, String value, float x, float y, Color color) {
-        FontHelper.renderFontCentered(sb, FontHelper.tipHeaderFont, value, x(x), y(y), color);
-    }
-
-    private static void left(SpriteBatch sb, String value, float x, float y, float width, Color color) {
-        BitmapFont font = FontHelper.tipBodyFont;
-        float oldX = font.getData().scaleX, oldY = font.getData().scaleY;
-        float actual = FontHelper.getWidth(font, value, 1);
-        float factor = actual > width * scale ? width * scale / actual : 1;
-        font.getData().setScale(oldX * factor, oldY * factor);
-        FontHelper.renderFontLeftTopAligned(sb, font, value, x(x), y(y), color);
-        font.getData().setScale(oldX, oldY);
-    }
-
-    private static final class Row {
-        final String id;
-        final String label;
-        final AbstractCard displayCard;
-        final Hitbox hb = new Hitbox(1, 1);
-        Row(String id, String label) {
-            this.id = id;
-            this.label = label;
-            AbstractCard original = CardLibrary.getCard(id);
-            displayCard = original == null ? null : original.makeCopy();
-            if (displayCard != null && upgraded && displayCard.canUpgrade()) { displayCard.upgrade(); }
+    private static final class CardSlot {
+        final String id,label;final int col,row;final Hitbox hb=new Hitbox(1,1);final AbstractCard card;
+        CardSlot(String id,String label,int col,int row) {
+            this.id=id;this.label=label;this.col=col;this.row=row;AbstractCard original=CardLibrary.getCard(id);
+            card=original==null?null:original.makeCopy();
+            if(card!=null) {card.isSeen=true;card.isLocked=false;if(upgraded && card.canUpgrade()){card.upgrade();card.displayUpgrades();}}
         }
     }
 }
