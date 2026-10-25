@@ -1,4 +1,25 @@
 {
+  "Double:PackageCodex": {
+    "TEXT": [
+      "Pack Codex",
+      "Pack Codex - Subpack Comparison",
+      "Close / ESC",
+      "Shared & Variants",
+      "Pair Cards",
+      "Shared",
+      "Value Only",
+      "Consistency Only",
+      "Ceiling Only",
+      "Shows both directions of pair cards involving this pack; arrows show declaration direction.",
+      "No pair cards registered",
+      "Preview Upgrades",
+      "Showing Upgrades",
+      "Hover to preview; click a name to enlarge; Left/Right changes pack. Browsing does not change your choices.",
+      "Starter: ",
+      "Starting relic: ",
+      "Upgraded relic: "
+    ]
+  },
   "Double:CustomPackToggle": {
     "TEXT": [
       "Custom Pack Selection",
